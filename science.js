@@ -39,9 +39,14 @@ const SCIENCE = {
     thyroid: "PFHxS is a PFAS compound included in the EPA's 2024 drinking water rule — one of six PFAS now regulated at the federal level. It may affect how thyroid hormones bind to transport proteins in the bloodstream. Research is ongoing, and anyone with questions may want to review local water reports and discuss any concerns with their healthcare provider.",
     epa_limit: 0.01
   },
-  "Lithium": {
+"Lithium": {
     full: "Lithium (naturally occurring)",
     thyroid: "Lithium is a naturally occurring element found in some California groundwater, particularly in Central Valley and desert regions. It enters water through natural mineral deposits rather than industrial contamination. At elevated concentrations, lithium may affect thyroid hormone production. Anyone with questions about lithium levels in their water could speak with their doctor, especially if they have existing thyroid conditions.",
     epa_limit: null
+  },
+  "HFPO-DA": {
+    full: "Hexafluoropropylene oxide dimer acid (GenX)",
+    thyroid: "HFPO-DA, commonly known as GenX, was developed as a replacement for PFOA after that compound was phased out due to health concerns. It is used in industrial manufacturing and can enter drinking water through factory discharge. Like PFOA, it may interfere with thyroid hormone production by reducing the thyroid gland's ability to take up iodine, which is needed to make hormones like T3 and T4. During pregnancy, this matters because the baby depends entirely on the mother's thyroid hormones for early brain development, particularly in the first trimester. A pregnant woman could check her local water quality report and talk to her doctor about whether testing or a PFAS-certified water filter is appropriate.",
+    epa_limit: 0.010
   }
 }
