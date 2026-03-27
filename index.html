@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>California Water Quality Checker</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .card { background: white; border: 1px solid #e5e5e5; border-radius: 12px; padding: 2rem; max-width: 620px; width: 100%; }
+
+    .badge { display: inline-block; background: #e6f1fb; color: #185fa5; font-size: 11px; padding: 3px 10px; border-radius: 8px; margin-bottom: 1rem; }
+    h1 { font-size: 22px; font-weight: 500; color: #1a1a1a; margin-bottom: 0.4rem; }
+    .subtitle { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 0.75rem; }
+
+    .context-note { background: #f5f5f3; border-radius: 8px; padding: 0.75rem 1rem; font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; }
+    .context-note strong { color: #1a1a1a; font-weight: 500; }
+
+    .input-row { display: flex; gap: 8px; margin-bottom: 1rem; }
+    input[type="text"] { flex: 1; height: 40px; border: 1px solid #ddd; border-radius: 8px; padding: 0 12px; font-size: 15px; outline: none; color: #1a1a1a; }
+    input[type="text"]:focus { border-color: #999; box-shadow: 0 0 0 3px rgba(0,0,0,0.06); }
+    button { height: 40px; padding: 0 20px; border-radius: 8px; border: 1px solid #ddd; background: white; color: #1a1a1a; font-size: 14px; cursor: pointer; white-space: nowrap; }
+    button:hover { background: #f5f5f5; }
+    button:active { transform: scale(0.98); }
+
+    .result { border-radius: 8px; padding: 1.25rem; font-size: 14px; line-height: 1.7; display: none; margin-bottom: 1rem; }
+    .result.checking { background: #f5f5f5; color: #666; display: block; }
+    .result.found-above { background: #fff8e6; border: 1px solid #f5d87a; color: #5a3e00; display: block; }
+    .result.found-below { background: #f0f4ff; border: 1px solid #b5d0f5; color: #1a2a4a; display: block; }
+    .result.not-found { background: #f5f5f3; border: 1px solid #e5e5e5; color: #444; display: block; }
+    .result-title { font-weight: 500; font-size: 15px; margin-bottom: 6px; }
+    .result-context { font-size: 13px; color: #666; margin-bottom: 10px; line-height: 1.6; }
+
+    .detail-box { background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1rem; margin-top: 10px; font-size: 13px; line-height: 1.7; color: #333; }
+    .detail-box h3 { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 6px; }
+    .compound-tag { display: inline-block; background: #e6f1fb; color: #185fa5; font-size: 11px; padding: 2px 8px; border-radius: 6px; margin: 2px; }
+    .compound-tag.above { background: #fff0cc; color: #7a5000; }
+
+    .epa-bar { margin-top: 10px; }
+    .epa-bar-label { font-size: 12px; color: #666; margin-bottom: 4px; }
+    .bar-track { background: #eee; border-radius: 4px; height: 6px; width: 100%; overflow: hidden; }
+    .bar-fill { height: 6px; border-radius: 4px; background: #378add; transition: width 0.6s ease; }
+    .bar-fill.above { background: #ef9f27; }
+
+    .science-box { background: #f8f9ff; border-left: 3px solid #b5d0f5; border-radius: 0 8px 8px 0; padding: 1rem; margin-top: 10px; font-size: 13px; line-height: 1.7; color: #2a3a5a; }
+    .science-box h3 { font-size: 13px; font-weight: 500; margin-bottom: 6px; color: #1a2a4a; }
+
+    .why-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+    .why-section h2 { font-size: 15px; font-weight: 500; color: #1a1a1a; margin-bottom: 0.75rem; }
+    .why-section p { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 0.75rem; }
+    .why-section p:last-child { margin-bottom: 0; color: #999; font-size: 12px; }
+
+    .disclaimer { font-size: 11px; color: #aaa; margin-top: 1.5rem; line-height: 1.6; border-top: 1px solid #eee; padding-top: 1rem; }
+    .source-link { color: #185fa5; text-decoration: none; }
+    .source-link:hover { text-decoration: underline; }
+
+    .counter-badge { position: fixed; bottom: 16px; right: 16px; background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #666; font-family: -apple-system, sans-serif; z-index: 100; }
+    .counter-badge span { font-weight: 500; color: #185fa5; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">California · EPA UCMR 5 Data · Educational Tool</span>
+    <h1>California Tap Water PFAS Checker</h1>
+    <p class="subtitle">Enter a California zip code to see whether PFAS compounds have been detected in your tap water — and what that means for long-term health based on current research.</p>
+
+    <div class="context-note">
+      <strong>How to read these results:</strong> Ingesting tap water — drinking it, cooking with it, making coffee or baby formula — is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system, not that your water is immediately unsafe. Most levels in this database fall within federal guidelines. This tool is for awareness and education, not alarm.
+    </div>
+
+    <div class="input-row">
+      <input type="text" id="zipInput" placeholder="Enter California zip code" maxlength="5" />
+      <button onclick="checkZip()">Check my area</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-context" id="resultContext"></div>
+      <div id="resultBody"></div>
+    </div>
+
+    <div class="why-section">
+      <h2>Why tap water ingestion matters</h2>
+      <p>Drinking tap water and cooking with it are the primary ways PFAS compounds enter the body. Unlike skin contact during bathing — where absorption is minimal — ingestion allows these compounds to pass directly into the bloodstream. Because PFAS are resistant to breakdown, they accumulate in the body over time. Small, repeated exposures through daily tap water use can build up across months and years, which is why chronic low-level ingestion is the focus of most public health research.</p>
+      <p>This matters most during periods when the body is especially sensitive to hormonal changes — including pregnancy, when thyroid hormones produced by the mother are essential for fetal brain development before the fetal thyroid becomes functional around week 12. Researchers continue to study whether long-term PFAS ingestion at levels currently considered acceptable may still carry health implications for vulnerable populations.</p>
+      <p>This tool draws on federal EPA monitoring data to make that information accessible to anyone curious about their community's tap water. If something concerns you, the most productive next step is a conversation with your doctor and your local water utility.</p>
+      <p>Built by Jack Zhang · <a class="source-link" href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a></p>
+    </div>
+
+    <div class="disclaimer">
+      Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023–2025. Covers California water systems with documented PFAS detections. Detection does not indicate a health risk. Not medical advice. · <a class="source-link" href="https://www.epa.gov/dwucmr" target="_blank">EPA Source</a>
+    </div>
+  </div>
+
+  <div class="counter-badge"><span id="searchCount">—</span> searches</div>
+
+  <script src="data.js"></script>
+  <script src="science.js"></script>
+  <script>
+
+  function getRiskLevel(compound, level) {
+    const limit = SCIENCE[compound]?.epa_limit;
+    if (limit && level >= limit) return "above";
+    return "below";
+  }
+
+  function checkZip() {
+    const zip = document.getElementById("zipInput").value.trim();
+    const result = document.getElementById("result");
+    const title = document.getElementById("resultTitle");
+    const context = document.getElementById("resultContext");
+    const body = document.getElementById("resultBody");
+
+    if (zip.length !== 5 || isNaN(zip)) {
+      result.className = "result checking";
+      title.textContent = "Please enter a valid 5-digit zip code.";
+      context.textContent = "";
+      body.innerHTML = "";
+      return;
+    }
+
+    result.className = "result checking";
+    title.textContent = "Checking your area...";
+    context.textContent = "";
+    body.innerHTML = "";
+    incrementCount();
+
+    setTimeout(() => {
+      const matches = DATA[zip];
+      if (matches && matches.length > 0) {
+        const anyAbove = matches.some(m => getRiskLevel(m.compound, m.level) === "above");
+
+        if (anyAbove) {
+          result.className = "result found-above";
+          title.textContent = "PFAS detected — one or more compounds above federal limits";
+          context.textContent = "At least one compound was found above the EPA's maximum contaminant level in your tap water. This does not mean your water is immediately harmful, but it may be worth discussing with your healthcare provider, especially if you regularly drink unfiltered tap water or use it for cooking. Consider contacting your water utility to ask what steps are being taken.";
+        } else {
+          result.className = "result found-below";
+          title.textContent = "PFAS detected — all levels within federal guidelines";
+          context.textContent = "Compounds were detected in your tap water but at levels below EPA limits. Because PFAS accumulate in the body over time through repeated ingestion, some researchers study whether chronic low-level exposure carries long-term implications — though current federal standards reflect the best available science. This information is provided for awareness.";
+        }
+
+        let html = "";
+        matches.forEach(m => {
+          const science = SCIENCE[m.compound] || {};
+          const risk = getRiskLevel(m.compound, m.level);
+          const epaText = science.epa_limit ? `EPA limit: ${science.epa_limit} µg/L` : "Currently unregulated — no federal limit set";
+          const barPct = science.epa_limit ? Math.min((m.level / science.epa_limit) * 100, 100).toFixed(0) : null;
+
+          html += `
+            <div class="detail-box">
+              <h3>${m.sys}</h3>
+              <p><span class="compound-tag ${risk === 'above' ? 'above' : ''}">${m.compound}</span> — ${science.full || m.compound}</p>
+              <p style="margin-top:6px; font-size:13px;">Detected: <strong>${m.level} µg/L</strong> &nbsp;·&nbsp; ${epaText}</p>
+              ${barPct !== null ? `
+              <div class="epa-bar" style="margin-top:8px;">
+                <div class="epa-bar-label">Level as % of EPA limit (${barPct}%)</div>
+                <div class="bar-track"><div class="bar-fill ${risk === 'above' ? 'above' : ''}" style="width:${barPct}%"></div></div>
+              </div>` : ""}
+              <div class="science-box" style="margin-top:10px;">
+                <h3>What research says about this compound</h3>
+                <p>${science.thyroid || "Research on this compound is still emerging."}</p>
+              </div>
+            </div>`;
+        });
+
+        body.innerHTML = html;
+      } else {
+        result.className = "result not-found";
+        title.textContent = "No PFAS detections on record for this zip code.";
+        context.textContent = "";
+        body.innerHTML = `<p style="font-size:13px; color:#555; line-height:1.7;">This zip code does not appear in the EPA's current PFAS detection records for California water systems. This could mean your water had no detections, has not yet been tested, or results are pending. For complete tap water quality information, contact your local water utility directly or use the EPA's UCMR 5 Data Finder. If you want additional peace of mind, water filters certified by NSF International for PFAS removal are widely available and effective for reducing ingestion exposure.</p>`;
+      }
+    }, 700);
+  }
+
+  document.getElementById("zipInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") checkZip();
+  });
+
+    async function loadCount() {
+    try {
+      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/get');
+      const data = await res.json();
+      document.getElementById("searchCount").textContent = (data.value || 0).toLocaleString();
+    } catch(e) {
+      document.getElementById("searchCount").textContent = "—";
+    }
+  }
+
+  function incrementCount() {
+    fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up').catch(()=>{});
+    const el = document.getElementById("searchCount");
+    const current = parseInt(el.textContent.replace(/,/g,'')) || 0;
+    el.textContent = (current + 1).toLocaleString();
+  }
+
+  loadCount();
+  </script>
+</body>
+</html>
