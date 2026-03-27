@@ -1,44 +1,339 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    body {background-color: #f2f3f0}
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #154a94; -webkit-text-stroke: #154a94}
-    p.p3 {margin: 0.0px 0.0px 9.0px 0.0px; font: 14.0px 'Helvetica Neue'; color: #535353; -webkit-text-stroke: #535353}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #434343; -webkit-text-stroke: #434343; background-color: #f2f3f0}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px 'Helvetica Neue'; color: #141414; -webkit-text-stroke: #141414; background-color: #ffffff; min-height: 18.0px}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 14.0px 'Helvetica Neue'; color: #141414; -webkit-text-stroke: #141414; background-color: #ffffff}
-    p.p8 {margin: 0.0px 0.0px 9.0px 0.0px; font: 13.0px 'Helvetica Neue'; color: #434343; -webkit-text-stroke: #434343}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #878787; -webkit-text-stroke: #878787}
-    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #9a9a9a; -webkit-text-stroke: #9a9a9a}
-    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Helvetica Neue'; color: #535353; -webkit-text-stroke: #535353; background-color: #ffffff}
-    span.s1 {font-kerning: none; background-color: #e0edfa}
-    span.s2 {font-kerning: none; background-color: #ffffff}
-    span.s3 {font: 13.0px '.SF NS'; font-kerning: none; color: #141414; -webkit-text-stroke: 0px #141414}
-    span.s4 {font-kerning: none}
-    span.s5 {font: 12.0px 'Helvetica Neue'; font-kerning: none; color: #154a94; -webkit-text-stroke: 0px #154a94}
-    span.s6 {font: 11.0px 'Helvetica Neue'; font-kerning: none; color: #154a94; -webkit-text-stroke: 0px #154a94}
-    span.s7 {font: 12.0px '.SF NS'; font-kerning: none; color: #154a94; -webkit-text-stroke: 0px #154a94}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>California PFAS Drinking Water Estimator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f3; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; }
+    .card { background: white; border: 1px solid #e5e5e5; border-radius: 12px; padding: 2rem; max-width: 600px; width: 100%; }
+    .badge { display: inline-block; background: #e6f1fb; color: #185fa5; font-size: 11px; padding: 3px 10px; border-radius: 8px; margin-bottom: 1rem; }
+    h1 { font-size: 22px; font-weight: 500; color: #1a1a1a; margin-bottom: 0.4rem; }
+    .subtitle { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 1.5rem; }
+    .input-row { display: flex; gap: 8px; margin-bottom: 1rem; }
+    input[type="text"] { flex: 1; height: 40px; border: 1px solid #ddd; border-radius: 8px; padding: 0 12px; font-size: 15px; outline: none; color: #1a1a1a; }
+    input[type="text"]:focus { border-color: #999; box-shadow: 0 0 0 3px rgba(0,0,0,0.06); }
+    button { height: 40px; padding: 0 20px; border-radius: 8px; border: 1px solid #ddd; background: white; color: #1a1a1a; font-size: 14px; cursor: pointer; }
+    button:hover { background: #f5f5f5; }
+    button:active { transform: scale(0.98); }
+
+    .result { border-radius: 8px; padding: 1.25rem; font-size: 14px; line-height: 1.7; display: none; margin-bottom: 1rem; }
+    .result.checking { background: #f5f5f5; color: #666; display: block; }
+    .result.found { background: #fcebeb; color: #7a1f1f; display: block; }
+    .result.found-low { background: #faeeda; color: #633806; display: block; }
+    .result.not-found { background: #eaf3de; color: #3b6d11; display: block; }
+    .result-title { font-weight: 500; font-size: 15px; margin-bottom: 8px; }
+
+    .detail-box { background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1rem; margin-top: 10px; font-size: 13px; line-height: 1.7; color: #333; }
+    .detail-box h3 { font-size: 13px; font-weight: 500; color: #1a1a1a; margin-bottom: 6px; }
+    .compound-tag { display: inline-block; background: #fcebeb; color: #a32d2d; font-size: 11px; padding: 2px 8px; border-radius: 6px; margin: 2px; }
+    .compound-tag.low { background: #faeeda; color: #854f0b; }
+
+    .science-box { background: #f0f4ff; border-left: 3px solid #185fa5; border-radius: 0 8px 8px 0; padding: 1rem; margin-top: 10px; font-size: 13px; line-height: 1.7; color: #1a2a4a; }
+    .science-box h3 { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+
+    .epa-bar { margin-top: 10px; }
+    .epa-bar-label { font-size: 12px; color: #666; margin-bottom: 4px; }
+    .bar-track { background: #eee; border-radius: 4px; height: 8px; width: 100%; overflow: hidden; }
+    .bar-fill { height: 8px; border-radius: 4px; background: #e24b4a; transition: width 0.6s ease; }
+    .bar-fill.low { background: #ef9f27; }
+
+    .disclaimer { font-size: 11px; color: #999; margin-top: 1.5rem; line-height: 1.6; border-top: 1px solid #eee; padding-top: 1rem; }
+    .source-link { color: #185fa5; text-decoration: none; }
+    .source-link:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">National · EPA UCMR 5 Data · Educational Tool</span></p>
-<h1 style="margin: 0.0px 0.0px 4.8px 0.0px; font: 22.0px '.SF NS'; color: #141414; -webkit-text-stroke: #141414"><span class="s2">U.S. Tap Water PFAS Checker</span></h1>
-<p class="p3"><span class="s2">Enter a U.S. zip code to see whether PFAS compounds have been detected in your tap water — and what that means for long-term health based on current research.</span></p>
-<p class="p4"><span class="s3">How to read these results:</span><span class="s4"> Ingesting tap water — drinking it, cooking with it, making coffee or baby formula — is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system, not that your water is immediately unsafe. Most levels in this database fall within federal guidelines. This tool is for awareness and education, not alarm.</span></p>
-<p class="p5"><span class="s4"></span><br></p>
-<p class="p6"><span class="s4">Check my area</span></p>
-<h2 style="margin: 0.0px 0.0px 9.0px 0.0px; font: 15.0px '.SF NS'; color: #141414; -webkit-text-stroke: #141414"><span class="s2">Why tap water ingestion matters</span></h2>
-<p class="p8"><span class="s2">Drinking tap water and cooking with it are the primary ways PFAS compounds enter the body. Unlike skin contact during bathing — where absorption is minimal — ingestion allows these compounds to pass directly into the bloodstream. Because PFAS are resistant to breakdown, they accumulate in the body over time. Small, repeated exposures through daily tap water use can build up across months and years, which is why chronic low-level ingestion is the focus of most public health research.</span></p>
-<p class="p8"><span class="s2">This matters most during periods when the body is especially sensitive to hormonal changes — including pregnancy, when thyroid hormones produced by the mother are essential for fetal brain development before the fetal thyroid becomes functional around week 12. Researchers continue to study whether long-term PFAS ingestion at levels currently considered acceptable may still carry health implications for vulnerable populations.</span></p>
-<p class="p8"><span class="s2">This tool draws on federal EPA monitoring data to make that information accessible to anyone curious about their community's tap water. If something concerns you, the most productive next step is a conversation with your doctor and your local water utility.</span></p>
-<p class="p9"><span class="s2">Built by Jack Zhang · <a href="mailto:jackzacey@gmail.com"><span class="s5">jackzacey@gmail.com</span></a></span></p>
-<p class="p10"><span class="s2">Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023–2025. Covers California water systems with documented PFAS detections. Detection does not indicate a health risk. Not medical advice. · <a href="https://www.epa.gov/dwucmr"><span class="s6">EPA Source</span></a></span></p>
-<p class="p11"><span class="s7">—</span><span class="s4"> searches</span></p>
+  <div class="card">
+    <span class="badge">California · Real EPA Data · Research Tool</span>
+    <h1>PFAS Drinking Water Estimator</h1>
+    <p class="subtitle">Enter a California zip code to check whether your drinking water system has detected PFAS contamination — and what it means for thyroid health during pregnancy.</p>
+
+    <div class="input-row">
+      <input type="text" id="zipInput" placeholder="Enter California zip code" maxlength="5" />
+      <button onclick="checkZip()">Check my water</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="result-title" id="resultTitle"></div>
+      <div id="resultBody"></div>
+    </div>
+
+    <div class="disclaimer">
+      Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023–2025. Currently covers California only.
+      Detection does not necessarily indicate a health risk — context and levels matter.
+      Built by Jack Zhang for educational purposes · <a class="source-link" href="https://www.epa.gov/dwucmr" target="_blank">EPA Source</a> · Not medical advice.
+    </div>
+  </div>
+
+  <script>
+  const DATA = {
+  "94550": [{ sys: "California Water Service - Livermore", compound: "PFPeA", level: 0.0032 }],
+  "94551": [{ sys: "California Water Service - Livermore", compound: "PFPeA", level: 0.0032 }],
+  "94566": [{ sys: "California Water Service - Livermore", compound: "PFPeA", level: 0.0032 }, { sys: "City of Pleasanton", compound: "Lithium", level: 16.8 }],
+  "94588": [{ sys: "City of Pleasanton", compound: "Lithium", level: 16.8 }],
+  "94501": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94502": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94506": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94507": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94523": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94525": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94526": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94528": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94530": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94541": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94542": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94544": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94545": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94546": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94547": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94549": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94552": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94553": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94556": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94563": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94564": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94568": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94577": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94578": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94579": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94580": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94582": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94583": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94595": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94596": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94597": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94598": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94601": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94602": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94603": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94605": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94606": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94607": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94608": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94609": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94610": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94611": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94612": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94613": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94618": [{ sys: "East Bay MUD", compound: "PFBA", level: 0.0052 }],
+  "94513": [{ sys: "City of Brentwood", compound: "Lithium", level: 69.8 }],
+  "94561": [{ sys: "Diablo Water District", compound: "Lithium", level: 15 }],
+  "94565": [{ sys: "City of Pittsburg", compound: "Lithium", level: 22.9 }],
+  "94505": [{ sys: "Town of Discovery Bay", compound: "Lithium", level: 13 }],
+  "95926": [{ sys: "Cal-Water Service Co. - Chico", compound: "PFOS", level: 0.0096 }],
+  "95928": [{ sys: "Cal-Water Service Co. - Chico", compound: "PFOS", level: 0.0096 }],
+  "95951": [{ sys: "Cal-Water Service Co. - Chico", compound: "PFOS", level: 0.0096 }],
+  "95963": [{ sys: "Cal-Water Service Co. - Chico", compound: "PFOS", level: 0.0096 }, { sys: "City of Orland", compound: "Lithium", level: 11.2 }],
+  "95973": [{ sys: "Cal-Water Service Co. - Chico", compound: "PFOS", level: 0.0096 }],
+  "95948": [{ sys: "City of Gridley", compound: "PFPeA", level: 0.0065 }],
+  "95965": [{ sys: "Cal-Water Service Co. - Oroville", compound: "Lithium", level: 79.6 }, { sys: "Thermalito Water & Sewer District", compound: "PFOS", level: 0.0046 }],
+  "95966": [{ sys: "Cal-Water Service Co. - Oroville", compound: "Lithium", level: 79.6 }],
+  "95735": [{ sys: "Sierra Tahoe Main Lodge", compound: "PFOA", level: 0.005 }],
+  "96150": [{ sys: "South Tahoe PUD", compound: "PFHxA", level: 0.0093 }],
+  "96158": [{ sys: "South Tahoe PUD", compound: "PFHxA", level: 0.0093 }],
+  "93611": [{ sys: "City of Clovis", compound: "PFOA", level: 0.004 }],
+  "93612": [{ sys: "City of Clovis", compound: "PFOA", level: 0.004 }],
+  "93619": [{ sys: "City of Clovis", compound: "PFOA", level: 0.004 }],
+  "93727": [{ sys: "City of Clovis", compound: "PFOA", level: 0.004 }, { sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93701": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93702": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93703": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93704": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }, { sys: "Pinedale County Water District", compound: "PFPeA", level: 0.0034 }],
+  "93705": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93706": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93710": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }, { sys: "Pinedale County Water District", compound: "PFPeA", level: 0.0034 }],
+  "93711": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }, { sys: "Pinedale County Water District", compound: "PFPeA", level: 0.0034 }],
+  "93720": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }, { sys: "Pinedale County Water District", compound: "PFPeA", level: 0.0034 }],
+  "93721": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93722": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93723": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93725": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93726": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93728": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93730": [{ sys: "City of Fresno", compound: "PFBS", level: 0.0048 }],
+  "93650": [{ sys: "Pinedale County Water District", compound: "PFPeA", level: 0.0034 }],
+  "93657": [{ sys: "City of Sanger", compound: "PFPeA", level: 0.0051 }],
+  "93625": [{ sys: "City of Fowler", compound: "6:2 FTS", level: 0.0053 }],
+  "93242": [{ sys: "Laton Community Services District", compound: "PFOA", level: 0.0062 }],
+  "93301": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93304": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93305": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93306": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }, { sys: "East Niles CSD", compound: "Lithium", level: 11.3 }],
+  "93307": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }, { sys: "East Niles CSD", compound: "Lithium", level: 11.3 }],
+  "93308": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93309": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93311": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93313": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93314": [{ sys: "CWS - Bakersfield", compound: "Lithium", level: 14.4 }],
+  "93215": [{ sys: "Delano, City of", compound: "Lithium", level: 9.14 }],
+  "92251": [{ sys: "Imperial Valley College", compound: "Lithium", level: 70 }, { sys: "Imperial, City of", compound: "Lithium", level: 53 }, { sys: "Centinela State Prison", compound: "Lithium", level: 78.8 }],
+  "92227": [{ sys: "Brawley, City of", compound: "Lithium", level: 48 }],
+  "92231": [{ sys: "Calexico, City of", compound: "Lithium", level: 53 }],
+  "92233": [{ sys: "GSWC-Calipatria", compound: "Lithium", level: 82.2 }, { sys: "Calipatria State Prison", compound: "Lithium", level: 58.4 }],
+  "92257": [{ sys: "GSWC-Calipatria", compound: "Lithium", level: 82.2 }],
+  "92243": [{ sys: "El Centro, City of", compound: "Lithium", level: 55 }],
+  "92250": [{ sys: "Holtville, City of", compound: "Lithium", level: 81.1 }],
+  "92249": [{ sys: "Heber Public Utility District", compound: "Lithium", level: 66.5 }],
+  "95501": [{ sys: "Humboldt C.S.D.", compound: "Lithium", level: 9.51 }],
+  "95503": [{ sys: "Humboldt C.S.D.", compound: "Lithium", level: 9.51 }],
+  "95537": [{ sys: "Humboldt C.S.D.", compound: "Lithium", level: 9.51 }],
+  "95222": [{ sys: "Union Public Utility District", compound: "Lithium", level: 50 }],
+  "95247": [{ sys: "Union Public Utility District", compound: "Lithium", level: 50 }],
+  "95251": [{ sys: "Union Public Utility District", compound: "Lithium", level: 50 }],
+  "95932": [{ sys: "City of Colusa", compound: "Lithium", level: 41.9 }],
+  "95987": [{ sys: "City of Williams", compound: "Lithium", level: 28.2 }],
+  "95988": [{ sys: "Cal-Water Service Co. - Willows", compound: "Lithium", level: 19 }],
+  "96150": [{ sys: "South Tahoe PUD", compound: "PFHxA", level: 0.0093 }],
+  "95613": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95619": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95623": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95651": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95667": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95672": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95682": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95684": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95709": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95726": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "95762": [{ sys: "El Dorado ID - Main", compound: "PFPeA", level: 0.0032 }],
+  "93622": [{ sys: "Firebaugh City", compound: "Lithium", level: 39.3 }],
+  "93660": [{ sys: "San Joaquin, City of", compound: "Lithium", level: 16 }],
+  "93740": [{ sys: "California State University Fresno", compound: "PFPeA", level: 0.0034 }],
+  "95646": [{ sys: "Kirkwood Meadows Public Utility District", compound: "Lithium", level: 19 }],
+  "95032": [{ sys: "San Jose Water", compound: "PFHxS", level: 0.0031 }]
+};
+
+const SCIENCE = {
+  "PFOS": {
+    full: "Perfluorooctane sulfonic acid",
+    thyroid: "PFOS is a man-made chemical once widely used in nonstick cookware, stain-resistant fabrics, and firefighting foam. It enters water supplies because it does not break down easily and can spread through soil and groundwater. PFOS interferes with thyroid hormone transport by binding to proteins in the blood, especially thyroxine-binding globulin (TBG), which normally carries these hormones to where they are needed. When this transport is disrupted, less hormone may reach the developing fetus. During pregnancy, this matters because the baby depends on the mother's thyroid hormones for early brain development. A pregnant woman could check her local water quality report and talk to her doctor about whether testing or a PFAS-certified water filter is appropriate.",
+    epa_limit: 0.004
+  },
+  "PFOA": {
+    full: "Perfluorooctanoic acid",
+    thyroid: "PFOA is a 'forever chemical' used in nonstick cookware and waterproof materials, and it can enter drinking water through industrial waste and runoff. It interferes with the thyroid by reducing iodine uptake in the thyroid gland — iodine is the key ingredient needed to make thyroid hormones like T3 and T4. When iodine can't be used properly, the body may produce lower levels of these hormones. During pregnancy, this matters because the baby relies on the mother's thyroid hormones for early brain development. If this is a concern, a pregnant woman could review her local water quality report and talk to her doctor about whether additional monitoring or a PFAS-certified water filter would be helpful.",
+    epa_limit: 0.004
+  },
+  "PFHxA": {
+    full: "Perfluorohexanoic acid",
+    thyroid: "PFHxA is a shorter-chain PFAS chemical used as a replacement for older compounds like PFOA in industrial and consumer products such as food packaging. It can still enter water systems through manufacturing waste and environmental contamination. Research on PFHxA is still emerging, but it may affect thyroid hormone transport in ways similar to other PFAS, rather than directly changing how cells respond to hormones. This means its exact impact is still being studied, but there is concern due to similarities with better-understood chemicals. During pregnancy, even small disruptions in hormone availability can affect fetal development. Because of this uncertainty, a pregnant woman could check her water quality report and talk to her doctor about possible precautions.",
+    epa_limit: null
+  },
+  "PFBA": {
+    full: "Perfluorobutanoic acid",
+    thyroid: "PFBA is a short-chain PFAS chemical used in industrial coatings and materials, and it can enter drinking water through manufacturing waste. It may affect thyroid hormone levels by interfering with how these hormones are produced or cleared from the body. While research is still developing, PFBA is notable because it is currently unregulated at the federal level, meaning there are fewer official limits in place. During pregnancy, stable thyroid hormone levels are critical for proper brain and body development in the fetus. Given this, a pregnant woman may want to stay informed by checking local water reports and discussing any concerns with her healthcare provider.",
+    epa_limit: null
+  },
+  "PFPeA": {
+    full: "Perfluoropentanoic acid",
+    thyroid: "PFPeA is a short-chain PFAS chemical used in industrial processes and found in some contaminated water sources. Current research suggests it may interfere with thyroid hormone transport in the bloodstream, though the evidence is still less established compared to chemicals like PFOS or PFOA. This means scientists are still studying exactly how strong its effects are, but there is concern because similar chemicals can disrupt hormone movement in the body. During pregnancy, even small disruptions in hormone transport can matter for fetal brain and nervous system development. Because of this uncertainty, a pregnant woman may want to stay informed by checking local water reports and discussing any concerns with her healthcare provider.",
+    epa_limit: null
+  },
+  "PFBS": {
+    full: "Perfluorobutane sulfonic acid",
+    thyroid: "PFBS is often used as a replacement for older PFAS chemicals like PFOS and is found in firefighting foams and stain-resistant products. It can contaminate water supplies through industrial use and environmental spread. PFBS interferes with thyroid hormone transport by competing with natural hormones for binding sites on proteins in the blood, which can reduce how much hormone is available to tissues. This can be important during pregnancy because the fetus relies on a steady supply of these hormones for brain development and metabolism. A pregnant woman could check her local water quality report and speak with her doctor about whether additional precautions are needed.",
+    epa_limit: null
+  },
+  "6:2 FTS": {
+    full: "6:2 Fluorotelomer sulfonate",
+    thyroid: "6:2 FTS is a fluorotelomer compound used in firefighting foams and stain-resistant coatings. It can metabolize into other PFAS compounds in the body. Research on its thyroid effects is still emerging, but its structural similarity to regulated PFAS compounds raises concern for hormone disruption during pregnancy.",
+    epa_limit: null
+  },
+  "PFHxS": {
+    full: "Perfluorohexane sulfonic acid",
+    thyroid: "PFHxS is a long-lasting PFAS chemical often found in firefighting foams and some cleaning or protective products. It can build up in the environment and enter drinking water systems over time. PFHxS interferes with thyroid hormones by affecting how they bind to transport proteins in the bloodstream, which changes how efficiently they move through the body. If these hormones do not reach the fetus properly, it can impact early brain and nervous system development, especially before the baby can produce its own hormones. A pregnant woman may want to review local water reports and discuss any concerns with her healthcare provider.",
+    epa_limit: 0.01
+  },
+  "Lithium": {
+    full: "Lithium (naturally occurring)",
+    thyroid: "Lithium is a naturally occurring element found in some groundwater, but it is also widely used in batteries and certain medications. It can enter drinking water through natural mineral deposits or industrial activity. Lithium directly affects the thyroid gland by reducing its ability to produce hormones, which can lead to lower hormone levels in the body. During pregnancy, this is especially important because thyroid hormones are essential for the baby's brain development and growth. If lithium exposure is a concern, a pregnant woman could review her local water report and talk to her doctor about monitoring thyroid levels or considering water treatment options.",
+    epa_limit: null
+  }
+};
+
+function getRiskLevel(compound, level) {
+  const isPFAS = !["Lithium"].includes(compound);
+  if (isPFAS) {
+    const limit = SCIENCE[compound]?.epa_limit;
+    if (limit && level >= limit) return "high";
+    return "low";
+  } else {
+    if (level > 60) return "high";
+    if (level > 20) return "moderate";
+    return "low";
+  }
+}
+
+function checkZip() {
+  const zip = document.getElementById("zipInput").value.trim();
+  const result = document.getElementById("result");
+  const title = document.getElementById("resultTitle");
+  const body = document.getElementById("resultBody");
+
+  if (zip.length !== 5 || isNaN(zip)) {
+    result.className = "result checking";
+    title.textContent = "Please enter a valid 5-digit zip code.";
+    body.innerHTML = "";
+    return;
+  }
+
+  result.className = "result checking";
+  title.textContent = "Checking your water system...";
+  body.innerHTML = "";
+
+  setTimeout(() => {
+    const matches = DATA[zip];
+    if (matches && matches.length > 0) {
+      const highRisk = matches.some(m => getRiskLevel(m.compound, m.level) === "high");
+      result.className = highRisk ? "result found" : "result found-low";
+
+      const riskLabel = highRisk ? "PFAS detected at or near EPA limits" : "Contaminants detected — levels below EPA limits";
+      title.textContent = riskLabel;
+
+      let html = "";
+
+      matches.forEach(m => {
+        const science = SCIENCE[m.compound] || {};
+        const risk = getRiskLevel(m.compound, m.level);
+        const isPFAS = m.compound !== "Lithium";
+        const units = isPFAS ? "µg/L" : "µg/L";
+        const epaText = science.epa_limit
+          ? `EPA limit: ${science.epa_limit} µg/L`
+          : "Currently unregulated by EPA";
+        const barPct = science.epa_limit
+          ? Math.min((m.level / science.epa_limit) * 100, 100).toFixed(0)
+          : 0;
+
+        html += `
+          <div class="detail-box">
+            <h3>${m.sys}</h3>
+            <p><span class="compound-tag ${risk === 'low' ? 'low' : ''}">${m.compound}</span> — ${science.full || m.compound}</p>
+            <p style="margin-top:6px;">Detected level: <strong>${m.level} ${units}</strong> &nbsp;·&nbsp; ${epaText}</p>
+            ${science.epa_limit ? `
+            <div class="epa-bar" style="margin-top:8px;">
+              <div class="epa-bar-label">Level relative to EPA limit (${barPct}%)</div>
+              <div class="bar-track"><div class="bar-fill ${risk === 'low' ? 'low' : ''}" style="width:${barPct}%"></div></div>
+            </div>` : ""}
+            <div class="science-box" style="margin-top:10px;">
+              <h3>What this means for thyroid health during pregnancy</h3>
+              <p>${science.thyroid || "Emerging research — thyroid effects under active study."}</p>
+            </div>
+          </div>`;
+      });
+
+      body.innerHTML = html;
+    } else {
+      result.className = "result not-found";
+      title.textContent = "No PFAS detections found for this zip code in current EPA data.";
+      body.innerHTML = `<p>This does not guarantee your water is free of all contaminants. This tool currently covers California zip codes with documented PFAS detections from the EPA UCMR 5 monitoring program (2023–2025). If your zip code is not listed, your water system may not have been tested yet or results may not be in the current dataset.</p>`;
+    }
+  }, 700);
+}
+
+document.getElementById("zipInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") checkZip();
+});
+  </script>
 </body>
 </html>
