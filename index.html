@@ -249,7 +249,7 @@
     try {
       const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up');
       const data = await res.json();
-      document.getElementById("searchCount").textContent = (data.count || 0).toLocaleString();
+      if (data.count) document.getElementById("searchCount").textContent = data.count.toLocaleString();
     } catch(e) {}
   }
   </script>
