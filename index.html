@@ -315,7 +315,7 @@
       let html = '<table class="state-table"><thead><tr>';
       for (const col of cols) {
         const arrowStr = sortKey === col ? ' ' + arrow : '';
-        html += '<th onclick="sortTable('' + col + '')">' + labels[col] + arrowStr + '</th>';
+        html += '<th onclick="sortTable(\'' + col + '\')">' + labels[col] + arrowStr + '</th>';
       }
       html += '</tr></thead><tbody>';
       for (const r of rows) {
