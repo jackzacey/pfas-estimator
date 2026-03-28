@@ -245,22 +245,13 @@
     if (e.key === "Enter") checkZip();
   });
 
-  async function loadCount() {
+  async function incrementCount() {
     try {
-      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/get');
+      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up');
       const data = await res.json();
       document.getElementById("searchCount").textContent = (data.count || 0).toLocaleString();
-    } catch(e) {
-      document.getElementById("searchCount").textContent = "—";
-    }
+    } catch(e) {}
   }
-
-  function incrementCount() {
-    fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up').catch(()=>{});
-    setTimeout(loadCount, 1500);
-  }
-
-  loadCount();
   </script>
 </body>
 </html>
