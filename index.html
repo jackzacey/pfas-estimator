@@ -257,9 +257,7 @@
 
   function incrementCount() {
     fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up').catch(()=>{});
-    const el = document.getElementById("searchCount");
-    const current = parseInt(el.textContent.replace(/,/g,'')) || 0;
-    el.textContent = (current + 1).toLocaleString();
+    setTimeout(loadCount, 500);
   }
 
   loadCount();
