@@ -75,6 +75,10 @@
     .state-table th:hover { color: #185fa5; }
     .state-table td { padding: 6px 8px; border-bottom: 1px solid #f0f0f0; color: #333; }
     .state-table tr:hover td { background: #f9f9f9; }
+    .clinical-log { display:none; margin-top: 1rem; padding: 0.75rem 1rem; background: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 8px; font-size: 12px; color: #333; }
+    .clinical-log input { border: 1px solid #c7d4f0; border-radius: 4px; padding: 4px 8px; font-size: 12px; width: 60px; margin: 0 6px; }
+    .clinical-log button { background: #185fa5; color: white; border: none; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+    .clinical-log .clinical-confirm { display:none; color: #185fa5; font-weight: 500; margin-top: 0.4rem; }
     .counter-badge { position: fixed; bottom: 16px; right: 16px; background: white; border: 1px solid #e5e5e5; border-radius: 8px; padding: 6px 12px; font-size: 12px; color: #666; font-family: -apple-system, sans-serif; z-index: 100; }
     .counter-badge span { font-weight: 500; color: #185fa5; }
 
@@ -151,6 +155,13 @@
     </div>
 
     <button class="print-btn" id="printBtn" onclick="window.print()">⬛ Print / Save as PDF for your appointment</button>
+
+    <div class="clinical-log" id="clinicalLog">
+      <span>Provider: enter code to log this as a patient case</span>
+      <input type="password" id="clinicalCode" maxlength="3" placeholder="···" />
+      <button onclick="logClinicalCase()">Log</button>
+      <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
+    </div>
 
     <div class="why-section">
       <h2>Why tap water ingestion matters</h2>
@@ -260,6 +271,7 @@
 
         body.innerHTML = html;
         printBtn.classList.add("visible");
+        document.getElementById('clinicalLog').style.display = 'block';
 
       } else {
         result.className = "result not-found";
@@ -267,6 +279,11 @@
         context.textContent = "";
         body.innerHTML = `<p style="font-size:13px; color:#555; line-height:1.7;">This zip code does not appear in the EPA's current PFAS detection records for U.S. water systems. This could mean your water had no detections, has not yet been tested, or results are pending. For complete tap water quality information, contact your local water utility directly or use the EPA's UCMR 5 Data Finder. If you want additional peace of mind, water filters certified by NSF International for PFAS removal are widely available and effective for reducing ingestion exposure.</p>`;
         printBtn.classList.remove("visible");
+        document.getElementById('clinicalLog').style.display = 'none';
+        document.getElementById('clinicalConfirm').style.display = 'none';
+        document.getElementById('clinicalCode').style.display = 'inline';
+        document.querySelector('.clinical-log button').style.display = 'inline';
+        document.getElementById('clinicalCode').value = '';
       }
     }, 700);
   }
@@ -345,6 +362,20 @@
     renderTable();
   }
   buildStateSummary();
+
+  function logClinicalCase() {
+    const code = document.getElementById('clinicalCode').value;
+    if (code !== '369') {
+      document.getElementById('clinicalCode').value = '';
+      document.getElementById('clinicalCode').placeholder = 'wrong';
+      setTimeout(() => document.getElementById('clinicalCode').placeholder = '···', 1500);
+      return;
+    }
+    fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/up').catch(()=>{});
+    document.getElementById('clinicalConfirm').style.display = 'block';
+    document.getElementById('clinicalCode').style.display = 'none';
+    document.querySelector('.clinical-log button').style.display = 'none';
+  }
 
   async function incrementCount() {
     try {
