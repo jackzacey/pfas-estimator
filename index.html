@@ -75,7 +75,7 @@
     .state-table th:hover { color: #185fa5; }
     .state-table td { padding: 6px 8px; border-bottom: 1px solid #f0f0f0; color: #333; }
     .state-table tr:hover td { background: #f9f9f9; }
-    .clinical-log { display:none; margin-top: 1rem; padding: 0.75rem 1rem; background: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 8px; font-size: 12px; color: #333; }
+    .clinical-log { display:none; margin-top: 1rem; padding: 1rem 1.25rem; background: #f0f4ff; border: 1px solid #c7d4f0; border-radius: 8px; font-size: 12px; color: #333; width: 100%; box-sizing: border-box; }
     .clinical-log input { border: 1px solid #c7d4f0; border-radius: 4px; padding: 4px 8px; font-size: 12px; width: 60px; margin: 0 6px; }
     .clinical-log button { background: #185fa5; color: white; border: none; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
     .clinical-log .clinical-confirm { display:none; color: #185fa5; font-weight: 500; margin-top: 0.4rem; }
@@ -190,6 +190,7 @@
   </div>
 
   <div class="counter-badge"><span id="searchCount">—</span> searches</div>
+  <div class="counter-badge" style="bottom: 52px;"><span id="clinicalCount">—</span> patient cases</div>
 
   <script src="data.js"></script>
   <script src="science.js"></script>
@@ -371,11 +372,23 @@
       setTimeout(() => document.getElementById('clinicalCode').placeholder = '···', 1500);
       return;
     }
-    fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/up').catch(()=>{});
+    fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/up')
+      .then(r => r.json())
+      .then(d => { if (d.count) document.getElementById('clinicalCount').textContent = d.count.toLocaleString(); })
+      .catch(()=>{});
     document.getElementById('clinicalConfirm').style.display = 'block';
     document.getElementById('clinicalCode').style.display = 'none';
     document.querySelector('.clinical-log button').style.display = 'none';
   }
+
+  async function loadClinicalCount() {
+    try {
+      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/get');
+      const data = await res.json();
+      if (data.count) document.getElementById('clinicalCount').textContent = data.count.toLocaleString();
+    } catch(e) {}
+  }
+  loadClinicalCount();
 
   async function incrementCount() {
     try {
