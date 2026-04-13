@@ -150,7 +150,7 @@
       <div id="resultBody"></div>
 
       <div class="print-footer" id="printFooter">
-        Data source: EPA Unregulated Contaminant Monitoring Rule 5 (UCMR 5), 2023–2025. Not medical advice. For questions about your water, contact your local water utility. Tool built by Jack Zhang · jackzacey@gmail.com · jackzacey.github.io/pfas-estimator
+        Data source: EPA Unregulated Contaminant Monitoring Rule 5 (UCMR 5), 2023–2025. Not medical advice. For questions about your water, contact your local water utility. Tool built by Jack Zhang · <a href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a> · jackzacey.github.io/pfas-estimator
       </div>
     </div>
 
@@ -386,17 +386,4 @@
       const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/get');
       const data = await res.json();
       if (data.count) document.getElementById('clinicalCount').textContent = data.count.toLocaleString();
-    } catch(e) {}
-  }
-  loadClinicalCount();
-
-  async function incrementCount() {
-    try {
-      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up');
-      const data = await res.json();
-      if (data.count) document.getElementById("searchCount").textContent = data.count.toLocaleString();
-    } catch(e) {}
-  }
-  </script>
-</body>
-</html>
+    } cat
