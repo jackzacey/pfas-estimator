@@ -386,4 +386,28 @@
       const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/get');
       const data = await res.json();
       if (data.count) document.getElementById('clinicalCount').textContent = data.count.toLocaleString();
-    } cat
+    } catch(e) {}
+  }
+
+  async function incrementCount() {
+    try {
+      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up');
+      const data = await res.json();
+      if (data.value) document.getElementById('searchCount').textContent = data.value.toLocaleString();
+    } catch(e) {}
+  }
+
+  async function loadCount() {
+    try {
+      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/get');
+      const data = await res.json();
+      if (data.value) document.getElementById('searchCount').textContent = data.value.toLocaleString();
+    } catch(e) {}
+  }
+
+  loadCount();
+  loadClinicalCount();
+
+  </script>
+</body>
+</html>
