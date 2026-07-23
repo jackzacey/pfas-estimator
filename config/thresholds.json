@@ -1,0 +1,16 @@
+{
+  "PFOA":    {"limit": 0.004, "unit": "\u00b5g/L", "mode": "detection_is_exceedance", "label": "MCL"},
+  "PFOS":    {"limit": 0.004, "unit": "\u00b5g/L", "mode": "detection_is_exceedance", "label": "MCL"},
+  "PFHxS":   {"limit": 0.010, "unit": "\u00b5g/L", "mode": "true_exceedance", "label": "MCL"},
+  "PFNA":    {"limit": 0.010, "unit": "\u00b5g/L", "mode": "true_exceedance", "label": "MCL"},
+  "HFPO-DA": {"limit": 0.010, "unit": "\u00b5g/L", "mode": "true_exceedance", "label": "MCL"},
+  "PFBS":    {"limit": 2.0,   "unit": "\u00b5g/L", "mode": "hi_reference_no_exceedance", "label": "HI reference"},
+  "Lithium": {"limit": 7.36,  "unit": "\u00b5g/L", "mode": "evidence_reference_not_regulatory", "label": "evidence-based reference (Liew et al. 2023)"},
+  "PFPeA":   {"limit": null,  "unit": "\u00b5g/L", "mode": "no_reference", "label": null},
+  "PFBA":    {"limit": null,  "unit": "\u00b5g/L", "mode": "no_reference", "label": null},
+  "PFHpA":   {"limit": null,  "unit": "\u00b5g/L", "mode": "no_reference", "label": null},
+  "6:2 FTS": {"limit": null,  "unit": "\u00b5g/L", "mode": "no_reference", "label": null},
+  "PFDA":    {"limit": null,  "unit": "\u00b5g/L", "mode": "no_reference", "label": null},
+  "_regulated_for_headline": ["PFOA", "PFOS", "PFHxS", "PFNA", "HFPO-DA"],
+  "_notes": "Mirrors AJPH manuscript Table 1 exactly. detection_is_exceedance: reporting limit == MCL, so any detection counts as at/above threshold (PFOA/PFOS). true_exceedance: real MCL comparison (PFHxS/PFNA/HFPO-DA). hi_reference_no_exceedance: PFBS Hazard Index requires co-located multi-compound readings not retained in this dataset; do not report exceedance. evidence_reference_not_regulatory: Lithium has no federal MCL; 7.36 is a cohort-study reference concentration, not a regulatory threshold. no_reference: five remaining unregulated analytes, detection prevalence only."
+}

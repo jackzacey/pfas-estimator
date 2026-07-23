@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PFAS in Missouri Drinking Water | PFAS Estimator</title>
+  <meta name="description" content="Explore EPA UCMR 5 PFAS drinking-water monitoring results for Missouri, including ZIP-level detections, observed concentrations, and federal threshold context across 501 ZIP codes." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pfasestimator.org/states/missouri-pfas-drinking-water/" />
+  <meta name="author" content="Jack Zhang" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PFAS Estimator" />
+  <meta property="og:title" content="PFAS in Missouri Drinking Water | PFAS Estimator" />
+  <meta property="og:description" content="Explore EPA UCMR 5 PFAS drinking-water monitoring results for Missouri, including ZIP-level detections, observed concentrations, and federal threshold context across 501 ZIP codes." />
+  <meta property="og:url" content="https://pfasestimator.org/states/missouri-pfas-drinking-water/" />
+  <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PFAS in Missouri Drinking Water | PFAS Estimator" />
+  <meta name="twitter:description" content="Explore EPA UCMR 5 PFAS drinking-water monitoring results for Missouri, including ZIP-level detections, observed concentrations, and federal threshold context across 501 ZIP codes." />
+  <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "WebPage", "name": "PFAS in Missouri Drinking Water | PFAS Estimator", "url": "https://pfasestimator.org/states/missouri-pfas-drinking-water/", "description": "Explore EPA UCMR 5 PFAS drinking-water monitoring results for Missouri, including ZIP-level detections, observed concentrations, and federal threshold context across 501 ZIP codes.", "isPartOf": {"@id": "https://pfasestimator.org/#website"}, "about": {"@id": "https://pfasestimator.org/#dataset"}, "dateModified": "2026-07-16"}
+  </script>
+
+  <link rel="stylesheet" href="https://pfasestimator.org/styles.css" />
+  <style>
+    .state-page-wrap { max-width: 900px; margin: 0 auto; }
+    .breadcrumb { font-size: 12px; color: #8b969b; margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--primary); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .headline-stat { margin-top: 1.25rem; padding: 1.25rem 1.5rem; background: var(--warn-tint); border: 1px solid var(--warn-tint-border); border-radius: 12px; }
+    .headline-stat .big { font-size: 26px; font-weight: 650; color: var(--ink); letter-spacing: -0.3px; }
+    .headline-stat .big span { font-size: 14px; font-weight: 400; color: #555; }
+    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1.25rem; }
+    .cta-row a.button-link { display: inline-flex; align-items: center; height: 42px; padding: 0 20px; border-radius: 9px; background: var(--primary); color: #fff; font-size: 14px; font-weight: 500; text-decoration: none; box-shadow: 0 4px 10px -4px rgba(23,94,151,0.5); }
+    .cta-row a.button-link.secondary { background: var(--primary-tint); color: var(--primary); box-shadow: none; border: 1px solid var(--primary-tint-border); }
+    section.state-section { margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--border-soft); }
+    section.state-section h2 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; }
+    .zip-table-wrap { max-height: 480px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 10px; }
+    caption { text-align: left; font-size: 12px; color: #8b969b; padding: 6px 8px; caption-side: top; }
+  </style>
+</head>
+<body>
+<div class="page-wrapper" style="justify-content:center;">
+  <div class="card state-page-wrap">
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://pfasestimator.org/">PFAS Estimator</a> / <a href="https://pfasestimator.org/states/">States</a> / Missouri
+    </nav>
+
+    <span class="badge">EPA UCMR 5 Data &middot; Missouri</span>
+    <h1>PFAS Drinking-Water Monitoring Results in Missouri</h1>
+    <p class="subtitle">This page summarizes EPA Fifth Unregulated Contaminant Monitoring Rule (UCMR 5, 2023&ndash;2025) drinking-water monitoring records linked to ZIP codes in Missouri, as processed for the PFAS Estimator national dataset. Data updated: July 2026.</p>
+
+    <div class="headline-stat">
+      <div class="big">5.4% <span>of Missouri ZIP codes in this dataset (501 total)</span></div>
+      <div style="font-size:13px; color:#5a3e00; margin-top:6px; line-height:1.6;">had at least one regulated PFAS compound detected at or above its applicable EPA threshold (27 of 501 ZIP codes). Of those, 1 (3.7%) had more than one compound at or above threshold. This dataset includes only ZIP codes with at least one recorded PFAS detection; ZIP codes where all compounds returned non-detect are not represented.</div>
+    </div>
+
+    <div class="cta-row">
+      <a class="button-link" href="https://pfasestimator.org/?zip=63005">Look up a Missouri ZIP code &rarr;</a>
+      <a class="button-link secondary" href="https://pfasestimator.org/#researchers">Full methodology &amp; national data</a>
+    </div>
+
+    <section class="state-section">
+      <h2>Compounds detected in Missouri</h2>
+      <div style="overflow-x:auto;">
+      <table class="state-table">
+        <caption>Detection prevalence, exceedance, and concentration by compound, Missouri ZIP codes in the EPA UCMR 5 analytic dataset.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Compound</th>
+            <th scope="col">Applicable threshold</th>
+            <th scope="col">ZIP codes detected</th>
+            <th scope="col">At/above threshold</th>
+            <th scope="col">Mean detected</th>
+            <th scope="col">Maximum detected</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PFOA</td><td>0.004 µg/L (MCL)</td><td>6 (1.2% of state)</td><td>6 (100.0%) &mdash; all detections at/above limit by construction</td><td>0.005 µg/L</td><td>0.0062 µg/L</td></tr>
+          <tr><td>PFOS</td><td>0.004 µg/L (MCL)</td><td>21 (4.2% of state)</td><td>21 (100.0%) &mdash; all detections at/above limit by construction</td><td>0.0053 µg/L</td><td>0.012 µg/L</td></tr>
+          <tr><td>PFHxS</td><td>0.01 µg/L (MCL)</td><td>12 (2.4% of state)</td><td>1 (8.3% of detected)</td><td>0.0073 µg/L</td><td>0.0225 µg/L</td></tr>
+          <tr><td>PFBS</td><td>2.0 µg/L (HI reference)</td><td>33 (6.6% of state)</td><td>not calculated&sup1;</td><td>0.0043 µg/L</td><td>0.0114 µg/L</td></tr>
+          <tr><td>Lithium</td><td>7.36 µg/L (reference, not a regulatory limit)</td><td>405 (80.8% of state)</td><td>405 (100.0%) at/above reference</td><td>54.1417 µg/L</td><td>251.0 µg/L</td></tr>
+          <tr><td>PFPeA</td><td>&mdash; (no federal limit)</td><td>17 (3.4% of state)</td><td>&mdash;</td><td>0.0042 µg/L</td><td>0.011 µg/L</td></tr>
+          <tr><td>PFBA</td><td>&mdash; (no federal limit)</td><td>293 (58.5% of state)</td><td>&mdash;</td><td>0.0085 µg/L</td><td>0.0701 µg/L</td></tr>
+          <tr><td>PFHpA</td><td>&mdash; (no federal limit)</td><td>1 (0.2% of state)</td><td>&mdash;</td><td>0.0046 µg/L</td><td>0.0046 µg/L</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section class="state-section">
+      <h2>ZIP codes in this dataset (Missouri)</h2>
+      <p class="state-summary-subtitle">501 ZIP codes with at least one recorded PFAS detection. Click a ZIP code to view its full compound-level results.</p>
+      <div class="zip-table-wrap">
+      <table class="state-table">
+        <caption class="sr-only">Per-ZIP-code detection summary for Missouri</caption>
+        <thead>
+          <tr>
+            <th scope="col">ZIP code</th>
+            <th scope="col">Compounds detected</th>
+            <th scope="col">At/above threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="https://pfasestimator.org/?zip=63005">63005</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63006">63006</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63011">63011</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63017">63017</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63019">63019</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63020">63020</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63021">63021</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63025">63025</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63026">63026</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63028">63028</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63031">63031</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63032">63032</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63033">63033</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63034">63034</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63038">63038</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63040">63040</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63042">63042</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63043">63043</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63044">63044</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63045">63045</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63047">63047</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63048">63048</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63050">63050</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63051">63051</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63069">63069</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63070">63070</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63074">63074</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63077">63077</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63088">63088</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63090">63090</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63099">63099</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63101">63101</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63102">63102</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63103">63103</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63104">63104</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63105">63105</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63106">63106</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63107">63107</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63108">63108</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63109">63109</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63110">63110</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63111">63111</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63112">63112</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63113">63113</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63114">63114</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63115">63115</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63116">63116</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63117">63117</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63118">63118</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63119">63119</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63120">63120</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63121">63121</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63122">63122</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63123">63123</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63124">63124</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63125">63125</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63126">63126</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63127">63127</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63128">63128</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63129">63129</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63130">63130</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63131">63131</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63132">63132</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63133">63133</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63134">63134</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63135">63135</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63136">63136</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63137">63137</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63138">63138</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63139">63139</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63140">63140</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63141">63141</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63143">63143</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63144">63144</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63145">63145</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63146">63146</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63147">63147</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63155">63155</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63166">63166</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63301">63301</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63303">63303</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63330">63330</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63334">63334</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63336">63336</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63339">63339</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63341">63341</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63343">63343</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63344">63344</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63345">63345</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63347">63347</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63348">63348</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63352">63352</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63353">63353</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63359">63359</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63361">63361</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63362">63362</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63366">63366</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63367">63367</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63368">63368</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63369">63369</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63376">63376</a></td><td>4</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63379">63379</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63382">63382</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63383">63383</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63384">63384</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63385">63385</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63388">63388</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63389">63389</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63390">63390</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63401">63401</a></td><td>4</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63430">63430</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63432">63432</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63436">63436</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63437">63437</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63438">63438</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63440">63440</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63441">63441</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63442">63442</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63443">63443</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63446">63446</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63448">63448</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63450">63450</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63451">63451</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63452">63452</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63454">63454</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63456">63456</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63458">63458</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63459">63459</a></td><td>4</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63460">63460</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63461">63461</a></td><td>4</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63462">63462</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63463">63463</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63465">63465</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63468">63468</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63469">63469</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63471">63471</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63501">63501</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63530">63530</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63531">63531</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63532">63532</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63533">63533</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63534">63534</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63536">63536</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63537">63537</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63538">63538</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63539">63539</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63540">63540</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63543">63543</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63546">63546</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63547">63547</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63549">63549</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63552">63552</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63555">63555</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63558">63558</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63559">63559</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63561">63561</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63563">63563</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63627">63627</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63640">63640</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63670">63670</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63673">63673</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63701">63701</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63703">63703</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63755">63755</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63775">63775</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63780">63780</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63801">63801</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63822">63822</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63826">63826</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63827">63827</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63830">63830</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63837">63837</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63840">63840</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63841">63841</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63847">63847</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63848">63848</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63849">63849</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63851">63851</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63852">63852</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63855">63855</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63857">63857</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63863">63863</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63873">63873</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63877">63877</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63879">63879</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63933">63933</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=63939">63939</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64001">64001</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64011">64011</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64012">64012</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64014">64014</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64015">64015</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64016">64016</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64017">64017</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64019">64019</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64020">64020</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64021">64021</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64022">64022</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64024">64024</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64028">64028</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64029">64029</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64030">64030</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64034">64034</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64035">64035</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64037">64037</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64040">64040</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64048">64048</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64050">64050</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64051">64051</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64052">64052</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64053">64053</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64054">64054</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64055">64055</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64056">64056</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64057">64057</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64058">64058</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64060">64060</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64061">64061</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64062">64062</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64063">64063</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64064">64064</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64067">64067</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64068">64068</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64069">64069</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64070">64070</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64071">64071</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64074">64074</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64075">64075</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64076">64076</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64077">64077</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64078">64078</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64079">64079</a></td><td>4</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64080">64080</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64081">64081</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64082">64082</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64083">64083</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64084">64084</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64085">64085</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64086">64086</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64088">64088</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64089">64089</a></td><td>4</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64092">64092</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64093">64093</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64097">64097</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64101">64101</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64102">64102</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64105">64105</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64106">64106</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64108">64108</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64109">64109</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64110">64110</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64111">64111</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64112">64112</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64113">64113</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64114">64114</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64116">64116</a></td><td>4</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64117">64117</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64118">64118</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64119">64119</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64120">64120</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64123">64123</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64124">64124</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64125">64125</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64126">64126</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64127">64127</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64128">64128</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64129">64129</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64130">64130</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64131">64131</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64132">64132</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64133">64133</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64134">64134</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64136">64136</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64137">64137</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64138">64138</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64139">64139</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64141">64141</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64144">64144</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64145">64145</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64146">64146</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64147">64147</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64149">64149</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64150">64150</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64151">64151</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64152">64152</a></td><td>4</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64153">64153</a></td><td>4</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64154">64154</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64155">64155</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64156">64156</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64157">64157</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64158">64158</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64161">64161</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64163">64163</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64164">64164</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64165">64165</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64166">64166</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64167">64167</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64171">64171</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64179">64179</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64188">64188</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64401">64401</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64421">64421</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64422">64422</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64423">64423</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64424">64424</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64427">64427</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64428">64428</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64429">64429</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64430">64430</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64431">64431</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64432">64432</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64433">64433</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64434">64434</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64436">64436</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64439">64439</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64443">64443</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64444">64444</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64445">64445</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64454">64454</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64455">64455</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64457">64457</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64459">64459</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64461">64461</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64463">64463</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64466">64466</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64468">64468</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64469">64469</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64470">64470</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64474">64474</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64475">64475</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64476">64476</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64477">64477</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64479">64479</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64480">64480</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64485">64485</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64486">64486</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64487">64487</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64489">64489</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64490">64490</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64492">64492</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64493">64493</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64494">64494</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64497">64497</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64498">64498</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64505">64505</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64506">64506</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64507">64507</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64601">64601</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64624">64624</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64628">64628</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64631">64631</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64632">64632</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64633">64633</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64637">64637</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64649">64649</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64650">64650</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64651">64651</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64658">64658</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64660">64660</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64661">64661</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64668">64668</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64670">64670</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64671">64671</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64673">64673</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64676">64676</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64681">64681</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64689">64689</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64701">64701</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64725">64725</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64728">64728</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64730">64730</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64733">64733</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64734">64734</a></td><td>3</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64735">64735</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64739">64739</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64741">64741</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64742">64742</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64743">64743</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64744">64744</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64746">64746</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64747">64747</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64748">64748</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64750">64750</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64752">64752</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64755">64755</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64756">64756</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64759">64759</a></td><td>2</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64761">64761</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64762">64762</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64767">64767</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64769">64769</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64771">64771</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64772">64772</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64778">64778</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64779">64779</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64783">64783</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64784">64784</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64790">64790</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64801">64801</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64804">64804</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64831">64831</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64832">64832</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64834">64834</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64836">64836</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64855">64855</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=64870">64870</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65010">65010</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65020">65020</a></td><td>2</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65039">65039</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65043">65043</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65049">65049</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65059">65059</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65063">65063</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65067">65067</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65077">65077</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65079">65079</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65080">65080</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65109">65109</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65201">65201</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65202">65202</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65203">65203</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65205">65205</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65211">65211</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65212">65212</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65215">65215</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65216">65216</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65217">65217</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65218">65218</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65230">65230</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65231">65231</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65233">65233</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65239">65239</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65240">65240</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65243">65243</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65244">65244</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65247">65247</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65248">65248</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65251">65251</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65254">65254</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65255">65255</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65256">65256</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65257">65257</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65258">65258</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65259">65259</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65260">65260</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65261">65261</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65262">65262</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65263">65263</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65264">65264</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65265">65265</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65270">65270</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65274">65274</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65275">65275</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65276">65276</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65278">65278</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65279">65279</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65280">65280</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65281">65281</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65283">65283</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65284">65284</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65285">65285</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65286">65286</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65299">65299</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65301">65301</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65305">65305</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65321">65321</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65322">65322</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65333">65333</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65336">65336</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65339">65339</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65340">65340</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65351">65351</a></td><td>2</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65360">65360</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65473">65473</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65559">65559</a></td><td>5</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (2)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65566">65566</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65583">65583</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65584">65584</a></td><td>1</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65619">65619</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65682">65682</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65708">65708</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65714">65714</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65721">65721</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65738">65738</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65742">65742</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65757">65757</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65765">65765</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65775">65775</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65781">65781</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65785">65785</a></td><td>1</td><td>No</td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65801">65801</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65802">65802</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65803">65803</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65804">65804</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65805">65805</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65806">65806</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65807">65807</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65808">65808</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65809">65809</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65810">65810</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
+          <tr><td><a href="https://pfasestimator.org/?zip=65821">65821</a></td><td>1</td><td>No</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section class="state-section">
+      <h2>Methodology &amp; limitations</h2>
+      <p style="font-size:13px; color:#555; line-height:1.7; margin-bottom:0.75rem;">Results are based on EPA UCMR 5 monitoring data (2023&ndash;2025), linked to ZIP codes via Public Water System Identifier. Non-detections are not present in this analytic dataset. For each compound and ZIP code, the highest observed concentration across the monitoring period is retained; this characterizes the upper bound of observed drinking-water concentrations, not a long-term average or an individual exposure estimate. A single water system may serve multiple ZIP codes, so the same monitoring record can appear for more than one ZIP in this table. ZIP-code assignment reflects water-system service area geography and does not establish individual household exposure. Private wells are not represented unless served by a monitored public water system. PFOA and PFOS are reported by detection prevalence because the UCMR 5 reporting limit equals their federal MCL. A full PFBS Hazard Index is not calculated because co-located, same-event multi-compound readings are not retained in this dataset. Lithium has no federal Maximum Contaminant Level; 7.36 &micro;g/L is an evidence-based reference concentration from a prospective cohort study, not a regulatory threshold.</p>
+    </section>
+
+    <section class="state-section">
+      <h2>Related links</h2>
+      <p style="font-size:13px; line-height:1.8;">
+        <a class="source-link" href="https://pfasestimator.org/">PFAS Estimator homepage &amp; national ZIP lookup</a><br/>
+        <a class="source-link" href="https://pfasestimator.org/#researchers">Full national methodology, limitations, and dataset documentation</a><br/>
+        <a class="source-link" href="https://pfasestimator.org/states/">All states &amp; territories index</a>
+      </p>
+    </section>
+
+    <div class="disclaimer">
+      Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023&ndash;2025. Detection does not indicate a health risk. Not medical advice. Data updated: July 2026. &middot; <a class="source-link" href="https://www.epa.gov/dwucmr" target="_blank" rel="noopener">EPA Source</a>
+    </div>
+
+  </div>
+</div>
+</body>
+</html>
