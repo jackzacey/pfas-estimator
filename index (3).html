@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Technical SEO -->
+  <title>PFAS Estimator | Check PFAS in Drinking Water by ZIP Code</title>
+  <meta name="description" content="Search EPA UCMR 5 drinking water data by ZIP code to see detected PFAS compounds, compare levels with federal limits, explore national maps, and read evidence-based health context." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pfasestimator.org/" />
+  <meta name="author" content="Jack Zhang" />
+  <meta name="application-name" content="PFAS Estimator" />
+  <meta name="theme-color" content="#175E97" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <!-- Social sharing previews -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PFAS Estimator" />
+  <meta property="og:title" content="PFAS Estimator | Check Chemicals in Drinking Water by ZIP Code" />
+  <meta property="og:description" content="Search EPA UCMR 5 drinking water data by ZIP code, compare detected PFAS levels with federal limits, and explore evidence-based health context." />
+  <meta property="og:url" content="https://pfasestimator.org/" />
+  <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+  <meta property="og:image:alt" content="PFAS Estimator drinking water contaminant lookup tool" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PFAS Estimator | Check PFAS in Drinking Water by ZIP Code" />
+  <meta name="twitter:description" content="Search EPA UCMR 5 drinking water data by ZIP code and explore evidence-based PFAS health context." />
+  <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://pfasestimator.org/#website",
+        "url": "https://pfasestimator.org/",
+        "name": "PFAS Estimator",
+        "description": "A free ZIP-code lookup tool for EPA UCMR 5 drinking water monitoring data.",
+        "inLanguage": ["en", "zh-Hans"],
+        "publisher": {"@id": "https://pfasestimator.org/#creator"}
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://pfasestimator.org/#app",
+        "name": "PFAS Estimator",
+        "url": "https://pfasestimator.org/",
+        "applicationCategory": "HealthApplication",
+        "applicationSubCategory": "Environmental health and drinking water information",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript and a modern web browser.",
+        "isAccessibleForFree": true,
+        "description": "Search EPA UCMR 5 drinking water monitoring data by ZIP code to view detected PFAS compounds, compare measurements with federal limits, explore national maps, and read evidence-based health context.",
+        "featureList": [
+          "ZIP-code drinking water lookup",
+          "EPA UCMR 5 monitoring data",
+          "PFAS concentration and federal limit comparisons",
+          "National state-level table and map",
+          "Evidence-based health context",
+          "Printable reports",
+          "English and Simplified Chinese interface"
+        ],
+        "creator": {"@id": "https://pfasestimator.org/#creator"},
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+      },
+      {
+        "@type": "Dataset",
+        "@id": "https://pfasestimator.org/#dataset",
+        "name": "PFAS Estimator UCMR 5 ZIP-Code Dataset",
+        "description": "Processed EPA UCMR 5 drinking water monitoring records linked to ZIP codes, retaining detected analytes and the highest recorded concentration per compound per ZIP code.",
+        "url": "https://pfasestimator.org/",
+        "isAccessibleForFree": true,
+        "license": "https://www.epa.gov/web-policies-and-procedures",
+        "creator": {"@id": "https://pfasestimator.org/#creator"},
+        "publisher": {
+          "@type": "Organization",
+          "name": "U.S. Environmental Protection Agency",
+          "url": "https://www.epa.gov/dwucmr"
+        },
+        "temporalCoverage": "2023/2025",
+        "spatialCoverage": {"@type": "Place", "name": "United States"},
+        "variableMeasured": [
+          "PFAS compound",
+          "Detected concentration",
+          "ZIP code",
+          "Public water system"
+        ],
+        "measurementTechnique": "EPA Fifth Unregulated Contaminant Monitoring Rule monitoring data processed and linked by PWSID to ZIP code."
+      },
+      {
+        "@type": "Person",
+        "@id": "https://pfasestimator.org/#creator",
+        "name": "Jack Zhang",
+        "url": "https://pfasestimator.org/"
+      }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
+  <script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config','G-FZQTEJ4LLY');
+function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
+  </script>
+
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- LEFT: MAIN CARD -->
+  <div class="card">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <span class="badge" style="margin-bottom:0;">National · EPA UCMR 5 Data · Educational Tool</span>
+      <div id="langToggle" onclick="toggleLanguage()" style="display:flex; border:1px solid var(--border-soft); border-radius:20px; overflow:hidden; cursor:pointer; font-size:12px; user-select:none;">
+        <span id="lang-en" style="padding:4px 12px; background:#175E97; color:white; transition:all 0.2s;">English</span>
+        <span id="lang-zh" style="padding:4px 12px; background:white; color:#999; transition:all 0.2s;">中文</span>
+      </div>
+    </div>
+
+    <h1 id="ui-title">U.S. Tap Water PFAS Checker</h1>
+    <p class="subtitle" id="ui-subtitle">Enter your zip code to find out what's in your tap water, what it means for your health, and what you can do about it.</p>
+
+    <div class="context-note">
+      <strong id="ui-howto-label">How to read these results:</strong> <span id="ui-howto-text">Ingesting tap water (drinking it, cooking with it, making coffee or baby formula) is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system. Detection does not mean your water is immediately dangerous, but it does mean you deserve to know what is there and what the research says.</span>
+    </div>
+
+    <div class="input-row">
+      <label for="zipInput" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">U.S. ZIP code</label>
+      <input type="text" id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" aria-label="Enter U.S. ZIP code" placeholder="Enter U.S. zip code" maxlength="5" />
+      <button onclick="checkZip()" id="ui-checkbtn">Check my area</button>
+    </div>
+
+    <div class="result" id="result">
+      <div class="print-header" id="printHeader">
+        <div class="print-header-top">
+          <div>
+            <h2>PFAS Water Quality Report</h2>
+            <div class="print-zip" id="printZip"></div>
+          </div>
+          <div class="print-meta">
+            <div>pfasestimator.org</div>
+            <div id="printDate"></div>
+            <div>EPA UCMR 5 Data (2023–2025)</div>
+          </div>
+        </div>
+        <div class="print-note">This report summarizes PFAS compounds detected in your public water system based on federal EPA monitoring data. Bring this to your next appointment to discuss with your healthcare provider. Detection does not indicate a health risk. Context and levels matter.</div>
+      </div>
+      <div class="result-title" id="resultTitle"></div>
+      <div class="result-context" id="resultContext"></div>
+      <div id="resultBody"></div>
+      <div class="print-footer" id="printFooter">
+        Data source: EPA Unregulated Contaminant Monitoring Rule 5 (UCMR 5), 2023–2025. Not medical advice. Tool built by Jack Zhang · <a href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a> · pfasestimator.org
+      </div>
+    </div>
+
+    <button class="print-btn" id="printBtn" onclick="trackEvent('download_report'); window.print()">⬛ Print / Save as PDF for your appointment</button>
+
+    <div class="clinical-log" id="clinicalLog">
+      <span id="ui-clinical-label">Provider: enter code to log this as a patient case</span>
+      <input type="password" id="clinicalCode" maxlength="3" placeholder="···" />
+      <button onclick="logClinicalCase()" id="ui-clinical-btn">Log</button>
+      <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
+    </div>
+
+    <div class="why-section">
+      <h2 id="ui-why-title">Why tap water ingestion matters</h2>
+      <p id="ui-why-p1">Drinking tap water and cooking with it are the primary ways PFAS compounds enter the body. Unlike skin contact during bathing (where absorption is minimal), ingestion allows these compounds to pass directly into the bloodstream. Because PFAS are resistant to breakdown, they accumulate in the body over time. Small, repeated exposures through daily tap water use can build up across months and years, which is why chronic low-level ingestion is the focus of most public health research.</p>
+      <p id="ui-why-p2">This matters most during periods when the body is especially sensitive to hormonal changes, including pregnancy, when thyroid hormones produced by the mother are essential for fetal brain development before the fetal thyroid becomes functional around week 12. Researchers continue to study whether long-term PFAS ingestion at levels currently considered acceptable may still carry health implications for vulnerable populations.</p>
+      <p id="ui-why-p3">This tool draws on federal EPA monitoring data to make that information accessible to anyone curious about their community's tap water. If something concerns you, the most productive next step is a conversation with your doctor and your local water utility.</p>
+      <p>Built by Jack Zhang · <a class="source-link" href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a></p>
+    </div>
+
+    <div class="disclaimer">
+      Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023–2025. Covers U.S. water systems with documented PFAS detections. Detection does not indicate a health risk. Not medical advice. · <a class="source-link" href="https://www.epa.gov/dwucmr" target="_blank">EPA Source</a>
+    </div>
+
+    <!-- RESEARCH SECTION -->
+    <div class="state-summary-section" id="researchers">
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+        <h2 style="margin:0;">For Researchers &amp; Journalists</h2>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <a href="/states/" style="font-size:12px; color:var(--primary); font-weight:500; text-decoration:none;">Browse by state &rarr;</a>
+          <div class="view-toggle" id="viewToggle">
+            <span id="toggleTable" class="active" onclick="setViewMode('table')">Table</span>
+            <span id="toggleMap" onclick="setViewMode('map')">Map</span>
+          </div>
+          <span id="stateSummaryToggle" onclick="toggleStateSummary()" style="font-size:12px; color:var(--primary); font-weight:500; cursor:pointer;">Show ▼</span>
+        </div>
+      </div>
+      <div id="stateSummaryContent" style="display:none;">
+        <p class="state-summary-subtitle" style="margin-top:0.75rem;">This tool is built on EPA UCMR 5 data (2023–2025), the most comprehensive federal PFAS drinking water dataset ever collected. UCMR 5 required monitoring from approximately 10,311 public water systems nationally. This dataset covers the 14,071 U.S. zip codes mapped from those systems that recorded at least one PFAS detection, comprising 40,311 compound-level records processed from raw EPA monitoring files.</p>
+
+        <div style="background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; margin-top:0.75rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
+          <strong>Dataset methodology</strong><br>
+          Raw EPA files were joined to zip code mapping via PWSID (Public Water System ID). Non-detections were filtered out. Where a compound appeared multiple times for the same zip code, the highest recorded level was kept. Output: one entry per compound per zip code. Because non-detections were excluded from the pipeline, every zip code in this dataset had at least one recorded detection. Zip codes where all compounds returned below the minimum reporting level are not represented.
+        </div>
+        <div style="background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; margin-top:0.75rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
+          <strong>Known limitations</strong><br>
+          Systems serving fewer than 3,300 people participated voluntarily; rural and small-town America is underrepresented. Data reflects a monitoring snapshot (2023–2025), not continuous measurement. Private wells (43 million Americans) are entirely absent. A zip code returning no results may mean clean water, an untested system, or a system below the reporting threshold. Detection levels reflect output at the treatment plant, not at the tap.
+        </div>
+        <div style="background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; margin-top:0.75rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
+          <strong>How to cite</strong><br>
+          Zhang, J. (2025). U.S. Tap Water PFAS Checker [Web tool]. Data source: U.S. EPA UCMR 5 (2023–2025). pfasestimator.org
+        </div>
+
+        <!-- NATIONAL FINDINGS -->
+        <div style="margin-top:1.25rem; padding:1rem 1.25rem; background:#fff8e6; border:1px solid #f5d87a; border-radius:8px;">
+          <div style="font-size:13px; font-weight:500; color:#5a3e00; margin-bottom:0.5rem;">📊 National Finding: Headline Stat</div>
+          <div style="font-size:22px; font-weight:600; color:#1a1a1a; margin-bottom:0.25rem;">36% <span style="font-size:14px; font-weight:400; color:#555;">of zip codes in this dataset</span></div>
+          <div style="font-size:13px; color:#5a3e00; line-height:1.6;">had at least one PFAS compound detected <strong>above its EPA limit</strong> (5,059 of 14,071 zip codes). This dataset includes only zip codes with at least one recorded PFAS detection. Zip codes where all compounds returned non-detect are not represented. The EPA's own January 2026 weighted estimate, calculated using running annual averages across all monitored systems, found approximately 8% of water systems nationally had at least one PFAS average above an MCL. The difference reflects methodology: this analysis uses single highest recorded readings; the EPA figure uses running annual averages.</div>
+        </div>
+
+        <!-- COMPOUND EXCEEDANCE TABLE -->
+        <div style="margin-top:1rem;">
+          <div style="font-size:13px; font-weight:500; color:#1a1a1a; margin-bottom:0.5rem;">Compounds with EPA Limits: Prevalence and Exceedance</div>
+          <div style="font-size:12px; color:#999; margin-bottom:0.75rem;">Source: EPA UCMR 5 (2023–2025) · 14,071 zip codes nationally.</div>
+          <table class="state-table" style="font-size:12px;">
+            <thead><tr>
+              <th style="cursor:default;">Compound</th>
+              <th style="cursor:default;">EPA Limit</th>
+              <th style="cursor:default;">Zips Detected</th>
+              <th style="cursor:default;">Note</th>
+              <th style="cursor:default;">Avg Level</th>
+              <th style="cursor:default;">Peak</th>
+            </tr></thead>
+            <tbody>
+              <tr><td><span class="compound-tag above">PFOS</span></td><td>0.004 µg/L</td><td>4,083 <span style="color:#999;font-size:11px;">(29% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">All recorded detections at or above limit</td><td>0.0120 µg/L</td><td>0.4900 µg/L</td></tr>
+              <tr><td><span class="compound-tag above">PFOA</span></td><td>0.004 µg/L</td><td>3,936 <span style="color:#999;font-size:11px;">(28% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">All recorded detections at or above limit</td><td>0.0095 µg/L</td><td>0.2350 µg/L</td></tr>
+              <tr><td><span class="compound-tag above">HFPO-DA</span></td><td>0.010 µg/L</td><td>203 <span style="color:#999;font-size:11px;">(1.4% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">35% of detections above limit</td><td>0.0209 µg/L</td><td>0.1400 µg/L</td></tr>
+              <tr><td><span class="compound-tag above">PFNA</span></td><td>0.010 µg/L</td><td>558 <span style="color:#999;font-size:11px;">(4% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">35% of detections above limit</td><td>0.0096 µg/L</td><td>0.0998 µg/L</td></tr>
+              <tr><td><span class="compound-tag above">PFHxS</span></td><td>0.010 µg/L</td><td>2,999 <span style="color:#999;font-size:11px;">(21% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">21% of detections above limit</td><td>0.0088 µg/L</td><td>0.2502 µg/L</td></tr>
+              <tr><td><span class="compound-tag">PFBS</span></td><td>2.000 µg/L</td><td>5,009 <span style="color:#999;font-size:11px;">(36% of all zips)</span></td><td style="color:#666;font-size:11px;">No detections above limit</td><td>0.0087 µg/L</td><td>0.2900 µg/L</td></tr>
+            </tbody>
+          </table>
+          <div style="font-size:11px; color:#999; margin-top:0.5rem; line-height:1.6;">PFOA and PFOS are reported by prevalence rather than exceedance rate. UCMR 5 records detections at or above the minimum reporting level, which for these compounds aligns with the 0.004 µg/L EPA limit, making a meaningful exceedance percentage impossible to calculate from this dataset alone.</div>
+        </div>
+
+        <!-- KEY FINDINGS -->
+        <div style="margin-top:1rem; background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
+          <strong>Key findings (citable)</strong>
+          <ul style="margin-top:0.5rem; padding-left:1.25rem; list-style:disc;">
+            <li style="margin-bottom:0.4rem;">Analysis of EPA UCMR 5 data (2023–2025) found that <strong>36% of zip codes in this dataset had at least one PFAS compound above its federal limit</strong> (5,059 of 14,071 zip codes). This dataset includes only zip codes with at least one recorded detection. The EPA's own January 2026 weighted estimate, using running annual averages, found approximately 8% of monitored water systems had at least one PFAS average above an MCL. The difference reflects a methodological distinction: this analysis uses each zip code's single highest recorded level; the EPA figure uses running annual averages across quarterly readings.</li>
+            <li style="margin-bottom:0.4rem;"><strong>PFHxS</strong>, which has an estimated 8-year biological half-life and the strongest documented thyroid disruption signal among regulated PFAS, exceeded EPA limits in <strong>21% of zip codes where it was detected</strong> (635 of 2,999 zip codes with PFHxS detections).</li>
+            <li style="margin-bottom:0.4rem;"><strong>PFOS</strong> was the most widely detected regulated compound, appearing in <strong>29% of all zip codes</strong> in the dataset (4,083 of 14,071). Peak detected level: 0.490 µg/L, more than 120 times the federal limit of 0.004 µg/L.</li>
+            <li style="margin-bottom:0.4rem;"><strong>PFOA</strong> peak detected level was 0.235 µg/L, nearly 60 times the federal limit of 0.004 µg/L.</li>
+            <li style="margin-bottom:0.4rem;"><strong>Lithium</strong>, currently under EPA review with a regulatory decision expected in 2026, was the most prevalent contaminant overall, detected in <strong>57% of the 14,071 zip codes</strong> in the dataset. No federal limit has been established.</li>
+            <li><strong>PFBS</strong> was detected in the most zip codes of any regulated compound (5,009) yet had zero exceedances of its 2.0 µg/L limit. This is an important counterpoint: detection does not automatically signal risk.</li>
+          </ul>
+        </div>
+
+        <div style="margin-top:1.25rem;" id="tableViewPanel">
+          <p class="state-summary-subtitle">PFAS Detections by State. Based on EPA UCMR 5 data across 14,071 zip codes. Click a column to sort.</p>
+          <div id="stateSummaryTable"></div>
+        </div>
+
+        <!-- MAP VIEW PANEL -->
+        <div id="mapViewPanel">
+          <div class="map-controls">
+            <span class="map-metric-label">Color by:</span>
+            <select class="map-select" id="mapMetric" onchange="renderMap()">
+              <option value="pctAbove">% Detections Above EPA Limit</option>
+              <option value="detections">Total PFAS Detections</option>
+              <option value="systems">Water Systems Affected</option>
+              <option value="compound_PFOS">PFOS Detections</option>
+              <option value="compound_PFOA">PFOA Detections</option>
+              <option value="compound_PFHxS">PFHxS Detections</option>
+              <option value="compound_PFBS">PFBS Detections</option>
+              <option value="compound_PFNA">PFNA Detections</option>
+              <option value="compound_HFPO-DA">HFPO-DA (GenX) Detections</option>
+            </select>
+            <div class="map-legend" id="mapLegend"></div>
+          </div>
+          <div class="map-fullscreen" id="mapContainer">
+            <svg id="pfasMapSvg"></svg>
+            <div class="map-tooltip" id="mapTooltip"></div>
+          </div>
+          <div class="map-source-note">Source: EPA UCMR 5 (2023–2025) · 14,071 ZIP codes · pfasestimator.org</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- end card -->
+
+  <!-- RIGHT: CHAT PANEL -->
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="chat-panel-dot"></div>
+          <span class="chat-panel-title" id="chat-panel-title">Health Q&amp;A</span>
+        </div>
+        <div class="chat-panel-sub" id="chat-panel-sub">Grounded in PFAS medical research · Not medical advice</div>
+      </div>
+    </div>
+    <div id="chatPanelEmpty" class="chat-panel-empty">Search a zip code to get personalized answers about your water results.</div>
+    <div id="aiMessages" class="ai-messages" style="display:none;"></div>
+    <div class="ai-suggestions" id="aiSuggestions" style="display:none;">
+      <span class="ai-suggestion" onclick="sendSuggestion(this)">Should I be concerned?</span>
+      <span class="ai-suggestion" onclick="sendSuggestion(this)">Is this safe during pregnancy?</span>
+      <span class="ai-suggestion" onclick="sendSuggestion(this)">What filter removes PFAS?</span>
+      <span class="ai-suggestion" onclick="sendSuggestion(this)">What symptoms are linked to PFAS?</span>
+    </div>
+    <div class="ai-input-row" id="aiInputRow" style="display:none;">
+      <input type="text" id="aiInput" placeholder="Ask about your results..." onkeydown="if(event.key==='Enter') sendAiMessage()" />
+      <button id="aiSendBtn" onclick="sendAiMessage()">Ask</button>
+    </div>
+    <div class="ai-disclaimer" id="aiDisclaimer" style="display:none;">Always consult a healthcare provider for personal medical guidance.</div>
+  </div>
+
+</div><!-- end page-wrapper -->
+
+<div class="counter-badge"><span id="searchCount">—</span> searches</div>
+<div class="counter-badge" style="bottom:52px;"><span id="clinicalCount">—</span> patient cases</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script src="data.js"></script>
+<script src="science.js"></script>
+<script>
+
+  // ── GLOBALS ──────────────────────────────────────────────────────────────
+  
+  const GROQ_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
+  const GROQ_MODEL = "llama-3.3-70b-versatile";
+  let currentLang = 'en';
+  let aiMessages = [];
+  let currentZipContext = "";
+  let lastZip = null;
+  let lastMatches = null;
+
+  // ── HELPERS ───────────────────────────────────────────────────────────────
+  function getRiskLevel(compound, level) {
+    const limit = SCIENCE[compound]?.epa_limit;
+    return (limit && level >= limit) ? "above" : "below";
+  }
+
+  async function groqFetch(prompt, maxTokens) {
+    const res = await fetch(GROQ_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: GROQ_MODEL, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] })
+    });
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || null;
+  }
+
+  // ── COUNTER ───────────────────────────────────────────────────────────────
+  async function incrementCount() {
+    try {
+      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up');
+      const data = await res.json();
+      if (data.count) document.getElementById('searchCount').textContent = data.count.toLocaleString();
+    } catch(e) {}
+  }
+
+  // ── ZIP CHECK ─────────────────────────────────────────────────────────────
+  function checkZip() {
+    const zip = document.getElementById("zipInput").value.trim();
+    const result = document.getElementById("result");
+    const title = document.getElementById("resultTitle");
+    const context = document.getElementById("resultContext");
+    const body = document.getElementById("resultBody");
+    const printBtn = document.getElementById("printBtn");
+
+    if (zip.length !== 5 || isNaN(zip)) {
+      result.className = "result checking";
+      title.textContent = "Please enter a valid 5-digit zip code.";
+      context.textContent = ""; body.innerHTML = "";
+      printBtn.classList.remove("visible");
+      return;
+    }
+
+    result.className = "result checking";
+    title.textContent = "Checking your area...";
+    context.textContent = ""; body.innerHTML = "";
+    printBtn.classList.remove("visible");
+    incrementCount();
+    trackEvent('search_zip');
+
+    setTimeout(() => {
+      const matches = DATA[zip];
+      lastZip = zip;
+      lastMatches = matches || null;
+      document.getElementById("printZip").textContent = "Zip code: " + zip;
+      document.getElementById("printDate").textContent = "Generated: " + new Date().toLocaleDateString("en-US", {year:"numeric",month:"long",day:"numeric"});
+
+      if (matches && matches.length > 0) {
+        trackEvent('lookup_success');
+        const t = translations[currentLang];
+        const anyAbove = matches.some(m => getRiskLevel(m.compound, m.level) === "above");
+        result.className = anyAbove ? "result found-above" : "result found-below";
+        title.textContent = anyAbove ? t.resultTitleAbove : t.resultTitleBelow;
+        context.textContent = t.resultAnalyzing;
+
+        // AI header
+        generateHeader(zip, matches).then(summary => {
+          context.textContent = summary || (anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow);
+        });
+
+        // Build compound cards
+        const isZh = currentLang === 'zh';
+        let html = "";
+        matches.forEach((m, idx) => {
+          const science = SCIENCE[m.compound] || {};
+          const risk = getRiskLevel(m.compound, m.level);
+          const fullName = isZh ? (science.full_zh || science.full || m.compound) : (science.full || m.compound);
+          const epaText = science.epa_limit
+            ? (isZh ? `EPA限值：${science.epa_limit} µg/L` : `EPA limit: ${science.epa_limit} µg/L`)
+            : (isZh ? "尚无联邦限值" : "No federal limit set");
+          const rawPct = science.epa_limit ? ((m.level / science.epa_limit) * 100) : null;
+          const barPct = rawPct !== null ? rawPct.toFixed(0) : null;
+          const gaugeFillPct = rawPct !== null ? Math.min(rawPct, 150) / 150 * 100 : null;
+          const clinicalText = isZh ? (science.clinical_threshold_zh || science.clinical_threshold) : science.clinical_threshold;
+          const actionText = isZh ? (science.actionable_zh || science.actionable) : science.actionable;
+          const evidenceText = isZh ? (science.evidence_note_zh || science.evidence_note) : science.evidence_note;
+          const fallbackHealth = isZh ? (science.health_effects_zh || science.health_effects) : science.health_effects;
+          const t = {
+            above: isZh ? '⚠ 检出值超过EPA限值' : '⚠ Detected above EPA limit',
+            below: isZh ? '✓ 检出值低于EPA限值' : '✓ Detected below EPA limit',
+            noLimit: isZh ? '尚无联邦限值——研究人员正在持续监测' : 'No federal limit set. Presence is being monitored by researchers.',
+            analyzing: isZh ? '正在分析此水平对您健康的意义...' : 'Analyzing what this level means for your health...',
+            threshold: isZh ? '📊 临床相关阈值' : '📊 Clinically relevant thresholds',
+            action: isZh ? '✅ 您可以采取的行动' : '✅ What you can do',
+            note: isZh ? '注：' : 'Note:',
+            healthLabel: isZh ? '🩺 这对您意味着什么' : '🩺 What this level means for you',
+            fallbackLabel: isZh ? '🩺 与该化合物相关的健康影响' : '🩺 Health effects linked to this compound',
+            emerging: isZh ? '该化合物的相关研究仍在进行中。' : 'Research on this compound is still emerging.',
+            pctOf: isZh ? '（EPA限值百分比）' : 'of EPA limit'
+          };
+
+          html += `
+            <div class="detail-box" id="compound-card-${idx}"
+              data-health-label="${t.healthLabel}"
+              data-fallback-label="${t.fallbackLabel}"
+              data-fallback-health="${encodeURIComponent(fallbackHealth || '')}"
+              data-emerging="${t.emerging}">
+              <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+                <div>
+                  <span class="compound-tag ${risk === 'above' ? 'above' : ''}">${m.compound}</span>
+                  <span style="font-size:12px; color:#888; margin-left:6px;">${fullName}</span>
+                </div>
+                <span style="font-size:12px; color:#888;">${m.sys}</span>
+              </div>
+              <div style="margin-top:10px; padding:10px 12px; background:${risk === 'above' ? 'var(--warn-tint)' : 'var(--primary-tint)'}; border-radius:8px; border:1px solid ${risk === 'above' ? 'var(--warn-tint-border)' : 'var(--primary-tint-border)'};">
+                <div style="font-size:13px; font-weight:600; color:${risk === 'above' ? 'var(--warn-strong)' : 'var(--primary)'}; margin-bottom:4px;">${risk === 'above' ? t.above : t.below}</div>
+                <div style="font-size:13px; color:#333;"><strong style="font-family:var(--mono);">${m.level} µg/L</strong> &nbsp;·&nbsp; ${epaText}</div>
+                ${barPct !== null
+                  ? `<div class="epa-bar" style="margin-top:8px;"><div class="epa-bar-label">${barPct}% ${t.pctOf}</div><div class="bar-track"><div class="bar-fill ${risk === 'above' ? 'above' : ''}" style="width:${gaugeFillPct}%"></div><div class="bar-tick"></div></div></div>`
+                  : `<div style="font-size:11px; color:#999; margin-top:4px;">${t.noLimit}</div>`}
+              </div>
+              <div id="ai-summary-${idx}" class="science-box" style="margin-top:10px; min-height:60px;">
+                <div style="color:#aaa; font-size:12px; font-style:italic;">${t.analyzing}</div>
+              </div>
+              ${clinicalText ? `<div class="science-box" style="margin-top:6px; border-left-color:#b89bd6;"><h3>${t.threshold}</h3><p>${clinicalText}${science.refs && science.refs.length ? ' ' + science.refs.map((r,i) => `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="inline-ref" title="${r.label}">[${i+1}]</a>`).join('') : ''}</p></div>` : ""}
+              ${actionText ? `<div class="science-box" style="margin-top:6px; background:#eaf7f0; border-left-color:#4fae7a;"><h3>${t.action}</h3><p>${actionText}</p></div>` : ""}
+              ${evidenceText ? `<div style="margin-top:6px; padding:8px 10px; background:var(--warn-tint); border:1px solid var(--warn-tint-border); border-radius:8px; font-size:12px; color:#7a5a00; line-height:1.6;"><strong>${t.note}</strong> ${evidenceText}</div>` : ""}
+              ${science.refs && science.refs.length ? `<div class="compound-refs"><div class="compound-refs-label">Sources</div>${science.refs.map((r,i) => `<a href="${r.url}" target="_blank" rel="noopener noreferrer">[${i+1}] ${r.label}</a>`).join('')}</div>` : ""}
+            </div>`;
+        });
+        body.innerHTML = html;
+        printBtn.classList.add("visible");
+        document.getElementById('clinicalLog').style.display = 'block';
+
+        // Fire all compound AI summaries in parallel
+        matches.forEach((m, idx) => {
+          generateCompoundSummary(m.compound, m.level, SCIENCE[m.compound] || {}).then(summary => {
+            const el = document.getElementById(`ai-summary-${idx}`);
+            const card = document.getElementById(`compound-card-${idx}`);
+            if (!el) return;
+            const healthLabel = card?.dataset.healthLabel || '🩺 What this level means for you';
+            const fallbackLabel = card?.dataset.fallbackLabel || '🩺 Health effects linked to this compound';
+            const fallbackHealth = decodeURIComponent(card?.dataset.fallbackHealth || '');
+            const emergingText = card?.dataset.emerging || 'Research on this compound is still emerging.';
+            el.innerHTML = summary
+              ? `<h3>${healthLabel}</h3><p>${summary}</p>`
+              : (fallbackHealth ? `<h3>${fallbackLabel}</h3><p>${fallbackHealth}</p>` : `<p style="color:#aaa; font-size:12px; font-style:italic;">${emergingText}</p>`);
+          });
+        });
+
+        // Open chat panel
+        currentZipContext = buildZipContext(zip, matches);
+        aiMessages = [];
+        document.getElementById('chatPanel').classList.add('visible');
+        document.getElementById('chatPanelEmpty').style.display = 'none';
+        const msgBox = document.getElementById('aiMessages');
+        msgBox.style.display = 'flex';
+        msgBox.innerHTML = '';
+        document.getElementById('aiSuggestions').style.display = 'flex';
+        document.getElementById('aiInputRow').style.display = 'flex';
+        document.getElementById('aiDisclaimer').style.display = 'block';
+
+        const hasAbove = matches.some(m => getRiskLevel(m.compound, m.level) === 'above');
+        const isZhChat = currentLang === 'zh';
+        const opener = hasAbove
+          ? (isZhChat ? "您所在地区的水中检测到一种或多种超过EPA限值的化合物。请随时就此提问——我会结合您的具体检测结果作答。" : "Your area's water had compounds detected above EPA limits. Feel free to ask me anything. I will answer based on your specific results.")
+          : (isZhChat ? "您所在地区的检出化合物均低于EPA限值。如您对检测结果有任何疑问，欢迎提问。" : "Your area's detected compounds were all below EPA limits. Ask me anything about what was found and what it means.");
+        appendAiMsg('assistant', opener);
+        aiMessages.push({ role: "assistant", content: opener });
+
+      } else {
+        trackEvent('lookup_not_found');
+        const t = translations[currentLang];
+        result.className = "result not-found";
+        title.textContent = t.noResults;
+        context.textContent = "";
+        body.innerHTML = `<p style="font-size:13px; color:#555; line-height:1.7;">${t.noResultsDetail}</p>`;
+        printBtn.classList.remove("visible");
+        document.getElementById('clinicalLog').style.display = 'none';
+        document.getElementById('chatPanel').classList.remove('visible');
+        document.getElementById('clinicalConfirm').style.display = 'none';
+        document.getElementById('clinicalCode').style.display = 'inline';
+        document.querySelector('.clinical-log button').style.display = 'inline';
+        document.getElementById('clinicalCode').value = '';
+      }
+    }, 700);
+  }
+
+  document.getElementById("zipInput").addEventListener("keydown", e => { if (e.key === "Enter") checkZip(); });
+
+  // Support deep-linking from state pages, e.g. pfasestimator.org/?zip=90210
+  (function initFromQueryParam() {
+    const params = new URLSearchParams(window.location.search);
+    const zipParam = params.get('zip');
+    if (zipParam && /^\d{5}$/.test(zipParam)) {
+      document.getElementById('zipInput').value = zipParam;
+      checkZip();
+      trackEvent('zip_deep_link', { zip: zipParam });
+    }
+  })();
+
+  // ── AI CALLS ──────────────────────────────────────────────────────────────
+  async function generateHeader(zip, matches) {
+    const isZh = currentLang === 'zh';
+    const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
+    const compoundList = matches.map(m => {
+      const s = SCIENCE[m.compound] || {};
+      const limit = s.epa_limit;
+      return limit
+        ? (m.level >= limit ? `${m.compound} at ${((m.level/limit)*100).toFixed(0)}% of EPA limit (ABOVE)` : `${m.compound} at ${((m.level/limit)*100).toFixed(0)}% of EPA limit (below)`)
+        : `${m.compound} (no federal limit set)`;
+    }).join(', ');
+    const prompt = `${lang}A person looked up zip code ${zip} and found these PFAS compounds in their tap water: ${compoundList}.
+Write exactly 2 sentences${isZh ? ' in Simplified Chinese' : ' in plain, caring English'} like a doctor summarizing results to a patient.
+- Sentence 1: state how many compounds were found and whether any exceed EPA limits
+- Sentence 2: name the single most clinically relevant health concern, mentioning who is most at risk
+- Be honest but not alarmist. No bullet points, no headers, no citations.`;
+    try { return await groqFetch(prompt, 120); } catch(e) { return null; }
+  }
+
+  async function generateCompoundSummary(compound, level, science) {
+    const isZh = currentLang === 'zh';
+    const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
+    const limit = science.epa_limit;
+    const pct = limit ? ((level / limit) * 100).toFixed(0) : null;
+    const prompt = `${lang}You are explaining tap water test results to a patient in plain, caring language like a doctor. Avoid all technical jargon and study citations.
+This person's tap water contains:
+- ${compound} (${science.full || compound})
+- Detected at ${level} µg/L ${limit ? `: ${pct}% of the EPA safety limit` : 'no federal limit has been set yet'}
+What researchers know: ${isZh ? (science.health_effects_zh || science.health_effects || '') : (science.health_effects || '')}
+${limit ? `Thresholds: ${isZh ? (science.clinical_threshold_zh || science.clinical_threshold || '') : (science.clinical_threshold || '')}` : ''}
+Write 2-3 sentences that answer "Should I be concerned at this specific level?"
+- Lead with whether this level is a real concern at this specific concentration
+- Name the most relevant health effect in plain everyday terms, and who is most at risk
+- Do NOT mention filters, what to do, next steps, or any recommended actions. Those are covered separately.
+- Do NOT say "consult a doctor" or give any action-oriented advice
+- No bullet points, no headers, no citations. Plain prose only.`;
+    try { return await groqFetch(prompt, 200); } catch(e) { return null; }
+  }
+
+  // ── CHAT ──────────────────────────────────────────────────────────────────
+  function buildZipContext(zip, matches) {
+    if (!matches || matches.length === 0) return "";
+    let ctx = `The user searched zip code ${zip}. PFAS compounds detected in their tap water:\n\n`;
+    matches.forEach(m => {
+      const s = SCIENCE[m.compound] || {};
+      const limit = s.epa_limit;
+      const status = limit ? (m.level >= limit ? "ABOVE EPA limit" : "below EPA limit") : "no federal limit set";
+      ctx += `--- ${m.compound} (${s.full || m.compound}) ---\n`;
+      ctx += `Detected: ${m.level} µg/L (${status})${limit ? ` (EPA limit: ${limit} µg/L)` : ""}\nWater system: ${m.sys}\n`;
+      if (s.health_effects) ctx += `Health effects: ${s.health_effects}\n`;
+      if (s.clinical_threshold) ctx += `Clinical thresholds: ${s.clinical_threshold}\n`;
+      if (s.actionable) ctx += `Recommended actions: ${s.actionable}\n`;
+      if (s.evidence_note) ctx += `Evidence note: ${s.evidence_note}\n`;
+      ctx += '\n';
+    });
+    return ctx;
+  }
+
+  function appendAiMsg(role, text) {
+    const container = document.getElementById('aiMessages');
+    const div = document.createElement('div');
+    div.className = `ai-msg ${role}`;
+    div.textContent = text;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+    return div;
+  }
+
+  function sendSuggestion(el) {
+    document.getElementById('aiInput').value = el.textContent;
+    document.getElementById('aiSuggestions').style.display = 'none';
+    sendAiMessage();
+  }
+
+  async function sendAiMessage() {
+    const input = document.getElementById('aiInput');
+    const btn = document.getElementById('aiSendBtn');
+    const text = input.value.trim();
+    if (!text || btn.disabled) return;
+
+    input.value = '';
+    btn.disabled = true;
+    document.getElementById('aiSuggestions').style.display = 'none';
+    appendAiMsg('user', text);
+    aiMessages.push({ role: "user", content: text });
+    trackEvent('ai_question');
+
+    const thinking = appendAiMsg('thinking', currentLang === 'zh' ? '正在查阅PFAS研究资料...' : 'Looking through PFAS research...');
+
+    try {
+      const isZh = currentLang === 'zh';
+      const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
+      const redirect = isZh
+        ? '这超出了我能回答的范围——但关于您的水质结果，我很乐意回答有关PFAS健康影响、您的检出水平意味着什么，或您可以采取哪些措施的问题。'
+        : "That is outside what I can help with here, but regarding your water results, I'm happy to answer questions about PFAS health effects, what your levels mean, or what steps to take.";
+
+      const systemPrompt = `${lang}You are a knowledgeable health assistant specializing in PFAS contamination and its effects on human health. Answer based strictly on published medical and epidemiological research.
+
+${currentZipContext}
+
+Guidelines:
+- Only answer questions related to PFAS, water quality, environmental health, or adjacent medical/clinical topics
+- If asked about anything unrelated, politely redirect: "${redirect}"
+- Answer based on the user's specific results above when relevant
+- Be honest about what the research does and doesn't show
+- For pregnancy questions, focus on thyroid disruption (T3/T4, iodine uptake, fetal brain development)
+- Always suggest consulting a healthcare provider for personal medical decisions
+- When recommending filters, always specify NSF/ANSI 58-certified filters
+- Be concise: 2 to 4 sentences unless the question warrants more
+- Never be alarmist, but don't downplay legitimate concerns
+- Never diagnose or suggest a specific person has a health condition`;
+
+      const response = await fetch(GROQ_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: GROQ_MODEL, max_tokens: 1000,
+          messages: [{ role: "system", content: systemPrompt }, ...aiMessages]
+        })
+      });
+      const data = await response.json();
+      const reply = data.choices?.[0]?.message?.content
+        || (isZh ? '无法生成回复，请重试。' : "I wasn't able to generate a response. Please try again.");
+      thinking.remove();
+      appendAiMsg('assistant', reply);
+      aiMessages.push({ role: "assistant", content: reply });
+    } catch(e) {
+      thinking.remove();
+      appendAiMsg('assistant', currentLang === 'zh' ? '连接健康助手时出现问题，请重试。' : "Something went wrong connecting to the health assistant. Please try again.");
+    }
+
+    btn.disabled = false;
+    document.getElementById('aiInput').focus();
+  }
+
+  // ── CLINICAL LOG ──────────────────────────────────────────────────────────
+  function logClinicalCase() {
+    const code = document.getElementById('clinicalCode').value;
+    if (code !== '369') {
+      document.getElementById('clinicalCode').value = '';
+      document.getElementById('clinicalCode').placeholder = 'wrong';
+      setTimeout(() => document.getElementById('clinicalCode').placeholder = '···', 1500);
+      return;
+    }
+    fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/up')
+      .then(r => r.json())
+      .then(d => { if (d.count) document.getElementById('clinicalCount').textContent = d.count.toLocaleString(); })
+      .catch(() => {});
+    document.getElementById('clinicalConfirm').style.display = 'block';
+    document.getElementById('clinicalCode').style.display = 'none';
+    document.querySelector('.clinical-log button').style.display = 'none';
+    trackEvent('clinical_case_logged');
+  }
+
+  // ── RESEARCH / STATE TABLE ────────────────────────────────────────────────
+  let currentViewMode = 'table';
+  let mapBuilt = false;
+  let stateMapData = {}; // computed once, reused
+
+  function setViewMode(mode) {
+    currentViewMode = mode;
+    document.getElementById('toggleTable').className = mode === 'table' ? 'active' : '';
+    document.getElementById('toggleMap').className = mode === 'map' ? 'active' : '';
+    // If content is already visible, swap panels immediately
+    const content = document.getElementById('stateSummaryContent');
+    if (content.style.display !== 'none') {
+      document.getElementById('tableViewPanel').style.display = mode === 'table' ? 'block' : 'none';
+      document.getElementById('mapViewPanel').classList.toggle('visible', mode === 'map');
+      if (mode === 'map') initMapIfNeeded();
+    }
+  }
+
+  function toggleStateSummary() {
+    const content = document.getElementById('stateSummaryContent');
+    const toggle = document.getElementById('stateSummaryToggle');
+    const isHidden = content.style.display === 'none';
+    content.style.display = isHidden ? 'block' : 'none';
+    toggle.textContent = isHidden ? 'Hide ▲' : 'Show ▼';
+    if (isHidden) {
+      // Show the correct panel for current mode
+      document.getElementById('tableViewPanel').style.display = currentViewMode === 'table' ? 'block' : 'none';
+      document.getElementById('mapViewPanel').classList.toggle('visible', currentViewMode === 'map');
+      if (currentViewMode === 'map') {
+        initMapIfNeeded();
+        // Scroll to map
+        setTimeout(() => {
+          document.getElementById('mapContainer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+    }
+  }
+
+  function initMapIfNeeded() {
+    if (!mapBuilt) {
+      buildStateMapData();
+      renderMap();
+      mapBuilt = true;
+    }
+  }
+
+  function buildStateMapData() {
+    const epaLimits = {};
+    for (const [compound, info] of Object.entries(SCIENCE)) {
+      if (info.epa_limit) epaLimits[compound] = info.epa_limit;
+    }
+    stateMapData = {};
+    for (const [zip, entries] of Object.entries(DATA)) {
+      const state = ZIP_TO_STATE[zip.substring(0, 3)];
+      if (!state) continue;
+      if (!stateMapData[state]) {
+        stateMapData[state] = { detections: 0, systems: new Set(), aboveLimit: 0, compounds: {}, totalLevel: 0, levelCount: 0 };
+      }
+      const s = stateMapData[state];
+      for (const entry of entries) {
+        s.detections++;
+        s.systems.add(entry.sys);
+        if (epaLimits[entry.compound] && entry.level > epaLimits[entry.compound]) s.aboveLimit++;
+        s.compounds[entry.compound] = (s.compounds[entry.compound] || 0) + 1;
+        s.totalLevel += entry.level;
+        s.levelCount++;
+      }
+    }
+    // Flatten
+    for (const [st, s] of Object.entries(stateMapData)) {
+      stateMapData[st] = {
+        detections: s.detections,
+        systems: s.systems.size,
+        pctAbove: s.aboveLimit > 0 ? parseFloat(((s.aboveLimit / s.detections) * 100).toFixed(1)) : 0,
+        avgLevel: s.levelCount > 0 ? parseFloat((s.totalLevel / s.levelCount).toFixed(4)) : 0,
+        topCompound: Object.entries(s.compounds).sort((a,b) => b[1]-a[1])[0]?.[0] || '—',
+        compounds: s.compounds
+      };
+    }
+  }
+
+  function getMetricValue(stateCode, metric) {
+    const s = stateMapData[stateCode];
+    if (!s) return null;
+    if (metric.startsWith('compound_')) {
+      const cmp = metric.replace('compound_', '');
+      return s.compounds[cmp] || 0;
+    }
+    return s[metric] ?? null;
+  }
+
+  function renderMap() {
+    const metric = document.getElementById('mapMetric').value;
+    const container = document.getElementById('mapContainer');
+    const svg = document.getElementById('pfasMapSvg');
+    svg.innerHTML = '';
+
+    // Compute domain
+    const vals = Object.keys(stateMapData).map(st => getMetricValue(st, metric)).filter(v => v !== null && v > 0);
+    const maxVal = vals.length ? Math.max(...vals) : 1;
+
+    // Color scale — white → orange (below-limit feel) or white → red-blue diverge for pctAbove
+    let colorScale;
+    if (metric === 'pctAbove') {
+      // 0% = soft blue tint, 50%+ = clay/amber (matching site palette)
+      colorScale = v => {
+        if (v === null || v === 0) return '#dfeaf0';
+        const t = Math.min(v / 60, 1);
+        // interpolate #cbdce3 → #C9701F
+        const r = Math.round(203 + (201 - 203) * t);
+        const g = Math.round(220 + (112 - 220) * t);
+        const b = Math.round(227 + (31 - 227) * t);
+        return `rgb(${r},${g},${b})`;
+      };
+    } else {
+      // 0 = lightest blue tint, max = deep primary blue
+      colorScale = v => {
+        if (!v) return '#dfeaf0';
+        const t = Math.min(v / maxVal, 1);
+        const r = Math.round(223 + (23 - 223) * t);
+        const g = Math.round(234 + (94 - 234) * t);
+        const b = Math.round(240 + (151 - 240) * t);
+        return `rgb(${r},${g},${b})`;
+      };
+    }
+
+    // Build legend
+    buildMapLegend(metric, maxVal, colorScale);
+
+    // Labels for tooltip
+    const metricLabel = {
+      pctAbove: '% above EPA limit',
+      detections: 'total detections',
+      systems: 'water systems',
+    };
+
+    // Load US TopoJSON
+    const topoUrl = 'https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json';
+    const tooltip = document.getElementById('mapTooltip');
+
+    d3.json(topoUrl).then(us => {
+      const w = container.clientWidth || 680;
+      const h = container.clientHeight || 480;
+      const svgEl = d3.select('#pfasMapSvg').attr('viewBox', `0 0 ${w} ${h}`);
+
+      const projection = d3.geoAlbersUsa().fitSize([w - 10, h - 10], topojson.feature(us, us.objects.states));
+      const path = d3.geoPath().projection(projection);
+
+      // FIPS → state abbrev map (built from ZIP_TO_STATE logic via state name)
+      // We need FIPS codes from the TopoJSON to match our state abbreviations.
+      // TopoJSON states-10m has properties.name — map name → abbrev
+      const nameToAbbrev = {
+        'Alabama':'AL','Alaska':'AK','Arizona':'AZ','Arkansas':'AR','California':'CA',
+        'Colorado':'CO','Connecticut':'CT','Delaware':'DE','District of Columbia':'DC',
+        'Florida':'FL','Georgia':'GA','Hawaii':'HI','Idaho':'ID','Illinois':'IL',
+        'Indiana':'IN','Iowa':'IA','Kansas':'KS','Kentucky':'KY','Louisiana':'LA',
+        'Maine':'ME','Maryland':'MD','Massachusetts':'MA','Michigan':'MI','Minnesota':'MN',
+        'Mississippi':'MS','Missouri':'MO','Montana':'MT','Nebraska':'NE','Nevada':'NV',
+        'New Hampshire':'NH','New Jersey':'NJ','New Mexico':'NM','New York':'NY',
+        'North Carolina':'NC','North Dakota':'ND','Ohio':'OH','Oklahoma':'OK','Oregon':'OR',
+        'Pennsylvania':'PA','Rhode Island':'RI','South Carolina':'SC','South Dakota':'SD',
+        'Tennessee':'TN','Texas':'TX','Utah':'UT','Vermont':'VT','Virginia':'VA',
+        'Washington':'WA','West Virginia':'WV','Wisconsin':'WI','Wyoming':'WY',
+        'Puerto Rico':'PR'
+      };
+
+      const states = topojson.feature(us, us.objects.states).features;
+
+      svgEl.selectAll('.map-state')
+        .data(states)
+        .join('path')
+        .attr('class', 'map-state')
+        .attr('d', path)
+        .attr('fill', d => {
+          const abbrev = nameToAbbrev[d.properties.name];
+          const val = abbrev ? getMetricValue(abbrev, metric) : null;
+          return (val === null || val === 0) ? '#e0e8f5' : colorScale(val);
+        })
+        .on('mousemove', function(event, d) {
+          const abbrev = nameToAbbrev[d.properties.name];
+          const s = abbrev ? stateMapData[abbrev] : null;
+          if (!s) {
+            tooltip.style.display = 'none';
+            return;
+          }
+          const val = getMetricValue(abbrev, metric);
+          let metricStr = '';
+          if (metric === 'pctAbove') metricStr = `<span class="${val > 0 ? 'tip-above' : 'tip-below'}">${val}% above EPA limit</span>`;
+          else if (metric === 'detections') metricStr = `${s.detections.toLocaleString()} total detections`;
+          else if (metric === 'systems') metricStr = `${s.systems.toLocaleString()} water systems`;
+          else metricStr = `${val || 0} detections`;
+
+          tooltip.innerHTML = `<strong>${d.properties.name} (${abbrev})</strong>${metricStr}<br><span style="color:#888;font-size:11px;">Top compound: ${s.topCompound} · ${s.pctAbove}% above limit · ${s.systems} systems</span>`;
+          const rect = container.getBoundingClientRect();
+          let tx = event.clientX - rect.left + 14;
+          let ty = event.clientY - rect.top - 10;
+          if (tx + 230 > w) tx -= 240;
+          if (ty + 80 > h) ty -= 90;
+          tooltip.style.left = tx + 'px';
+          tooltip.style.top = ty + 'px';
+          tooltip.style.display = 'block';
+        })
+        .on('mouseleave', () => { tooltip.style.display = 'none'; });
+
+      // State borders
+      svgEl.append('path')
+        .datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b))
+        .attr('fill', 'none')
+        .attr('stroke', 'white')
+        .attr('stroke-width', 0.7)
+        .attr('d', path);
+    }).catch(() => {
+      svg.innerHTML = '<text x="50%" y="50%" text-anchor="middle" fill="#999" font-size="13" font-family="sans-serif">Map unavailable. Check your network connection.</text>';
+    });
+  }
+
+  function buildMapLegend(metric, maxVal, colorScale) {
+    const legend = document.getElementById('mapLegend');
+    legend.innerHTML = '';
+    let steps;
+    if (metric === 'pctAbove') {
+      steps = [0, 15, 30, 45, '60+'].map((v, i) => ({
+        label: typeof v === 'string' ? v + '%' : v + '%',
+        color: colorScale(typeof v === 'string' ? 60 : v)
+      }));
+    } else {
+      const inc = maxVal / 4;
+      steps = [0, 1, 2, 3, 4].map(i => ({
+        label: i === 0 ? '0' : i === 4 ? Math.round(maxVal).toLocaleString() + '+' : Math.round(inc * i).toLocaleString(),
+        color: colorScale(inc * i)
+      }));
+    }
+    steps.forEach(s => {
+      const item = document.createElement('div');
+      item.className = 'map-legend-item';
+      item.innerHTML = `<div class="map-legend-swatch" style="background:${s.color};border:1px solid #ccc;"></div><span>${s.label}</span>`;
+      legend.appendChild(item);
+    });
+  }
+
+
+  const ZIP_TO_STATE = {"006":"PR","007":"PR","008":"PR","009":"PR","010":"MA","011":"MA","012":"MA","013":"MA","014":"MA","015":"MA","016":"MA","017":"MA","018":"MA","019":"MA","020":"MA","021":"MA","022":"MA","023":"MA","024":"MA","025":"MA","026":"MA","027":"MA","028":"RI","029":"RI","030":"NH","031":"NH","032":"NH","033":"NH","034":"NH","035":"NH","036":"NH","037":"NH","038":"NH","039":"NH","040":"ME","041":"ME","042":"ME","043":"ME","044":"ME","045":"ME","046":"ME","047":"ME","048":"ME","049":"ME","050":"VT","051":"VT","052":"VT","053":"VT","054":"VT","055":"VT","056":"VT","057":"VT","058":"VT","059":"VT","060":"CT","061":"CT","062":"CT","063":"CT","064":"CT","065":"CT","066":"CT","067":"CT","068":"CT","069":"CT","070":"NJ","071":"NJ","072":"NJ","073":"NJ","074":"NJ","075":"NJ","076":"NJ","077":"NJ","078":"NJ","079":"NJ","080":"NJ","081":"NJ","082":"NJ","083":"NJ","084":"NJ","085":"NJ","086":"NJ","087":"NJ","088":"NJ","089":"NJ","100":"NY","101":"NY","102":"NY","103":"NY","104":"NY","105":"NY","106":"NY","107":"NY","108":"NY","109":"NY","110":"NY","111":"NY","112":"NY","113":"NY","114":"NY","115":"NY","116":"NY","117":"NY","118":"NY","119":"NY","120":"NY","121":"NY","122":"NY","123":"NY","124":"NY","125":"NY","126":"NY","127":"NY","128":"NY","129":"NY","130":"NY","131":"NY","132":"NY","133":"NY","134":"NY","135":"NY","136":"NY","137":"NY","138":"NY","139":"NY","140":"NY","141":"NY","142":"NY","143":"NY","144":"NY","145":"NY","146":"NY","147":"NY","148":"NY","149":"NY","150":"PA","151":"PA","152":"PA","153":"PA","154":"PA","155":"PA","156":"PA","157":"PA","158":"PA","159":"PA","160":"PA","161":"PA","162":"PA","163":"PA","164":"PA","165":"PA","166":"PA","167":"PA","168":"PA","169":"PA","170":"PA","171":"PA","172":"PA","173":"PA","174":"PA","175":"PA","176":"PA","177":"PA","178":"PA","179":"PA","180":"PA","181":"PA","182":"PA","183":"PA","184":"PA","185":"PA","186":"PA","187":"PA","188":"PA","189":"PA","190":"PA","191":"PA","192":"PA","193":"PA","194":"PA","195":"PA","196":"PA","197":"DE","198":"DE","199":"DE","200":"DC","201":"VA","202":"DC","203":"DC","204":"DC","205":"DC","206":"MD","207":"MD","208":"MD","209":"MD","210":"MD","211":"MD","212":"MD","214":"MD","215":"MD","216":"MD","217":"MD","218":"MD","219":"MD","220":"VA","221":"VA","222":"VA","223":"VA","224":"VA","225":"VA","226":"VA","227":"VA","228":"VA","229":"VA","230":"VA","231":"VA","232":"VA","233":"VA","234":"VA","235":"VA","236":"VA","237":"VA","238":"VA","239":"VA","240":"VA","241":"VA","242":"VA","243":"VA","244":"VA","245":"VA","246":"VA","247":"WV","248":"WV","249":"WV","250":"WV","251":"WV","252":"WV","253":"WV","254":"WV","255":"WV","256":"WV","257":"WV","258":"WV","259":"WV","260":"WV","261":"WV","262":"WV","263":"WV","264":"WV","265":"WV","266":"WV","267":"WV","268":"WV","270":"NC","271":"NC","272":"NC","273":"NC","274":"NC","275":"NC","276":"NC","277":"NC","278":"NC","279":"NC","280":"NC","281":"NC","282":"NC","283":"NC","284":"NC","285":"NC","286":"NC","287":"NC","288":"NC","289":"NC","290":"SC","291":"SC","292":"SC","293":"SC","294":"SC","295":"SC","296":"SC","297":"SC","298":"SC","299":"SC","300":"GA","301":"GA","302":"GA","303":"GA","304":"GA","305":"GA","306":"GA","307":"GA","308":"GA","309":"GA","310":"GA","311":"GA","312":"GA","313":"GA","314":"GA","315":"GA","316":"GA","317":"GA","318":"GA","319":"GA","320":"FL","321":"FL","322":"FL","323":"FL","324":"FL","325":"FL","326":"FL","327":"FL","328":"FL","329":"FL","330":"FL","331":"FL","332":"FL","333":"FL","334":"FL","335":"FL","336":"FL","337":"FL","338":"FL","339":"FL","341":"FL","342":"FL","344":"FL","346":"FL","347":"FL","349":"FL","350":"AL","351":"AL","352":"AL","354":"AL","355":"AL","356":"AL","357":"AL","358":"AL","359":"AL","360":"AL","361":"AL","362":"AL","363":"AL","364":"AL","365":"AL","366":"AL","367":"AL","368":"AL","369":"AL","370":"TN","371":"TN","372":"TN","373":"TN","374":"TN","375":"TN","376":"TN","377":"TN","378":"TN","379":"TN","380":"TN","381":"TN","382":"TN","383":"TN","384":"TN","385":"TN","386":"MS","387":"MS","388":"MS","389":"MS","390":"MS","391":"MS","392":"MS","393":"MS","394":"MS","395":"MS","396":"MS","397":"MS","398":"GA","399":"GA","400":"KY","401":"KY","402":"KY","403":"KY","404":"KY","405":"KY","406":"KY","407":"KY","408":"KY","409":"KY","410":"KY","411":"KY","412":"KY","413":"KY","414":"KY","415":"KY","416":"KY","417":"KY","418":"KY","420":"KY","421":"KY","422":"KY","423":"KY","424":"KY","425":"KY","426":"KY","427":"KY","430":"OH","431":"OH","432":"OH","433":"OH","434":"OH","435":"OH","436":"OH","437":"OH","438":"OH","439":"OH","440":"OH","441":"OH","442":"OH","443":"OH","444":"OH","445":"OH","446":"OH","447":"OH","448":"OH","449":"OH","450":"OH","451":"OH","452":"OH","453":"OH","454":"OH","455":"OH","456":"OH","457":"OH","458":"OH","460":"IN","461":"IN","462":"IN","463":"IN","464":"IN","465":"IN","466":"IN","467":"IN","468":"IN","469":"IN","470":"IN","471":"IN","472":"IN","473":"IN","474":"IN","475":"IN","476":"IN","477":"IN","478":"IN","479":"IN","480":"MI","481":"MI","482":"MI","483":"MI","484":"MI","485":"MI","486":"MI","487":"MI","488":"MI","489":"MI","490":"MI","491":"MI","492":"MI","493":"MI","494":"MI","495":"MI","496":"MI","497":"MI","498":"MI","499":"MI","500":"IA","501":"IA","502":"IA","503":"IA","504":"IA","505":"IA","506":"IA","507":"IA","508":"IA","509":"IA","510":"IA","511":"IA","512":"IA","513":"IA","514":"IA","515":"IA","516":"IA","520":"IA","521":"IA","522":"IA","523":"IA","524":"IA","525":"IA","526":"IA","527":"IA","528":"IA","530":"WI","531":"WI","532":"WI","534":"WI","535":"WI","537":"WI","538":"WI","539":"WI","540":"WI","541":"WI","542":"WI","543":"WI","544":"WI","545":"WI","546":"WI","547":"WI","548":"WI","549":"WI","550":"MN","551":"MN","553":"MN","554":"MN","555":"MN","556":"MN","557":"MN","558":"MN","559":"MN","560":"MN","561":"MN","562":"MN","563":"MN","564":"MN","565":"MN","566":"MN","567":"MN","570":"SD","571":"SD","572":"SD","573":"SD","574":"SD","575":"SD","576":"SD","577":"SD","580":"ND","581":"ND","582":"ND","583":"ND","584":"ND","585":"ND","586":"ND","587":"ND","588":"ND","590":"MT","591":"MT","592":"MT","593":"MT","594":"MT","595":"MT","596":"MT","597":"MT","598":"MT","599":"MT","600":"IL","601":"IL","602":"IL","603":"IL","604":"IL","605":"IL","606":"IL","607":"IL","608":"IL","609":"IL","610":"IL","611":"IL","612":"IL","613":"IL","614":"IL","615":"IL","616":"IL","617":"IL","618":"IL","619":"IL","620":"IL","622":"IL","623":"IL","624":"IL","625":"IL","626":"IL","627":"IL","628":"IL","629":"IL","630":"MO","631":"MO","633":"MO","634":"MO","635":"MO","636":"MO","637":"MO","638":"MO","639":"MO","640":"MO","641":"MO","644":"MO","645":"MO","646":"MO","647":"MO","648":"MO","649":"MO","650":"MO","651":"MO","652":"MO","653":"MO","654":"MO","655":"MO","656":"MO","657":"MO","658":"MO","660":"KS","661":"KS","662":"KS","664":"KS","665":"KS","666":"KS","667":"KS","668":"KS","669":"KS","670":"KS","671":"KS","672":"KS","673":"KS","674":"KS","675":"KS","676":"KS","677":"KS","678":"KS","679":"KS","680":"NE","681":"NE","683":"NE","684":"NE","685":"NE","686":"NE","687":"NE","688":"NE","689":"NE","690":"NE","691":"NE","692":"NE","693":"NE","700":"LA","701":"LA","703":"LA","704":"LA","705":"LA","706":"LA","707":"LA","708":"LA","710":"LA","711":"LA","712":"LA","713":"LA","714":"LA","716":"AR","717":"AR","718":"AR","719":"AR","720":"AR","721":"AR","722":"AR","723":"AR","724":"AR","725":"AR","726":"AR","727":"AR","728":"AR","729":"AR","730":"OK","731":"OK","733":"OK","734":"OK","735":"OK","736":"OK","737":"OK","738":"OK","739":"OK","740":"OK","741":"OK","743":"OK","744":"OK","745":"OK","746":"OK","747":"OK","748":"OK","749":"OK","750":"TX","751":"TX","752":"TX","753":"TX","754":"TX","755":"TX","756":"TX","757":"TX","758":"TX","759":"TX","760":"TX","761":"TX","762":"TX","763":"TX","764":"TX","765":"TX","766":"TX","767":"TX","768":"TX","769":"TX","770":"TX","771":"TX","772":"TX","773":"TX","774":"TX","775":"TX","776":"TX","777":"TX","778":"TX","779":"TX","780":"TX","781":"TX","782":"TX","783":"TX","784":"TX","785":"TX","786":"TX","787":"TX","788":"TX","789":"TX","790":"TX","791":"TX","792":"TX","793":"TX","794":"TX","795":"TX","796":"TX","797":"TX","798":"TX","799":"TX","800":"CO","801":"CO","802":"CO","803":"CO","804":"CO","805":"CO","806":"CO","807":"CO","808":"CO","809":"CO","810":"CO","811":"CO","812":"CO","813":"CO","814":"CO","815":"CO","816":"CO","820":"WY","821":"WY","822":"WY","823":"WY","824":"WY","825":"WY","826":"WY","827":"WY","828":"WY","829":"WY","830":"WY","831":"WY","832":"ID","833":"ID","834":"ID","835":"ID","836":"ID","837":"ID","838":"ID","840":"UT","841":"UT","842":"UT","843":"UT","844":"UT","845":"UT","846":"UT","847":"UT","850":"AZ","851":"AZ","852":"AZ","853":"AZ","855":"AZ","856":"AZ","857":"AZ","859":"AZ","860":"AZ","863":"AZ","864":"AZ","865":"AZ","870":"NM","871":"NM","872":"NM","873":"NM","874":"NM","875":"NM","877":"NM","878":"NM","879":"NM","880":"NM","881":"NM","882":"NM","883":"NM","884":"NM","889":"NV","890":"NV","891":"NV","893":"NV","894":"NV","895":"NV","896":"NV","897":"NV","898":"NV","900":"CA","901":"CA","902":"CA","903":"CA","904":"CA","905":"CA","906":"CA","907":"CA","908":"CA","910":"CA","911":"CA","912":"CA","913":"CA","914":"CA","915":"CA","916":"CA","917":"CA","918":"CA","919":"CA","920":"CA","921":"CA","922":"CA","923":"CA","924":"CA","925":"CA","926":"CA","927":"CA","928":"CA","930":"CA","931":"CA","932":"CA","933":"CA","934":"CA","935":"CA","936":"CA","937":"CA","938":"CA","939":"CA","940":"CA","941":"CA","942":"CA","943":"CA","944":"CA","945":"CA","946":"CA","947":"CA","948":"CA","949":"CA","950":"CA","951":"CA","952":"CA","953":"CA","954":"CA","955":"CA","956":"CA","957":"CA","958":"CA","959":"CA","960":"CA","961":"CA","967":"HI","968":"HI","969":"HI","970":"OR","971":"OR","972":"OR","973":"OR","974":"OR","975":"OR","976":"OR","977":"OR","978":"OR","979":"OR","980":"WA","981":"WA","982":"WA","983":"WA","984":"WA","985":"WA","986":"WA","987":"WA","988":"WA","989":"WA","990":"WA","991":"WA","992":"WA","993":"WA","994":"WA","965":"GU","995":"AK","996":"AK","997":"AK","998":"AK","999":"AK"};
+
+  function buildStateSummary() {
+    const epaLimits = {};
+    for (const [compound, info] of Object.entries(SCIENCE)) {
+      if (info.epa_limit) epaLimits[compound] = info.epa_limit;
+    }
+    const statData = {};
+    for (const [zip, entries] of Object.entries(DATA)) {
+      const state = ZIP_TO_STATE[zip.substring(0, 3)];
+      if (!state) continue;
+      if (!statData[state]) statData[state] = { detections: 0, systems: new Set(), aboveLimit: 0, compounds: {}, totalLevel: 0, levelCount: 0 };
+      const s = statData[state];
+      for (const entry of entries) {
+        s.detections++;
+        s.systems.add(entry.sys);
+        if (epaLimits[entry.compound] && entry.level > epaLimits[entry.compound]) s.aboveLimit++;
+        s.compounds[entry.compound] = (s.compounds[entry.compound] || 0) + 1;
+        s.totalLevel += entry.level;
+        s.levelCount++;
+      }
+    }
+    let rows = Object.entries(statData).map(([state, s]) => {
+      const top = Object.entries(s.compounds).sort((a,b) => b[1]-a[1])[0];
+      return {
+        state,
+        detections: s.detections,
+        systems: s.systems.size,
+        pctAbove: s.aboveLimit > 0 ? parseFloat(((s.aboveLimit / s.detections) * 100).toFixed(1)) : 0,
+        avgLevel: s.levelCount > 0 ? parseFloat((s.totalLevel / s.levelCount).toFixed(3)) : 0,
+        topCompound: top ? top[0] : '-'
+      };
+    });
+    let sortKey = 'detections', sortDir = -1;
+    const cols = ['state','detections','systems','pctAbove','avgLevel','topCompound'];
+    const labels = { state:'State', detections:'Total Detections', systems:'Water Systems', pctAbove:'% Above EPA Limit', avgLevel:'Avg Level (µg/L)', topCompound:'Most Common Compound' };
+    function renderTable() {
+      rows.sort((a, b) => sortDir * (a[sortKey] > b[sortKey] ? 1 : -1));
+      const arrow = sortDir === -1 ? '▼' : '▲';
+      let html = '<table class="state-table"><thead><tr>';
+      for (const col of cols) {
+        html += `<th onclick="sortTable('${col}')">${labels[col]}${sortKey === col ? ' ' + arrow : ''}</th>`;
+      }
+      html += '</tr></thead><tbody>';
+      for (const r of rows) {
+        html += `<tr><td>${r.state}</td><td>${r.detections.toLocaleString()}</td><td>${r.systems.toLocaleString()}</td><td>${r.pctAbove}%</td><td>${r.avgLevel}</td><td>${r.topCompound}</td></tr>`;
+      }
+      html += '</tbody></table>';
+      document.getElementById('stateSummaryTable').innerHTML = html;
+    }
+    window.sortTable = key => {
+      if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = -1; }
+      renderTable();
+    };
+    renderTable();
+  }
+  buildStateSummary();
+
+  // ── LANGUAGE ──────────────────────────────────────────────────────────────
+  const translations = {
+    en: {
+      title: "U.S. Tap Water PFAS Checker",
+      subtitle: "Enter your zip code to find out what's in your tap water, what it means for your health, and what you can do about it.",
+      howtoLabel: "How to read these results:",
+      howtoText: "Ingesting tap water (drinking it, cooking with it, making coffee or baby formula) is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system. Detection does not mean your water is immediately dangerous, but it does mean you deserve to know what is there and what the research says.",
+      checkBtn: "Check my area",
+      placeholder: "Enter U.S. zip code",
+      printBtn: "⬛ Print / Save as PDF for your appointment",
+      chatTitle: "Health Q&A", chatSub: "Grounded in PFAS medical research · Not medical advice",
+      chatEmpty: "Search a zip code to get personalized answers about your water results.",
+      chatPlaceholder: "Ask about your results...", chatAsk: "Ask",
+      chatDisclaimer: "Always consult a healthcare provider for personal medical guidance.",
+      suggestions: ["Should I be concerned?", "Is this safe during pregnancy?", "What filter removes PFAS?", "What symptoms are linked to PFAS?"],
+      whyTitle: "Why tap water ingestion matters",
+      whyP1: "Drinking tap water and cooking with it are the primary ways PFAS compounds enter the body. Unlike skin contact during bathing (where absorption is minimal), ingestion allows these compounds to pass directly into the bloodstream. Because PFAS are resistant to breakdown, they accumulate in the body over time. Small, repeated exposures through daily tap water use can build up across months and years, which is why chronic low-level ingestion is the focus of most public health research.",
+      whyP2: "This matters most during periods when the body is especially sensitive to hormonal changes, including pregnancy, when thyroid hormones produced by the mother are essential for fetal brain development before the fetal thyroid becomes functional around week 12. Researchers continue to study whether long-term PFAS ingestion at levels currently considered acceptable may still carry health implications for vulnerable populations.",
+      whyP3: "This tool draws on federal EPA monitoring data to make that information accessible to anyone curious about their community's tap water. If something concerns you, the most productive next step is a conversation with your doctor and your local water utility.",
+      clinicalLabel: "Provider: enter code to log this as a patient case", clinicalBtn: "Log",
+      resultTitleAbove: "PFAS detected: one or more compounds above federal limits",
+      resultTitleBelow: "PFAS detected: all levels within federal guidelines",
+      resultAnalyzing: "Analyzing your results...",
+      resultFallbackAbove: "At least one compound exceeds the EPA limit in your area. Consider discussing with your healthcare provider, especially if you're pregnant or have young children.",
+      resultFallbackBelow: "Compounds were detected below EPA limits. Because PFAS accumulate over time, staying informed is worthwhile.",
+      noResults: "No PFAS detections on record for this zip code.",
+      noResultsDetail: "This zip code does not appear in the EPA's current PFAS detection records for U.S. water systems. This could mean your water had no detections, has not yet been tested, or results are pending. For complete tap water quality information, contact your local water utility directly or use the EPA's UCMR 5 Data Finder. If you want additional peace of mind, water filters certified by NSF International for PFAS removal are widely available and effective for reducing ingestion exposure.",
+    },
+    zh: {
+      title: "美国自来水全氟化合物（PFAS）检测工具",
+      subtitle: "输入您的邮政编码，了解您的自来水中含有哪些物质、对健康意味着什么，以及您可以采取哪些行动。",
+      howtoLabel: "如何解读结果：",
+      howtoText: "饮用自来水——直接饮用、烹饪或冲泡配方奶——是大多数人接触PFAS的主要途径。淋浴时皮肤吸收的量极少。检出意味着在您所在水系统中发现了某种化合物，但并不意味着您的水立即存在危险。这并不代表您的水不安全——但您有权了解其中含有什么以及研究的发现。",
+      checkBtn: "查询我的地区", placeholder: "输入美国邮政编码",
+      printBtn: "⬛ 打印 / 保存为PDF供就诊使用",
+      chatTitle: "健康问答", chatSub: "基于PFAS医学研究 · 非医疗建议",
+      chatEmpty: "搜索邮政编码，获取关于您水质结果的个性化解答。",
+      chatPlaceholder: "询问您的水质结果...", chatAsk: "提问",
+      chatDisclaimer: "如需个人医疗建议，请务必咨询医疗专业人员。",
+      suggestions: ["我需要担心吗？", "怀孕期间安全吗？", "什么滤水器可以去除PFAS？", "PFAS与哪些症状有关？"],
+      whyTitle: "为什么自来水摄入很重要",
+      whyP1: "饮用自来水和用其烹饪是PFAS化合物进入人体的主要途径。与沐浴时的皮肤接触不同（皮肤吸收量极少），摄入使这些化合物能够直接进入血液。由于PFAS难以降解，它们会在体内随时间累积。日常使用自来水产生的微量、持续性接触，可在数月乃至数年内不断积累，这正是为何慢性低水平摄入成为大多数公共卫生研究的关注重点。",
+      whyP2: "这在身体对激素变化最为敏感的时期尤为重要——包括妊娠期。在胎儿自身甲状腺于妊娠约12周开始发挥功能之前，胎儿的早期大脑发育完全依赖母体分泌的甲状腺激素。研究人员仍在持续研究，长期摄入目前认为处于可接受水平的PFAS，是否仍可能对易感人群带来健康影响。",
+      whyP3: "本工具基于美国联邦EPA监测数据，旨在让任何对社区自来水水质感到好奇的人都能便捷地获取相关信息。如有任何疑虑，最有效的下一步是与您的医生和当地供水公司进行沟通。",
+      clinicalLabel: "医疗提供者：输入代码以记录患者案例", clinicalBtn: "记录",
+      resultTitleAbove: "检测到PFAS：一种或多种化合物超过联邦限值",
+      resultTitleBelow: "检测到PFAS：所有检出值符合联邦标准",
+      resultAnalyzing: "正在分析您的检测结果...",
+      resultFallbackAbove: "您所在地区至少有一种化合物超过EPA限值。建议与医疗服务提供者沟通，尤其是孕妇或有幼儿的家庭。",
+      resultFallbackBelow: "检出化合物均低于EPA限值。由于PFAS会在体内积累，持续关注水质状况是值得的。",
+      noResults: "该邮政编码暂无PFAS检出记录。",
+      noResultsDetail: "该邮政编码未出现在EPA当前美国供水系统的PFAS检出记录中。这可能意味着您的水中未检出PFAS、尚未完成检测，或结果仍在处理中。如需完整的自来水水质信息，请直接联系当地供水公司，或使用EPA的UCMR 5数据查询工具。如需额外的安全保障，经NSF国际认证的PFAS去除净水器广泛可得，可有效降低摄入暴露风险。",
+    }
+  };
+
+  function rerenderResults(zip, matches) {
+    const t = translations[currentLang];
+    const isZh = currentLang === 'zh';
+    const result = document.getElementById("result");
+    const title = document.getElementById("resultTitle");
+    const context = document.getElementById("resultContext");
+    const body = document.getElementById("resultBody");
+
+    const anyAbove = matches.some(m => getRiskLevel(m.compound, m.level) === "above");
+    result.className = anyAbove ? "result found-above" : "result found-below";
+    title.textContent = anyAbove ? t.resultTitleAbove : t.resultTitleBelow;
+    context.textContent = t.resultAnalyzing;
+
+    // Re-fire AI header in new language
+    generateHeader(zip, matches).then(summary => {
+      context.textContent = summary || (anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow);
+    });
+
+    // Rebuild compound cards in new language
+    let html = "";
+    matches.forEach((m, idx) => {
+      const science = SCIENCE[m.compound] || {};
+      const risk = getRiskLevel(m.compound, m.level);
+      const fullName = isZh ? (science.full_zh || science.full || m.compound) : (science.full || m.compound);
+      const epaText = science.epa_limit
+        ? (isZh ? `EPA限值：${science.epa_limit} µg/L` : `EPA limit: ${science.epa_limit} µg/L`)
+        : (isZh ? "尚无联邦限值" : "No federal limit set");
+      const rawPct = science.epa_limit ? ((m.level / science.epa_limit) * 100) : null;
+      const barPct = rawPct !== null ? rawPct.toFixed(0) : null;
+      const gaugeFillPct = rawPct !== null ? Math.min(rawPct, 150) / 150 * 100 : null;
+      const clinicalText = isZh ? (science.clinical_threshold_zh || science.clinical_threshold) : science.clinical_threshold;
+      const actionText = isZh ? (science.actionable_zh || science.actionable) : science.actionable;
+      const evidenceText = isZh ? (science.evidence_note_zh || science.evidence_note) : science.evidence_note;
+      const fallbackHealth = isZh ? (science.health_effects_zh || science.health_effects) : science.health_effects;
+      const cardT = {
+        above: isZh ? '⚠ 检出值超过EPA限值' : '⚠ Detected above EPA limit',
+        below: isZh ? '✓ 检出值低于EPA限值' : '✓ Detected below EPA limit',
+        noLimit: isZh ? '尚无联邦限值——研究人员正在持续监测' : 'No federal limit set. Presence is being monitored by researchers.',
+        analyzing: isZh ? '正在分析此水平对您健康的意义...' : 'Analyzing what this level means for your health...',
+        threshold: isZh ? '📊 临床相关阈值' : '📊 Clinically relevant thresholds',
+        action: isZh ? '✅ 您可以采取的行动' : '✅ What you can do',
+        note: isZh ? '注：' : 'Note:',
+        healthLabel: isZh ? '🩺 这对您意味着什么' : '🩺 What this level means for you',
+        fallbackLabel: isZh ? '🩺 与该化合物相关的健康影响' : '🩺 Health effects linked to this compound',
+        emerging: isZh ? '该化合物的相关研究仍在进行中。' : 'Research on this compound is still emerging.',
+        pctOf: isZh ? '（EPA限值百分比）' : 'of EPA limit'
+      };
+
+      html += `
+        <div class="detail-box" id="compound-card-${idx}"
+          data-health-label="${cardT.healthLabel}"
+          data-fallback-label="${cardT.fallbackLabel}"
+          data-fallback-health="${encodeURIComponent(fallbackHealth || '')}"
+          data-emerging="${cardT.emerging}">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:8px; flex-wrap:wrap;">
+            <div>
+              <span class="compound-tag ${risk === 'above' ? 'above' : ''}">${m.compound}</span>
+              <span style="font-size:12px; color:#888; margin-left:6px;">${fullName}</span>
+            </div>
+            <span style="font-size:12px; color:#888;">${m.sys}</span>
+          </div>
+          <div style="margin-top:10px; padding:10px 12px; background:${risk === 'above' ? 'var(--warn-tint)' : 'var(--primary-tint)'}; border-radius:8px; border:1px solid ${risk === 'above' ? 'var(--warn-tint-border)' : 'var(--primary-tint-border)'};">
+            <div style="font-size:13px; font-weight:600; color:${risk === 'above' ? 'var(--warn-strong)' : 'var(--primary)'}; margin-bottom:4px;">${risk === 'above' ? cardT.above : cardT.below}</div>
+            <div style="font-size:13px; color:#333;"><strong style="font-family:var(--mono);">${m.level} µg/L</strong> &nbsp;·&nbsp; ${epaText}</div>
+            ${barPct !== null
+              ? `<div class="epa-bar" style="margin-top:8px;"><div class="epa-bar-label">${barPct}% ${cardT.pctOf}</div><div class="bar-track"><div class="bar-fill ${risk === 'above' ? 'above' : ''}" style="width:${gaugeFillPct}%"></div><div class="bar-tick"></div></div></div>`
+              : `<div style="font-size:11px; color:#999; margin-top:4px;">${cardT.noLimit}</div>`}
+          </div>
+          <div id="ai-summary-${idx}" class="science-box" style="margin-top:10px; min-height:60px;">
+            <div style="color:#aaa; font-size:12px; font-style:italic;">${cardT.analyzing}</div>
+          </div>
+          ${clinicalText ? `<div class="science-box" style="margin-top:6px; border-left-color:#b89bd6;"><h3>${cardT.threshold}</h3><p>${clinicalText}${science.refs && science.refs.length ? ' ' + science.refs.map((r,i) => `<a href="${r.url}" target="_blank" rel="noopener noreferrer" class="inline-ref" title="${r.label}">[${i+1}]</a>`).join('') : ''}</p></div>` : ""}
+          ${actionText ? `<div class="science-box" style="margin-top:6px; background:#eaf7f0; border-left-color:#4fae7a;"><h3>${cardT.action}</h3><p>${actionText}</p></div>` : ""}
+          ${evidenceText ? `<div style="margin-top:6px; padding:8px 10px; background:var(--warn-tint); border:1px solid var(--warn-tint-border); border-radius:8px; font-size:12px; color:#7a5a00; line-height:1.6;"><strong>${cardT.note}</strong> ${evidenceText}</div>` : ""}
+          ${science.refs && science.refs.length ? `<div class="compound-refs"><div class="compound-refs-label">Sources</div>${science.refs.map((r,i) => `<a href="${r.url}" target="_blank" rel="noopener noreferrer">[${i+1}] ${r.label}</a>`).join('')}</div>` : ""}
+        </div>`;
+    });
+    body.innerHTML = html;
+
+    // Re-fire compound AI summaries in new language
+    matches.forEach((m, idx) => {
+      generateCompoundSummary(m.compound, m.level, SCIENCE[m.compound] || {}).then(summary => {
+        const el = document.getElementById(`ai-summary-${idx}`);
+        const card = document.getElementById(`compound-card-${idx}`);
+        if (!el) return;
+        const healthLabel = card?.dataset.healthLabel || cardT.healthLabel;
+        const fallbackLabel = card?.dataset.fallbackLabel || cardT.fallbackLabel;
+        const fallbackHealthDecoded = decodeURIComponent(card?.dataset.fallbackHealth || '');
+        const emergingText = card?.dataset.emerging || cardT.emerging;
+        el.innerHTML = summary
+          ? `<h3>${healthLabel}</h3><p>${summary}</p>`
+          : (fallbackHealthDecoded ? `<h3>${fallbackLabel}</h3><p>${fallbackHealthDecoded}</p>` : `<p style="color:#aaa; font-size:12px; font-style:italic;">${emergingText}</p>`);
+      });
+    });
+
+    // Add language switch notice to chat
+    const messages = document.getElementById('aiMessages');
+    if (messages && messages.style.display !== 'none' && messages.children.length > 0) {
+      const notice = document.createElement('div');
+      notice.style.cssText = 'font-size:11px; color:#bbb; text-align:center; padding:4px 0; font-style:italic;';
+      notice.textContent = currentLang === 'zh' ? '— 已切换至中文 —' : '— Switched to English —';
+      messages.appendChild(notice);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  }
+
+  function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'zh' : 'en';
+    applyLanguage(currentLang);
+    trackEvent('language_changed',{language:currentLang});
+    if (lastZip && lastMatches && lastMatches.length > 0) {
+      rerenderResults(lastZip, lastMatches);
+    }
+  }
+
+  function applyLanguage(lang) {
+    const t = translations[lang];
+    const isEn = lang === 'en';
+    document.getElementById('ui-title').textContent = t.title;
+    document.getElementById('ui-subtitle').textContent = t.subtitle;
+    document.getElementById('ui-howto-label').textContent = t.howtoLabel;
+    document.getElementById('ui-howto-text').textContent = t.howtoText;
+    document.getElementById('ui-checkbtn').textContent = t.checkBtn;
+    document.getElementById('zipInput').placeholder = t.placeholder;
+    document.getElementById('printBtn').textContent = t.printBtn;
+    document.getElementById('lang-en').style.background = isEn ? '#175E97' : 'white';
+    document.getElementById('lang-en').style.color = isEn ? 'white' : '#999';
+    document.getElementById('lang-zh').style.background = isEn ? 'white' : '#175E97';
+    document.getElementById('lang-zh').style.color = isEn ? '#999' : 'white';
+    document.getElementById('chat-panel-title').textContent = t.chatTitle;
+    document.getElementById('chat-panel-sub').textContent = t.chatSub;
+    document.getElementById('chatPanelEmpty').textContent = t.chatEmpty;
+    document.getElementById('aiInput').placeholder = t.chatPlaceholder;
+    document.getElementById('aiSendBtn').textContent = t.chatAsk;
+    document.getElementById('aiDisclaimer').textContent = t.chatDisclaimer;
+    document.getElementById('ui-why-title').textContent = t.whyTitle;
+    document.getElementById('ui-why-p1').textContent = t.whyP1;
+    document.getElementById('ui-why-p2').textContent = t.whyP2;
+    document.getElementById('ui-why-p3').textContent = t.whyP3;
+    document.getElementById('ui-clinical-label').textContent = t.clinicalLabel;
+    document.getElementById('ui-clinical-btn').textContent = t.clinicalBtn;
+    document.querySelectorAll('.ai-suggestion').forEach((el, i) => {
+      if (t.suggestions[i]) el.textContent = t.suggestions[i];
+    });
+  }
+
+</script>
+</body>
+</html>
