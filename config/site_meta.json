@@ -1,9 +1,0 @@
-{
-  "data_updated_label": "July 2026",
-  "dataset_lastmod": "2026-07-16",
-  "base_url": "https://pfasestimator.org",
-  "excluded_from_generation": ["GU"],
-  "exclusion_reason": {
-    "GU": "Only 1 ZIP code (96543, Andersen Air Force Base) is represented in the analytic dataset for Guam \u2014 not enough coverage to summarize meaningfully as a state-level page. The ZIP_TO_STATE crosswalk has been fixed so this ZIP is no longer silently dropped from the live map, but no static page is generated for it."
-  }
-}
