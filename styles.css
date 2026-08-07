@@ -1341,3 +1341,240 @@ body.methodology-body {
   .state-directory-card { break-inside: avoid; }
   .state-directory-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* ── COMPACT STATE DIRECTORY — EXACT HOMEPAGE FRAME ── */
+.states-page-wrapper,
+.states-card {
+  width: 100%;
+  max-width: 680px;
+}
+
+.states-card {
+  padding: 2rem;
+}
+
+.states-header .subtitle {
+  max-width: none;
+}
+
+.state-list-labels {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 116px 88px 16px;
+  gap: 10px;
+  align-items: end;
+  margin-top: 1.35rem;
+  padding: 0 0.35rem 0.45rem;
+  border-bottom: 1px solid var(--border-soft);
+  color: #96a2a7;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.state-list-labels span:first-child { grid-column: 1 / 3; }
+.state-list-labels span:nth-child(2) { grid-column: 3; }
+.state-list-labels span:nth-child(3) { grid-column: 4; }
+
+.state-regions {
+  gap: 1.15rem;
+  margin-top: 0;
+}
+
+.state-region-heading {
+  margin: 0;
+  padding: 1rem 0.35rem 0.45rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.state-region-heading h2 {
+  font-size: 12px;
+}
+
+.state-directory-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.state-directory-card {
+  border: 0;
+  border-bottom: 1px solid #edf1f2;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  transition: background 0.15s ease;
+}
+
+.state-directory-card:hover,
+.state-directory-card:focus-within {
+  border-color: #edf1f2;
+  background: var(--primary-tint);
+  box-shadow: none;
+}
+
+.state-directory-card > a {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 116px 88px 16px;
+  grid-template-areas: "abbr copy stat zips arrow";
+  gap: 10px;
+  align-items: center;
+  min-height: 64px;
+  padding: 0.65rem 0.35rem;
+}
+
+.state-directory-card > a:focus-visible {
+  border-radius: 7px;
+  outline-offset: -1px;
+}
+
+.state-abbreviation {
+  grid-area: abbr;
+  width: 34px;
+  min-width: 34px;
+  height: 24px;
+  padding: 0;
+  border-radius: 7px;
+}
+
+.state-card-copy {
+  grid-area: copy;
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+}
+
+.state-card-name {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.state-card-region {
+  color: #96a2a7;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.state-card-stat,
+.state-card-zips {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+}
+
+.state-card-stat { grid-area: stat; }
+.state-card-zips { grid-area: zips; }
+
+.state-card-stat strong,
+.state-card-zips strong {
+  font-family: var(--mono);
+  line-height: 1.2;
+}
+
+.state-card-stat strong {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.state-card-zips strong {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.state-card-stat span,
+.state-card-zips span {
+  color: #8a989e;
+  font-size: 8px;
+  line-height: 1.3;
+}
+
+.state-card-link {
+  grid-area: arrow;
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: right;
+}
+
+.state-card-bar,
+.state-card-footer,
+.state-directory-card h3,
+.state-directory-card-top {
+  display: none;
+}
+
+.states-note-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: 0.65rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.states-note-grid > div {
+  display: grid;
+  grid-template-columns: 130px minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid #edf1f2;
+  border-radius: 0;
+  background: transparent;
+}
+
+.states-note-grid p { margin-top: 0; }
+
+@media (max-width: 560px) {
+  .states-card { padding: 1.25rem; }
+
+  .state-list-labels { display: none; }
+
+  .state-regions { margin-top: 0.75rem; }
+
+  .state-directory-card > a {
+    grid-template-columns: 34px minmax(0, 1fr) 80px 16px;
+    grid-template-areas:
+      "abbr copy stat arrow"
+      ". zips zips .";
+    gap: 2px 9px;
+    min-height: 70px;
+    padding: 0.65rem 0.25rem;
+  }
+
+  .state-abbreviation {
+    width: 30px;
+    min-width: 30px;
+    height: 23px;
+  }
+
+  .state-card-zips {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+
+  .state-card-zips span { font-size: 8px; }
+
+  .states-note-grid > div {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+@media print {
+  .state-list-labels { display: grid; }
+  .state-directory-grid { grid-template-columns: 1fr; }
+  .state-directory-card > a {
+    grid-template-columns: 40px minmax(0, 1fr) 116px 88px 16px;
+    grid-template-areas: "abbr copy stat zips arrow";
+    min-height: 0;
+  }
+}

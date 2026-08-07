@@ -162,7 +162,7 @@ REGION_ORDER = ("Northeast", "Midwest", "South", "West", "Territories")
 
 
 def render_state_index_regions(index_rows, base_url):
-    """Render accessible, searchable state cards grouped by U.S. Census region."""
+    """Render an accessible, searchable state directory grouped by U.S. Census region."""
     by_region = {region: [] for region in REGION_ORDER}
     missing_regions = []
 
@@ -187,20 +187,20 @@ def render_state_index_regions(index_rows, base_url):
             zip_count = stats["zip_count"]
             cards.append(f'''          <article class="state-directory-card" data-state-card data-region="{region_slug}" data-state-search="{name.lower()} {abbrev.lower()}">
             <a href="{base_url}/states/{slug}/" aria-label="View PFAS monitoring results for {name}">
-              <div class="state-directory-card-top">
-                <span class="state-abbreviation" aria-hidden="true">{abbrev}</span>
+              <span class="state-abbreviation" aria-hidden="true">{abbrev}</span>
+              <span class="state-card-copy">
+                <span class="state-card-name">{name}</span>
                 <span class="state-card-region">{region}</span>
-              </div>
-              <h3>{name}</h3>
-              <div class="state-card-stat">
+              </span>
+              <span class="state-card-stat">
                 <strong>{pct}%</strong>
-                <span>of represented ZIPs at or above a comparison threshold</span>
-              </div>
-              <div class="state-card-bar" aria-hidden="true"><span style="width:{pct}%"></span></div>
-              <div class="state-card-footer">
-                <span>{zip_count:,} represented ZIPs</span>
-                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
-              </div>
+                <span>at/above threshold</span>
+              </span>
+              <span class="state-card-zips">
+                <strong>{zip_count:,}</strong>
+                <span>ZIPs represented</span>
+              </span>
+              <span class="state-card-link" aria-hidden="true">&rarr;</span>
             </a>
           </article>''')
 
@@ -554,7 +554,7 @@ def main():
   {index_structured_data}
   </script>
 
-  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-compact-states" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
@@ -620,6 +620,12 @@ def main():
         <div class="state-threshold-note">
           <strong>What the percentage means</strong>
           <span>The share of represented ZIP codes with at least one retained regulated PFAS result at or above its comparison threshold. It is not a population exposure estimate.</span>
+        </div>
+
+        <div class="state-list-labels" aria-hidden="true">
+          <span>State or territory</span>
+          <span>Threshold share</span>
+          <span>Coverage</span>
         </div>
 
         <div class="state-regions" id="stateRegions">
