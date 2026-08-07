@@ -565,47 +565,35 @@ def main():
     gtag('config', 'G-FZQTEJ4LLY');
   </script>
 </head>
-<body class="methodology-body states-body">
+<body class="states-body">
   <a class="skip-link" href="#states-content">Skip to state directory</a>
 
-  <div class="methodology-shell states-shell">
-    <nav class="site-nav methodology-top-nav" aria-label="Site">
-      <a href="/">Home</a>
-      <a href="/states/" aria-current="page">Explore by State</a>
-      <a href="/methodology/">Methodology</a>
-    </nav>
+  <div class="page-wrapper states-page-wrapper">
+    <main class="card states-card" id="states-content">
+      <nav class="site-nav states-nav" aria-label="Site">
+        <a href="/">Home</a>
+        <a href="/states/" aria-current="page">Explore by State</a>
+        <a href="/methodology/">Methodology</a>
+      </nav>
 
-    <header class="methodology-hero states-hero">
-      <div class="methodology-kicker">National monitoring directory</div>
-      <h1>Explore PFAS monitoring by state</h1>
-      <p class="methodology-lede">Move from the national picture to state-level EPA UCMR 5 public drinking-water results, then open ZIP-level records, compound summaries, and comparison-threshold context.</p>
-
-      <div class="methodology-meta" aria-label="State directory summary">
-        <span><strong>{len(index_rows)}</strong> state &amp; territory pages</span>
-        <span><strong>50 states</strong> plus D.C. &amp; Puerto Rico</span>
-        <span><strong>Source</strong> EPA UCMR 5</span>
-        <span><strong>Updated</strong> {data_updated_label}</span>
-      </div>
+    <header class="states-header">
+      <span class="badge">National &middot; EPA UCMR 5 Data &middot; State Directory</span>
+      <h1>Explore PFAS by State</h1>
+      <p class="subtitle">Browse state-level public drinking-water monitoring results, then open ZIP-level records, compound summaries, and federal comparison-threshold context.</p>
+      <p class="states-meta"><strong>{len(index_rows)}</strong> state and territory pages &middot; 50 states plus D.C. and Puerto Rico &middot; Updated {data_updated_label}</p>
     </header>
 
-    <main class="states-content" id="states-content">
-      <section class="states-orientation" aria-label="Choose a starting point">
-        <div class="states-orientation-copy">
-          <span class="states-card-kicker">Place-based exploration</span>
-          <h2>See what monitoring found across a state</h2>
-          <p>State pages summarize only ZIP codes represented in the processed dataset. Use them to inspect geographic patterns—not to estimate personal exposure or rank overall state water safety.</p>
+      <section class="context-note states-start-note" aria-label="ZIP code lookup">
+        <div>
+          <strong>Checking a specific area?</strong>
+          <span>Start with the ZIP-code lookup for the most direct view of represented monitoring results.</span>
         </div>
-        <div class="states-zip-cta">
-          <span>Checking a specific address area?</span>
-          <strong>Start with your ZIP code.</strong>
-          <a href="/">Open national ZIP lookup <span aria-hidden="true">&rarr;</span></a>
-        </div>
+        <a class="states-zip-link" href="/">Check a ZIP code <span aria-hidden="true">&rarr;</span></a>
       </section>
 
       <section class="state-directory" aria-labelledby="state-directory-title">
         <div class="state-directory-heading">
           <div>
-            <span class="states-card-kicker">Browse the dataset</span>
             <h2 id="state-directory-title">Find a state or territory</h2>
             <p>Search by name or abbreviation, or narrow the directory by region.</p>
           </div>
@@ -620,7 +608,7 @@ def main():
           </div>
         </div>
 
-        <div class="state-filters" aria-label="Filter by region">
+        <div class="state-filters" role="group" aria-label="Filter by region">
           <button class="state-filter is-active" type="button" data-region-filter="all" aria-pressed="true">All</button>
           <button class="state-filter" type="button" data-region-filter="northeast" aria-pressed="false">Northeast</button>
           <button class="state-filter" type="button" data-region-filter="midwest" aria-pressed="false">Midwest</button>
@@ -645,10 +633,7 @@ def main():
       </section>
 
       <section class="states-reading-notes" aria-labelledby="state-notes-title">
-        <div>
-          <span class="states-card-kicker">Interpretation guardrails</span>
-          <h2 id="state-notes-title">Read state summaries in context</h2>
-        </div>
+        <h2 id="state-notes-title">How to read state summaries</h2>
         <div class="states-note-grid">
           <div>
             <strong>Observed monitoring</strong>
@@ -667,15 +652,15 @@ def main():
       </section>
 
       <aside class="states-coverage-note" aria-label="Guam coverage note">
-        <span>Coverage note</span>
+        <strong>Coverage note</strong>
         <p>{site_meta.get("exclusion_reason", {}).get("GU", "")}</p>
       </aside>
-    </main>
 
-    <footer class="methodology-footer states-footer">
+    <footer class="states-footer">
       <p>PFAS Estimator &middot; Independent public-health informatics project &middot; EPA UCMR 5 public drinking-water monitoring</p>
       <p>State pages describe monitoring records and do not determine personal exposure, diagnosis, or regulatory compliance.</p>
     </footer>
+    </main>
   </div>
 
   <script>
