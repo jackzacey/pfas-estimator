@@ -17,9 +17,11 @@
       --warn-tint-border: #efc98a;
       --shadow-sm: 0 1px 2px rgba(16,30,38,0.04), 0 4px 14px -8px rgba(16,30,38,0.16);
       --shadow-md: 0 1px 2px rgba(16,30,38,0.04), 0 12px 30px -16px rgba(16,30,38,0.25);
+      --font-sans: "Avenir Next", Avenir, "Segoe UI Variable", "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-display: "Avenir Next", Avenir, "Segoe UI Variable Display", "Segoe UI", Helvetica, Arial, sans-serif;
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: radial-gradient(circle at 88% 4%, rgba(86, 151, 196, 0.14), transparent 25rem), var(--bg); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 2rem; color: var(--ink); }
+    body { font-family: var(--font-sans); background: radial-gradient(circle at 88% 4%, rgba(86, 151, 196, 0.14), transparent 25rem), var(--bg); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 2rem; color: var(--ink); text-rendering: optimizeLegibility; }
 
     /* ── LAYOUT ── */
     .page-wrapper { display: flex; gap: 1.5rem; width: 100%; max-width: 1100px; align-items: flex-start; justify-content: center; }
@@ -34,7 +36,7 @@
 
     /* ── CORE ── */
     .badge { display: inline-block; background: var(--primary); color: #fff; font-weight: 500; font-size: 11px; padding: 4px 11px; border-radius: 20px; margin-bottom: 1rem; }
-    h1 { font-size: 23px; font-weight: 650; color: var(--ink); letter-spacing: -0.3px; margin-bottom: 0.4rem; }
+    h1 { font-family: var(--font-display); font-size: 25px; font-weight: 750; color: var(--ink); letter-spacing: -0.035em; line-height: 1.12; margin-bottom: 0.5rem; }
     .subtitle { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 0.75rem; }
     .context-note { background: var(--bg); border-radius: 10px; padding: 0.75rem 1rem; font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; }
     .context-note strong { color: var(--ink); font-weight: 500; }
@@ -82,14 +84,18 @@
     .clinical-confirm { display: none; color: var(--primary); font-weight: 500; margin-top: 0.4rem; }
 
     /* ── WHY / DISCLAIMER ── */
-    .why-section { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border-soft); }
-    .why-section h2 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; }
-    .why-section p { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 0.75rem; }
-    .why-section p:last-child { margin-bottom: 0; color: #999; font-size: 12px; }
+    .why-section { position: relative; overflow: hidden; margin-top: 1.75rem; padding: 1.5rem; border: 1px solid var(--primary-tint-border); border-radius: 14px; background: linear-gradient(145deg, #fff 0%, #f6fafc 100%); box-shadow: var(--shadow-sm); }
+    .why-section::after { content: ""; position: absolute; right: -38px; top: -48px; width: 132px; height: 132px; border: 20px solid rgba(23,94,151,0.045); border-radius: 50%; pointer-events: none; }
+    .why-section > * { position: relative; z-index: 1; }
+    .why-kicker { display: block; margin-bottom: 0.35rem; color: var(--primary); font-size: 10px; font-weight: 750; letter-spacing: 0.1em; text-transform: uppercase; }
+    .why-section h2 { font-family: var(--font-display); font-size: 20px; font-weight: 750; color: var(--ink); letter-spacing: -0.025em; line-height: 1.2; margin-bottom: 0.9rem; }
+    .why-section p { font-size: 13.5px; color: #44565f; line-height: 1.75; margin-bottom: 0.8rem; }
+    .why-section p:last-child { margin-bottom: 0; padding-top: 0.25rem; color: #89969c; font-size: 11.5px; }
     .disclaimer { font-size: 11px; color: #aaa; margin-top: 1.5rem; line-height: 1.6; border-top: 1px solid var(--border-soft); padding-top: 1rem; }
 
     /* ── RESEARCH SECTION ── */
-    .state-summary-section { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-soft); }
+    .state-summary-section { scroll-margin-top: 1rem; margin-top: 1.75rem; padding: 1.5rem; border: 1px solid var(--primary-tint-border); border-radius: 14px; background: #fff; box-shadow: var(--shadow-sm); }
+    .state-summary-section[hidden] { display: none !important; }
     .state-summary-section h2 { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
     .state-summary-subtitle { font-size: 12px; color: #999; margin-bottom: 1rem; }
     .state-table { width: 100%; border-collapse: collapse; font-size: 12px; }
@@ -187,13 +193,15 @@
       h1 { font-size: 18px; }
     }
 
-/* Shared primary navigation: three unmistakable top-level tabs */
+/* Shared primary navigation: centered top-level data and documentation tabs */
 .site-nav {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 4px;
-  width: 100%;
-  margin: 0 0 1.25rem;
+  width: min(100%, 900px);
+  margin: 0 auto 1.25rem;
   padding: 4px;
   border: 1px solid var(--primary-tint-border);
   border-radius: 12px;
@@ -205,11 +213,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex: 1 1 112px;
   min-height: 40px;
   padding: 7px 10px;
   border-radius: 8px;
   color: #52666f;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.012em;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
@@ -266,7 +277,7 @@
   margin-bottom: 1rem;
 }
 .home-hero .badge { margin-bottom: 0; }
-.home-hero h1 { font-size: clamp(23px, 4vw, 28px); }
+.home-hero h1 { font-size: clamp(29px, 4.5vw, 36px); font-weight: 780; }
 .home-hero .subtitle { max-width: 560px; margin-bottom: 0; }
 .language-toggle {
   display: flex;
@@ -288,14 +299,69 @@
   outline-offset: 2px;
 }
 
+.national-data-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+.national-data-kicker {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.state-summary-section .national-data-heading h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.national-data-heading p {
+  max-width: 480px;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+.national-data-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid var(--primary-tint-border);
+  border-radius: 8px;
+  background: var(--primary-tint);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 650;
+  text-decoration: none;
+}
+.national-data-back:hover { background: var(--primary-tint-strong); text-decoration: none; }
+.national-data-back:focus-visible { outline: 3px solid rgba(23,94,151,0.2); outline-offset: 2px; }
+
 @media (max-width: 560px) {
   .site-nav a {
-    min-height: 46px;
-    padding: 7px 5px;
-    font-size: 10.5px;
+    flex-basis: 74px;
+    min-height: 44px;
+    padding: 7px 6px;
+    font-size: 10.75px;
   }
   .home-card { padding: 1.25rem; }
   .home-hero { padding: 1.2rem; }
+  .national-data-heading { display: grid; }
+  .national-data-back { justify-self: start; }
+  .state-summary-section { padding: 1.15rem; }
 }
 
 /* ── STANDALONE METHODOLOGY PAGE ── */
@@ -343,12 +409,12 @@ body.methodology-body {
 }
 
 .methodology-top-nav {
-  max-width: 680px;
-  margin: 0 0 1rem;
+  max-width: 900px;
+  margin: 0 auto 1rem;
 }
 .methodology-top-nav a {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
 }
 .methodology-top-nav a[aria-current="page"] {
   color: #fff;
@@ -393,7 +459,7 @@ body.methodology-body {
   margin-bottom: 0.85rem;
   color: var(--ink);
   font-size: clamp(2rem, 5vw, 3.65rem);
-  font-weight: 680;
+  font-weight: 780;
   letter-spacing: -0.045em;
   line-height: 1.02;
 }
@@ -929,11 +995,15 @@ body.methodology-body {
 }
 .states-nav a[aria-current="page"] {
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: none;
 }
 .states-header .badge {
   margin-bottom: 1rem;
+}
+.states-header h1 {
+  font-size: clamp(27px, 4.5vw, 34px);
+  font-weight: 780;
 }
 .states-header .subtitle {
   max-width: 760px;

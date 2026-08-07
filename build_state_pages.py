@@ -554,7 +554,7 @@ def main():
   {index_structured_data}
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260807-unified-tabs" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-centered-data-tabs" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
@@ -572,6 +572,8 @@ def main():
     <main class="card states-card" id="states-content">
       <nav class="site-nav states-nav" aria-label="Primary">
         <a href="/">ZIP Lookup</a>
+        <a href="/?view=map#researchers">Map</a>
+        <a href="/?view=table#researchers">State Table</a>
         <a href="/states/" aria-current="page">Explore by State</a>
         <a href="/methodology/">Full Methodology</a>
       </nav>
