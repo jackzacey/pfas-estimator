@@ -111,7 +111,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-unified-tabs" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
@@ -123,26 +123,29 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
   </script>
 
 </head>
-<body>
+<body class="home-body">
 <div class="page-wrapper">
 
   <!-- LEFT: MAIN CARD -->
-  <div class="card">
-    <nav class="site-nav" aria-label="Site">
-      <a href="/" id="nav-home">Home</a>
-      <a href="/states/" id="nav-explore-state">Explore by State</a>
-      <a href="/methodology/" id="nav-methodology">Methodology</a>
+  <div class="card home-card">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/" id="nav-home" aria-current="page">ZIP Lookup</a>
+      <a href="/states/" id="nav-explore-state" onclick="trackEvent('nav_explore_states')">Explore by State</a>
+      <a href="/methodology/" id="nav-methodology" onclick="trackEvent('nav_methodology')">Full Methodology</a>
     </nav>
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
-      <span class="badge" style="margin-bottom:0;">National · EPA UCMR 5 Data · Educational Tool</span>
-      <div id="langToggle" onclick="toggleLanguage()" style="display:flex; border:1px solid var(--border-soft); border-radius:20px; overflow:hidden; cursor:pointer; font-size:12px; user-select:none;">
-        <span id="lang-en" style="padding:4px 12px; background:#175E97; color:white; transition:all 0.2s;">English</span>
-        <span id="lang-zh" style="padding:4px 12px; background:white; color:#999; transition:all 0.2s;">中文</span>
-      </div>
-    </div>
 
-    <h1 id="ui-title">U.S. Tap Water PFAS Checker</h1>
-    <p class="subtitle" id="ui-subtitle">Enter your zip code to find out what's in your tap water, what it means for your health, and what you can do about it.</p>
+    <header class="home-hero">
+      <div class="home-hero-top">
+        <span class="badge">National · EPA UCMR 5 Data · Educational Tool</span>
+        <div id="langToggle" onclick="toggleLanguage()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleLanguage();}" class="language-toggle" role="button" tabindex="0" aria-label="Switch language between English and Simplified Chinese">
+          <span id="lang-en" style="background:#175E97; color:white;">English</span>
+          <span id="lang-zh" style="background:white; color:#999;">中文</span>
+        </div>
+      </div>
+
+      <h1 id="ui-title">U.S. Tap Water PFAS Checker</h1>
+      <p class="subtitle" id="ui-subtitle">Enter your zip code to find out what's in your tap water, what it means for your health, and what you can do about it.</p>
+    </header>
 
     <div class="context-note">
       <strong id="ui-howto-label">How to read these results:</strong> <span id="ui-howto-text">Ingesting tap water (drinking it, cooking with it, making coffee or baby formula) is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system. Detection does not mean your water is immediately dangerous, but it does mean you deserve to know what is there and what the research says.</span>
@@ -186,15 +189,6 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
     </div>
 
-    <div class="state-explore">
-      <h2 id="ui-explore-title">Want the bigger picture?</h2>
-      <p id="ui-explore-body">Explore statewide PFAS findings, compound concentrations, and ZIP-level monitoring results.</p>
-      <p class="state-explore-count" id="ui-explore-count">
-        <span id="ui-explore-count-prefix">Covering</span> <span id="state-count">52</span> <span id="ui-explore-count-suffix">states and territories.</span>
-      </p>
-      <a href="/states/" class="state-explore-btn" id="ui-explore-btn" onclick="trackEvent('explore_states_click')">Explore PFAS by State &rarr;</a>
-    </div>
-
     <div class="why-section">
       <h2 id="ui-why-title">Why tap water ingestion matters</h2>
       <p id="ui-why-p1">Drinking tap water and cooking with it are the primary ways PFAS compounds enter the body. Unlike skin contact during bathing (where absorption is minimal), ingestion allows these compounds to pass directly into the bloodstream. Because PFAS are resistant to breakdown, they accumulate in the body over time. Small, repeated exposures through daily tap water use can build up across months and years, which is why chronic low-level ingestion is the focus of most public health research.</p>
@@ -212,8 +206,6 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
         <h2 style="margin:0;">For Researchers &amp; Journalists</h2>
         <div style="display:flex; align-items:center; gap:8px;">
-          <a href="/methodology/" style="font-size:12px; color:var(--primary); font-weight:500; text-decoration:none;">Full methodology &rarr;</a>
-          <a href="/states/" style="font-size:12px; color:var(--primary); font-weight:500; text-decoration:none;">Explore by State &rarr;</a>
           <div class="view-toggle" id="viewToggle">
             <span id="toggleTable" class="active" onclick="setViewMode('table')">Table</span>
             <span id="toggleMap" onclick="setViewMode('map')">Map</span>
@@ -1043,11 +1035,7 @@ Guidelines:
       resultFallbackBelow: "Compounds were detected below EPA limits. Because PFAS accumulate over time, staying informed is worthwhile.",
       noResults: "No PFAS detections on record for this zip code.",
       noResultsDetail: "This zip code does not appear in the EPA's current PFAS detection records for U.S. water systems. This could mean your water had no detections, has not yet been tested, or results are pending. For complete tap water quality information, contact your local water utility directly or use the EPA's UCMR 5 Data Finder. If you want additional peace of mind, water filters certified by NSF International for PFAS removal are widely available and effective for reducing ingestion exposure.",
-      navHome: "Home", navExploreState: "Explore by State", navMethodology: "Methodology",
-      exploreTitle: "Want the bigger picture?",
-      exploreBody: "Explore statewide PFAS findings, compound concentrations, and ZIP-level monitoring results.",
-      exploreCountPrefix: "Covering", exploreCountSuffix: "states and territories.",
-      exploreBtn: "Explore PFAS by State \u2192",
+      navHome: "ZIP Lookup", navExploreState: "Explore by State", navMethodology: "Full Methodology",
     },
     zh: {
       title: "美国自来水全氟化合物（PFAS）检测工具",
@@ -1073,11 +1061,7 @@ Guidelines:
       resultFallbackBelow: "检出化合物均低于EPA限值。由于PFAS会在体内积累，持续关注水质状况是值得的。",
       noResults: "该邮政编码暂无PFAS检出记录。",
       noResultsDetail: "该邮政编码未出现在EPA当前美国供水系统的PFAS检出记录中。这可能意味着您的水中未检出PFAS、尚未完成检测，或结果仍在处理中。如需完整的自来水水质信息，请直接联系当地供水公司，或使用EPA的UCMR 5数据查询工具。如需额外的安全保障，经NSF国际认证的PFAS去除净水器广泛可得，可有效降低摄入暴露风险。",
-      navHome: "首页", navExploreState: "按州浏览", navMethodology: "方法说明",
-      exploreTitle: "想了解更全面的情况？",
-      exploreBody: "探索各州PFAS监测结果、化合物浓度及邮政编码级别的监测数据。",
-      exploreCountPrefix: "覆盖", exploreCountSuffix: "个州和地区。",
-      exploreBtn: "按州浏览PFAS数据 \u2192",
+      navHome: "邮编查询", navExploreState: "按州浏览", navMethodology: "完整方法说明",
     }
   };
 
@@ -1228,11 +1212,6 @@ Guidelines:
     document.getElementById('nav-home').textContent = t.navHome;
     document.getElementById('nav-explore-state').textContent = t.navExploreState;
     document.getElementById('nav-methodology').textContent = t.navMethodology;
-    document.getElementById('ui-explore-title').textContent = t.exploreTitle;
-    document.getElementById('ui-explore-body').textContent = t.exploreBody;
-    document.getElementById('ui-explore-count-prefix').textContent = t.exploreCountPrefix;
-    document.getElementById('ui-explore-count-suffix').textContent = t.exploreCountSuffix;
-    document.getElementById('ui-explore-btn').textContent = t.exploreBtn;
   }
 
 </script>
