@@ -142,6 +142,80 @@ def build_zip_state_index(data, zip_to_state, excluded_states):
 # Rendering
 # ─────────────────────────────────────────────────────────────────────────
 
+STATE_REGIONS = {
+    "CT": "Northeast", "ME": "Northeast", "MA": "Northeast", "NH": "Northeast",
+    "RI": "Northeast", "VT": "Northeast", "NJ": "Northeast", "NY": "Northeast",
+    "PA": "Northeast",
+    "IL": "Midwest", "IN": "Midwest", "MI": "Midwest", "OH": "Midwest",
+    "WI": "Midwest", "IA": "Midwest", "KS": "Midwest", "MN": "Midwest",
+    "MO": "Midwest", "NE": "Midwest", "ND": "Midwest", "SD": "Midwest",
+    "DE": "South", "FL": "South", "GA": "South", "MD": "South", "NC": "South",
+    "SC": "South", "VA": "South", "DC": "South", "WV": "South", "AL": "South",
+    "KY": "South", "MS": "South", "TN": "South", "AR": "South", "LA": "South",
+    "OK": "South", "TX": "South",
+    "AZ": "West", "CO": "West", "ID": "West", "MT": "West", "NV": "West",
+    "NM": "West", "UT": "West", "WY": "West", "AK": "West", "CA": "West",
+    "HI": "West", "OR": "West", "WA": "West",
+    "PR": "Territories",
+}
+REGION_ORDER = ("Northeast", "Midwest", "South", "West", "Territories")
+
+
+def render_state_index_regions(index_rows, base_url):
+    """Render accessible, searchable state cards grouped by U.S. Census region."""
+    by_region = {region: [] for region in REGION_ORDER}
+    missing_regions = []
+
+    for name, abbrev, slug, stats in sorted(index_rows):
+        region = STATE_REGIONS.get(abbrev)
+        if not region:
+            missing_regions.append(abbrev)
+            continue
+        by_region[region].append((name, abbrev, slug, stats))
+
+    if missing_regions:
+        raise SystemExit(
+            "FATAL: state index region mapping missing for: " + ", ".join(missing_regions)
+        )
+
+    sections = []
+    for region in REGION_ORDER:
+        region_slug = region.lower().replace(" ", "-")
+        cards = []
+        for name, abbrev, slug, stats in by_region[region]:
+            pct = stats["pct_with_exceedance"]
+            zip_count = stats["zip_count"]
+            cards.append(f'''          <article class="state-directory-card" data-state-card data-region="{region_slug}" data-state-search="{name.lower()} {abbrev.lower()}">
+            <a href="{base_url}/states/{slug}/" aria-label="View PFAS monitoring results for {name}">
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">{abbrev}</span>
+                <span class="state-card-region">{region}</span>
+              </div>
+              <h3>{name}</h3>
+              <div class="state-card-stat">
+                <strong>{pct}%</strong>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:{pct}%"></span></div>
+              <div class="state-card-footer">
+                <span>{zip_count:,} represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
+            </a>
+          </article>''')
+
+        sections.append(f'''      <section class="state-region" data-region-section="{region_slug}" aria-labelledby="region-{region_slug}">
+        <div class="state-region-heading">
+          <h2 id="region-{region_slug}">{region}</h2>
+          <span>{len(cards)} {"page" if len(cards) == 1 else "pages"}</span>
+        </div>
+        <div class="state-directory-grid">
+{chr(10).join(cards)}
+        </div>
+      </section>''')
+
+    return "\n".join(sections)
+
 def render_compound_rows(compound_stats, thresholds, zip_count):
     order = ["PFOA", "PFOS", "PFHxS", "PFNA", "HFPO-DA", "PFBS", "Lithium",
              "PFPeA", "PFBA", "PFHpA", "6:2 FTS", "PFDA"]
@@ -277,7 +351,7 @@ def validate_build(pages: dict, state_stats: dict, national_totals: dict) -> lis
 # ─────────────────────────────────────────────────────────────────────────
 
 def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod: str,
-                  methodology_lastmod: str) -> str:
+                  methodology_lastmod: str, states_index_lastmod: str) -> str:
     urls = []
     seen = set()
     if existing_path.exists():
@@ -312,7 +386,12 @@ def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod
             priority = "0.8"
         else:
             priority = "0.6"
-        url_lastmod = methodology_lastmod if loc == f"{base_url}/methodology/" else lastmod
+        if loc == f"{base_url}/methodology/":
+            url_lastmod = methodology_lastmod
+        elif loc == f"{base_url}/states/":
+            url_lastmod = states_index_lastmod
+        else:
+            url_lastmod = lastmod
         lines.append(f"  <url><loc>{loc}</loc><lastmod>{url_lastmod}</lastmod>"
                       f"<changefreq>monthly</changefreq><priority>{priority}</priority></url>")
     lines.append("</urlset>")
@@ -345,6 +424,7 @@ def main():
     data_updated_label = site_meta["data_updated_label"]
     lastmod = site_meta["dataset_lastmod"]
     methodology_lastmod = site_meta.get("methodology_lastmod", lastmod)
+    states_index_lastmod = site_meta.get("states_index_lastmod", lastmod)
 
     print(f"Loading dataset from {data_js_path} ...")
     data = load_data_js(data_js_path)
@@ -412,41 +492,253 @@ def main():
             "AGENCY_LINK_ROW": "",  # stubbed; see config/site_meta.json for how to add later
         }
         pages[slug] = render_page(template, tokens)
-        index_rows.append((state_name, slug, stats))
+        index_rows.append((state_name, abbrev, slug, stats))
 
     # State index page
-    index_items = "\n".join(
-        f'        <li><a href="{base_url}/states/{slug}/">{name}</a> '
-        f'&mdash; {stats["zip_count"]} ZIP codes, {stats["pct_with_exceedance"]}% at/above threshold</li>'
-        for name, slug, stats in sorted(index_rows)
-    )
+    state_region_sections = render_state_index_regions(index_rows, base_url)
+    index_structured_data = json.dumps({
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "@id": f"{base_url}/states/#page",
+                "url": f"{base_url}/states/",
+                "name": "PFAS Drinking Water Monitoring by State | PFAS Estimator",
+                "description": (
+                    "Browse EPA UCMR 5 public drinking-water monitoring results across "
+                    f"{len(index_rows)} state and territory pages."
+                ),
+                "isPartOf": {"@id": f"{base_url}/#website"},
+                "about": {"@id": f"{base_url}/#dataset"},
+                "dateModified": states_index_lastmod,
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "PFAS Estimator", "item": f"{base_url}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Explore by State", "item": f"{base_url}/states/"},
+                ],
+            },
+        ],
+    }, ensure_ascii=False)
     states_index_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PFAS Drinking Water by State | PFAS Estimator</title>
-<meta name="description" content="Browse EPA UCMR 5 PFAS drinking-water monitoring results by state, covering {len(index_rows)} states and territories in the PFAS Estimator national dataset." />
-<link rel="canonical" href="{base_url}/states/" />
-<link rel="stylesheet" href="{base_url}/styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PFAS Drinking Water Monitoring by State | PFAS Estimator</title>
+  <meta name="description" content="Browse EPA UCMR 5 public drinking-water monitoring results across {len(index_rows)} state and territory pages, with ZIP-level detections, concentrations, and federal threshold context." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="{base_url}/states/" />
+  <meta name="author" content="Jack Zhang" />
+  <meta name="theme-color" content="#175E97" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PFAS Estimator" />
+  <meta property="og:title" content="PFAS Drinking Water Monitoring by State | PFAS Estimator" />
+  <meta property="og:description" content="Explore EPA UCMR 5 public drinking-water monitoring summaries across {len(index_rows)} state and territory pages." />
+  <meta property="og:url" content="{base_url}/states/" />
+  <meta property="og:image" content="{base_url}/pfas-estimator-social.png" />
+  <meta property="og:image:alt" content="PFAS Estimator state drinking-water monitoring directory" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PFAS Drinking Water Monitoring by State | PFAS Estimator" />
+  <meta name="twitter:description" content="Explore EPA UCMR 5 public drinking-water monitoring summaries by state and territory." />
+  <meta name="twitter:image" content="{base_url}/pfas-estimator-social.png" />
+
+  <script type="application/ld+json">
+  {index_structured_data}
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag('js', new Date());
+    gtag('config', 'G-FZQTEJ4LLY');
+  </script>
 </head>
-<body>
-<div class="page-wrapper" style="justify-content:center;">
-  <div class="card" style="max-width:900px;">
-    <nav class="site-nav" aria-label="Site">
-      <a href="{base_url}/">Home</a>
-      <a href="{base_url}/states/" aria-current="page">Explore by State</a>
-      <a href="{base_url}/methodology/">Methodology</a>
+<body class="methodology-body states-body">
+  <a class="skip-link" href="#states-content">Skip to state directory</a>
+
+  <div class="methodology-shell states-shell">
+    <nav class="site-nav methodology-top-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/states/" aria-current="page">Explore by State</a>
+      <a href="/methodology/">Methodology</a>
     </nav>
-    <span class="badge">EPA UCMR 5 Data &middot; All States</span>
-    <h1>PFAS Drinking Water Monitoring by State</h1>
-    <p class="subtitle">EPA UCMR 5 drinking-water monitoring results linked to ZIP codes, summarized for {len(index_rows)} states and territories. Data updated: {data_updated_label}.</p>
-    <ul style="font-size:14px; line-height:2; padding-left:1.2rem;">
-{index_items}
-    </ul>
-    <p style="font-size:12px; color:#8b969b; margin-top:1.5rem;">{site_meta.get("exclusion_reason", {}).get("GU", "")}</p>
+
+    <header class="methodology-hero states-hero">
+      <div class="methodology-kicker">National monitoring directory</div>
+      <h1>Explore PFAS monitoring by state</h1>
+      <p class="methodology-lede">Move from the national picture to state-level EPA UCMR 5 public drinking-water results, then open ZIP-level records, compound summaries, and comparison-threshold context.</p>
+
+      <div class="methodology-meta" aria-label="State directory summary">
+        <span><strong>{len(index_rows)}</strong> state &amp; territory pages</span>
+        <span><strong>50 states</strong> plus D.C. &amp; Puerto Rico</span>
+        <span><strong>Source</strong> EPA UCMR 5</span>
+        <span><strong>Updated</strong> {data_updated_label}</span>
+      </div>
+    </header>
+
+    <main class="states-content" id="states-content">
+      <section class="states-orientation" aria-label="Choose a starting point">
+        <div class="states-orientation-copy">
+          <span class="states-card-kicker">Place-based exploration</span>
+          <h2>See what monitoring found across a state</h2>
+          <p>State pages summarize only ZIP codes represented in the processed dataset. Use them to inspect geographic patterns—not to estimate personal exposure or rank overall state water safety.</p>
+        </div>
+        <div class="states-zip-cta">
+          <span>Checking a specific address area?</span>
+          <strong>Start with your ZIP code.</strong>
+          <a href="/">Open national ZIP lookup <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </section>
+
+      <section class="state-directory" aria-labelledby="state-directory-title">
+        <div class="state-directory-heading">
+          <div>
+            <span class="states-card-kicker">Browse the dataset</span>
+            <h2 id="state-directory-title">Find a state or territory</h2>
+            <p>Search by name or abbreviation, or narrow the directory by region.</p>
+          </div>
+          <span class="state-result-count" id="stateResultsCount" aria-live="polite">{len(index_rows)} jurisdictions</span>
+        </div>
+
+        <div class="state-search-wrap">
+          <label for="stateSearch">Search states and territories</label>
+          <div class="state-search-control">
+            <input id="stateSearch" type="search" inputmode="search" autocomplete="off" placeholder="Try California, New York, or PR" />
+            <button id="stateSearchClear" class="state-search-clear" type="button" hidden>Clear</button>
+          </div>
+        </div>
+
+        <div class="state-filters" aria-label="Filter by region">
+          <button class="state-filter is-active" type="button" data-region-filter="all" aria-pressed="true">All</button>
+          <button class="state-filter" type="button" data-region-filter="northeast" aria-pressed="false">Northeast</button>
+          <button class="state-filter" type="button" data-region-filter="midwest" aria-pressed="false">Midwest</button>
+          <button class="state-filter" type="button" data-region-filter="south" aria-pressed="false">South</button>
+          <button class="state-filter" type="button" data-region-filter="west" aria-pressed="false">West</button>
+          <button class="state-filter" type="button" data-region-filter="territories" aria-pressed="false">Territories</button>
+        </div>
+
+        <div class="state-threshold-note">
+          <strong>What the percentage means</strong>
+          <span>The share of represented ZIP codes with at least one retained regulated PFAS result at or above its comparison threshold. It is not a population exposure estimate.</span>
+        </div>
+
+        <div class="state-regions" id="stateRegions">
+{state_region_sections}
+        </div>
+
+        <div class="state-empty" id="stateEmpty" hidden>
+          <h3>No matching state found</h3>
+          <p>Try a full state name, its two-letter abbreviation, or select another region.</p>
+        </div>
+      </section>
+
+      <section class="states-reading-notes" aria-labelledby="state-notes-title">
+        <div>
+          <span class="states-card-kicker">Interpretation guardrails</span>
+          <h2 id="state-notes-title">Read state summaries in context</h2>
+        </div>
+        <div class="states-note-grid">
+          <div>
+            <strong>Observed monitoring</strong>
+            <p>Results are observed UCMR 5 public-water records linked to ZIP codes, not modeled contamination or household measurements.</p>
+          </div>
+          <div>
+            <strong>Partial coverage</strong>
+            <p>ZIPs without a retained detection are absent, and private wells or many small systems may not be represented.</p>
+          </div>
+          <div>
+            <strong>Shared systems</strong>
+            <p>One public water system can serve multiple ZIP codes, so neighboring state-page records are not always independent.</p>
+          </div>
+        </div>
+        <a class="states-method-link" href="/methodology/">Read the complete methodology <span aria-hidden="true">&rarr;</span></a>
+      </section>
+
+      <aside class="states-coverage-note" aria-label="Guam coverage note">
+        <span>Coverage note</span>
+        <p>{site_meta.get("exclusion_reason", {}).get("GU", "")}</p>
+      </aside>
+    </main>
+
+    <footer class="methodology-footer states-footer">
+      <p>PFAS Estimator &middot; Independent public-health informatics project &middot; EPA UCMR 5 public drinking-water monitoring</p>
+      <p>State pages describe monitoring records and do not determine personal exposure, diagnosis, or regulatory compliance.</p>
+    </footer>
   </div>
-</div>
+
+  <script>
+  (() => {{
+    const search = document.getElementById('stateSearch');
+    const clear = document.getElementById('stateSearchClear');
+    const filters = Array.from(document.querySelectorAll('[data-region-filter]'));
+    const cards = Array.from(document.querySelectorAll('[data-state-card]'));
+    const sections = Array.from(document.querySelectorAll('[data-region-section]'));
+    const resultCount = document.getElementById('stateResultsCount');
+    const empty = document.getElementById('stateEmpty');
+    let activeRegion = 'all';
+
+    const normalize = value => value.toLowerCase().trim();
+
+    function updateDirectory() {{
+      const query = normalize(search.value);
+      let visibleCount = 0;
+
+      cards.forEach(card => {{
+        const matchesSearch = !query || card.dataset.stateSearch.includes(query);
+        const matchesRegion = activeRegion === 'all' || card.dataset.region === activeRegion;
+        const visible = matchesSearch && matchesRegion;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      }});
+
+      sections.forEach(section => {{
+        section.hidden = !section.querySelector('[data-state-card]:not([hidden])');
+      }});
+
+      resultCount.textContent = `${{visibleCount}} ${{visibleCount === 1 ? 'jurisdiction' : 'jurisdictions'}}`;
+      empty.hidden = visibleCount !== 0;
+      clear.hidden = !query;
+    }}
+
+    search.addEventListener('input', updateDirectory);
+    search.addEventListener('keydown', event => {{
+      if (event.key === 'Escape' && search.value) {{
+        search.value = '';
+        updateDirectory();
+      }}
+    }});
+
+    clear.addEventListener('click', () => {{
+      search.value = '';
+      search.focus();
+      updateDirectory();
+    }});
+
+    filters.forEach(filter => {{
+      filter.addEventListener('click', () => {{
+        activeRegion = filter.dataset.regionFilter;
+        filters.forEach(button => {{
+          const selected = button === filter;
+          button.classList.toggle('is-active', selected);
+          button.setAttribute('aria-pressed', String(selected));
+        }});
+        updateDirectory();
+      }});
+    }});
+  }})();
+  </script>
 </body>
 </html>
 """
@@ -495,6 +787,7 @@ def main():
         sorted(pages.keys()),
         lastmod,
         methodology_lastmod,
+        states_index_lastmod,
     )
     sitemap_path.write_text(merged, encoding="utf-8")
 
