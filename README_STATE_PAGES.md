@@ -33,8 +33,9 @@ states/                           # GENERATED — do not hand-edit, will be over
   index.html
   california-pfas-drinking-water/index.html
   ... (52 total)
-sitemap.xml                       # regenerated: homepage + /states/ + every state page
-styles.css                        # NEW — extracted from index.html's inline <style> block
+methodology/index.html            # standalone methods, provenance, limitations, and review status
+sitemap.xml                       # regenerated: homepage + methodology + /states/ + every state page
+styles.css                        # shared homepage, state-page, and methodology-page styles
 ```
 
 ## Files modified
@@ -49,6 +50,13 @@ styles.css                        # NEW — extracted from index.html's inline <
   3. Fixed a **pre-existing bug**: ZIP 96543 (Andersen Air Force Base, Guam)
      had no entry in `ZIP_TO_STATE`, so it was silently dropped from the
      live map's state aggregation. Added `"965":"GU"`.
+  4. Replaced the old collapsed-section Methodology link with the permanent
+     `/methodology/` route and added direct links from the researcher section.
+
+- **`templates/state_page_template.html`** and **`build_state_pages.py`**:
+  every generated state page and the state index now link to the standalone
+  methodology page, and the generator preserves its sitemap entry and
+  independent last-modified date.
 
 ## Why the numbers are trustworthy
 

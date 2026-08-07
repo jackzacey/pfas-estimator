@@ -276,7 +276,8 @@ def validate_build(pages: dict, state_stats: dict, national_totals: dict) -> lis
 # Sitemap
 # ─────────────────────────────────────────────────────────────────────────
 
-def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod: str) -> str:
+def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod: str,
+                  methodology_lastmod: str) -> str:
     urls = []
     seen = set()
     if existing_path.exists():
@@ -286,12 +287,14 @@ def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod
             if loc not in seen:
                 urls.append(loc)
                 seen.add(loc)
-    if f"{base_url}/" not in seen:
-        urls.append(f"{base_url}/")
-        seen.add(f"{base_url}/")
-    if f"{base_url}/states/" not in seen:
-        urls.append(f"{base_url}/states/")
-        seen.add(f"{base_url}/states/")
+    for top_level_url in (
+        f"{base_url}/",
+        f"{base_url}/methodology/",
+        f"{base_url}/states/",
+    ):
+        if top_level_url not in seen:
+            urls.append(top_level_url)
+            seen.add(top_level_url)
     for slug in state_slugs:
         loc = f"{base_url}/states/{slug}/"
         if loc not in seen:
@@ -301,8 +304,16 @@ def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod
     lines = ['<?xml version="1.0" encoding="UTF-8"?>',
              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for loc in urls:
-        priority = "1.0" if loc == f"{base_url}/" else ("0.8" if loc == f"{base_url}/states/" else "0.6")
-        lines.append(f"  <url><loc>{loc}</loc><lastmod>{lastmod}</lastmod>"
+        if loc == f"{base_url}/":
+            priority = "1.0"
+        elif loc == f"{base_url}/methodology/":
+            priority = "0.9"
+        elif loc == f"{base_url}/states/":
+            priority = "0.8"
+        else:
+            priority = "0.6"
+        url_lastmod = methodology_lastmod if loc == f"{base_url}/methodology/" else lastmod
+        lines.append(f"  <url><loc>{loc}</loc><lastmod>{url_lastmod}</lastmod>"
                       f"<changefreq>monthly</changefreq><priority>{priority}</priority></url>")
     lines.append("</urlset>")
     return "\n".join(lines) + "\n"
@@ -333,6 +344,7 @@ def main():
     base_url = site_meta["base_url"]
     data_updated_label = site_meta["data_updated_label"]
     lastmod = site_meta["dataset_lastmod"]
+    methodology_lastmod = site_meta.get("methodology_lastmod", lastmod)
 
     print(f"Loading dataset from {data_js_path} ...")
     data = load_data_js(data_js_path)
@@ -421,6 +433,11 @@ def main():
 <body>
 <div class="page-wrapper" style="justify-content:center;">
   <div class="card" style="max-width:900px;">
+    <nav class="site-nav" aria-label="Site">
+      <a href="{base_url}/">Home</a>
+      <a href="{base_url}/states/" aria-current="page">Explore by State</a>
+      <a href="{base_url}/methodology/">Methodology</a>
+    </nav>
     <span class="badge">EPA UCMR 5 Data &middot; All States</span>
     <h1>PFAS Drinking Water Monitoring by State</h1>
     <p class="subtitle">EPA UCMR 5 drinking-water monitoring results linked to ZIP codes, summarized for {len(index_rows)} states and territories. Data updated: {data_updated_label}.</p>
@@ -472,7 +489,13 @@ def main():
     tmp_dir.rename(live_dir)
 
     sitemap_path = repo_root / "sitemap.xml"
-    merged = merge_sitemap(sitemap_path, base_url, sorted(pages.keys()), lastmod)
+    merged = merge_sitemap(
+        sitemap_path,
+        base_url,
+        sorted(pages.keys()),
+        lastmod,
+        methodology_lastmod,
+    )
     sitemap_path.write_text(merged, encoding="utf-8")
 
     print(f"\nPublished {len(pages)} state pages to {live_dir}")

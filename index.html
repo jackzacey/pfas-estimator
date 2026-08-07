@@ -131,7 +131,7 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
     <nav class="site-nav" aria-label="Site">
       <a href="/" id="nav-home">Home</a>
       <a href="/states/" id="nav-explore-state">Explore by State</a>
-      <a href="/#researchers" id="nav-methodology">Methodology</a>
+      <a href="/methodology/" id="nav-methodology">Methodology</a>
     </nav>
     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
       <span class="badge" style="margin-bottom:0;">National · EPA UCMR 5 Data · Educational Tool</span>
@@ -212,7 +212,8 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
         <h2 style="margin:0;">For Researchers &amp; Journalists</h2>
         <div style="display:flex; align-items:center; gap:8px;">
-          <a href="/states/" style="font-size:12px; color:var(--primary); font-weight:500; text-decoration:none;">Explore PFAS by State &rarr;</a>
+          <a href="/methodology/" style="font-size:12px; color:var(--primary); font-weight:500; text-decoration:none;">Full methodology &rarr;</a>
+          <a href="/states/" style="font-size:12px; color:var(--primary); font-weight:500; text-decoration:none;">Explore by State &rarr;</a>
           <div class="view-toggle" id="viewToggle">
             <span id="toggleTable" class="active" onclick="setViewMode('table')">Table</span>
             <span id="toggleMap" onclick="setViewMode('map')">Map</span>
@@ -221,36 +222,36 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
         </div>
       </div>
       <div id="stateSummaryContent" style="display:none;">
-        <p class="state-summary-subtitle" style="margin-top:0.75rem;">This tool is built on EPA UCMR 5 data (2023–2025), the most comprehensive federal PFAS drinking water dataset ever collected. UCMR 5 required monitoring from approximately 10,311 public water systems nationally. This dataset covers the 14,071 U.S. zip codes mapped from those systems that recorded at least one PFAS detection, comprising 40,311 compound-level records processed from raw EPA monitoring files.</p>
+        <p class="state-summary-subtitle" style="margin-top:0.75rem;">This tool is built on EPA UCMR 5 public drinking-water monitoring data (2023–2025). The processed detection-only dataset contains 40,311 compound-level records across 14,071 ZIP codes, 4,885 represented public water systems, and 12 analytes.</p>
 
         <div style="background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; margin-top:0.75rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
           <strong>Dataset methodology</strong><br>
-          Raw EPA files were joined to zip code mapping via PWSID (Public Water System ID). Non-detections were filtered out. Where a compound appeared multiple times for the same zip code, the highest recorded level was kept. Output: one entry per compound per zip code. Because non-detections were excluded from the pipeline, every zip code in this dataset had at least one recorded detection. Zip codes where all compounds returned below the minimum reporting level are not represented.
+          EPA records were linked to ZIP codes using Public Water System Identifiers. Non-detections were excluded, and the highest observed concentration was retained for each compound–ZIP pair. A water-system record can map to several ZIP codes. These are observed monitoring results—not modeled exposure estimates or regulatory compliance determinations. <a class="source-link" href="/methodology/">Read the complete processing method and threshold rules &rarr;</a>
         </div>
         <div style="background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; margin-top:0.75rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
           <strong>Known limitations</strong><br>
-          Systems serving fewer than 3,300 people participated voluntarily; rural and small-town America is underrepresented. Data reflects a monitoring snapshot (2023–2025), not continuous measurement. Private wells (43 million Americans) are entirely absent. A zip code returning no results may mean clean water, an untested system, or a system below the reporting threshold. Detection levels reflect output at the treatment plant, not at the tap.
+          The analytic denominator includes only ZIP codes with retained detections. Small systems, rural communities, and private wells are not comprehensively represented. Displayed values are the highest observations from 2023–2025, not long-term averages or measurements at a particular household tap. A ZIP code returning no result must not be interpreted as contamination-free.
         </div>
         <div style="background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; margin-top:0.75rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
-          <strong>How to cite</strong><br>
-          Zhang, J. (2025). U.S. Tap Water PFAS Checker [Web tool]. Data source: U.S. EPA UCMR 5 (2023–2025). pfasestimator.org
+          <strong>Project and review status</strong><br>
+          PFAS Estimator is an independent, student-led project created by Jack Zhang. Clinical and epidemiologic review is in progress with Joshua Tamayo-Sarver, MD, PhD. The project is not institutionally endorsed and has not yet completed journal peer review or formal independent validation. <a class="source-link" href="/methodology/#governance">Full review status &rarr;</a>
         </div>
 
         <!-- NATIONAL FINDINGS -->
         <div style="margin-top:1.25rem; padding:1rem 1.25rem; background:#fff8e6; border:1px solid #f5d87a; border-radius:8px;">
           <div style="font-size:13px; font-weight:500; color:#5a3e00; margin-bottom:0.5rem;">📊 National Finding: Headline Stat</div>
           <div style="font-size:22px; font-weight:600; color:#1a1a1a; margin-bottom:0.25rem;">36% <span style="font-size:14px; font-weight:400; color:#555;">of zip codes in this dataset</span></div>
-          <div style="font-size:13px; color:#5a3e00; line-height:1.6;">had at least one PFAS compound detected <strong>above its EPA limit</strong> (5,059 of 14,071 zip codes). This dataset includes only zip codes with at least one recorded PFAS detection. Zip codes where all compounds returned non-detect are not represented. The EPA's own January 2026 weighted estimate, calculated using running annual averages across all monitored systems, found approximately 8% of water systems nationally had at least one PFAS average above an MCL. The difference reflects methodology: this analysis uses single highest recorded readings; the EPA figure uses running annual averages.</div>
+          <div style="font-size:13px; color:#5a3e00; line-height:1.6;">had at least one regulated PFAS compound detected <strong>at or above the analysis's applicable federal comparison value</strong> (5,059 of 14,071 ZIP codes). This detection-only denominator is not all U.S. ZIP codes or a population estimate. The analysis retains each compound–ZIP pair's highest observed measurement, whereas formal compliance uses regulatory sampling and averaging rules.</div>
         </div>
 
         <!-- COMPOUND EXCEEDANCE TABLE -->
         <div style="margin-top:1rem;">
-          <div style="font-size:13px; font-weight:500; color:#1a1a1a; margin-bottom:0.5rem;">Compounds with EPA Limits: Prevalence and Exceedance</div>
+          <div style="font-size:13px; font-weight:500; color:#1a1a1a; margin-bottom:0.5rem;">Federal Comparison Framework: Prevalence and At/Above-Threshold Counts</div>
           <div style="font-size:12px; color:#999; margin-bottom:0.75rem;">Source: EPA UCMR 5 (2023–2025) · 14,071 zip codes nationally.</div>
           <table class="state-table" style="font-size:12px;">
             <thead><tr>
               <th style="cursor:default;">Compound</th>
-              <th style="cursor:default;">EPA Limit</th>
+              <th style="cursor:default;">Comparison Value</th>
               <th style="cursor:default;">Zips Detected</th>
               <th style="cursor:default;">Note</th>
               <th style="cursor:default;">Avg Level</th>
@@ -262,22 +263,22 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
               <tr><td><span class="compound-tag above">HFPO-DA</span></td><td>0.010 µg/L</td><td>203 <span style="color:#999;font-size:11px;">(1.4% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">35% of detections above limit</td><td>0.0209 µg/L</td><td>0.1400 µg/L</td></tr>
               <tr><td><span class="compound-tag above">PFNA</span></td><td>0.010 µg/L</td><td>558 <span style="color:#999;font-size:11px;">(4% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">35% of detections above limit</td><td>0.0096 µg/L</td><td>0.0998 µg/L</td></tr>
               <tr><td><span class="compound-tag above">PFHxS</span></td><td>0.010 µg/L</td><td>2,999 <span style="color:#999;font-size:11px;">(21% of all zips)</span></td><td style="color:#b85c00;font-size:11px;">21% of detections above limit</td><td>0.0088 µg/L</td><td>0.2502 µg/L</td></tr>
-              <tr><td><span class="compound-tag">PFBS</span></td><td>2.000 µg/L</td><td>5,009 <span style="color:#999;font-size:11px;">(36% of all zips)</span></td><td style="color:#666;font-size:11px;">No detections above limit</td><td>0.0087 µg/L</td><td>0.2900 µg/L</td></tr>
+              <tr><td><span class="compound-tag">PFBS</span></td><td>2.000 µg/L HI reference</td><td>5,009 <span style="color:#999;font-size:11px;">(36% of all ZIPs)</span></td><td style="color:#666;font-size:11px;">Hazard Index not calculated</td><td>0.0087 µg/L</td><td>0.2900 µg/L</td></tr>
             </tbody>
           </table>
-          <div style="font-size:11px; color:#999; margin-top:0.5rem; line-height:1.6;">PFOA and PFOS are reported by prevalence rather than exceedance rate. UCMR 5 records detections at or above the minimum reporting level, which for these compounds aligns with the 0.004 µg/L EPA limit, making a meaningful exceedance percentage impossible to calculate from this dataset alone.</div>
+          <div style="font-size:11px; color:#999; margin-top:0.5rem; line-height:1.6;">PFOA and PFOS are reported by detection prevalence because their UCMR 5 minimum reporting level aligns with the 0.004 µg/L federal MCL. PFBS has no individual MCL; its 2.0 µg/L value is a Hazard Index reference component, and the combined Hazard Index is not calculated from this ZIP-aggregated dataset.</div>
         </div>
 
         <!-- KEY FINDINGS -->
         <div style="margin-top:1rem; background:#f8f9ff; border-left:3px solid #b5d0f5; border-radius:0 8px 8px 0; padding:1rem; font-size:13px; line-height:1.7; color:#2a3a5a;">
           <strong>Key findings (citable)</strong>
           <ul style="margin-top:0.5rem; padding-left:1.25rem; list-style:disc;">
-            <li style="margin-bottom:0.4rem;">Analysis of EPA UCMR 5 data (2023–2025) found that <strong>36% of zip codes in this dataset had at least one PFAS compound above its federal limit</strong> (5,059 of 14,071 zip codes). This dataset includes only zip codes with at least one recorded detection. The EPA's own January 2026 weighted estimate, using running annual averages, found approximately 8% of monitored water systems had at least one PFAS average above an MCL. The difference reflects a methodological distinction: this analysis uses each zip code's single highest recorded level; the EPA figure uses running annual averages across quarterly readings.</li>
+            <li style="margin-bottom:0.4rem;">Analysis of EPA UCMR 5 data (2023–2025) found that <strong>36% of ZIP codes in this detection-only dataset had at least one regulated PFAS compound at or above its applicable federal comparison value</strong> (5,059 of 14,071 ZIP codes). The analysis retains the highest observed value per compound–ZIP pair; it does not reproduce formal regulatory compliance calculations.</li>
             <li style="margin-bottom:0.4rem;"><strong>PFHxS</strong>, which has an estimated 8-year biological half-life and the strongest documented thyroid disruption signal among regulated PFAS, exceeded EPA limits in <strong>21% of zip codes where it was detected</strong> (635 of 2,999 zip codes with PFHxS detections).</li>
             <li style="margin-bottom:0.4rem;"><strong>PFOS</strong> was the most widely detected regulated compound, appearing in <strong>29% of all zip codes</strong> in the dataset (4,083 of 14,071). Peak detected level: 0.490 µg/L, more than 120 times the federal limit of 0.004 µg/L.</li>
             <li style="margin-bottom:0.4rem;"><strong>PFOA</strong> peak detected level was 0.235 µg/L, nearly 60 times the federal limit of 0.004 µg/L.</li>
-            <li style="margin-bottom:0.4rem;"><strong>Lithium</strong>, currently under EPA review with a regulatory decision expected in 2026, was the most prevalent contaminant overall, detected in <strong>57% of the 14,071 zip codes</strong> in the dataset. No federal limit has been established.</li>
-            <li><strong>PFBS</strong> was detected in the most zip codes of any regulated compound (5,009) yet had zero exceedances of its 2.0 µg/L limit. This is an important counterpoint: detection does not automatically signal risk.</li>
+            <li style="margin-bottom:0.4rem;"><strong>Lithium</strong> was the most prevalent analyte overall, detected in <strong>57% of the 14,071 ZIP codes</strong> in the dataset. Lithium has no federal MCL; the project's 7.36 µg/L comparison is research-based, not regulatory.</li>
+            <li><strong>PFBS</strong> was detected in 5,009 ZIP codes. No individual PFBS exceedance rate is reported because the federal comparison is a mixture Hazard Index requiring co-located sample-event values that this aggregated dataset does not retain.</li>
           </ul>
         </div>
 

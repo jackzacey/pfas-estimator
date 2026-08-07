@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Methodology &amp; Data Provenance | PFAS Estimator</title>
+  <meta name="description" content="How PFAS Estimator processes EPA UCMR 5 drinking-water monitoring records into ZIP-code results, federal threshold comparisons, and bounded clinical context." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pfasestimator.org/methodology/" />
+  <meta name="author" content="Jack Zhang" />
+  <meta name="theme-color" content="#175E97" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="PFAS Estimator" />
+  <meta property="og:title" content="Methodology &amp; Data Provenance | PFAS Estimator" />
+  <meta property="og:description" content="A transparent account of the EPA data source, ZIP linkage, detection filtering, aggregation, threshold logic, clinical layer, quality checks, and limitations." />
+  <meta property="og:url" content="https://pfasestimator.org/methodology/" />
+  <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+  <meta property="og:image:alt" content="PFAS Estimator drinking-water monitoring methodology" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Methodology &amp; Data Provenance | PFAS Estimator" />
+  <meta name="twitter:description" content="How EPA UCMR 5 public-water records become ZIP-code results and bounded health context." />
+  <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://pfasestimator.org/methodology/#page",
+        "url": "https://pfasestimator.org/methodology/",
+        "name": "Methodology & Data Provenance | PFAS Estimator",
+        "description": "Methods and limitations for the PFAS Estimator UCMR 5 ZIP-code analytic dataset and clinical translation layer.",
+        "isPartOf": {"@id": "https://pfasestimator.org/#website"},
+        "about": {"@id": "https://pfasestimator.org/#dataset"},
+        "dateModified": "2026-08-07",
+        "author": {"@id": "https://pfasestimator.org/#creator"}
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "PFAS Estimator",
+            "item": "https://pfasestimator.org/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Methodology",
+            "item": "https://pfasestimator.org/methodology/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZQTEJ4LLY');
+  </script>
+</head>
+<body class="methodology-body">
+  <a class="skip-link" href="#methodology-content">Skip to methodology</a>
+
+  <div class="methodology-shell">
+    <nav class="site-nav methodology-top-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/states/">Explore by State</a>
+      <a href="/methodology/" aria-current="page">Methodology</a>
+    </nav>
+
+    <header class="methodology-hero">
+      <div class="methodology-kicker">Methods documentation</div>
+      <h1>Methodology &amp; data provenance</h1>
+      <p class="methodology-lede">How PFAS Estimator converts EPA UCMR 5 public drinking-water monitoring records into searchable ZIP-code results, descriptive national statistics, and carefully bounded clinical context.</p>
+
+      <div class="methodology-meta" aria-label="Methodology status">
+        <span><strong>Data source</strong> EPA UCMR 5</span>
+        <span><strong>Analysis</strong> Descriptive cross-sectional</span>
+        <span><strong>Primary unit</strong> ZIP code</span>
+        <span><strong>Reviewed</strong> August 7, 2026</span>
+      </div>
+    </header>
+
+    <div class="methodology-layout">
+      <aside class="methodology-toc" aria-label="On this page">
+        <div class="methodology-toc-title">On this page</div>
+        <a href="#overview">Overview</a>
+        <a href="#source">Data source &amp; scope</a>
+        <a href="#pipeline">Processing pipeline</a>
+        <a href="#thresholds">Threshold framework</a>
+        <a href="#analysis">Analysis &amp; quality control</a>
+        <a href="#clinical">Clinical translation layer</a>
+        <a href="#interpretation">Reading a ZIP result</a>
+        <a href="#limitations">Limitations</a>
+        <a href="#governance">Review status</a>
+        <a href="#sources">Sources &amp; citation</a>
+      </aside>
+
+      <main class="methodology-content" id="methodology-content">
+        <section class="methodology-section" id="overview">
+          <div class="truth-callout">
+            <div class="truth-callout-label">The central distinction</div>
+            <p><strong>PFAS Estimator reports observed public-water monitoring results; it does not model contamination.</strong> It does not estimate a household's dose, diagnose disease, assign personal health risk, or determine whether a water system is legally in or out of compliance.</p>
+          </div>
+
+          <div class="methodology-metrics" aria-label="Processed dataset summary">
+            <div class="methodology-metric">
+              <span class="methodology-metric-value">14,071</span>
+              <span class="methodology-metric-label">ZIP codes with at least one retained detection</span>
+            </div>
+            <div class="methodology-metric">
+              <span class="methodology-metric-value">40,311</span>
+              <span class="methodology-metric-label">compound–ZIP records</span>
+            </div>
+            <div class="methodology-metric">
+              <span class="methodology-metric-value">4,885</span>
+              <span class="methodology-metric-label">public water systems represented</span>
+            </div>
+            <div class="methodology-metric">
+              <span class="methodology-metric-value">12</span>
+              <span class="methodology-metric-label">analytes in the processed dataset</span>
+            </div>
+          </div>
+
+          <p>PFAS Estimator has two linked components: a national descriptive analysis of EPA monitoring records and a compound-specific clinical translation framework. The monitoring measurements and threshold classifications are deterministic. On-demand language-model summaries sit on top of those fixed records and do not change the underlying concentration, water-system name, or threshold status.</p>
+        </section>
+
+        <section class="methodology-section" id="source">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">01</span>
+            <div>
+              <h2>Data source &amp; analytic scope</h2>
+              <p>Federal occurrence monitoring, preserved as a versioned project snapshot.</p>
+            </div>
+          </div>
+
+          <p>The source is the U.S. Environmental Protection Agency's Fifth Unregulated Contaminant Monitoring Rule (UCMR 5) occurrence dataset. UCMR 5 collected samples from 2023 through 2025 for 29 PFAS and lithium. Monitoring covered community and non-transient non-community public water systems serving 3,300 or more people, plus a nationally representative sample of smaller systems.</p>
+
+          <p>The processed PFAS Estimator dataset was last updated in July 2026 and contains retained detections for 11 PFAS plus lithium:</p>
+
+          <div class="analyte-list" aria-label="Analytes in the processed dataset">
+            <span>PFOA</span><span>PFOS</span><span>PFHxS</span><span>PFNA</span>
+            <span>HFPO-DA</span><span>PFBS</span><span>PFPeA</span><span>PFBA</span>
+            <span>PFHpA</span><span>6:2 FTS</span><span>PFDA</span><span>Lithium</span>
+          </div>
+
+          <div class="methodology-note">
+            <strong>Version note.</strong> EPA states that the public UCMR 5 release available in August 2026 represents approximately 95% of expected results and that the final release is planned for fall 2026. PFAS Estimator is a snapshot of the source data used for this build; later EPA revisions may change counts or individual records.
+          </div>
+        </section>
+
+        <section class="methodology-section" id="pipeline">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">02</span>
+            <div>
+              <h2>Processing pipeline</h2>
+              <p>From EPA records to one retained observation per compound and ZIP code.</p>
+            </div>
+          </div>
+
+          <ol class="pipeline-list">
+            <li class="pipeline-step">
+              <div class="pipeline-step-index">1</div>
+              <div>
+                <h3>Import the EPA monitoring records</h3>
+                <p>UCMR 5 occurrence records and their public-water-system identifiers are ingested. Concentrations are carried in micrograms per liter (&micro;g/L).</p>
+              </div>
+            </li>
+            <li class="pipeline-step">
+              <div class="pipeline-step-index">2</div>
+              <div>
+                <h3>Link public water systems to ZIP codes</h3>
+                <p>Records are joined to the ZIP codes served by each system using the Public Water System Identifier (PWSID). When one system serves more than one ZIP code, its monitoring record can be assigned to each associated ZIP.</p>
+              </div>
+            </li>
+            <li class="pipeline-step">
+              <div class="pipeline-step-index">3</div>
+              <div>
+                <h3>Exclude non-detections</h3>
+                <p>Results below the UCMR 5 minimum reporting level are excluded from the analytic file. Therefore, every represented ZIP code has at least one retained detection, and a ZIP with no result must not be interpreted as contamination-free.</p>
+              </div>
+            </li>
+            <li class="pipeline-step">
+              <div class="pipeline-step-index">4</div>
+              <div>
+                <h3>Retain the highest observation</h3>
+                <p>If a compound appears more than once for the same ZIP code, the highest observed concentration from 2023–2025 is retained. This produces one record per compound–ZIP pair and characterizes the upper bound of observed measurements, not a long-term average.</p>
+              </div>
+            </li>
+            <li class="pipeline-step">
+              <div class="pipeline-step-index">5</div>
+              <div>
+                <h3>Apply the comparison framework</h3>
+                <p>Each retained concentration is compared with the compound's applicable federal or evidence-based reference using predefined, compound-specific rules. Comparisons describe the analytic record; they are not regulatory compliance determinations.</p>
+              </div>
+            </li>
+            <li class="pipeline-step">
+              <div class="pipeline-step-index">6</div>
+              <div>
+                <h3>Publish the deterministic record</h3>
+                <p>The public file stores the compound, observed concentration, and water-system name for each retained ZIP record. ZIP lookup, state summaries, tables, and maps read from this processed dataset.</p>
+              </div>
+            </li>
+          </ol>
+        </section>
+
+        <section class="methodology-section" id="thresholds">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">03</span>
+            <div>
+              <h2>Threshold and classification framework</h2>
+              <p>Different analytes require different rules; “detected” and “at or above threshold” are not interchangeable.</p>
+            </div>
+          </div>
+
+          <div class="methodology-table-wrap">
+            <table class="methodology-table">
+              <thead>
+                <tr>
+                  <th scope="col">Analyte</th>
+                  <th scope="col">Comparison value</th>
+                  <th scope="col">How PFAS Estimator classifies it</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>PFOA</strong></td>
+                  <td>0.004 &micro;g/L<br><span>4 ppt</span></td>
+                  <td>Detection prevalence is reported. The UCMR 5 minimum reporting level aligns with the 2024 federal MCL, so every retained detection is at or above that comparison value.</td>
+                </tr>
+                <tr>
+                  <td><strong>PFOS</strong></td>
+                  <td>0.004 &micro;g/L<br><span>4 ppt</span></td>
+                  <td>Handled like PFOA: detection prevalence is used rather than a separate exceedance percentage.</td>
+                </tr>
+                <tr>
+                  <td><strong>PFHxS, PFNA,<br>HFPO-DA</strong></td>
+                  <td>0.010 &micro;g/L<br><span>10 ppt each</span></td>
+                  <td>Each retained value is directly compared with the compound's 2024 federal MCL; the analysis reports the number and percentage at or above the value among ZIP codes where that compound was detected.</td>
+                </tr>
+                <tr>
+                  <td><strong>PFBS</strong></td>
+                  <td>2.0 &micro;g/L<br><span>Hazard Index reference component</span></td>
+                  <td>No individual PFBS MCL or PFBS exceedance is reported. The federal Hazard Index requires co-located, same-event values for multiple PFAS; those sample-event combinations are not retained after ZIP-level aggregation, so the Hazard Index is not calculated.</td>
+                </tr>
+                <tr>
+                  <td><strong>Lithium</strong></td>
+                  <td>7.36 &micro;g/L<br><span>research comparison</span></td>
+                  <td>This is a concentration evaluated in Liew et al. (2023), not a federal drinking-water standard. Lithium has no federal MCL.</td>
+                </tr>
+                <tr>
+                  <td><strong>PFPeA, PFBA, PFHpA,<br>6:2 FTS, PFDA</strong></td>
+                  <td>None</td>
+                  <td>Detection prevalence and detected concentrations are reported without a federal threshold classification.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="regulatory-status">
+            <div class="regulatory-status-label">Regulatory status as of August 7, 2026</div>
+            <p>The analysis uses the MCLs established in EPA's 2024 PFAS drinking-water rule. In May 2026, EPA proposed rescinding the individual PFHxS, PFNA, and HFPO-DA regulations and the mixture Hazard Index, and separately proposed extending the PFOA and PFOS compliance timeline. Those proposals were not final when this page was reviewed. PFAS Estimator preserves its predefined comparison framework and links to EPA for current regulatory status.</p>
+          </div>
+        </section>
+
+        <section class="methodology-section" id="analysis">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">04</span>
+            <div>
+              <h2>Descriptive analysis &amp; quality control</h2>
+              <p>Transparent denominators, fixed summaries, and no inferential claims.</p>
+            </div>
+          </div>
+
+          <div class="methodology-two-column">
+            <div class="methodology-subcard">
+              <h3>Analysis</h3>
+              <ul>
+                <li>Data processing and descriptive analyses were performed in Python 3.14.2.</li>
+                <li>ZIP code is the primary analytic unit.</li>
+                <li>The denominator is 14,071 ZIP codes with at least one retained detection.</li>
+                <li>Outputs include detected ZIP count, at/above-threshold count and percentage among detected ZIPs, mean detected concentration, and maximum detected concentration.</li>
+                <li>No hypothesis tests, confidence intervals, population weighting, or causal analyses are used.</li>
+              </ul>
+            </div>
+            <div class="methodology-subcard">
+              <h3>Quality-control checks</h3>
+              <ul>
+                <li>14,071 ZIP-code keys in the processed dataset.</li>
+                <li>40,311 compound-level records across 12 analytes.</li>
+                <li>No duplicate compound entries within a ZIP code after aggregation.</li>
+                <li>No zero-value concentrations in the retained detection file.</li>
+                <li>State-page totals reconcile with the national processed dataset, apart from the documented Guam page-generation exclusion.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="methodology-note">
+            <strong>Non-independence is expected.</strong> Because one public water system can serve several ZIP codes, ZIP records are not independent neighborhood-level samples. A water-system observation can legitimately appear in multiple ZIPs.
+          </div>
+        </section>
+
+        <section class="methodology-section" id="clinical">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">05</span>
+            <div>
+              <h2>Clinical translation layer</h2>
+              <p>Structured evidence context first; generated language second.</p>
+            </div>
+          </div>
+
+          <p>Occurrence data and clinical context are stored as separate layers. Each analyte is paired with structured fields covering its full name, toxicologic mechanisms, reported health effects, relevant clinical or research reference values, evidence notes, biological persistence where supported, and source links. The project uses this framework to translate a monitoring result without changing the underlying measurement.</p>
+
+          <div class="clinical-flow" aria-label="Clinical translation sequence">
+            <div><span>1</span><strong>Observed concentration</strong><small>fixed UCMR-derived record</small></div>
+            <div><span>2</span><strong>Compound evidence</strong><small>curated structured fields</small></div>
+            <div><span>3</span><strong>Bounded summary</strong><small>plain-language context</small></div>
+          </div>
+
+          <h3 class="methodology-h3">Use of a language model</h3>
+          <p>On-demand summaries use Llama 3.3 70B Versatile through the Groq API and a Cloudflare Worker proxy. Prompts supply the matched compound, observed concentration, predefined comparison value where applicable, and selected structured evidence fields. The model is instructed to stay within PFAS and environmental-health topics, acknowledge uncertainty, avoid diagnosis and alarmism, and defer personal medical decisions to a clinician.</p>
+
+          <ul class="bounded-list">
+            <li><strong>Not part of the analysis:</strong> the language model does not select records, calculate concentrations, set thresholds, or determine whether a value is at or above a comparison level.</li>
+            <li><strong>Variable output:</strong> generated text is produced fresh for each query and can vary. Prompt constraints reduce but do not eliminate error.</li>
+            <li><strong>Fallback:</strong> when generation is unavailable, the interface can display stored compound-level information instead.</li>
+            <li><strong>Not medical advice:</strong> generated text cannot establish an individual's exposure, diagnosis, prognosis, or treatment need.</li>
+          </ul>
+        </section>
+
+        <section class="methodology-section" id="interpretation">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">06</span>
+            <div>
+              <h2>How to interpret a ZIP-code result</h2>
+              <p>What a result can support—and what it cannot.</p>
+            </div>
+          </div>
+
+          <div class="interpretation-grid">
+            <div class="interpretation-card can">
+              <h3>A result can tell you</h3>
+              <ul>
+                <li>A monitored public water system associated with the ZIP had a reported detection.</li>
+                <li>The highest observed concentration retained for that compound–ZIP pair.</li>
+                <li>How that concentration compares with the project's predefined federal or research reference.</li>
+                <li>Which water-system name is attached to the retained record.</li>
+              </ul>
+            </div>
+            <div class="interpretation-card cannot">
+              <h3>A result cannot tell you</h3>
+              <ul>
+                <li>The concentration at a particular home's tap today.</li>
+                <li>An individual's dose, blood level, cumulative exposure, or disease risk.</li>
+                <li>Whether a water system is legally compliant or in violation.</li>
+                <li>Whether an unrepresented ZIP code or private well is free of PFAS.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="methodology-section" id="limitations">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">07</span>
+            <div>
+              <h2>Known limitations</h2>
+              <p>These constraints should travel with every interpretation of the dataset.</p>
+            </div>
+          </div>
+
+          <div class="limitations-list">
+            <div>
+              <h3>Detection-only denominator</h3>
+              <p>ZIP codes in which every monitored result was below the minimum reporting level are absent. The 14,071-ZIP denominator is not all U.S. ZIP codes and cannot support national population-prevalence claims.</p>
+            </div>
+            <div>
+              <h3>Public-water coverage</h3>
+              <p>UCMR 5 does not comprehensively represent small systems, rural communities, or private wells. No-result areas may be unmonitored, below reporting levels, served outside the mapped system, or outside the dataset.</p>
+            </div>
+            <div>
+              <h3>ZIP linkage</h3>
+              <p>ZIP codes are service-area proxies, not precise utility boundaries. One system may supply multiple ZIPs, and one ZIP may contain more than one water source or service arrangement.</p>
+            </div>
+            <div>
+              <h3>Highest observed value</h3>
+              <p>The retained value is the maximum observed concentration for a compound–ZIP pair during the monitoring period. It is not a running annual average, typical concentration, continuous measurement, or household exposure estimate.</p>
+            </div>
+            <div>
+              <h3>Compliance</h3>
+              <p>UCMR occurrence results do not themselves establish MCL compliance or noncompliance. Formal compliance uses regulatory sampling locations, schedules, and averaging rules that this ZIP-level aggregation does not reproduce.</p>
+            </div>
+            <div>
+              <h3>PFAS scope</h3>
+              <p>The processed dataset contains 11 PFAS plus lithium. It does not characterize the full PFAS class, unmeasured precursors, household products, replacement chemicals, source-water conditions, or treatment performance.</p>
+            </div>
+            <div>
+              <h3>Clinical interpretation</h3>
+              <p>Population-level epidemiology and toxicology cannot be converted directly into an individual's diagnosis or probability of harm. Health effects depend on dose, duration, timing, co-exposures, physiology, and other factors not measured here.</p>
+            </div>
+            <div>
+              <h3>Changing source data and rules</h3>
+              <p>EPA may add, revise, or remove records before the final UCMR 5 release, and federal or state standards may change. State agencies and water utilities remain authoritative for current local guidance.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="methodology-section" id="governance">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">08</span>
+            <div>
+              <h2>Project governance &amp; review status</h2>
+              <p>Who built the project, what review has occurred, and what has not yet occurred.</p>
+            </div>
+          </div>
+
+          <div class="status-panel">
+            <div class="status-row">
+              <span>Project ownership</span>
+              <p>PFAS Estimator is an independent, student-led project created by Jack Zhang, a student at Los Gatos High School in California. The project is not sponsored or endorsed by the school, EPA, a university, a health system, or another institution.</p>
+            </div>
+            <div class="status-row">
+              <span>Clinical review</span>
+              <p>Joshua Tamayo-Sarver, MD, PhD, is providing clinical and epidemiologic review of the developing translation framework and manuscript. That collaboration should not be interpreted as institutional endorsement.</p>
+            </div>
+            <div class="status-row">
+              <span>Peer-review status</span>
+              <p>The project and associated manuscript have not yet completed journal peer review or formal independent validation. A manuscript describing the analysis and clinical translation framework is in preparation.</p>
+            </div>
+            <div class="status-row">
+              <span>Current verification</span>
+              <p>Internal checks confirm the processed record counts, absence of zero-value retained concentrations, uniqueness of compound entries within ZIP codes, and reconciliation of generated state summaries with the national file.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="methodology-section" id="sources">
+          <div class="methodology-section-heading">
+            <span class="methodology-section-number">09</span>
+            <div>
+              <h2>Primary sources &amp; citation</h2>
+              <p>Authoritative links for the monitoring program, current rule status, and the non-regulatory lithium comparison.</p>
+            </div>
+          </div>
+
+          <ol class="methodology-sources">
+            <li><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule" target="_blank" rel="noopener">EPA Fifth Unregulated Contaminant Monitoring Rule</a><span>Program scope, contaminants, reporting schedule, and data status.</span></li>
+            <li><a href="https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule" target="_blank" rel="noopener">EPA UCMR occurrence data</a><span>Public monitoring files and occurrence-data access.</span></li>
+            <li><a href="https://www.epa.gov/sdwa/and-polyfluoroalkyl-substances-pfas" target="_blank" rel="noopener">EPA PFAS National Primary Drinking Water Regulation</a><span>The 2024 rule and links to current regulatory actions.</span></li>
+            <li><a href="https://www.epa.gov/sdwa/proposed-pfas-rescission-rule" target="_blank" rel="noopener">EPA proposed PFAS rescission rule</a><span>May 2026 proposal concerning PFHxS, PFNA, HFPO-DA, and the mixture Hazard Index.</span></li>
+            <li><a href="https://www.epa.gov/sdwa/proposed-pfoa-and-pfos-compliance-extension-rule" target="_blank" rel="noopener">EPA proposed PFOA and PFOS compliance extension</a><span>May 2026 proposal concerning implementation timing.</span></li>
+            <li><a href="https://pubmed.ncbi.nlm.nih.gov/37010840/" target="_blank" rel="noopener">Liew et al., <em>JAMA Pediatrics</em> (2023)</a><span>Source for the 7.36 &micro;g/L lithium research comparison used in the descriptive table.</span></li>
+          </ol>
+
+          <div class="citation-box">
+            <div>
+              <span class="citation-box-label">Suggested citation</span>
+              <p>Zhang J. <em>PFAS Estimator</em> [web application]. Updated 2026. Accessed [date]. https://pfasestimator.org/</p>
+            </div>
+            <div>
+              <span class="citation-box-label">Questions or corrections</span>
+              <p><a href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a></p>
+            </div>
+          </div>
+        </section>
+
+        <footer class="methodology-footer">
+          <p>Data source: EPA UCMR 5, 2023–2025. Site dataset updated July 2026. Methodology last reviewed August 7, 2026.</p>
+          <p>PFAS Estimator is an educational public-health informatics resource. It is not medical advice and does not replace official water-system reporting.</p>
+        </footer>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

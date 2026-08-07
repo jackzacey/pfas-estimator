@@ -1,6 +1,7 @@
 {
   "data_updated_label": "July 2026",
   "dataset_lastmod": "2026-07-16",
+  "methodology_lastmod": "2026-08-07",
   "base_url": "https://pfasestimator.org",
   "excluded_from_generation": ["GU"],
   "exclusion_reason": {
