@@ -111,7 +111,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="/styles.css?v=20260808-zip-health-workspace-refresh" />
+  <link rel="stylesheet" href="/styles.css?v=20260808-compact-conversation-deck" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
@@ -153,6 +153,7 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
     </header>
 
     <section class="home-lookup-panel" aria-label="ZIP code lookup and PFAS health questions">
+    <div class="home-interaction-grid">
     <div class="home-lookup-column">
     <div class="context-note">
       <strong id="ui-howto-label">How to read these results:</strong> <span id="ui-howto-text">Ingesting tap water (drinking it, cooking with it, making coffee or baby formula) is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system. Detection does not mean your water is immediately dangerous, but it does mean you deserve to know what is there and what the research says.</span>
@@ -162,38 +163,6 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <label for="zipInput" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;">U.S. ZIP code</label>
       <input type="text" id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" aria-label="Enter U.S. ZIP code" placeholder="Enter U.S. zip code" maxlength="5" />
       <button onclick="checkZip()" id="ui-checkbtn">Check my area</button>
-    </div>
-
-    <div class="result" id="result">
-      <div class="print-header" id="printHeader">
-        <div class="print-header-top">
-          <div>
-            <h2>PFAS Water Quality Report</h2>
-            <div class="print-zip" id="printZip"></div>
-          </div>
-          <div class="print-meta">
-            <div>pfasestimator.org</div>
-            <div id="printDate"></div>
-            <div>EPA UCMR 5 Data (2023–2025)</div>
-          </div>
-        </div>
-        <div class="print-note">This report summarizes PFAS compounds detected in your public water system based on federal EPA monitoring data. Bring this to your next appointment to discuss with your healthcare provider. Detection does not indicate a health risk. Context and levels matter.</div>
-      </div>
-      <div class="result-title" id="resultTitle"></div>
-      <div class="result-context" id="resultContext"></div>
-      <div id="resultBody"></div>
-      <div class="print-footer" id="printFooter">
-        Data source: EPA Unregulated Contaminant Monitoring Rule 5 (UCMR 5), 2023–2025. Not medical advice. Tool built by Jack Zhang in Los Gatos, California · <a href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a> · pfasestimator.org
-      </div>
-    </div>
-
-    <button class="print-btn" id="printBtn" onclick="trackEvent('download_report'); window.print()">⬛ Print / Save as PDF for your appointment</button>
-
-    <div class="clinical-log" id="clinicalLog">
-      <span id="ui-clinical-label">Provider: enter code to log this as a patient case</span>
-      <input type="password" id="clinicalCode" maxlength="3" placeholder="···" />
-      <button onclick="logClinicalCase()" id="ui-clinical-btn">Log</button>
-      <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
     </div>
     </div>
 
@@ -223,6 +192,41 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       </div>
       <div class="ai-disclaimer" id="aiDisclaimer">Always consult a healthcare provider for personal medical guidance.</div>
     </aside>
+    </div><!-- end compact lookup + conversation deck -->
+
+    <div class="home-results-region" aria-live="polite">
+      <div class="result" id="result">
+        <div class="print-header" id="printHeader">
+          <div class="print-header-top">
+            <div>
+              <h2>PFAS Water Quality Report</h2>
+              <div class="print-zip" id="printZip"></div>
+            </div>
+            <div class="print-meta">
+              <div>pfasestimator.org</div>
+              <div id="printDate"></div>
+              <div>EPA UCMR 5 Data (2023–2025)</div>
+            </div>
+          </div>
+          <div class="print-note">This report summarizes PFAS compounds detected in your public water system based on federal EPA monitoring data. Bring this to your next appointment to discuss with your healthcare provider. Detection does not indicate a health risk. Context and levels matter.</div>
+        </div>
+        <div class="result-title" id="resultTitle"></div>
+        <div class="result-context" id="resultContext"></div>
+        <div id="resultBody"></div>
+        <div class="print-footer" id="printFooter">
+          Data source: EPA Unregulated Contaminant Monitoring Rule 5 (UCMR 5), 2023–2025. Not medical advice. Tool built by Jack Zhang in Los Gatos, California · <a href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a> · pfasestimator.org
+        </div>
+      </div>
+
+      <button class="print-btn" id="printBtn" onclick="trackEvent('download_report'); window.print()">⬛ Print / Save as PDF for your appointment</button>
+
+      <div class="clinical-log" id="clinicalLog">
+        <span id="ui-clinical-label">Provider: enter code to log this as a patient case</span>
+        <input type="password" id="clinicalCode" maxlength="3" placeholder="···" />
+        <button onclick="logClinicalCase()" id="ui-clinical-btn">Log</button>
+        <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
+      </div>
+    </div>
     </section>
 
     <section class="why-section" aria-labelledby="ui-why-title">
