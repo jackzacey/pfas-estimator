@@ -28,62 +28,76 @@
   {"@context": "https://schema.org", "@type": "WebPage", "name": "PFAS in California Drinking Water | PFAS Estimator", "url": "https://pfasestimator.org/states/california-pfas-drinking-water/", "description": "Explore EPA UCMR 5 PFAS drinking-water monitoring results for California, including ZIP-level detections, observed concentrations, and federal threshold context across 1076 ZIP codes.", "isPartOf": {"@id": "https://pfasestimator.org/#website"}, "about": {"@id": "https://pfasestimator.org/#dataset"}, "dateModified": "2026-07-16"}
   </script>
 
-  <link rel="stylesheet" href="https://pfasestimator.org/styles.css" />
-  <style>
-    .state-page-wrap { max-width: 900px; margin: 0 auto; }
-    .breadcrumb { font-size: 12px; color: #8b969b; margin-bottom: 1rem; }
-    .breadcrumb a { color: var(--primary); text-decoration: none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .headline-stat { margin-top: 1.25rem; padding: 1.25rem 1.5rem; background: var(--warn-tint); border: 1px solid var(--warn-tint-border); border-radius: 12px; }
-    .headline-stat .big { font-size: 26px; font-weight: 650; color: var(--ink); letter-spacing: -0.3px; }
-    .headline-stat .big span { font-size: 14px; font-weight: 400; color: #555; }
-    .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1.25rem; }
-    .cta-row a.button-link { display: inline-flex; align-items: center; height: 42px; padding: 0 20px; border-radius: 9px; background: var(--primary); color: #fff; font-size: 14px; font-weight: 500; text-decoration: none; box-shadow: 0 4px 10px -4px rgba(23,94,151,0.5); }
-    .cta-row a.button-link.secondary { background: var(--primary-tint); color: var(--primary); box-shadow: none; border: 1px solid var(--primary-tint-border); }
-    section.state-section { margin-top: 2.25rem; padding-top: 1.5rem; border-top: 1px solid var(--border-soft); }
-    section.state-section h2 { font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 0.75rem; }
-    .zip-table-wrap { max-height: 480px; overflow-y: auto; border: 1px solid var(--border-soft); border-radius: 10px; }
-    caption { text-align: left; font-size: 12px; color: #8b969b; padding: 6px 8px; caption-side: top; }
-  </style>
+  <link rel="stylesheet" href="/styles.css?v=20260807-home-state-editorial-refresh" />
 </head>
-<body>
-<div class="page-wrapper" style="justify-content:center;">
-  <div class="card state-page-wrap">
+<body class="state-detail-body">
+  <a class="skip-link" href="#state-detail-content">Skip to state monitoring results</a>
 
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="https://pfasestimator.org/">PFAS Estimator</a> / <a href="https://pfasestimator.org/states/">States</a> / California
+  <div class="state-detail-shell">
+    <nav class="site-nav state-detail-top-nav" aria-label="Primary">
+      <a href="https://pfasestimator.org/">ZIP Lookup</a>
+      <a href="https://pfasestimator.org/map/">Map</a>
+      <a href="https://pfasestimator.org/state-table/">State Table</a>
+      <a href="https://pfasestimator.org/states/" aria-current="page">Explore by State</a>
+      <a href="https://pfasestimator.org/methodology/">Full Methodology</a>
     </nav>
 
-    <span class="badge">EPA UCMR 5 Data &middot; California</span>
-    <h1>PFAS Drinking-Water Monitoring Results in California</h1>
-    <p class="subtitle">This page summarizes EPA Fifth Unregulated Contaminant Monitoring Rule (UCMR 5, 2023&ndash;2025) drinking-water monitoring records linked to ZIP codes in California, as processed for the PFAS Estimator national dataset. Data updated: July 2026.</p>
+    <header class="state-detail-hero">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="https://pfasestimator.org/">PFAS Estimator</a><span aria-hidden="true">/</span><a href="https://pfasestimator.org/states/">Explore by State</a><span aria-hidden="true">/</span><span>California</span>
+      </nav>
+      <div class="state-detail-kicker">State monitoring profile</div>
+      <h1>PFAS drinking-water monitoring in California</h1>
+      <p class="state-detail-lede">EPA Fifth Unregulated Contaminant Monitoring Rule records linked to ZIP codes in California, summarized from the PFAS Estimator national analytic dataset.</p>
+      <div class="state-detail-meta" aria-label="State data scope">
+        <span><strong>Source</strong> EPA UCMR 5</span>
+        <span><strong>Period</strong> 2023&ndash;2025</span>
+        <span><strong>Represented</strong> 1076 ZIP codes</span>
+        <span><strong>Updated</strong> July 2026</span>
+      </div>
+    </header>
 
-    <div class="headline-stat">
-      <div class="big">39.0% <span>of California ZIP codes in this dataset (1076 total)</span></div>
-      <div style="font-size:13px; color:#5a3e00; margin-top:6px; line-height:1.6;">had at least one regulated PFAS compound detected at or above its applicable EPA threshold (420 of 1076 ZIP codes). Of those, 290 (69.0%) had more than one compound at or above threshold. This dataset includes only ZIP codes with at least one recorded PFAS detection; ZIP codes where all compounds returned non-detect are not represented.</div>
-    </div>
+    <main class="state-detail-content" id="state-detail-content">
+      <section class="state-detail-overview" aria-label="State summary">
+        <div class="headline-stat">
+          <span class="headline-stat-label">At or above an applicable EPA threshold</span>
+          <div class="big"><strong>39.0%</strong><span>420 of 1076 represented California ZIP codes</span></div>
+          <p>At least one regulated PFAS compound was detected at or above its applicable threshold. Of those ZIP codes, 290 (69.0%) had more than one compound at or above threshold.</p>
+        </div>
 
-    <div class="cta-row">
-      <a class="button-link" href="https://pfasestimator.org/?zip=90001">Look up a California ZIP code &rarr;</a>
-      <a class="button-link secondary" href="https://pfasestimator.org/methodology/">Full methodology &amp; data provenance</a>
-    </div>
+        <div class="state-detail-actions">
+          <span class="state-detail-section-label">Continue with local context</span>
+          <h2>Check a ZIP-level result</h2>
+          <p>This detection-only dataset does not represent every ZIP code in California. Open a ZIP result for the retained compound-level records available here.</p>
+          <div class="cta-row">
+            <a class="button-link" href="https://pfasestimator.org/?zip=90001">Look up a California ZIP code &rarr;</a>
+            <a class="button-link secondary" href="https://pfasestimator.org/methodology/">Read the methodology</a>
+          </div>
+        </div>
+      </section>
 
-    <section class="state-section">
-      <h2>Compounds detected in California</h2>
-      <div style="overflow-x:auto;">
-      <table class="state-table">
-        <caption>Detection prevalence, exceedance, and concentration by compound, California ZIP codes in the EPA UCMR 5 analytic dataset.</caption>
-        <thead>
-          <tr>
-            <th scope="col">Compound</th>
-            <th scope="col">Applicable threshold</th>
-            <th scope="col">ZIP codes detected</th>
-            <th scope="col">At/above threshold</th>
-            <th scope="col">Mean detected</th>
-            <th scope="col">Maximum detected</th>
-          </tr>
-        </thead>
-        <tbody>
+      <section class="state-detail-panel state-section">
+        <div class="state-detail-section-heading">
+          <div>
+            <span class="state-detail-section-label">Compound summary</span>
+            <h2>Compounds detected in California</h2>
+          </div>
+          <p>Detection prevalence, threshold comparison, and retained concentration statistics among represented ZIP codes.</p>
+        </div>
+        <div class="state-detail-table-wrap">
+          <table class="state-table state-detail-table">
+            <caption>Detection prevalence, exceedance, and concentration by compound, California ZIP codes in the EPA UCMR 5 analytic dataset.</caption>
+            <thead>
+              <tr>
+                <th scope="col">Compound</th>
+                <th scope="col">Applicable threshold</th>
+                <th scope="col">ZIP codes detected</th>
+                <th scope="col">At/above threshold</th>
+                <th scope="col">Mean detected</th>
+                <th scope="col">Maximum detected</th>
+              </tr>
+            </thead>
+            <tbody>
           <tr><td>PFOA</td><td>0.004 µg/L (MCL)</td><td>318 (29.6% of state)</td><td>318 (100.0%) &mdash; all detections at/above limit by construction</td><td>0.0109 µg/L</td><td>0.1883 µg/L</td></tr>
           <tr><td>PFOS</td><td>0.004 µg/L (MCL)</td><td>388 (36.1% of state)</td><td>388 (100.0%) &mdash; all detections at/above limit by construction</td><td>0.017 µg/L</td><td>0.2365 µg/L</td></tr>
           <tr><td>PFHxS</td><td>0.01 µg/L (MCL)</td><td>416 (38.7% of state)</td><td>96 (23.1% of detected)</td><td>0.0096 µg/L</td><td>0.2502 µg/L</td></tr>
@@ -95,25 +109,30 @@
           <tr><td>PFHpA</td><td>&mdash; (no federal limit)</td><td>175 (16.3% of state)</td><td>&mdash;</td><td>0.0078 µg/L</td><td>0.0727 µg/L</td></tr>
           <tr><td>6:2 FTS</td><td>&mdash; (no federal limit)</td><td>5 (0.5% of state)</td><td>&mdash;</td><td>0.0187 µg/L</td><td>0.0503 µg/L</td></tr>
           <tr><td>PFDA</td><td>&mdash; (no federal limit)</td><td>9 (0.8% of state)</td><td>&mdash;</td><td>0.0037 µg/L</td><td>0.0056 µg/L</td></tr>
-        </tbody>
-      </table>
-      </div>
-    </section>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <section class="state-section">
-      <h2>ZIP codes in this dataset (California)</h2>
-      <p class="state-summary-subtitle">1076 ZIP codes with at least one recorded PFAS detection. Click a ZIP code to view its full compound-level results.</p>
-      <div class="zip-table-wrap">
-      <table class="state-table">
-        <caption class="sr-only">Per-ZIP-code detection summary for California</caption>
-        <thead>
-          <tr>
-            <th scope="col">ZIP code</th>
-            <th scope="col">Compounds detected</th>
-            <th scope="col">At/above threshold</th>
-          </tr>
-        </thead>
-        <tbody>
+      <section class="state-detail-panel state-section">
+        <div class="state-detail-section-heading">
+          <div>
+            <span class="state-detail-section-label">ZIP-level directory</span>
+            <h2>ZIP codes in this dataset</h2>
+          </div>
+          <p>1076 California ZIP codes with at least one retained PFAS detection. Select a ZIP code to open its compound-level result.</p>
+        </div>
+        <div class="zip-table-wrap">
+          <table class="state-table state-detail-table state-detail-zip-table">
+            <caption class="sr-only">Per-ZIP-code detection summary for California</caption>
+            <thead>
+              <tr>
+                <th scope="col">ZIP code</th>
+                <th scope="col">Compounds detected</th>
+                <th scope="col">At/above threshold</th>
+              </tr>
+            </thead>
+            <tbody>
           <tr><td><a href="https://pfasestimator.org/?zip=90001">90001</a></td><td>1</td><td>No</td></tr>
           <tr><td><a href="https://pfasestimator.org/?zip=90002">90002</a></td><td>1</td><td>No</td></tr>
           <tr><td><a href="https://pfasestimator.org/?zip=90003">90003</a></td><td>1</td><td>No</td></tr>
@@ -1190,30 +1209,32 @@
           <tr><td><a href="https://pfasestimator.org/?zip=96150">96150</a></td><td>8</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (2)</span></td></tr>
           <tr><td><a href="https://pfasestimator.org/?zip=96158">96158</a></td><td>8</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (2)</span></td></tr>
           <tr><td><a href="https://pfasestimator.org/?zip=96161">96161</a></td><td>3</td><td><span style="color:var(--warn-strong); font-weight:500;">Yes (1)</span></td></tr>
-        </tbody>
-      </table>
-      </div>
-    </section>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <section class="state-section">
-      <h2>Methodology &amp; limitations</h2>
-      <p style="font-size:13px; color:#555; line-height:1.7; margin-bottom:0.75rem;">Results are based on EPA UCMR 5 monitoring data (2023&ndash;2025), linked to ZIP codes via Public Water System Identifier. Non-detections are not present in this analytic dataset. For each compound and ZIP code, the highest observed concentration across the monitoring period is retained; this characterizes the upper bound of observed drinking-water concentrations, not a long-term average or an individual exposure estimate. A single water system may serve multiple ZIP codes, so the same monitoring record can appear for more than one ZIP in this table. ZIP-code assignment reflects water-system service area geography and does not establish individual household exposure. Private wells are not represented unless served by a monitored public water system. PFOA and PFOS are reported by detection prevalence because the UCMR 5 reporting limit equals their federal MCL. A full PFBS Hazard Index is not calculated because co-located, same-event multi-compound readings are not retained in this dataset. Lithium has no federal Maximum Contaminant Level; 7.36 &micro;g/L is an evidence-based reference concentration from a prospective cohort study, not a regulatory threshold.</p>
-    </section>
+      <section class="state-detail-notes" aria-label="Interpretation and related links">
+        <div>
+          <span class="state-detail-section-label">Interpretation boundaries</span>
+          <h2>Methodology &amp; limitations</h2>
+          <p>Results are based on EPA UCMR 5 monitoring data (2023&ndash;2025), linked to ZIP codes via Public Water System Identifier. Non-detections are not present in this analytic dataset. For each compound and ZIP code, the highest observed concentration across the monitoring period is retained; this characterizes the upper bound of observed drinking-water concentrations, not a long-term average or an individual exposure estimate. A single water system may serve multiple ZIP codes, so the same monitoring record can appear for more than one ZIP in this table. ZIP-code assignment reflects water-system service area geography and does not establish individual household exposure. Private wells are not represented unless served by a monitored public water system. PFOA and PFOS are reported by detection prevalence because the UCMR 5 reporting limit equals their federal MCL. A full PFBS Hazard Index is not calculated because co-located, same-event multi-compound readings are not retained in this dataset. Lithium has no federal Maximum Contaminant Level; 7.36 &micro;g/L is an evidence-based reference concentration from a prospective cohort study, not a regulatory threshold.</p>
+        </div>
+        <div>
+          <span class="state-detail-section-label">Continue exploring</span>
+          <h2>Related links</h2>
+          <p class="state-detail-links">
+            <a href="https://pfasestimator.org/">PFAS Estimator homepage &amp; national ZIP lookup</a>
+            <a href="https://pfasestimator.org/methodology/">Full national methodology, limitations, and data provenance</a>
+            <a href="https://pfasestimator.org/states/">All states &amp; territories index</a>
+          </p>
+        </div>
+      </section>
 
-    <section class="state-section">
-      <h2>Related links</h2>
-      <p style="font-size:13px; line-height:1.8;">
-        <a class="source-link" href="https://pfasestimator.org/">PFAS Estimator homepage &amp; national ZIP lookup</a><br/>
-        <a class="source-link" href="https://pfasestimator.org/methodology/">Full national methodology, limitations, and data provenance</a><br/>
-        <a class="source-link" href="https://pfasestimator.org/states/">All states &amp; territories index</a>
-      </p>
-    </section>
-
-    <div class="disclaimer">
-      Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023&ndash;2025. Detection does not indicate a health risk. Not medical advice. Data updated: July 2026. &middot; <a class="source-link" href="https://www.epa.gov/dwucmr" target="_blank" rel="noopener">EPA Source</a>
-    </div>
-
+      <footer class="state-detail-footer">
+        <p>Data from the EPA Unregulated Contaminant Monitoring Rule (UCMR 5), 2023&ndash;2025. Detection does not indicate a health risk. Not medical advice. Data updated: July 2026. &middot; <a href="https://www.epa.gov/dwucmr" target="_blank" rel="noopener">EPA source</a></p>
+      </footer>
+    </main>
   </div>
-</div>
 </body>
 </html>

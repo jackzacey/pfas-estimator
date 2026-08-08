@@ -111,7 +111,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="/styles.css?v=20260807-unified-editorial-shell" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-home-state-editorial-refresh" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
@@ -152,6 +152,7 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <p class="subtitle" id="ui-subtitle">Enter your zip code to find out what's in your tap water, what it means for your health, and what you can do about it.</p>
     </header>
 
+    <section class="home-lookup-panel" aria-label="ZIP code lookup">
     <div class="context-note">
       <strong id="ui-howto-label">How to read these results:</strong> <span id="ui-howto-text">Ingesting tap water (drinking it, cooking with it, making coffee or baby formula) is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system. Detection does not mean your water is immediately dangerous, but it does mean you deserve to know what is there and what the research says.</span>
     </div>
@@ -193,6 +194,7 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <button onclick="logClinicalCase()" id="ui-clinical-btn">Log</button>
       <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
     </div>
+    </section>
 
     <section class="why-section" aria-labelledby="ui-why-title">
       <span class="why-kicker">Exposure pathway</span>
