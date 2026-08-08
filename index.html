@@ -111,7 +111,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="/styles.css?v=20260807-centered-data-tabs" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
@@ -130,8 +130,8 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
   <div class="card home-card">
     <nav class="site-nav" aria-label="Primary">
       <a href="/" id="nav-home" aria-current="page">ZIP Lookup</a>
-      <a href="/?view=map#researchers" id="nav-map" onclick="return openNationalDataView('map', event)">Map</a>
-      <a href="/?view=table#researchers" id="nav-state-table" onclick="return openNationalDataView('table', event)">State Table</a>
+      <a href="/map/" id="nav-map" onclick="trackEvent('nav_map')">Map</a>
+      <a href="/state-table/" id="nav-state-table" onclick="trackEvent('nav_state_table')">State Table</a>
       <a href="/states/" id="nav-explore-state" onclick="trackEvent('nav_explore_states')">Explore by State</a>
       <a href="/methodology/" id="nav-methodology" onclick="trackEvent('nav_methodology')">Full Methodology</a>
     </nav>
@@ -340,8 +340,6 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
 <div class="counter-badge"><span id="searchCount">—</span> searches</div>
 <div class="counter-badge" style="bottom:52px;"><span id="clinicalCount">—</span> patient cases</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script src="data.js"></script>
 <script src="science.js"></script>
 <script>
@@ -753,20 +751,15 @@ Guidelines:
 
   function openNationalDataView(mode, event) {
     if (event) event.preventDefault();
-    const url = new URL(window.location.href);
-    url.pathname = '/';
-    url.search = `?view=${mode}`;
-    url.hash = 'researchers';
-    window.history.pushState({ view: mode }, '', url);
-    setViewMode(mode, true);
-    trackEvent(mode === 'map' ? 'nav_map' : 'nav_state_table');
+    window.location.href = mode === 'map' ? '/map/' : '/state-table/';
     return false;
   }
 
   function applyViewFromLocation(shouldScroll = false) {
     const requestedView = new URLSearchParams(window.location.search).get('view');
     if (requestedView === 'map' || requestedView === 'table') {
-      setViewMode(requestedView, shouldScroll);
+      window.location.replace(requestedView === 'map' ? '/map/' : '/state-table/');
+      return;
     } else {
       document.getElementById('researchers').hidden = true;
       setPrimaryNavState('lookup');

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>National PFAS Drinking-Water Map | PFAS Estimator</title>
+  <meta name="description" content="Explore state-level patterns in EPA UCMR 5 public drinking-water PFAS monitoring records using an interactive national map." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pfasestimator.org/map/" />
+  <meta name="author" content="Jack Zhang" />
+  <meta name="theme-color" content="#175E97" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PFAS Estimator" />
+  <meta property="og:title" content="National PFAS Drinking-Water Map | PFAS Estimator" />
+  <meta property="og:description" content="Explore represented EPA UCMR 5 PFAS monitoring patterns across U.S. states and territories." />
+  <meta property="og:url" content="https://pfasestimator.org/map/" />
+  <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="National PFAS Drinking-Water Map | PFAS Estimator" />
+  <meta name="twitter:description" content="Explore represented EPA UCMR 5 PFAS monitoring patterns across U.S. states and territories." />
+  <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "National PFAS Drinking-Water Map | PFAS Estimator",
+    "url": "https://pfasestimator.org/map/",
+    "description": "An interactive state-level map of represented EPA UCMR 5 public drinking-water PFAS monitoring records.",
+    "isPartOf": {"@id": "https://pfasestimator.org/#website"},
+    "about": {"@id": "https://pfasestimator.org/#dataset"},
+    "dateModified": "2026-08-07"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZQTEJ4LLY');
+  </script>
+</head>
+<body class="national-page-body" data-national-view="map">
+  <a class="skip-link" href="#national-content">Skip to national map</a>
+
+  <div class="national-shell">
+    <nav class="site-nav national-top-nav" aria-label="Primary">
+      <a href="/">ZIP Lookup</a>
+      <a href="/map/" aria-current="page">Map</a>
+      <a href="/state-table/">State Table</a>
+      <a href="/states/">Explore by State</a>
+      <a href="/methodology/">Full Methodology</a>
+    </nav>
+
+    <header class="national-hero">
+      <div class="national-kicker">National data view</div>
+      <h1>PFAS monitoring map</h1>
+      <p class="national-lede">Explore state-level patterns in the EPA UCMR 5 records represented by PFAS Estimator. Change the metric, then select a state to open its ZIP-level monitoring summary.</p>
+      <div class="national-meta" aria-label="Map scope">
+        <span><strong>Source</strong> EPA UCMR 5</span>
+        <span><strong>Period</strong> 2023–2025</span>
+        <span><strong>Scope</strong> Public water monitoring</span>
+        <span><strong>View</strong> State-level descriptive</span>
+      </div>
+    </header>
+
+    <main id="national-content">
+      <section class="national-panel" aria-labelledby="map-panel-title">
+        <div class="national-panel-heading">
+          <div>
+            <span class="national-section-label">Interactive map</span>
+            <h2 id="map-panel-title">Monitoring patterns by state</h2>
+          </div>
+          <p>Color reflects records represented in this detection-only analytic dataset; it is not a population exposure or compliance map.</p>
+        </div>
+
+        <div class="map-controls national-map-controls">
+          <label class="map-metric-label" for="mapMetric">Color states by</label>
+          <select class="map-select" id="mapMetric">
+            <option value="pctAbove">% of retained records above comparison value</option>
+            <option value="detections">Total retained detections</option>
+            <option value="systems">Represented water systems</option>
+            <option value="compound_PFOS">PFOS detections</option>
+            <option value="compound_PFOA">PFOA detections</option>
+            <option value="compound_PFHxS">PFHxS detections</option>
+            <option value="compound_PFBS">PFBS detections</option>
+            <option value="compound_PFNA">PFNA detections</option>
+            <option value="compound_HFPO-DA">HFPO-DA (GenX) detections</option>
+          </select>
+          <div class="map-legend" id="mapLegend" aria-label="Map legend"></div>
+        </div>
+
+        <p class="national-data-status" id="nationalDataStatus" role="status" aria-live="polite" hidden></p>
+        <div class="map-fullscreen national-map" id="mapContainer">
+          <svg id="pfasMapSvg" role="img" aria-label="United States map of represented PFAS monitoring records"></svg>
+          <div class="map-tooltip" id="mapTooltip" hidden></div>
+        </div>
+        <p class="map-source-note">EPA UCMR 5 (2023–2025) · 14,071 ZIP codes with retained detections in the full analytic dataset</p>
+      </section>
+
+      <section class="national-notes" aria-label="Map interpretation">
+        <div>
+          <span>Interpretation</span>
+          <p>Darker color indicates a higher value for the selected metric among represented records. It does not establish a household exposure level.</p>
+        </div>
+        <div>
+          <span>Coverage</span>
+          <p>Small systems, private wells, and ZIP codes without retained detections are not comprehensively represented.</p>
+        </div>
+        <div>
+          <span>Methods</span>
+          <p>Read the <a href="/methodology/">full methodology</a> for ZIP linkage, filtering, aggregation, thresholds, and limitations.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="national-footer">
+      <p>PFAS Estimator · Independent educational public-health informatics project · Not medical advice</p>
+    </footer>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+  <script src="/data.js"></script>
+  <script src="/science.js"></script>
+  <script src="/national-data.js?v=20260807-professional-routes"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>PFAS State Comparison Table | PFAS Estimator</title>
+  <meta name="description" content="Compare represented EPA UCMR 5 public drinking-water PFAS detections, water systems, and descriptive monitoring metrics across states and territories." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://pfasestimator.org/state-table/" />
+  <meta name="author" content="Jack Zhang" />
+  <meta name="theme-color" content="#175E97" />
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PFAS Estimator" />
+  <meta property="og:title" content="PFAS State Comparison Table | PFAS Estimator" />
+  <meta property="og:description" content="Compare represented EPA UCMR 5 drinking-water monitoring metrics across U.S. states and territories." />
+  <meta property="og:url" content="https://pfasestimator.org/state-table/" />
+  <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PFAS State Comparison Table | PFAS Estimator" />
+  <meta name="twitter:description" content="Compare represented EPA UCMR 5 drinking-water monitoring metrics across U.S. states and territories." />
+  <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "PFAS State Comparison Table | PFAS Estimator",
+    "url": "https://pfasestimator.org/state-table/",
+    "description": "A sortable state-level comparison of represented EPA UCMR 5 public drinking-water PFAS monitoring records.",
+    "isPartOf": {"@id": "https://pfasestimator.org/#website"},
+    "about": {"@id": "https://pfasestimator.org/#dataset"},
+    "dateModified": "2026-08-07"
+  }
+  </script>
+
+  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FZQTEJ4LLY');
+  </script>
+</head>
+<body class="national-page-body" data-national-view="table">
+  <a class="skip-link" href="#national-content">Skip to state comparison table</a>
+
+  <div class="national-shell">
+    <nav class="site-nav national-top-nav" aria-label="Primary">
+      <a href="/">ZIP Lookup</a>
+      <a href="/map/">Map</a>
+      <a href="/state-table/" aria-current="page">State Table</a>
+      <a href="/states/">Explore by State</a>
+      <a href="/methodology/">Full Methodology</a>
+    </nav>
+
+    <header class="national-hero">
+      <div class="national-kicker">National data view</div>
+      <h1>State comparison table</h1>
+      <p class="national-lede">Compare descriptive UCMR 5 monitoring metrics across states and territories represented in PFAS Estimator. Select a column heading to sort the table.</p>
+      <div class="national-meta" aria-label="Table scope">
+        <span><strong>Source</strong> EPA UCMR 5</span>
+        <span><strong>Period</strong> 2023–2025</span>
+        <span><strong>Records</strong> Detection-only</span>
+        <span><strong>Unit</strong> State or territory</span>
+      </div>
+    </header>
+
+    <main id="national-content">
+      <section class="national-metrics" aria-label="Dataset overview">
+        <div><span>14,071</span><p>ZIP codes with at least one retained detection</p></div>
+        <div><span>40,311</span><p>compound–ZIP records</p></div>
+        <div><span>4,885</span><p>represented public water systems</p></div>
+        <div><span>12</span><p>analytes in the processed dataset</p></div>
+      </section>
+
+      <section class="national-panel" aria-labelledby="table-panel-title">
+        <div class="national-panel-heading">
+          <div>
+            <span class="national-section-label">Sortable table</span>
+            <h2 id="table-panel-title">Represented monitoring records by state</h2>
+          </div>
+          <p>Counts reflect retained analytic records and represented water systems. They do not rank overall water quality or individual health risk.</p>
+        </div>
+
+        <p class="national-data-status" id="nationalDataStatus" role="status" aria-live="polite" hidden></p>
+        <div class="national-table-wrap" id="stateSummaryTable"></div>
+        <p class="national-table-footnote">“% above comparison value” is the share of retained compound-level records above an available individual EPA comparison value. PFBS Hazard Index classification is not calculated from this aggregated dataset. Mean level combines analytes with different concentration distributions and is descriptive only.</p>
+      </section>
+
+      <section class="national-notes" aria-label="Table interpretation">
+        <div>
+          <span>Use the table for comparison</span>
+          <p>Sort columns to inspect record volume, represented systems, threshold share, mean detected concentration, or the most common analyte.</p>
+        </div>
+        <div>
+          <span>Use state pages for detail</span>
+          <p>Select a state name for compound-specific and ZIP-level results with state-specific interpretation.</p>
+        </div>
+        <div>
+          <span>Read before citing</span>
+          <p>Review the <a href="/methodology/">full methodology</a> for detection filtering, ZIP duplication, threshold logic, and limitations.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="national-footer">
+      <p>PFAS Estimator · Independent educational public-health informatics project · Not medical advice</p>
+    </footer>
+  </div>
+
+  <script src="/data.js"></script>
+  <script src="/science.js"></script>
+  <script src="/national-data.js?v=20260807-professional-routes"></script>
+</body>
+</html>

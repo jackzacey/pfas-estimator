@@ -17,8 +17,8 @@
       --warn-tint-border: #efc98a;
       --shadow-sm: 0 1px 2px rgba(16,30,38,0.04), 0 4px 14px -8px rgba(16,30,38,0.16);
       --shadow-md: 0 1px 2px rgba(16,30,38,0.04), 0 12px 30px -16px rgba(16,30,38,0.25);
-      --font-sans: "Avenir Next", Avenir, "Segoe UI Variable", "Segoe UI", Helvetica, Arial, sans-serif;
-      --font-display: "Avenir Next", Avenir, "Segoe UI Variable Display", "Segoe UI", Helvetica, Arial, sans-serif;
+      --font-sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
       --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
     body { font-family: var(--font-sans); background: radial-gradient(circle at 88% 4%, rgba(86, 151, 196, 0.14), transparent 25rem), var(--bg); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 2rem; color: var(--ink); text-rendering: optimizeLegibility; }
@@ -1734,4 +1734,591 @@ body.methodology-body {
     grid-template-areas: "abbr copy stat zips arrow";
     min-height: 0;
   }
+}
+
+/* ── PROFESSIONAL TYPOGRAPHY + STANDALONE NATIONAL DATA ROUTES ── */
+body {
+  background: var(--bg);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: -0.006em;
+}
+
+strong,
+b { font-weight: 600; }
+
+h1,
+h2,
+h3,
+.home-hero h1,
+.states-header h1,
+.methodology-hero h1,
+.methodology-section-heading h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.card,
+.home-card {
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(16,30,38,0.04), 0 10px 28px -22px rgba(16,30,38,0.5);
+}
+
+.badge {
+  padding: 5px 8px;
+  border: 1px solid var(--primary-tint-border);
+  border-radius: 5px;
+  background: var(--primary-tint);
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+button,
+.states-zip-link,
+.cta-row a.button-link {
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: none;
+}
+
+.context-note,
+.clinical-log,
+.result,
+.detail-box,
+.science-box { border-radius: 7px; }
+
+/* Centered editorial tabs: active state is an underline, not a heavy pill. */
+.site-nav,
+.methodology-top-nav,
+.states-nav,
+.national-top-nav {
+  display: flex;
+  width: min(100%, 900px);
+  max-width: 900px;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 0;
+  margin: 0 auto 1.25rem;
+  padding: 0;
+  overflow-x: auto;
+  border: 0;
+  border-bottom: 1px solid var(--primary-tint-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  scrollbar-width: none;
+}
+.site-nav::-webkit-scrollbar { display: none; }
+
+.site-nav a,
+.methodology-top-nav a,
+.states-nav a,
+.national-top-nav a {
+  position: relative;
+  display: flex;
+  min-height: 44px;
+  flex: 0 1 auto;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  border-radius: 0;
+  background: transparent;
+  color: #5f7078;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: none;
+}
+.site-nav a:hover,
+.methodology-top-nav a:hover,
+.states-nav a:hover,
+.national-top-nav a:hover {
+  background: transparent;
+  color: var(--primary);
+}
+.site-nav a[aria-current="page"],
+.methodology-top-nav a[aria-current="page"],
+.states-nav a[aria-current="page"],
+.national-top-nav a[aria-current="page"] {
+  background: transparent;
+  color: var(--primary);
+  font-weight: 500;
+  box-shadow: inset 0 -2px 0 var(--primary);
+}
+.site-nav a[aria-current="page"]:hover,
+.methodology-top-nav a[aria-current="page"]:hover,
+.states-nav a[aria-current="page"]:hover,
+.national-top-nav a[aria-current="page"]:hover { color: var(--primary); }
+
+/* Homepage: quieter hierarchy and a clearly separate exposure block. */
+.home-card { border: 1px solid var(--border-soft); }
+.home-body .state-summary-section { display: none !important; }
+.home-hero {
+  padding: 1.45rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: #f8fafb;
+}
+.home-hero::after,
+.methodology-hero::after,
+.why-section::after { display: none; }
+.home-hero h1 {
+  font-size: clamp(27px, 4.2vw, 34px);
+  font-weight: 600;
+  letter-spacing: -0.032em;
+}
+.home-hero .subtitle { color: #53656d; }
+.why-section {
+  margin-top: 1.75rem;
+  padding: 1.4rem 1.5rem;
+  border: 1px solid var(--border-soft);
+  border-left: 3px solid var(--primary);
+  border-radius: 7px;
+  background: #f8fafb;
+  box-shadow: none;
+}
+.why-kicker {
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+}
+.why-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+}
+.why-section p { color: #4d6068; }
+
+/* Methodology and state directory retain their structure with lighter type. */
+.methodology-hero {
+  border-radius: 12px;
+  background: #f8fafb;
+  box-shadow: 0 1px 2px rgba(16,30,38,0.04), 0 10px 28px -22px rgba(16,30,38,0.5);
+}
+.methodology-kicker,
+.truth-callout-label,
+.regulatory-status-label {
+  font-weight: 500;
+}
+.methodology-hero h1 {
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+.methodology-meta strong,
+.methodology-toc-title,
+.methodology-section-number,
+.pipeline-step-index,
+.clinical-flow span,
+.citation-box-label { font-weight: 500; }
+.methodology-section,
+.methodology-toc { border-radius: 10px; }
+.methodology-section-heading h2,
+.pipeline-step h3,
+.methodology-subcard h3,
+.interpretation-card h3,
+.methodology-h3,
+.limitations-list h3,
+.status-row > span,
+.methodology-sources a { font-weight: 500; }
+.methodology-metric-value { font-weight: 500; }
+.methodology-table th { font-weight: 500; }
+
+.states-header h1 {
+  font-weight: 600;
+  letter-spacing: -0.032em;
+}
+.states-meta strong,
+.state-directory-heading h2,
+.states-reading-notes h2,
+.state-result-count,
+.state-threshold-note strong,
+.state-region-heading h2,
+.state-abbreviation,
+.state-card-name,
+.state-card-stat strong,
+.state-card-zips strong,
+.states-note-grid strong,
+.states-coverage-note strong { font-weight: 500; }
+
+/* Shared frame for the Map and State Table standalone pages. */
+.national-page-body {
+  display: block;
+  min-height: 100vh;
+  padding: 0;
+  background: var(--bg);
+}
+.national-shell {
+  width: min(1160px, calc(100% - 3rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 4rem;
+}
+.national-top-nav { margin-bottom: 1rem; }
+
+.national-hero {
+  padding: clamp(2rem, 5vw, 3.7rem);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: #f8fafb;
+  box-shadow: 0 1px 2px rgba(16,30,38,0.04), 0 10px 28px -22px rgba(16,30,38,0.5);
+}
+.national-kicker,
+.national-section-label {
+  display: block;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+.national-kicker { margin-bottom: 0.75rem; }
+.national-hero h1 {
+  max-width: 820px;
+  margin: 0 0 0.8rem;
+  color: var(--ink);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.042em;
+  line-height: 1.04;
+}
+.national-lede {
+  max-width: 790px;
+  color: #4d616a;
+  font-size: clamp(14px, 2vw, 17px);
+  line-height: 1.65;
+}
+.national-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-top: 1.6rem;
+  border-top: 1px solid var(--border-soft);
+}
+.national-meta span {
+  display: inline-flex;
+  gap: 5px;
+  padding: 0.8rem 1.35rem 0 0;
+  color: #6a7a81;
+  font-size: 10.5px;
+  line-height: 1.3;
+}
+.national-meta strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.national-panel {
+  margin-top: 1.5rem;
+  padding: clamp(1.3rem, 3vw, 2rem);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+.national-panel-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 0.75fr);
+  gap: 2rem;
+  align-items: end;
+  margin-bottom: 1.35rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--border-soft);
+}
+.national-section-label { margin-bottom: 0.35rem; }
+.national-panel-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.national-panel-heading > p {
+  color: #718188;
+  font-size: 11.5px;
+  line-height: 1.6;
+}
+.national-data-status {
+  margin: 0 0 1rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--primary-tint-border);
+  border-radius: 6px;
+  background: var(--primary-tint);
+  color: #405c6b;
+  font-size: 12px;
+}
+.national-data-status.is-error {
+  border-color: var(--warn-tint-border);
+  background: var(--warn-tint);
+  color: #744513;
+}
+.national-data-status[hidden] { display: none; }
+
+.national-map-controls {
+  display: grid;
+  grid-template-columns: auto minmax(260px, 380px) minmax(0, 1fr);
+  gap: 0.65rem 0.8rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.national-map-controls .map-metric-label {
+  color: #607179;
+  font-size: 11px;
+  font-weight: 500;
+}
+.national-map-controls .map-select {
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+}
+.national-map-controls .map-legend {
+  margin-left: 0;
+  justify-content: flex-end;
+}
+.national-map {
+  height: min(62vw, 600px);
+  min-height: 440px;
+  border: 1px solid var(--border-soft);
+  border-radius: 7px;
+  background: #f3f7f9;
+}
+.national-map .map-tooltip {
+  display: block;
+  width: min(250px, calc(100% - 16px));
+  max-width: 250px;
+  padding: 0.8rem;
+  border-color: var(--border-soft);
+  border-radius: 6px;
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.45;
+}
+.national-map .map-tooltip[hidden] { display: none; }
+.national-map .map-tooltip strong {
+  display: flex;
+  gap: 6px;
+  margin: 0 0 0.25rem;
+  font-size: 12px;
+  font-weight: 600;
+}
+.national-map .map-tooltip strong span { color: #87959b; font-weight: 400; }
+.national-map .map-tooltip p { color: #465b64; font-size: 11px; }
+.national-map .map-tooltip small { display: block; margin-top: 0.35rem; color: #7b8b92; font-size: 9.5px; }
+.map-state:focus-visible {
+  opacity: 0.82;
+  stroke: var(--ink);
+  stroke-width: 2;
+  outline: none;
+}
+.map-legend-swatch {
+  border: 1px solid rgba(22,35,43,0.16);
+  border-radius: 2px;
+}
+.map-source-note { color: #849198; }
+
+.national-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.national-metrics > div {
+  min-height: 110px;
+  padding: 1.15rem;
+  border-right: 1px solid var(--border-soft);
+}
+.national-metrics > div:last-child { border-right: 0; }
+.national-metrics span {
+  display: block;
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.national-metrics p {
+  max-width: 180px;
+  margin-top: 0.55rem;
+  color: #708087;
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+.national-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border-soft);
+  border-radius: 7px;
+}
+.national-state-table {
+  min-width: 860px;
+  font-size: 11.5px;
+}
+.national-state-table th {
+  padding: 0;
+  border-bottom: 1px solid #cfd9dd;
+  background: #f5f7f8;
+  cursor: default;
+}
+.national-state-table th button {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #51636b;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: left;
+  white-space: normal;
+  box-shadow: none;
+}
+.national-state-table th button:hover,
+.national-state-table th button:focus-visible {
+  background: var(--primary-tint);
+  color: var(--primary);
+  outline: none;
+}
+.national-state-table td {
+  padding: 10px 11px;
+  color: #41555e;
+  font-variant-numeric: tabular-nums;
+}
+.national-state-table .state-name-cell { color: var(--ink); }
+.national-state-table .state-name-cell a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: none;
+}
+.national-state-table .state-name-cell a:hover { color: var(--primary); text-decoration: underline; }
+.national-state-table .state-name-cell span {
+  margin-left: 6px;
+  color: #93a0a5;
+  font-family: var(--mono);
+  font-size: 9px;
+}
+.compound-code {
+  color: #2d5268;
+  font-family: var(--mono);
+  font-size: 10.5px;
+}
+.national-table-footnote {
+  margin-top: 0.75rem;
+  color: #7b898f;
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+.national-notes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 1.25rem;
+  border-top: 1px solid var(--primary-tint-border);
+  border-bottom: 1px solid var(--primary-tint-border);
+}
+.national-notes > div {
+  padding: 1rem 1.2rem;
+  border-right: 1px solid var(--primary-tint-border);
+}
+.national-notes > div:first-child { padding-left: 0; }
+.national-notes > div:last-child { padding-right: 0; border-right: 0; }
+.national-notes span {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+.national-notes p {
+  color: #6a7b82;
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+.national-notes a { color: var(--primary); }
+.national-footer {
+  padding-top: 1.1rem;
+  color: #8b989d;
+  font-size: 9.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+  .national-shell { width: min(100% - 2rem, 760px); padding-top: 1rem; }
+  .national-panel-heading { grid-template-columns: 1fr; gap: 0.5rem; align-items: start; }
+  .national-map-controls { grid-template-columns: auto minmax(0, 1fr); }
+  .national-map-controls .map-legend { grid-column: 1 / -1; justify-content: flex-start; }
+  .national-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .national-metrics > div:nth-child(2) { border-right: 0; }
+  .national-metrics > div:nth-child(-n+2) { border-bottom: 1px solid var(--border-soft); }
+  .national-notes { grid-template-columns: 1fr; }
+  .national-notes > div,
+  .national-notes > div:first-child,
+  .national-notes > div:last-child {
+    padding: 0.85rem 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--primary-tint-border);
+  }
+  .national-notes > div:last-child { border-bottom: 0; }
+}
+
+@media (max-width: 620px) {
+  .site-nav,
+  .methodology-top-nav,
+  .states-nav,
+  .national-top-nav {
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+  }
+  .site-nav a,
+  .methodology-top-nav a,
+  .states-nav a,
+  .national-top-nav a {
+    min-height: 40px;
+    flex: 0 0 auto;
+    padding: 0 13px;
+    font-size: 11px;
+  }
+  .home-card,
+  .states-card { padding: 1.25rem; }
+  .home-hero { padding: 1.2rem; }
+  .why-section { padding: 1.2rem; }
+  .methodology-hero,
+  .national-hero { padding: 1.55rem 1.25rem; border-radius: 9px; }
+  .national-shell { width: calc(100% - 1.25rem); padding-bottom: 2rem; }
+  .national-meta { display: grid; grid-template-columns: 1fr 1fr; }
+  .national-meta span { display: block; padding: 0.7rem 0.6rem 0 0; }
+  .national-panel { padding: 1.1rem; }
+  .national-map-controls { grid-template-columns: 1fr; }
+  .national-map-controls .map-legend { grid-column: auto; }
+  .national-map { height: 440px; min-height: 440px; }
+}
+
+@media print {
+  .national-page-body { display: block; padding: 0; background: #fff; }
+  .national-shell { width: 100%; padding: 0; }
+  .national-top-nav,
+  .skip-link { display: none !important; }
+  .national-hero,
+  .national-panel,
+  .national-metrics { box-shadow: none; }
+  .national-map { height: 520px; }
 }

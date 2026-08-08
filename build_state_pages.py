@@ -363,6 +363,8 @@ def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod
                 seen.add(loc)
     for top_level_url in (
         f"{base_url}/",
+        f"{base_url}/map/",
+        f"{base_url}/state-table/",
         f"{base_url}/methodology/",
         f"{base_url}/states/",
     ):
@@ -382,13 +384,13 @@ def merge_sitemap(existing_path: Path, base_url: str, state_slugs: list, lastmod
             priority = "1.0"
         elif loc == f"{base_url}/methodology/":
             priority = "0.9"
-        elif loc == f"{base_url}/states/":
+        elif loc in (f"{base_url}/map/", f"{base_url}/state-table/", f"{base_url}/states/"):
             priority = "0.8"
         else:
             priority = "0.6"
         if loc == f"{base_url}/methodology/":
             url_lastmod = methodology_lastmod
-        elif loc == f"{base_url}/states/":
+        elif loc in (f"{base_url}/map/", f"{base_url}/state-table/", f"{base_url}/states/"):
             url_lastmod = states_index_lastmod
         else:
             url_lastmod = lastmod
@@ -554,7 +556,7 @@ def main():
   {index_structured_data}
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260807-centered-data-tabs" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
@@ -572,8 +574,8 @@ def main():
     <main class="card states-card" id="states-content">
       <nav class="site-nav states-nav" aria-label="Primary">
         <a href="/">ZIP Lookup</a>
-        <a href="/?view=map#researchers">Map</a>
-        <a href="/?view=table#researchers">State Table</a>
+        <a href="/map/">Map</a>
+        <a href="/state-table/">State Table</a>
         <a href="/states/" aria-current="page">Explore by State</a>
         <a href="/methodology/">Full Methodology</a>
       </nav>
