@@ -111,7 +111,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-unified-editorial-shell" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
@@ -124,18 +124,21 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
 
 </head>
 <body class="home-body">
-<div class="page-wrapper">
+<a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
+
+<div class="home-shell">
+  <nav class="site-nav home-top-nav" aria-label="Primary">
+    <a href="/" id="nav-home" aria-current="page">ZIP Lookup</a>
+    <a href="/map/" id="nav-map" onclick="trackEvent('nav_map')">Map</a>
+    <a href="/state-table/" id="nav-state-table" onclick="trackEvent('nav_state_table')">State Table</a>
+    <a href="/states/" id="nav-explore-state" onclick="trackEvent('nav_explore_states')">Explore by State</a>
+    <a href="/methodology/" id="nav-methodology" onclick="trackEvent('nav_methodology')">Full Methodology</a>
+  </nav>
+
+  <div class="page-wrapper">
 
   <!-- LEFT: MAIN CARD -->
-  <div class="card home-card">
-    <nav class="site-nav" aria-label="Primary">
-      <a href="/" id="nav-home" aria-current="page">ZIP Lookup</a>
-      <a href="/map/" id="nav-map" onclick="trackEvent('nav_map')">Map</a>
-      <a href="/state-table/" id="nav-state-table" onclick="trackEvent('nav_state_table')">State Table</a>
-      <a href="/states/" id="nav-explore-state" onclick="trackEvent('nav_explore_states')">Explore by State</a>
-      <a href="/methodology/" id="nav-methodology" onclick="trackEvent('nav_methodology')">Full Methodology</a>
-    </nav>
-
+  <main class="card home-card" id="lookup-content">
     <header class="home-hero">
       <div class="home-hero-top">
         <span class="badge">National · EPA UCMR 5 Data · Educational Tool</span>
@@ -307,7 +310,7 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       </div>
     </section>
 
-  </div><!-- end card -->
+  </main><!-- end card -->
 
   <!-- RIGHT: CHAT PANEL -->
   <div class="chat-panel" id="chatPanel">
@@ -335,7 +338,8 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
     <div class="ai-disclaimer" id="aiDisclaimer" style="display:none;">Always consult a healthcare provider for personal medical guidance.</div>
   </div>
 
-</div><!-- end page-wrapper -->
+  </div><!-- end page-wrapper -->
+</div><!-- end home-shell -->
 
 <div class="counter-badge"><span id="searchCount">—</span> searches</div>
 <div class="counter-badge" style="bottom:52px;"><span id="clinicalCount">—</span> patient cases</div>

@@ -162,7 +162,7 @@ REGION_ORDER = ("Northeast", "Midwest", "South", "West", "Territories")
 
 
 def render_state_index_regions(index_rows, base_url):
-    """Render an accessible, searchable state directory grouped by U.S. Census region."""
+    """Render accessible, searchable state cards grouped by U.S. Census region."""
     by_region = {region: [] for region in REGION_ORDER}
     missing_regions = []
 
@@ -187,20 +187,20 @@ def render_state_index_regions(index_rows, base_url):
             zip_count = stats["zip_count"]
             cards.append(f'''          <article class="state-directory-card" data-state-card data-region="{region_slug}" data-state-search="{name.lower()} {abbrev.lower()}">
             <a href="{base_url}/states/{slug}/" aria-label="View PFAS monitoring results for {name}">
-              <span class="state-abbreviation" aria-hidden="true">{abbrev}</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">{name}</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">{abbrev}</span>
                 <span class="state-card-region">{region}</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>{name}</h3>
+              <div class="state-card-stat">
                 <strong>{pct}%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>{zip_count:,}</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:{pct}%"></span></div>
+              <div class="state-card-footer">
+                <span>{zip_count:,} represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>''')
 
@@ -556,7 +556,7 @@ def main():
   {index_structured_data}
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-unified-editorial-shell" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
@@ -567,37 +567,49 @@ def main():
     gtag('config', 'G-FZQTEJ4LLY');
   </script>
 </head>
-<body class="states-body">
+<body class="methodology-body states-body">
   <a class="skip-link" href="#states-content">Skip to state directory</a>
 
-  <div class="page-wrapper states-page-wrapper">
-    <main class="card states-card" id="states-content">
-      <nav class="site-nav states-nav" aria-label="Primary">
-        <a href="/">ZIP Lookup</a>
-        <a href="/map/">Map</a>
-        <a href="/state-table/">State Table</a>
-        <a href="/states/" aria-current="page">Explore by State</a>
-        <a href="/methodology/">Full Methodology</a>
-      </nav>
+  <div class="methodology-shell states-shell">
+    <nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary">
+      <a href="/">ZIP Lookup</a>
+      <a href="/map/">Map</a>
+      <a href="/state-table/">State Table</a>
+      <a href="/states/" aria-current="page">Explore by State</a>
+      <a href="/methodology/">Full Methodology</a>
+    </nav>
 
-    <header class="states-header">
-      <span class="badge">National &middot; EPA UCMR 5 Data &middot; State Directory</span>
-      <h1>Explore PFAS by State</h1>
-      <p class="subtitle">Browse state-level public drinking-water monitoring results, then open ZIP-level records, compound summaries, and federal comparison-threshold context.</p>
-      <p class="states-meta"><strong>{len(index_rows)}</strong> state and territory pages &middot; 50 states plus D.C. and Puerto Rico &middot; Updated {data_updated_label}</p>
+    <header class="methodology-hero states-hero">
+      <div class="methodology-kicker">National monitoring directory</div>
+      <h1>Explore PFAS monitoring by state</h1>
+      <p class="methodology-lede">Move from the national picture to state-level EPA UCMR 5 public drinking-water results, then open ZIP-level records, compound summaries, and comparison-threshold context.</p>
+
+      <div class="methodology-meta" aria-label="State directory summary">
+        <span><strong>{len(index_rows)}</strong> state &amp; territory pages</span>
+        <span><strong>50 states</strong> plus D.C. &amp; Puerto Rico</span>
+        <span><strong>Source</strong> EPA UCMR 5</span>
+        <span><strong>Updated</strong> {data_updated_label}</span>
+      </div>
     </header>
 
-      <section class="context-note states-start-note" aria-label="ZIP code lookup">
-        <div>
-          <strong>Checking a specific area?</strong>
-          <span>Start with the ZIP-code lookup for the most direct view of represented monitoring results.</span>
+    <main class="states-content" id="states-content">
+      <section class="states-orientation" aria-label="Choose a starting point">
+        <div class="states-orientation-copy">
+          <span class="states-card-kicker">Place-based exploration</span>
+          <h2>See what monitoring found across a state</h2>
+          <p>State pages summarize only ZIP codes represented in the processed dataset. Use them to inspect geographic patterns—not to estimate personal exposure or rank overall state water safety.</p>
         </div>
-        <a class="states-zip-link" href="/">Check a ZIP code <span aria-hidden="true">&rarr;</span></a>
+        <div class="states-zip-cta">
+          <span>Checking a specific address area?</span>
+          <strong>Start with your ZIP code.</strong>
+          <a href="/">Open national ZIP lookup <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </section>
 
       <section class="state-directory" aria-labelledby="state-directory-title">
         <div class="state-directory-heading">
           <div>
+            <span class="states-card-kicker">Browse the dataset</span>
             <h2 id="state-directory-title">Find a state or territory</h2>
             <p>Search by name or abbreviation, or narrow the directory by region.</p>
           </div>
@@ -626,12 +638,6 @@ def main():
           <span>The share of represented ZIP codes with at least one retained regulated PFAS result at or above its comparison threshold. It is not a population exposure estimate.</span>
         </div>
 
-        <div class="state-list-labels" aria-hidden="true">
-          <span>State or territory</span>
-          <span>Threshold share</span>
-          <span>Coverage</span>
-        </div>
-
         <div class="state-regions" id="stateRegions">
 {state_region_sections}
         </div>
@@ -643,7 +649,10 @@ def main():
       </section>
 
       <section class="states-reading-notes" aria-labelledby="state-notes-title">
-        <h2 id="state-notes-title">How to read state summaries</h2>
+        <div>
+          <span class="states-card-kicker">Interpretation guardrails</span>
+          <h2 id="state-notes-title">Read state summaries in context</h2>
+        </div>
         <div class="states-note-grid">
           <div>
             <strong>Observed monitoring</strong>
@@ -662,15 +671,15 @@ def main():
       </section>
 
       <aside class="states-coverage-note" aria-label="Guam coverage note">
-        <strong>Coverage note</strong>
+        <span>Coverage note</span>
         <p>{site_meta.get("exclusion_reason", {}).get("GU", "")}</p>
       </aside>
+    </main>
 
-    <footer class="states-footer">
+    <footer class="methodology-footer states-footer">
       <p>PFAS Estimator &middot; Independent public-health informatics project &middot; EPA UCMR 5 public drinking-water monitoring</p>
       <p>State pages describe monitoring records and do not determine personal exposure, diagnosis, or regulatory compliance.</p>
     </footer>
-    </main>
   </div>
 
   <script>

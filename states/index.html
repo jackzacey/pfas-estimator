@@ -31,7 +31,7 @@
   {"@context": "https://schema.org", "@graph": [{"@type": "CollectionPage", "@id": "https://pfasestimator.org/states/#page", "url": "https://pfasestimator.org/states/", "name": "PFAS Drinking Water Monitoring by State | PFAS Estimator", "description": "Browse EPA UCMR 5 public drinking-water monitoring results across 52 state and territory pages.", "isPartOf": {"@id": "https://pfasestimator.org/#website"}, "about": {"@id": "https://pfasestimator.org/#dataset"}, "dateModified": "2026-08-07"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PFAS Estimator", "item": "https://pfasestimator.org/"}, {"@type": "ListItem", "position": 2, "name": "Explore by State", "item": "https://pfasestimator.org/states/"}]}]}
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260807-professional-routes" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-unified-editorial-shell" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
@@ -42,37 +42,49 @@
     gtag('config', 'G-FZQTEJ4LLY');
   </script>
 </head>
-<body class="states-body">
+<body class="methodology-body states-body">
   <a class="skip-link" href="#states-content">Skip to state directory</a>
 
-  <div class="page-wrapper states-page-wrapper">
-    <main class="card states-card" id="states-content">
-      <nav class="site-nav states-nav" aria-label="Primary">
-        <a href="/">ZIP Lookup</a>
-        <a href="/map/">Map</a>
-        <a href="/state-table/">State Table</a>
-        <a href="/states/" aria-current="page">Explore by State</a>
-        <a href="/methodology/">Full Methodology</a>
-      </nav>
+  <div class="methodology-shell states-shell">
+    <nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary">
+      <a href="/">ZIP Lookup</a>
+      <a href="/map/">Map</a>
+      <a href="/state-table/">State Table</a>
+      <a href="/states/" aria-current="page">Explore by State</a>
+      <a href="/methodology/">Full Methodology</a>
+    </nav>
 
-    <header class="states-header">
-      <span class="badge">National &middot; EPA UCMR 5 Data &middot; State Directory</span>
-      <h1>Explore PFAS by State</h1>
-      <p class="subtitle">Browse state-level public drinking-water monitoring results, then open ZIP-level records, compound summaries, and federal comparison-threshold context.</p>
-      <p class="states-meta"><strong>52</strong> state and territory pages &middot; 50 states plus D.C. and Puerto Rico &middot; Updated July 2026</p>
+    <header class="methodology-hero states-hero">
+      <div class="methodology-kicker">National monitoring directory</div>
+      <h1>Explore PFAS monitoring by state</h1>
+      <p class="methodology-lede">Move from the national picture to state-level EPA UCMR 5 public drinking-water results, then open ZIP-level records, compound summaries, and comparison-threshold context.</p>
+
+      <div class="methodology-meta" aria-label="State directory summary">
+        <span><strong>52</strong> state &amp; territory pages</span>
+        <span><strong>50 states</strong> plus D.C. &amp; Puerto Rico</span>
+        <span><strong>Source</strong> EPA UCMR 5</span>
+        <span><strong>Updated</strong> July 2026</span>
+      </div>
     </header>
 
-      <section class="context-note states-start-note" aria-label="ZIP code lookup">
-        <div>
-          <strong>Checking a specific area?</strong>
-          <span>Start with the ZIP-code lookup for the most direct view of represented monitoring results.</span>
+    <main class="states-content" id="states-content">
+      <section class="states-orientation" aria-label="Choose a starting point">
+        <div class="states-orientation-copy">
+          <span class="states-card-kicker">Place-based exploration</span>
+          <h2>See what monitoring found across a state</h2>
+          <p>State pages summarize only ZIP codes represented in the processed dataset. Use them to inspect geographic patterns—not to estimate personal exposure or rank overall state water safety.</p>
         </div>
-        <a class="states-zip-link" href="/">Check a ZIP code <span aria-hidden="true">&rarr;</span></a>
+        <div class="states-zip-cta">
+          <span>Checking a specific address area?</span>
+          <strong>Start with your ZIP code.</strong>
+          <a href="/">Open national ZIP lookup <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </section>
 
       <section class="state-directory" aria-labelledby="state-directory-title">
         <div class="state-directory-heading">
           <div>
+            <span class="states-card-kicker">Browse the dataset</span>
             <h2 id="state-directory-title">Find a state or territory</h2>
             <p>Search by name or abbreviation, or narrow the directory by region.</p>
           </div>
@@ -101,12 +113,6 @@
           <span>The share of represented ZIP codes with at least one retained regulated PFAS result at or above its comparison threshold. It is not a population exposure estimate.</span>
         </div>
 
-        <div class="state-list-labels" aria-hidden="true">
-          <span>State or territory</span>
-          <span>Threshold share</span>
-          <span>Coverage</span>
-        </div>
-
         <div class="state-regions" id="stateRegions">
       <section class="state-region" data-region-section="northeast" aria-labelledby="region-northeast">
         <div class="state-region-heading">
@@ -116,164 +122,164 @@
         <div class="state-directory-grid">
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="connecticut ct">
             <a href="https://pfasestimator.org/states/connecticut-pfas-drinking-water/" aria-label="View PFAS monitoring results for Connecticut">
-              <span class="state-abbreviation" aria-hidden="true">CT</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Connecticut</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">CT</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Connecticut</h3>
+              <div class="state-card-stat">
                 <strong>98.2%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>164</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:98.2%"></span></div>
+              <div class="state-card-footer">
+                <span>164 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="maine me">
             <a href="https://pfasestimator.org/states/maine-pfas-drinking-water/" aria-label="View PFAS monitoring results for Maine">
-              <span class="state-abbreviation" aria-hidden="true">ME</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Maine</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">ME</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Maine</h3>
+              <div class="state-card-stat">
                 <strong>52.4%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>21</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:52.4%"></span></div>
+              <div class="state-card-footer">
+                <span>21 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="massachusetts ma">
             <a href="https://pfasestimator.org/states/massachusetts-pfas-drinking-water/" aria-label="View PFAS monitoring results for Massachusetts">
-              <span class="state-abbreviation" aria-hidden="true">MA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Massachusetts</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MA</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Massachusetts</h3>
+              <div class="state-card-stat">
                 <strong>72.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>240</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:72.1%"></span></div>
+              <div class="state-card-footer">
+                <span>240 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="new hampshire nh">
             <a href="https://pfasestimator.org/states/new-hampshire-pfas-drinking-water/" aria-label="View PFAS monitoring results for New Hampshire">
-              <span class="state-abbreviation" aria-hidden="true">NH</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">New Hampshire</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NH</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>New Hampshire</h3>
+              <div class="state-card-stat">
                 <strong>80.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>35</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:80.0%"></span></div>
+              <div class="state-card-footer">
+                <span>35 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="new jersey nj">
             <a href="https://pfasestimator.org/states/new-jersey-pfas-drinking-water/" aria-label="View PFAS monitoring results for New Jersey">
-              <span class="state-abbreviation" aria-hidden="true">NJ</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">New Jersey</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NJ</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>New Jersey</h3>
+              <div class="state-card-stat">
                 <strong>91.9%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>471</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:91.9%"></span></div>
+              <div class="state-card-footer">
+                <span>471 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="new york ny">
             <a href="https://pfasestimator.org/states/new-york-pfas-drinking-water/" aria-label="View PFAS monitoring results for New York">
-              <span class="state-abbreviation" aria-hidden="true">NY</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">New York</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NY</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>New York</h3>
+              <div class="state-card-stat">
                 <strong>43.4%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>429</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:43.4%"></span></div>
+              <div class="state-card-footer">
+                <span>429 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="pennsylvania pa">
             <a href="https://pfasestimator.org/states/pennsylvania-pfas-drinking-water/" aria-label="View PFAS monitoring results for Pennsylvania">
-              <span class="state-abbreviation" aria-hidden="true">PA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Pennsylvania</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">PA</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Pennsylvania</h3>
+              <div class="state-card-stat">
                 <strong>59.5%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>640</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:59.5%"></span></div>
+              <div class="state-card-footer">
+                <span>640 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="rhode island ri">
             <a href="https://pfasestimator.org/states/rhode-island-pfas-drinking-water/" aria-label="View PFAS monitoring results for Rhode Island">
-              <span class="state-abbreviation" aria-hidden="true">RI</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Rhode Island</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">RI</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Rhode Island</h3>
+              <div class="state-card-stat">
                 <strong>67.9%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>28</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:67.9%"></span></div>
+              <div class="state-card-footer">
+                <span>28 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="northeast" data-state-search="vermont vt">
             <a href="https://pfasestimator.org/states/vermont-pfas-drinking-water/" aria-label="View PFAS monitoring results for Vermont">
-              <span class="state-abbreviation" aria-hidden="true">VT</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Vermont</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">VT</span>
                 <span class="state-card-region">Northeast</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Vermont</h3>
+              <div class="state-card-stat">
                 <strong>25.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>4</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:25.0%"></span></div>
+              <div class="state-card-footer">
+                <span>4 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
         </div>
@@ -286,218 +292,218 @@
         <div class="state-directory-grid">
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="illinois il">
             <a href="https://pfasestimator.org/states/illinois-pfas-drinking-water/" aria-label="View PFAS monitoring results for Illinois">
-              <span class="state-abbreviation" aria-hidden="true">IL</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Illinois</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">IL</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Illinois</h3>
+              <div class="state-card-stat">
                 <strong>18.9%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>493</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:18.9%"></span></div>
+              <div class="state-card-footer">
+                <span>493 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="indiana in">
             <a href="https://pfasestimator.org/states/indiana-pfas-drinking-water/" aria-label="View PFAS monitoring results for Indiana">
-              <span class="state-abbreviation" aria-hidden="true">IN</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Indiana</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">IN</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Indiana</h3>
+              <div class="state-card-stat">
                 <strong>33.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>281</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:33.1%"></span></div>
+              <div class="state-card-footer">
+                <span>281 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="iowa ia">
             <a href="https://pfasestimator.org/states/iowa-pfas-drinking-water/" aria-label="View PFAS monitoring results for Iowa">
-              <span class="state-abbreviation" aria-hidden="true">IA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Iowa</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">IA</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Iowa</h3>
+              <div class="state-card-stat">
                 <strong>6.8%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>511</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:6.8%"></span></div>
+              <div class="state-card-footer">
+                <span>511 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="kansas ks">
             <a href="https://pfasestimator.org/states/kansas-pfas-drinking-water/" aria-label="View PFAS monitoring results for Kansas">
-              <span class="state-abbreviation" aria-hidden="true">KS</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Kansas</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">KS</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Kansas</h3>
+              <div class="state-card-stat">
                 <strong>3.3%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>213</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:3.3%"></span></div>
+              <div class="state-card-footer">
+                <span>213 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="michigan mi">
             <a href="https://pfasestimator.org/states/michigan-pfas-drinking-water/" aria-label="View PFAS monitoring results for Michigan">
-              <span class="state-abbreviation" aria-hidden="true">MI</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Michigan</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MI</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Michigan</h3>
+              <div class="state-card-stat">
                 <strong>14.6%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>164</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:14.6%"></span></div>
+              <div class="state-card-footer">
+                <span>164 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="minnesota mn">
             <a href="https://pfasestimator.org/states/minnesota-pfas-drinking-water/" aria-label="View PFAS monitoring results for Minnesota">
-              <span class="state-abbreviation" aria-hidden="true">MN</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Minnesota</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MN</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Minnesota</h3>
+              <div class="state-card-stat">
                 <strong>9.5%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>179</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:9.5%"></span></div>
+              <div class="state-card-footer">
+                <span>179 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="missouri mo">
             <a href="https://pfasestimator.org/states/missouri-pfas-drinking-water/" aria-label="View PFAS monitoring results for Missouri">
-              <span class="state-abbreviation" aria-hidden="true">MO</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Missouri</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MO</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Missouri</h3>
+              <div class="state-card-stat">
                 <strong>5.4%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>501</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:5.4%"></span></div>
+              <div class="state-card-footer">
+                <span>501 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="nebraska ne">
             <a href="https://pfasestimator.org/states/nebraska-pfas-drinking-water/" aria-label="View PFAS monitoring results for Nebraska">
-              <span class="state-abbreviation" aria-hidden="true">NE</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Nebraska</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NE</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Nebraska</h3>
+              <div class="state-card-stat">
                 <strong>6.2%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>130</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:6.2%"></span></div>
+              <div class="state-card-footer">
+                <span>130 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="north dakota nd">
             <a href="https://pfasestimator.org/states/north-dakota-pfas-drinking-water/" aria-label="View PFAS monitoring results for North Dakota">
-              <span class="state-abbreviation" aria-hidden="true">ND</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">North Dakota</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">ND</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>North Dakota</h3>
+              <div class="state-card-stat">
                 <strong>0.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>208</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:0.0%"></span></div>
+              <div class="state-card-footer">
+                <span>208 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="ohio oh">
             <a href="https://pfasestimator.org/states/ohio-pfas-drinking-water/" aria-label="View PFAS monitoring results for Ohio">
-              <span class="state-abbreviation" aria-hidden="true">OH</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Ohio</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">OH</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Ohio</h3>
+              <div class="state-card-stat">
                 <strong>53.3%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>615</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:53.3%"></span></div>
+              <div class="state-card-footer">
+                <span>615 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="south dakota sd">
             <a href="https://pfasestimator.org/states/south-dakota-pfas-drinking-water/" aria-label="View PFAS monitoring results for South Dakota">
-              <span class="state-abbreviation" aria-hidden="true">SD</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">South Dakota</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">SD</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>South Dakota</h3>
+              <div class="state-card-stat">
                 <strong>0.9%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>223</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:0.9%"></span></div>
+              <div class="state-card-footer">
+                <span>223 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="midwest" data-state-search="wisconsin wi">
             <a href="https://pfasestimator.org/states/wisconsin-pfas-drinking-water/" aria-label="View PFAS monitoring results for Wisconsin">
-              <span class="state-abbreviation" aria-hidden="true">WI</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Wisconsin</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">WI</span>
                 <span class="state-card-region">Midwest</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Wisconsin</h3>
+              <div class="state-card-stat">
                 <strong>32.4%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>108</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:32.4%"></span></div>
+              <div class="state-card-footer">
+                <span>108 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
         </div>
@@ -510,308 +516,308 @@
         <div class="state-directory-grid">
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="alabama al">
             <a href="https://pfasestimator.org/states/alabama-pfas-drinking-water/" aria-label="View PFAS monitoring results for Alabama">
-              <span class="state-abbreviation" aria-hidden="true">AL</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Alabama</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">AL</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Alabama</h3>
+              <div class="state-card-stat">
                 <strong>50.2%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>408</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:50.2%"></span></div>
+              <div class="state-card-footer">
+                <span>408 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="arkansas ar">
             <a href="https://pfasestimator.org/states/arkansas-pfas-drinking-water/" aria-label="View PFAS monitoring results for Arkansas">
-              <span class="state-abbreviation" aria-hidden="true">AR</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Arkansas</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">AR</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Arkansas</h3>
+              <div class="state-card-stat">
                 <strong>1.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>174</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:1.1%"></span></div>
+              <div class="state-card-footer">
+                <span>174 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="delaware de">
             <a href="https://pfasestimator.org/states/delaware-pfas-drinking-water/" aria-label="View PFAS monitoring results for Delaware">
-              <span class="state-abbreviation" aria-hidden="true">DE</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Delaware</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">DE</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Delaware</h3>
+              <div class="state-card-stat">
                 <strong>77.8%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>54</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:77.8%"></span></div>
+              <div class="state-card-footer">
+                <span>54 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="district of columbia dc">
             <a href="https://pfasestimator.org/states/district-of-columbia-pfas-drinking-water/" aria-label="View PFAS monitoring results for District of Columbia">
-              <span class="state-abbreviation" aria-hidden="true">DC</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">District of Columbia</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">DC</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>District of Columbia</h3>
+              <div class="state-card-stat">
                 <strong>0.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>270</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:0.0%"></span></div>
+              <div class="state-card-footer">
+                <span>270 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="florida fl">
             <a href="https://pfasestimator.org/states/florida-pfas-drinking-water/" aria-label="View PFAS monitoring results for Florida">
-              <span class="state-abbreviation" aria-hidden="true">FL</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Florida</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">FL</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Florida</h3>
+              <div class="state-card-stat">
                 <strong>75.2%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>652</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:75.2%"></span></div>
+              <div class="state-card-footer">
+                <span>652 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="georgia ga">
             <a href="https://pfasestimator.org/states/georgia-pfas-drinking-water/" aria-label="View PFAS monitoring results for Georgia">
-              <span class="state-abbreviation" aria-hidden="true">GA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Georgia</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">GA</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Georgia</h3>
+              <div class="state-card-stat">
                 <strong>48.7%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>273</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:48.7%"></span></div>
+              <div class="state-card-footer">
+                <span>273 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="kentucky ky">
             <a href="https://pfasestimator.org/states/kentucky-pfas-drinking-water/" aria-label="View PFAS monitoring results for Kentucky">
-              <span class="state-abbreviation" aria-hidden="true">KY</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Kentucky</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">KY</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Kentucky</h3>
+              <div class="state-card-stat">
                 <strong>34.2%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>404</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:34.2%"></span></div>
+              <div class="state-card-footer">
+                <span>404 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="louisiana la">
             <a href="https://pfasestimator.org/states/louisiana-pfas-drinking-water/" aria-label="View PFAS monitoring results for Louisiana">
-              <span class="state-abbreviation" aria-hidden="true">LA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Louisiana</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">LA</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Louisiana</h3>
+              <div class="state-card-stat">
                 <strong>6.5%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>372</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:6.5%"></span></div>
+              <div class="state-card-footer">
+                <span>372 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="maryland md">
             <a href="https://pfasestimator.org/states/maryland-pfas-drinking-water/" aria-label="View PFAS monitoring results for Maryland">
-              <span class="state-abbreviation" aria-hidden="true">MD</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Maryland</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MD</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Maryland</h3>
+              <div class="state-card-stat">
                 <strong>9.4%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>235</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:9.4%"></span></div>
+              <div class="state-card-footer">
+                <span>235 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="mississippi ms">
             <a href="https://pfasestimator.org/states/mississippi-pfas-drinking-water/" aria-label="View PFAS monitoring results for Mississippi">
-              <span class="state-abbreviation" aria-hidden="true">MS</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Mississippi</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MS</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Mississippi</h3>
+              <div class="state-card-stat">
                 <strong>5.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>217</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:5.1%"></span></div>
+              <div class="state-card-footer">
+                <span>217 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="north carolina nc">
             <a href="https://pfasestimator.org/states/north-carolina-pfas-drinking-water/" aria-label="View PFAS monitoring results for North Carolina">
-              <span class="state-abbreviation" aria-hidden="true">NC</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">North Carolina</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NC</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>North Carolina</h3>
+              <div class="state-card-stat">
                 <strong>62.4%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>492</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:62.4%"></span></div>
+              <div class="state-card-footer">
+                <span>492 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="oklahoma ok">
             <a href="https://pfasestimator.org/states/oklahoma-pfas-drinking-water/" aria-label="View PFAS monitoring results for Oklahoma">
-              <span class="state-abbreviation" aria-hidden="true">OK</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Oklahoma</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">OK</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Oklahoma</h3>
+              <div class="state-card-stat">
                 <strong>10.8%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>240</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:10.8%"></span></div>
+              <div class="state-card-footer">
+                <span>240 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="south carolina sc">
             <a href="https://pfasestimator.org/states/south-carolina-pfas-drinking-water/" aria-label="View PFAS monitoring results for South Carolina">
-              <span class="state-abbreviation" aria-hidden="true">SC</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">South Carolina</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">SC</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>South Carolina</h3>
+              <div class="state-card-stat">
                 <strong>79.7%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>232</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:79.7%"></span></div>
+              <div class="state-card-footer">
+                <span>232 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="tennessee tn">
             <a href="https://pfasestimator.org/states/tennessee-pfas-drinking-water/" aria-label="View PFAS monitoring results for Tennessee">
-              <span class="state-abbreviation" aria-hidden="true">TN</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Tennessee</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">TN</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Tennessee</h3>
+              <div class="state-card-stat">
                 <strong>33.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>269</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:33.1%"></span></div>
+              <div class="state-card-footer">
+                <span>269 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="texas tx">
             <a href="https://pfasestimator.org/states/texas-pfas-drinking-water/" aria-label="View PFAS monitoring results for Texas">
-              <span class="state-abbreviation" aria-hidden="true">TX</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Texas</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">TX</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Texas</h3>
+              <div class="state-card-stat">
                 <strong>27.6%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>1,356</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:27.6%"></span></div>
+              <div class="state-card-footer">
+                <span>1,356 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="virginia va">
             <a href="https://pfasestimator.org/states/virginia-pfas-drinking-water/" aria-label="View PFAS monitoring results for Virginia">
-              <span class="state-abbreviation" aria-hidden="true">VA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Virginia</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">VA</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Virginia</h3>
+              <div class="state-card-stat">
                 <strong>57.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>256</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:57.0%"></span></div>
+              <div class="state-card-footer">
+                <span>256 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="south" data-state-search="west virginia wv">
             <a href="https://pfasestimator.org/states/west-virginia-pfas-drinking-water/" aria-label="View PFAS monitoring results for West Virginia">
-              <span class="state-abbreviation" aria-hidden="true">WV</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">West Virginia</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">WV</span>
                 <span class="state-card-region">South</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>West Virginia</h3>
+              <div class="state-card-stat">
                 <strong>26.8%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>153</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:26.8%"></span></div>
+              <div class="state-card-footer">
+                <span>153 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
         </div>
@@ -824,236 +830,236 @@
         <div class="state-directory-grid">
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="alaska ak">
             <a href="https://pfasestimator.org/states/alaska-pfas-drinking-water/" aria-label="View PFAS monitoring results for Alaska">
-              <span class="state-abbreviation" aria-hidden="true">AK</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Alaska</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">AK</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Alaska</h3>
+              <div class="state-card-stat">
                 <strong>87.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>31</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:87.1%"></span></div>
+              <div class="state-card-footer">
+                <span>31 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="arizona az">
             <a href="https://pfasestimator.org/states/arizona-pfas-drinking-water/" aria-label="View PFAS monitoring results for Arizona">
-              <span class="state-abbreviation" aria-hidden="true">AZ</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Arizona</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">AZ</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Arizona</h3>
+              <div class="state-card-stat">
                 <strong>20.3%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>276</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:20.3%"></span></div>
+              <div class="state-card-footer">
+                <span>276 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="california ca">
             <a href="https://pfasestimator.org/states/california-pfas-drinking-water/" aria-label="View PFAS monitoring results for California">
-              <span class="state-abbreviation" aria-hidden="true">CA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">California</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">CA</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>California</h3>
+              <div class="state-card-stat">
                 <strong>39.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>1,076</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:39.0%"></span></div>
+              <div class="state-card-footer">
+                <span>1,076 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="colorado co">
             <a href="https://pfasestimator.org/states/colorado-pfas-drinking-water/" aria-label="View PFAS monitoring results for Colorado">
-              <span class="state-abbreviation" aria-hidden="true">CO</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Colorado</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">CO</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Colorado</h3>
+              <div class="state-card-stat">
                 <strong>18.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>243</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:18.1%"></span></div>
+              <div class="state-card-footer">
+                <span>243 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="hawaii hi">
             <a href="https://pfasestimator.org/states/hawaii-pfas-drinking-water/" aria-label="View PFAS monitoring results for Hawaii">
-              <span class="state-abbreviation" aria-hidden="true">HI</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Hawaii</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">HI</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Hawaii</h3>
+              <div class="state-card-stat">
                 <strong>16.7%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>30</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:16.7%"></span></div>
+              <div class="state-card-footer">
+                <span>30 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="idaho id">
             <a href="https://pfasestimator.org/states/idaho-pfas-drinking-water/" aria-label="View PFAS monitoring results for Idaho">
-              <span class="state-abbreviation" aria-hidden="true">ID</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Idaho</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">ID</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Idaho</h3>
+              <div class="state-card-stat">
                 <strong>9.8%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>61</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:9.8%"></span></div>
+              <div class="state-card-footer">
+                <span>61 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="montana mt">
             <a href="https://pfasestimator.org/states/montana-pfas-drinking-water/" aria-label="View PFAS monitoring results for Montana">
-              <span class="state-abbreviation" aria-hidden="true">MT</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Montana</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">MT</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Montana</h3>
+              <div class="state-card-stat">
                 <strong>10.5%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>38</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:10.5%"></span></div>
+              <div class="state-card-footer">
+                <span>38 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="nevada nv">
             <a href="https://pfasestimator.org/states/nevada-pfas-drinking-water/" aria-label="View PFAS monitoring results for Nevada">
-              <span class="state-abbreviation" aria-hidden="true">NV</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Nevada</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NV</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Nevada</h3>
+              <div class="state-card-stat">
                 <strong>19.3%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>114</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:19.3%"></span></div>
+              <div class="state-card-footer">
+                <span>114 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="new mexico nm">
             <a href="https://pfasestimator.org/states/new-mexico-pfas-drinking-water/" aria-label="View PFAS monitoring results for New Mexico">
-              <span class="state-abbreviation" aria-hidden="true">NM</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">New Mexico</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">NM</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>New Mexico</h3>
+              <div class="state-card-stat">
                 <strong>5.9%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>102</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:5.9%"></span></div>
+              <div class="state-card-footer">
+                <span>102 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="oregon or">
             <a href="https://pfasestimator.org/states/oregon-pfas-drinking-water/" aria-label="View PFAS monitoring results for Oregon">
-              <span class="state-abbreviation" aria-hidden="true">OR</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Oregon</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">OR</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Oregon</h3>
+              <div class="state-card-stat">
                 <strong>50.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>36</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:50.0%"></span></div>
+              <div class="state-card-footer">
+                <span>36 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="utah ut">
             <a href="https://pfasestimator.org/states/utah-pfas-drinking-water/" aria-label="View PFAS monitoring results for Utah">
-              <span class="state-abbreviation" aria-hidden="true">UT</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Utah</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">UT</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Utah</h3>
+              <div class="state-card-stat">
                 <strong>30.9%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>110</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:30.9%"></span></div>
+              <div class="state-card-footer">
+                <span>110 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="washington wa">
             <a href="https://pfasestimator.org/states/washington-pfas-drinking-water/" aria-label="View PFAS monitoring results for Washington">
-              <span class="state-abbreviation" aria-hidden="true">WA</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Washington</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">WA</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Washington</h3>
+              <div class="state-card-stat">
                 <strong>51.1%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>176</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:51.1%"></span></div>
+              <div class="state-card-footer">
+                <span>176 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
           <article class="state-directory-card" data-state-card data-region="west" data-state-search="wyoming wy">
             <a href="https://pfasestimator.org/states/wyoming-pfas-drinking-water/" aria-label="View PFAS monitoring results for Wyoming">
-              <span class="state-abbreviation" aria-hidden="true">WY</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Wyoming</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">WY</span>
                 <span class="state-card-region">West</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Wyoming</h3>
+              <div class="state-card-stat">
                 <strong>11.5%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>26</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:11.5%"></span></div>
+              <div class="state-card-footer">
+                <span>26 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
         </div>
@@ -1066,20 +1072,20 @@
         <div class="state-directory-grid">
           <article class="state-directory-card" data-state-card data-region="territories" data-state-search="puerto rico pr">
             <a href="https://pfasestimator.org/states/puerto-rico-pfas-drinking-water/" aria-label="View PFAS monitoring results for Puerto Rico">
-              <span class="state-abbreviation" aria-hidden="true">PR</span>
-              <span class="state-card-copy">
-                <span class="state-card-name">Puerto Rico</span>
+              <div class="state-directory-card-top">
+                <span class="state-abbreviation" aria-hidden="true">PR</span>
                 <span class="state-card-region">Territories</span>
-              </span>
-              <span class="state-card-stat">
+              </div>
+              <h3>Puerto Rico</h3>
+              <div class="state-card-stat">
                 <strong>75.0%</strong>
-                <span>at/above threshold</span>
-              </span>
-              <span class="state-card-zips">
-                <strong>36</strong>
-                <span>ZIPs represented</span>
-              </span>
-              <span class="state-card-link" aria-hidden="true">&rarr;</span>
+                <span>of represented ZIPs at or above a comparison threshold</span>
+              </div>
+              <div class="state-card-bar" aria-hidden="true"><span style="width:75.0%"></span></div>
+              <div class="state-card-footer">
+                <span>36 represented ZIPs</span>
+                <span class="state-card-link">View data <span aria-hidden="true">&rarr;</span></span>
+              </div>
             </a>
           </article>
         </div>
@@ -1093,7 +1099,10 @@
       </section>
 
       <section class="states-reading-notes" aria-labelledby="state-notes-title">
-        <h2 id="state-notes-title">How to read state summaries</h2>
+        <div>
+          <span class="states-card-kicker">Interpretation guardrails</span>
+          <h2 id="state-notes-title">Read state summaries in context</h2>
+        </div>
         <div class="states-note-grid">
           <div>
             <strong>Observed monitoring</strong>
@@ -1112,15 +1121,15 @@
       </section>
 
       <aside class="states-coverage-note" aria-label="Guam coverage note">
-        <strong>Coverage note</strong>
+        <span>Coverage note</span>
         <p>Only 1 ZIP code (96543, Andersen Air Force Base) is represented in the analytic dataset for Guam — not enough coverage to summarize meaningfully as a state-level page. The ZIP_TO_STATE crosswalk has been fixed so this ZIP is no longer silently dropped from the live map, but no static page is generated for it.</p>
       </aside>
+    </main>
 
-    <footer class="states-footer">
+    <footer class="methodology-footer states-footer">
       <p>PFAS Estimator &middot; Independent public-health informatics project &middot; EPA UCMR 5 public drinking-water monitoring</p>
       <p>State pages describe monitoring records and do not determine personal exposure, diagnosis, or regulatory compliance.</p>
     </footer>
-    </main>
   </div>
 
   <script>
