@@ -1726,6 +1726,250 @@ body.methodology-body {
   }
 }
 
+/* ── HOMEPAGE WORKSPACE: FIXED LOOKUP + ALWAYS-AVAILABLE HEALTH Q&A ── */
+/* The shared five-tab navigation and homepage hero are intentionally untouched. */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.home-shell .home-lookup-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0;
+  align-items: start;
+  padding: 0;
+}
+
+.home-lookup-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  min-height: 500px;
+  padding: clamp(1.35rem, 3vw, 2rem);
+}
+
+.home-shell .home-lookup-panel .context-note {
+  max-width: none;
+}
+
+.home-shell .home-lookup-panel .input-row {
+  width: 100%;
+}
+
+.home-shell .home-lookup-panel .chat-panel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: clamp(500px, 58vh, 620px);
+  min-height: 500px;
+  max-height: 620px;
+  position: sticky;
+  top: 1.5rem;
+  align-self: start;
+  border-left: 1px solid var(--border-soft);
+  border-radius: 0 10px 10px 0;
+  background: #f7fafb;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.home-shell .home-lookup-panel .chat-panel.visible {
+  display: flex;
+}
+
+.home-shell .chat-panel-header {
+  min-height: 76px;
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid var(--border-soft);
+  border-radius: 0;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.chat-panel-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-shell .chat-panel-dot {
+  width: 7px;
+  height: 7px;
+  animation: none;
+  box-shadow: 0 0 0 4px rgba(23, 94, 151, 0.1);
+}
+
+.home-shell .chat-panel-title {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.home-shell .chat-panel-sub {
+  margin-top: 4px;
+  color: #7c8b92;
+  font-size: 10.5px;
+  letter-spacing: 0.01em;
+}
+
+.home-shell .ai-messages {
+  min-height: 0;
+  padding: 1.15rem 1.25rem;
+  gap: 0.7rem;
+  scrollbar-width: thin;
+  scrollbar-color: #c8d4d9 transparent;
+}
+
+.home-shell .ai-msg {
+  max-width: 88%;
+  padding: 0.75rem 0.9rem;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.home-shell .ai-msg.assistant {
+  border-color: #d8e3e7;
+  border-radius: 8px 8px 8px 2px;
+  background: #fff;
+  color: #314750;
+  box-shadow: 0 1px 2px rgba(16, 30, 38, 0.035);
+}
+
+.home-shell .ai-msg.user {
+  border-radius: 8px 8px 2px 8px;
+  box-shadow: none;
+}
+
+.home-shell .chat-welcome {
+  max-width: 94%;
+}
+
+.home-shell .ai-suggestions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0.8rem 1rem;
+  border-top: 1px solid var(--border-soft);
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.home-shell .ai-suggestion {
+  display: flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 9px;
+  border-color: #d8e3e7;
+  border-radius: 6px;
+  background: #fff;
+  color: #345f78;
+  font-size: 10.5px;
+  line-height: 1.35;
+  white-space: normal;
+}
+
+.home-shell .ai-suggestion:hover,
+.home-shell .ai-suggestion:focus-visible {
+  border-color: #b7ccd6;
+  background: #f2f7f9;
+  outline: none;
+}
+
+.home-shell .ai-input-row {
+  padding: 0.8rem 1rem 0.65rem;
+  border-top: 1px solid var(--border-soft);
+  background: #fff;
+}
+
+.home-shell .ai-input-row input {
+  min-width: 0;
+  height: 40px;
+  border-radius: 6px;
+  background: #fbfcfc;
+  font-family: var(--font-sans);
+  font-size: 12px;
+}
+
+.home-shell .ai-input-row button {
+  height: 40px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.home-shell .ai-disclaimer {
+  padding: 0 1rem 0.8rem;
+  background: #fff;
+  color: #89969c;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .home-shell .home-lookup-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .home-shell .home-lookup-panel .chat-panel {
+    width: 100%;
+    height: 540px;
+    min-height: 540px;
+    max-height: 540px;
+    position: static;
+    border-top: 1px solid var(--border-soft);
+    border-left: 0;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .home-lookup-column {
+    display: block;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-shell .home-lookup-panel {
+    padding: 0;
+  }
+
+  .home-lookup-column {
+    display: block;
+    min-height: 0;
+    padding: 1.15rem;
+  }
+
+  .home-shell .ai-suggestions {
+    grid-template-columns: 1fr;
+  }
+
+  .home-shell .home-lookup-panel .chat-panel {
+    height: 560px;
+    min-height: 560px;
+    max-height: 560px;
+  }
+}
+
+@media print {
+  .home-shell .home-lookup-panel {
+    display: block;
+    border: 0;
+    box-shadow: none;
+  }
+
+  .home-lookup-column {
+    display: block;
+    min-height: 0;
+    padding: 0;
+  }
+}
+
 @media print {
   .state-list-labels { display: grid; }
   .state-directory-grid { grid-template-columns: 1fr; }

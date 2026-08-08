@@ -111,7 +111,7 @@
     ]
   }
   </script>
-  <link rel="stylesheet" href="/styles.css?v=20260807-home-state-editorial-refresh" />
+  <link rel="stylesheet" href="/styles.css?v=20260808-integrated-health-chat" />
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
@@ -152,7 +152,8 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <p class="subtitle" id="ui-subtitle">Enter your zip code to find out what's in your tap water, what it means for your health, and what you can do about it.</p>
     </header>
 
-    <section class="home-lookup-panel" aria-label="ZIP code lookup">
+    <section class="home-lookup-panel" aria-label="ZIP code lookup and PFAS health questions">
+    <div class="home-lookup-column">
     <div class="context-note">
       <strong id="ui-howto-label">How to read these results:</strong> <span id="ui-howto-text">Ingesting tap water (drinking it, cooking with it, making coffee or baby formula) is the primary route of PFAS exposure for most people. Skin absorption during showering is minimal by comparison. Detection means a compound was measurable in your water system. Detection does not mean your water is immediately dangerous, but it does mean you deserve to know what is there and what the research says.</span>
     </div>
@@ -194,6 +195,34 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       <button onclick="logClinicalCase()" id="ui-clinical-btn">Log</button>
       <div class="clinical-confirm" id="clinicalConfirm">✓ Patient case logged.</div>
     </div>
+    </div>
+
+    <aside class="chat-panel visible" id="chatPanel" aria-label="PFAS health question and answer assistant">
+      <div class="chat-panel-header">
+        <div>
+          <div class="chat-panel-heading">
+            <div class="chat-panel-dot" aria-hidden="true"></div>
+            <span class="chat-panel-title" id="chat-panel-title">Health Q&amp;A</span>
+          </div>
+          <div class="chat-panel-sub" id="chat-panel-sub">Grounded in PFAS medical research · Not medical advice</div>
+        </div>
+      </div>
+      <div id="aiMessages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation">
+        <div id="chatPanelEmpty" class="ai-msg assistant chat-welcome">Feel free to ask any questions about PFAS, water quality, or what your results mean. Search a ZIP code when you're ready, and I'll tailor answers to your local results.</div>
+      </div>
+      <div class="ai-suggestions" id="aiSuggestions" aria-label="Suggested questions">
+        <span class="ai-suggestion" role="button" tabindex="0" onclick="sendSuggestion(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sendSuggestion(this)}">Should I be concerned?</span>
+        <span class="ai-suggestion" role="button" tabindex="0" onclick="sendSuggestion(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sendSuggestion(this)}">Is this safe during pregnancy?</span>
+        <span class="ai-suggestion" role="button" tabindex="0" onclick="sendSuggestion(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sendSuggestion(this)}">What filter removes PFAS?</span>
+        <span class="ai-suggestion" role="button" tabindex="0" onclick="sendSuggestion(this)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();sendSuggestion(this)}">What symptoms are linked to PFAS?</span>
+      </div>
+      <div class="ai-input-row" id="aiInputRow">
+        <label for="aiInput" class="visually-hidden">Ask a PFAS health question</label>
+        <input type="text" id="aiInput" placeholder="Ask about PFAS or your results..." onkeydown="if(event.key==='Enter') sendAiMessage()" />
+        <button id="aiSendBtn" onclick="sendAiMessage()">Ask</button>
+      </div>
+      <div class="ai-disclaimer" id="aiDisclaimer">Always consult a healthcare provider for personal medical guidance.</div>
+    </aside>
     </section>
 
     <section class="why-section" aria-labelledby="ui-why-title">
@@ -314,32 +343,6 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
 
   </main><!-- end card -->
 
-  <!-- RIGHT: CHAT PANEL -->
-  <div class="chat-panel" id="chatPanel">
-    <div class="chat-panel-header">
-      <div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div class="chat-panel-dot"></div>
-          <span class="chat-panel-title" id="chat-panel-title">Health Q&amp;A</span>
-        </div>
-        <div class="chat-panel-sub" id="chat-panel-sub">Grounded in PFAS medical research · Not medical advice</div>
-      </div>
-    </div>
-    <div id="chatPanelEmpty" class="chat-panel-empty">Search a zip code to get personalized answers about your water results.</div>
-    <div id="aiMessages" class="ai-messages" style="display:none;"></div>
-    <div class="ai-suggestions" id="aiSuggestions" style="display:none;">
-      <span class="ai-suggestion" onclick="sendSuggestion(this)">Should I be concerned?</span>
-      <span class="ai-suggestion" onclick="sendSuggestion(this)">Is this safe during pregnancy?</span>
-      <span class="ai-suggestion" onclick="sendSuggestion(this)">What filter removes PFAS?</span>
-      <span class="ai-suggestion" onclick="sendSuggestion(this)">What symptoms are linked to PFAS?</span>
-    </div>
-    <div class="ai-input-row" id="aiInputRow" style="display:none;">
-      <input type="text" id="aiInput" placeholder="Ask about your results..." onkeydown="if(event.key==='Enter') sendAiMessage()" />
-      <button id="aiSendBtn" onclick="sendAiMessage()">Ask</button>
-    </div>
-    <div class="ai-disclaimer" id="aiDisclaimer" style="display:none;">Always consult a healthcare provider for personal medical guidance.</div>
-  </div>
-
   </div><!-- end page-wrapper -->
 </div><!-- end home-shell -->
 
@@ -355,10 +358,12 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
   const GROQ_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
   const GROQ_MODEL = "llama-3.3-70b-versatile";
   let currentLang = 'en';
-  let aiMessages = [];
+  const INITIAL_CHAT_MESSAGE = "Feel free to ask any questions about PFAS, water quality, or what your results mean. Search a ZIP code when you're ready, and I'll tailor answers to your local results.";
+  let aiMessages = [{ role: "assistant", content: INITIAL_CHAT_MESSAGE }];
   let currentZipContext = "";
   let lastZip = null;
   let lastMatches = null;
+  let lastChatZip = null;
 
   // ── HELPERS ───────────────────────────────────────────────────────────────
   function getRiskLevel(compound, level) {
@@ -509,14 +514,9 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
           });
         });
 
-        // Open chat panel
+        // Ground the already-open chat in this ZIP code without changing layout.
         currentZipContext = buildZipContext(zip, matches);
-        aiMessages = [];
         document.getElementById('chatPanel').classList.add('visible');
-        document.getElementById('chatPanelEmpty').style.display = 'none';
-        const msgBox = document.getElementById('aiMessages');
-        msgBox.style.display = 'flex';
-        msgBox.innerHTML = '';
         document.getElementById('aiSuggestions').style.display = 'flex';
         document.getElementById('aiInputRow').style.display = 'flex';
         document.getElementById('aiDisclaimer').style.display = 'block';
@@ -526,8 +526,11 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
         const opener = hasAbove
           ? (isZhChat ? "您所在地区的水中检测到一种或多种超过EPA限值的化合物。请随时就此提问——我会结合您的具体检测结果作答。" : "Your area's water had compounds detected above EPA limits. Feel free to ask me anything. I will answer based on your specific results.")
           : (isZhChat ? "您所在地区的检出化合物均低于EPA限值。如您对检测结果有任何疑问，欢迎提问。" : "Your area's detected compounds were all below EPA limits. Ask me anything about what was found and what it means.");
-        appendAiMsg('assistant', opener);
-        aiMessages.push({ role: "assistant", content: opener });
+        if (lastChatZip !== zip) {
+          appendAiMsg('assistant', opener);
+          aiMessages.push({ role: "assistant", content: opener });
+          lastChatZip = zip;
+        }
 
       } else {
         trackEvent('lookup_not_found');
@@ -538,7 +541,16 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
         body.innerHTML = `<p style="font-size:13px; color:#555; line-height:1.7;">${t.noResultsDetail}</p>`;
         printBtn.classList.remove("visible");
         document.getElementById('clinicalLog').style.display = 'none';
-        document.getElementById('chatPanel').classList.remove('visible');
+        currentZipContext = `The user searched zip code ${zip}. This ZIP code does not appear in the current EPA UCMR 5 detection-only records used by this tool. That absence does not establish that the water is PFAS-free; testing may be absent, pending, or may have reported no detections.`;
+        document.getElementById('chatPanel').classList.add('visible');
+        document.getElementById('aiSuggestions').style.display = 'flex';
+        document.getElementById('aiInputRow').style.display = 'flex';
+        document.getElementById('aiDisclaimer').style.display = 'block';
+        if (lastChatZip !== zip) {
+          appendAiMsg('assistant', t.chatNoRecord);
+          aiMessages.push({ role: "assistant", content: t.chatNoRecord });
+          lastChatZip = zip;
+        }
         document.getElementById('clinicalConfirm').style.display = 'none';
         document.getElementById('clinicalCode').style.display = 'inline';
         document.querySelector('.clinical-log button').style.display = 'inline';
@@ -652,13 +664,21 @@ Write 2-3 sentences that answer "Should I be concerned at this specific level?"
     try {
       const isZh = currentLang === 'zh';
       const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
+      const hasZipContext = Boolean(currentZipContext);
+      const contextBlock = hasZipContext
+        ? currentZipContext
+        : 'The user has not searched a ZIP code yet. Answer general PFAS, drinking-water, and environmental-health questions without implying that you know their local results. If a location-specific answer would help, briefly invite them to search a ZIP code.';
       const redirect = isZh
-        ? '这超出了我能回答的范围——但关于您的水质结果，我很乐意回答有关PFAS健康影响、您的检出水平意味着什么，或您可以采取哪些措施的问题。'
-        : "That is outside what I can help with here, but regarding your water results, I'm happy to answer questions about PFAS health effects, what your levels mean, or what steps to take.";
+        ? (hasZipContext
+          ? '这超出了我能回答的范围——但关于您的水质结果，我很乐意回答有关PFAS健康影响、您的检出水平意味着什么，或您可以采取哪些措施的问题。'
+          : '这超出了我能回答的范围，但我很乐意回答有关PFAS、水质和环境健康的问题。')
+        : (hasZipContext
+          ? "That is outside what I can help with here, but regarding your water results, I'm happy to answer questions about PFAS health effects, what your levels mean, or what steps to take."
+          : "That is outside what I can help with here, but I'm happy to answer questions about PFAS, water quality, and environmental health.");
 
       const systemPrompt = `${lang}You are a knowledgeable health assistant specializing in PFAS contamination and its effects on human health. Answer based strictly on published medical and epidemiological research.
 
-${currentZipContext}
+${contextBlock}
 
 Guidelines:
 - Only answer questions related to PFAS, water quality, environmental health, or adjacent medical/clinical topics
@@ -1047,8 +1067,9 @@ Guidelines:
       placeholder: "Enter U.S. zip code",
       printBtn: "⬛ Print / Save as PDF for your appointment",
       chatTitle: "Health Q&A", chatSub: "Grounded in PFAS medical research · Not medical advice",
-      chatEmpty: "Search a zip code to get personalized answers about your water results.",
-      chatPlaceholder: "Ask about your results...", chatAsk: "Ask",
+      chatEmpty: "Feel free to ask any questions about PFAS, water quality, or what your results mean. Search a ZIP code when you're ready, and I'll tailor answers to your local results.",
+      chatNoRecord: "I couldn't find a recorded PFAS detection for this ZIP code in the current dataset. Feel free to ask what that does—and does not—mean for your water.",
+      chatPlaceholder: "Ask about PFAS or your results...", chatAsk: "Ask",
       chatDisclaimer: "Always consult a healthcare provider for personal medical guidance.",
       suggestions: ["Should I be concerned?", "Is this safe during pregnancy?", "What filter removes PFAS?", "What symptoms are linked to PFAS?"],
       whyTitle: "Why tap water ingestion matters",
@@ -1073,8 +1094,9 @@ Guidelines:
       checkBtn: "查询我的地区", placeholder: "输入美国邮政编码",
       printBtn: "⬛ 打印 / 保存为PDF供就诊使用",
       chatTitle: "健康问答", chatSub: "基于PFAS医学研究 · 非医疗建议",
-      chatEmpty: "搜索邮政编码，获取关于您水质结果的个性化解答。",
-      chatPlaceholder: "询问您的水质结果...", chatAsk: "提问",
+      chatEmpty: "欢迎询问有关PFAS、水质或检测结果的任何问题。准备好后可搜索邮政编码，我会根据您所在地区的结果进行解答。",
+      chatNoRecord: "在当前数据集中，我没有找到该邮政编码的PFAS检出记录。您可以继续询问这对您的水质意味着什么，以及它不能说明什么。",
+      chatPlaceholder: "询问PFAS或您的检测结果...", chatAsk: "提问",
       chatDisclaimer: "如需个人医疗建议，请务必咨询医疗专业人员。",
       suggestions: ["我需要担心吗？", "怀孕期间安全吗？", "什么滤水器可以去除PFAS？", "PFAS与哪些症状有关？"],
       whyTitle: "为什么自来水摄入很重要",
@@ -1225,6 +1247,9 @@ Guidelines:
     document.getElementById('chat-panel-title').textContent = t.chatTitle;
     document.getElementById('chat-panel-sub').textContent = t.chatSub;
     document.getElementById('chatPanelEmpty').textContent = t.chatEmpty;
+    if (aiMessages.length > 0 && aiMessages[0].role === 'assistant') {
+      aiMessages[0].content = t.chatEmpty;
+    }
     document.getElementById('aiInput').placeholder = t.chatPlaceholder;
     document.getElementById('aiSendBtn').textContent = t.chatAsk;
     document.getElementById('aiDisclaimer').textContent = t.chatDisclaimer;
