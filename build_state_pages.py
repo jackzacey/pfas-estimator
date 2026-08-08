@@ -556,7 +556,7 @@ def main():
   {index_structured_data}
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260807-unified-editorial-shell" />
+  <link rel="stylesheet" href="/styles.css?v=20260807-state-bar-repair" />
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>

@@ -1663,10 +1663,10 @@ body.methodology-body {
   text-align: right;
 }
 
-.state-card-bar,
-.state-card-footer,
-.state-directory-card h3,
-.state-directory-card-top {
+.states-card.is-compact .state-card-bar,
+.states-card.is-compact .state-card-footer,
+.states-card.is-compact .state-directory-card h3,
+.states-card.is-compact .state-directory-card-top {
   display: none;
 }
 
@@ -2344,6 +2344,15 @@ button,
   margin-bottom: 1rem;
 }
 
+/* Keep the shared five-tab rail visible on the state explorer. The earlier
+   compact-directory rules used the same component names and could otherwise
+   suppress pieces of the restored editorial layout. */
+.states-body .states-top-nav {
+  display: flex;
+  visibility: visible;
+  opacity: 1;
+}
+
 .home-shell .page-wrapper {
   margin: 0 auto;
 }
@@ -2770,18 +2779,21 @@ button,
 
 .state-card-bar {
   display: block;
+  width: 100%;
+  flex: 0 0 auto;
   overflow: hidden;
-  height: 3px;
+  height: 4px;
   margin-top: 0.75rem;
   border-radius: 999px;
-  background: #e8edef;
+  background: #dfe7ea;
+  box-shadow: inset 0 0 0 1px rgba(32, 73, 94, 0.035);
 }
 
 .state-card-bar span {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--primary);
+  background: linear-gradient(90deg, #4b87b1, var(--primary));
 }
 
 .state-card-footer {
