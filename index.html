@@ -360,7 +360,9 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
   // ── GLOBALS ──────────────────────────────────────────────────────────────
   
   const GROQ_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
-  const GROQ_MODEL = "llama-3.3-70b-versatile";
+  const AI_REQUEST_TIMEOUT_MS = 15000;
+  const ZIP_AI_CACHE_VERSION = "zip-summary-v3";
+  const ZIP_AI_CACHE_MAX_AGE_MS = 24 * 60 * 60 * 1000;
   let currentLang = 'en';
   const INITIAL_CHAT_MESSAGE = "Feel free to ask any questions about PFAS, water quality, or what your results mean. Search a ZIP code when you're ready, and I'll tailor answers to your local results.";
   let aiMessages = [{ role: "assistant", content: INITIAL_CHAT_MESSAGE }];
@@ -375,14 +377,132 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
     return (limit && level >= limit) ? "above" : "below";
   }
 
-  async function groqFetch(prompt, maxTokens) {
-    const res = await fetch(GROQ_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: GROQ_MODEL, max_tokens: maxTokens, messages: [{ role: "user", content: prompt }] })
+  async function pfasAiRequest(payload) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), AI_REQUEST_TIMEOUT_MS);
+    try {
+      const response = await fetch(GROQ_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+      let data;
+      try {
+        data = await response.json();
+      } catch (error) {
+        throw new Error("The health assistant returned an unreadable response.");
+      }
+      if (!response.ok) {
+        throw new Error(data?.error || `The health assistant returned error ${response.status}.`);
+      }
+      if (typeof data?.content !== "string" || !data.content.trim()) {
+        throw new Error("The health assistant returned an empty response.");
+      }
+      return data.content.trim();
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function zipSummaryCacheKey(zip, matches, language) {
+    const signature = matches.map(match => `${match.compound}:${match.level}`).join("|");
+    return `${ZIP_AI_CACHE_VERSION}:${language}:${zip}:${signature}`;
+  }
+
+  function readCachedZipSummary(key) {
+    try {
+      const cached = JSON.parse(localStorage.getItem(key) || "null");
+      if (!cached || Date.now() - cached.savedAt > ZIP_AI_CACHE_MAX_AGE_MS) return null;
+      return cached.analysis || null;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function writeCachedZipSummary(key, analysis) {
+    try {
+      localStorage.setItem(key, JSON.stringify({ savedAt: Date.now(), analysis }));
+    } catch (error) {}
+  }
+
+  function parseZipSummary(content, matches) {
+    const withoutFence = content.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    const start = withoutFence.indexOf("{");
+    const end = withoutFence.lastIndexOf("}");
+    if (start < 0 || end <= start) throw new Error("The ZIP summary was not valid JSON.");
+    const parsed = JSON.parse(withoutFence.slice(start, end + 1));
+    if (typeof parsed.header !== "string" || !parsed.header.trim() || !Array.isArray(parsed.summaries)) {
+      throw new Error("The ZIP summary was incomplete.");
+    }
+    const expected = new Set(matches.map(match => match.compound));
+    const summaries = {};
+    parsed.summaries.forEach(item => {
+      if (expected.has(item?.compound) && typeof item?.text === "string" && item.text.trim()) {
+        summaries[item.compound] = item.text.trim();
+      }
     });
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || null;
+    return { header: parsed.header.trim(), summaries };
+  }
+
+  function renderScienceSummary(element, label, text) {
+    element.replaceChildren();
+    const heading = document.createElement("h3");
+    heading.textContent = label;
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    element.append(heading, paragraph);
+  }
+
+  function applyCompoundSummaries(matches, summaries = {}) {
+    matches.forEach((match, index) => {
+      const element = document.getElementById(`ai-summary-${index}`);
+      const card = document.getElementById(`compound-card-${index}`);
+      if (!element || !card) return;
+      const summary = summaries[match.compound];
+      const healthLabel = card.dataset.healthLabel || "🩺 What this level means for you";
+      const fallbackLabel = card.dataset.fallbackLabel || "🩺 Health effects linked to this compound";
+      const fallbackHealth = decodeURIComponent(card.dataset.fallbackHealth || "");
+      if (summary) {
+        renderScienceSummary(element, healthLabel, summary);
+      } else if (fallbackHealth) {
+        renderScienceSummary(element, fallbackLabel, fallbackHealth);
+      } else {
+        renderScienceSummary(
+          element,
+          fallbackLabel,
+          card.dataset.emerging || "Research on this compound is still emerging."
+        );
+      }
+    });
+  }
+
+  async function generateZipSummary(zip, matches, language = currentLang) {
+    const cacheKey = zipSummaryCacheKey(zip, matches, language);
+    const cached = readCachedZipSummary(cacheKey);
+    if (cached) return cached;
+
+    const isZh = language === "zh";
+    const compounds = matches.map(match => {
+      const science = SCIENCE[match.compound] || {};
+      return {
+        compound: match.compound,
+        full: isZh ? (science.full_zh || science.full || match.compound) : (science.full || match.compound),
+        level: match.level,
+        epa_limit: science.epa_limit ?? null,
+        health_effects: isZh ? (science.health_effects_zh || science.health_effects || "") : (science.health_effects || ""),
+        clinical_threshold: isZh ? (science.clinical_threshold_zh || science.clinical_threshold || "") : (science.clinical_threshold || "")
+      };
+    });
+    const content = await pfasAiRequest({
+      action: "summary",
+      zip,
+      language,
+      compounds
+    });
+    const analysis = parseZipSummary(content, matches);
+    writeCachedZipSummary(cacheKey, analysis);
+    return analysis;
   }
 
   // ── COUNTER ───────────────────────────────────────────────────────────────
@@ -432,11 +552,7 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
         result.className = anyAbove ? "result found-above" : "result found-below";
         title.textContent = anyAbove ? t.resultTitleAbove : t.resultTitleBelow;
         context.textContent = t.resultAnalyzing;
-
-        // AI header
-        generateHeader(zip, matches).then(summary => {
-          context.textContent = summary || (anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow);
-        });
+        const requestLanguage = currentLang;
 
         // Build compound cards
         const isZh = currentLang === 'zh';
@@ -502,21 +618,18 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
         printBtn.classList.add("visible");
         document.getElementById('clinicalLog').style.display = 'block';
 
-        // Fire all compound AI summaries in parallel
-        matches.forEach((m, idx) => {
-          generateCompoundSummary(m.compound, m.level, SCIENCE[m.compound] || {}).then(summary => {
-            const el = document.getElementById(`ai-summary-${idx}`);
-            const card = document.getElementById(`compound-card-${idx}`);
-            if (!el) return;
-            const healthLabel = card?.dataset.healthLabel || '🩺 What this level means for you';
-            const fallbackLabel = card?.dataset.fallbackLabel || '🩺 Health effects linked to this compound';
-            const fallbackHealth = decodeURIComponent(card?.dataset.fallbackHealth || '');
-            const emergingText = card?.dataset.emerging || 'Research on this compound is still emerging.';
-            el.innerHTML = summary
-              ? `<h3>${healthLabel}</h3><p>${summary}</p>`
-              : (fallbackHealth ? `<h3>${fallbackLabel}</h3><p>${fallbackHealth}</p>` : `<p style="color:#aaa; font-size:12px; font-style:italic;">${emergingText}</p>`);
+        // One cached AI request now produces the header and every compound summary.
+        generateZipSummary(zip, matches, requestLanguage)
+          .then(analysis => {
+            if (lastZip !== zip || currentLang !== requestLanguage) return;
+            context.textContent = analysis.header || (anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow);
+            applyCompoundSummaries(matches, analysis.summaries);
+          })
+          .catch(() => {
+            if (lastZip !== zip || currentLang !== requestLanguage) return;
+            context.textContent = anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow;
+            applyCompoundSummaries(matches);
           });
-        });
 
         // Ground the already-open chat in this ZIP code without changing layout.
         currentZipContext = buildZipContext(zip, matches);
@@ -576,45 +689,6 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
     }
   })();
 
-  // ── AI CALLS ──────────────────────────────────────────────────────────────
-  async function generateHeader(zip, matches) {
-    const isZh = currentLang === 'zh';
-    const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
-    const compoundList = matches.map(m => {
-      const s = SCIENCE[m.compound] || {};
-      const limit = s.epa_limit;
-      return limit
-        ? (m.level >= limit ? `${m.compound} at ${((m.level/limit)*100).toFixed(0)}% of EPA limit (ABOVE)` : `${m.compound} at ${((m.level/limit)*100).toFixed(0)}% of EPA limit (below)`)
-        : `${m.compound} (no federal limit set)`;
-    }).join(', ');
-    const prompt = `${lang}A person looked up zip code ${zip} and found these PFAS compounds in their tap water: ${compoundList}.
-Write exactly 2 sentences${isZh ? ' in Simplified Chinese' : ' in plain, caring English'} like a doctor summarizing results to a patient.
-- Sentence 1: state how many compounds were found and whether any exceed EPA limits
-- Sentence 2: name the single most clinically relevant health concern, mentioning who is most at risk
-- Be honest but not alarmist. No bullet points, no headers, no citations.`;
-    try { return await groqFetch(prompt, 120); } catch(e) { return null; }
-  }
-
-  async function generateCompoundSummary(compound, level, science) {
-    const isZh = currentLang === 'zh';
-    const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
-    const limit = science.epa_limit;
-    const pct = limit ? ((level / limit) * 100).toFixed(0) : null;
-    const prompt = `${lang}You are explaining tap water test results to a patient in plain, caring language like a doctor. Avoid all technical jargon and study citations.
-This person's tap water contains:
-- ${compound} (${science.full || compound})
-- Detected at ${level} µg/L ${limit ? `: ${pct}% of the EPA safety limit` : 'no federal limit has been set yet'}
-What researchers know: ${isZh ? (science.health_effects_zh || science.health_effects || '') : (science.health_effects || '')}
-${limit ? `Thresholds: ${isZh ? (science.clinical_threshold_zh || science.clinical_threshold || '') : (science.clinical_threshold || '')}` : ''}
-Write 2-3 sentences that answer "Should I be concerned at this specific level?"
-- Lead with whether this level is a real concern at this specific concentration
-- Name the most relevant health effect in plain everyday terms, and who is most at risk
-- Do NOT mention filters, what to do, next steps, or any recommended actions. Those are covered separately.
-- Do NOT say "consult a doctor" or give any action-oriented advice
-- No bullet points, no headers, no citations. Plain prose only.`;
-    try { return await groqFetch(prompt, 200); } catch(e) { return null; }
-  }
-
   // ── CHAT ──────────────────────────────────────────────────────────────────
   function buildZipContext(zip, matches) {
     if (!matches || matches.length === 0) return "";
@@ -666,53 +740,23 @@ Write 2-3 sentences that answer "Should I be concerned at this specific level?"
     const thinking = appendAiMsg('thinking', currentLang === 'zh' ? '正在查阅PFAS研究资料...' : 'Looking through PFAS research...');
 
     try {
-      const isZh = currentLang === 'zh';
-      const lang = isZh ? 'Respond entirely in Simplified Chinese (简体中文). ' : '';
-      const hasZipContext = Boolean(currentZipContext);
-      const contextBlock = hasZipContext
-        ? currentZipContext
-        : 'The user has not searched a ZIP code yet. Answer general PFAS, drinking-water, and environmental-health questions without implying that you know their local results. If a location-specific answer would help, briefly invite them to search a ZIP code.';
-      const redirect = isZh
-        ? (hasZipContext
-          ? '这超出了我能回答的范围——但关于您的水质结果，我很乐意回答有关PFAS健康影响、您的检出水平意味着什么，或您可以采取哪些措施的问题。'
-          : '这超出了我能回答的范围，但我很乐意回答有关PFAS、水质和环境健康的问题。')
-        : (hasZipContext
-          ? "That is outside what I can help with here, but regarding your water results, I'm happy to answer questions about PFAS health effects, what your levels mean, or what steps to take."
-          : "That is outside what I can help with here, but I'm happy to answer questions about PFAS, water quality, and environmental health.");
-
-      const systemPrompt = `${lang}You are a knowledgeable health assistant specializing in PFAS contamination and its effects on human health. Answer based strictly on published medical and epidemiological research.
-
-${contextBlock}
-
-Guidelines:
-- Only answer questions related to PFAS, water quality, environmental health, or adjacent medical/clinical topics
-- If asked about anything unrelated, politely redirect: "${redirect}"
-- Answer based on the user's specific results above when relevant
-- Be honest about what the research does and doesn't show
-- For pregnancy questions, focus on thyroid disruption (T3/T4, iodine uptake, fetal brain development)
-- Always suggest consulting a healthcare provider for personal medical decisions
-- When recommending filters, always specify NSF/ANSI 58-certified filters
-- Be concise: 2 to 4 sentences unless the question warrants more
-- Never be alarmist, but don't downplay legitimate concerns
-- Never diagnose or suggest a specific person has a health condition`;
-
-      const response = await fetch(GROQ_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: GROQ_MODEL, max_tokens: 1000,
-          messages: [{ role: "system", content: systemPrompt }, ...aiMessages]
-        })
+      const reply = await pfasAiRequest({
+        action: "chat",
+        language: currentLang,
+        zip_context: currentZipContext,
+        messages: aiMessages.slice(-6)
       });
-      const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content
-        || (isZh ? '无法生成回复，请重试。' : "I wasn't able to generate a response. Please try again.");
       thinking.remove();
       appendAiMsg('assistant', reply);
       aiMessages.push({ role: "assistant", content: reply });
     } catch(e) {
       thinking.remove();
-      appendAiMsg('assistant', currentLang === 'zh' ? '连接健康助手时出现问题，请重试。' : "Something went wrong connecting to the health assistant. Please try again.");
+      appendAiMsg(
+        'assistant',
+        currentLang === 'zh'
+          ? '健康助手暂时繁忙。您的邮编检测结果仍显示在上方，请稍后重试。'
+          : 'The health assistant is temporarily busy. Your ZIP results remain available above; please try again shortly.'
+      );
     }
 
     btn.disabled = false;
@@ -1131,11 +1175,7 @@ Guidelines:
     result.className = anyAbove ? "result found-above" : "result found-below";
     title.textContent = anyAbove ? t.resultTitleAbove : t.resultTitleBelow;
     context.textContent = t.resultAnalyzing;
-
-    // Re-fire AI header in new language
-    generateHeader(zip, matches).then(summary => {
-      context.textContent = summary || (anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow);
-    });
+    const requestLanguage = currentLang;
 
     // Rebuild compound cards in new language
     let html = "";
@@ -1198,21 +1238,17 @@ Guidelines:
     });
     body.innerHTML = html;
 
-    // Re-fire compound AI summaries in new language
-    matches.forEach((m, idx) => {
-      generateCompoundSummary(m.compound, m.level, SCIENCE[m.compound] || {}).then(summary => {
-        const el = document.getElementById(`ai-summary-${idx}`);
-        const card = document.getElementById(`compound-card-${idx}`);
-        if (!el) return;
-        const healthLabel = card?.dataset.healthLabel || cardT.healthLabel;
-        const fallbackLabel = card?.dataset.fallbackLabel || cardT.fallbackLabel;
-        const fallbackHealthDecoded = decodeURIComponent(card?.dataset.fallbackHealth || '');
-        const emergingText = card?.dataset.emerging || cardT.emerging;
-        el.innerHTML = summary
-          ? `<h3>${healthLabel}</h3><p>${summary}</p>`
-          : (fallbackHealthDecoded ? `<h3>${fallbackLabel}</h3><p>${fallbackHealthDecoded}</p>` : `<p style="color:#aaa; font-size:12px; font-style:italic;">${emergingText}</p>`);
+    generateZipSummary(zip, matches, requestLanguage)
+      .then(analysis => {
+        if (lastZip !== zip || currentLang !== requestLanguage) return;
+        context.textContent = analysis.header || (anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow);
+        applyCompoundSummaries(matches, analysis.summaries);
+      })
+      .catch(() => {
+        if (lastZip !== zip || currentLang !== requestLanguage) return;
+        context.textContent = anyAbove ? t.resultFallbackAbove : t.resultFallbackBelow;
+        applyCompoundSummaries(matches);
       });
-    });
 
     // Add language switch notice to chat
     const messages = document.getElementById('aiMessages');
