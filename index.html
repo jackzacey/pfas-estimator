@@ -506,13 +506,51 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
   }
 
   // ── COUNTER ───────────────────────────────────────────────────────────────
+  async function counterRequest(counter, operation = 'get') {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const res = await fetch(GROQ_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'counter', counter, operation }),
+        signal: controller.signal
+      });
+      const data = await res.json();
+      if (!res.ok || !Number.isFinite(data.count)) {
+        throw new Error(data.error || `Counter request failed (${res.status}).`);
+      }
+      return data.count;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function displayCount(elementId, count) {
+    document.getElementById(elementId).textContent = Number(count).toLocaleString();
+  }
+
+  async function loadCounters() {
+    const results = await Promise.allSettled([
+      counterRequest('searches'),
+      counterRequest('clinical')
+    ]);
+    if (results[0].status === 'fulfilled') displayCount('searchCount', results[0].value);
+    if (results[1].status === 'fulfilled') displayCount('clinicalCount', results[1].value);
+    results.forEach(result => {
+      if (result.status === 'rejected') console.warn('Counter could not be loaded:', result.reason);
+    });
+  }
+
   async function incrementCount() {
     try {
-      const res = await fetch('https://api.counterapi.dev/v1/pfas-estimator/searches/up');
-      const data = await res.json();
-      if (data.count) document.getElementById('searchCount').textContent = data.count.toLocaleString();
-    } catch(e) {}
+      displayCount('searchCount', await counterRequest('searches', 'increment'));
+    } catch(e) {
+      console.warn('Search counter could not be updated:', e);
+    }
   }
+
+  loadCounters();
 
   // ── ZIP CHECK ─────────────────────────────────────────────────────────────
   function checkZip() {
@@ -772,10 +810,9 @@ function trackEvent(name,params={}){try{gtag('event',name,params);}catch(e){}}
       setTimeout(() => document.getElementById('clinicalCode').placeholder = '···', 1500);
       return;
     }
-    fetch('https://api.counterapi.dev/v1/pfas-estimator/clinical/up')
-      .then(r => r.json())
-      .then(d => { if (d.count) document.getElementById('clinicalCount').textContent = d.count.toLocaleString(); })
-      .catch(() => {});
+    counterRequest('clinical', 'increment')
+      .then(count => displayCount('clinicalCount', count))
+      .catch(error => console.warn('Patient-case counter could not be updated:', error));
     document.getElementById('clinicalConfirm').style.display = 'block';
     document.getElementById('clinicalCode').style.display = 'none';
     document.querySelector('.clinical-log button').style.display = 'none';

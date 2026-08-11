@@ -15,6 +15,18 @@ The Worker no longer accepts arbitrary Groq models, token counts, or raw prompts
 4. Deploy the Worker.
 5. In the Worker's settings, add a Rate Limiting binding named `AI_RATE_LIMITER` when available. A suitable starting rule is 12 requests per 60 seconds per key. The Worker also includes a best-effort burst guard when this binding is absent.
 
+## Configure the search counters
+
+CounterAPI V1 has been removed. The search and patient-case counters now use a Cloudflare D1 database through the same Worker.
+
+1. In Cloudflare, open **Storage & Databases**, then **D1 SQL Database**.
+2. Create a database named `pfas-estimator-counters`.
+3. Return to the `pfas-groq-proxy` Worker and open **Settings**, then **Bindings**.
+4. Add a **D1 database** binding with the variable name `COUNTERS_DB` and select `pfas-estimator-counters`.
+5. Deploy `cloudflare-worker.js` before uploading the updated website files.
+
+No SQL setup is required. The Worker creates the counter table and records when they are first used. Both badges load their current totals when the homepage opens, and valid ZIP searches increment the search total atomically.
+
 The default allowed browser origins are:
 
 - `https://pfasestimator.org`

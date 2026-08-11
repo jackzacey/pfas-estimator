@@ -12,6 +12,7 @@ const ALLOWED_COMPOUNDS = new Set([
   "PFOA", "PFOS", "PFNA", "PFHxS", "PFHpA", "PFDA",
   "PFBA", "PFPeA", "PFBS", "6:2 FTS", "HFPO-DA", "Lithium"
 ]);
+const ALLOWED_COUNTERS = new Set(["searches", "clinical"]);
 
 // This is a best-effort burst guard for deployments without a Cloudflare
 // Rate Limiting binding. Bind AI_RATE_LIMITER for durable per-IP enforcement.
@@ -33,10 +34,6 @@ export default {
     if (!cors) {
       return jsonResponse({ error: "Origin not allowed." }, 403);
     }
-    if (!env.GROQ_API_KEY) {
-      return jsonResponse({ error: "AI service is not configured." }, 503, cors);
-    }
-
     const raw = await request.text();
     if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) {
       return jsonResponse({ error: "Request is too large." }, 413, cors);
@@ -50,6 +47,16 @@ export default {
     }
 
     try {
+      if (body.action === "counter") {
+        const payload = sanitizeCounterRequest(body);
+        const count = await handleCounter(env, payload);
+        return jsonResponse({ count }, 200, cors, { "Cache-Control": "no-store" });
+      }
+
+      if (!env.GROQ_API_KEY) {
+        return jsonResponse({ error: "AI service is not configured." }, 503, cors);
+      }
+
       if (body.action === "summary") {
         const payload = sanitizeSummaryRequest(body);
         const cacheId = await summaryCacheId(payload);
@@ -85,16 +92,52 @@ export default {
         return jsonResponse({ content }, 200, cors);
       }
 
-      return jsonResponse({ error: "Unsupported AI action." }, 400, cors);
+      return jsonResponse({ error: "Unsupported action." }, 400, cors);
     } catch (error) {
       const status = Number.isInteger(error.status) ? error.status : 500;
-      const message = status >= 500
-        ? "The health assistant is temporarily unavailable."
-        : error.message;
+      const message = body.action === "counter"
+        ? (status >= 500 ? "The counter service is temporarily unavailable." : error.message)
+        : (status >= 500 ? "The health assistant is temporarily unavailable." : error.message);
       return jsonResponse({ error: message }, status, cors);
     }
   }
 };
+
+function sanitizeCounterRequest(body) {
+  const counter = String(body.counter || "");
+  if (!ALLOWED_COUNTERS.has(counter)) {
+    throw clientError("Unknown counter.");
+  }
+  return {
+    counter,
+    operation: body.operation === "increment" ? "increment" : "get"
+  };
+}
+
+async function handleCounter(env, payload) {
+  if (!env.COUNTERS_DB) {
+    const error = new Error("Counter storage is not configured.");
+    error.status = 503;
+    throw error;
+  }
+
+  await env.COUNTERS_DB.prepare(
+    "CREATE TABLE IF NOT EXISTS counters (name TEXT PRIMARY KEY, value INTEGER NOT NULL DEFAULT 0 CHECK (value >= 0))"
+  ).run();
+
+  if (payload.operation === "increment") {
+    const row = await env.COUNTERS_DB.prepare(
+      "INSERT INTO counters (name, value) VALUES (?1, 1) " +
+      "ON CONFLICT(name) DO UPDATE SET value = value + 1 RETURNING value"
+    ).bind(payload.counter).first();
+    return Number(row?.value || 0);
+  }
+
+  const row = await env.COUNTERS_DB.prepare(
+    "SELECT value FROM counters WHERE name = ?1"
+  ).bind(payload.counter).first();
+  return Number(row?.value || 0);
+}
 
 function corsHeaders(origin, env) {
   if (!origin) return null;
