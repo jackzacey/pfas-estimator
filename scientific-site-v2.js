@@ -7,13 +7,106 @@
   const ASSISTANT_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
   const REQUEST_TIMEOUT_MS = 20000;
   const OUTCOMES = [
-    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "4 ppt EPA limit", cutoff: "Exact website cutoff: 4.05 ppt" },
-    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "4 ppt EPA limit", cutoff: "Exact website cutoff: 4.05 ppt" },
-    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt" },
-    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt" },
-    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt" },
-    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "EPA benchmark: 1", cutoff: "Exact website cutoff: 1.5 with at least 2 detected components" },
+    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "4 ppt EPA limit", cutoff: "Exact website cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "4 ppt EPA limit", cutoff: "Exact website cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "EPA benchmark: 1", cutoff: "Exact website cutoff: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
   ];
+
+  const COMPOUND_GUIDANCE = {
+    pfoa: {
+      about: {
+        en: "PFOA is a long-lasting PFAS historically connected with fluoropolymer manufacturing and products designed to resist heat, oil, stains, grease, and water. It can remain in the environment and in the human body for years.",
+        zh: "PFOA是一种长期存在的PFAS，过去与含氟聚合物制造以及耐热、耐油、耐污、防油脂和防水产品有关。它可在环境和人体内存在多年。"
+      },
+      health: {
+        en: "EPA’s final 2024 assessment identified the strongest evidence in developmental, liver, immune, cardiovascular, and cancer outcomes. A water-system result cannot predict whether any individual will develop a health problem.",
+        zh: "EPA于2024年完成的评估认为，发育、肝脏、免疫、心血管和癌症结局的证据最强。供水系统结果不能预测任何个人是否会出现健康问题。"
+      },
+      evidence: {
+        en: "Health findings describe evidence across exposed populations and laboratory studies; they are not a diagnosis from this water measurement.",
+        zh: "健康结论来自受暴露人群和实验室研究的综合证据；本页水质数值本身并不是医学诊断。"
+      },
+      refs: [
+        { label: "EPA final PFOA toxicity assessment", labelZh: "EPA最终PFOA毒性评估", url: "https://www.epa.gov/sdwa/human-health-toxicity-assessment-perfluorooctanoic-acid-pfoa" },
+        { label: "EPA: current understanding of PFAS health risks", labelZh: "EPA：对PFAS健康风险的当前认识", url: "https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas" }
+      ]
+    },
+    pfos: {
+      about: {
+        en: "PFOS is a persistent PFAS historically used in products such as stain-resistant treatments, metal-plating applications, and some firefighting foams. It can accumulate in people, wildlife, and the environment.",
+        zh: "PFOS是一种持久性PFAS，过去用于防污处理、金属电镀和某些消防泡沫。它可在人体、野生动物和环境中累积。"
+      },
+      health: {
+        en: "EPA’s final 2024 assessment found that sufficient exposure is likely to cause developmental, liver, immune, and cardiovascular effects; EPA also evaluated cancer evidence. This water result alone cannot estimate a person’s total exposure or health risk.",
+        zh: "EPA于2024年完成的评估认为，足够的暴露可能导致发育、肝脏、免疫和心血管影响；EPA也评估了癌症证据。单一水质结果不能估计个人的总暴露或健康风险。"
+      },
+      evidence: {
+        en: "PFOS can come from drinking water and other sources. Individual risk depends on dose, duration, age, health, and total exposure.",
+        zh: "PFOS暴露可能来自饮用水和其他来源。个人风险取决于剂量、持续时间、年龄、健康状况和总暴露。"
+      },
+      refs: [
+        { label: "EPA final PFOS toxicity assessment", labelZh: "EPA最终PFOS毒性评估", url: "https://www.epa.gov/sdwa/human-health-toxicity-assessment-perfluorooctane-sulfonic-acid-pfos" },
+        { label: "EPA: current understanding of PFAS health risks", labelZh: "EPA：对PFAS健康风险的当前认识", url: "https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas" }
+      ]
+    },
+    pfhxs: {
+      about: {
+        en: "PFHxS is a persistent PFAS historically associated with stain- and water-resistant treatments and some firefighting foams. It breaks down very slowly and may remain in the body for years.",
+        zh: "PFHxS是一种持久性PFAS，过去与防污、防水处理和某些消防泡沫有关。它分解很慢，并可能在人体内存在多年。"
+      },
+      health: {
+        en: "EPA’s final IRIS review concluded that sufficient PFHxS exposure is likely to cause thyroid effects and developmental immune effects. A water-system average does not show that those effects occurred in any customer.",
+        zh: "EPA最终IRIS评估认为，足够的PFHxS暴露可能导致甲状腺影响和发育期免疫影响。供水系统平均值并不表明任何用户已经出现这些影响。"
+      },
+      evidence: {
+        en: "The evidence base is smaller than it is for PFOA and PFOS. The card reports the water measurement and the assessment separately so it does not turn an association into a personal diagnosis.",
+        zh: "PFHxS的证据基础小于PFOA和PFOS。本卡片将水质数值与健康评估分开呈现，避免把关联误解为个人诊断。"
+      },
+      refs: [
+        { label: "EPA IRIS toxicological review of PFHxS", labelZh: "EPA IRIS PFHxS毒理学评估", url: "https://iris.epa.gov/static/pdfs/0705tr.pdf" },
+        { label: "EPA PFAS research and toxicity assessments", labelZh: "EPA PFAS研究与毒性评估", url: "https://www.epa.gov/chemical-research/research-and-polyfluoroalkyl-substances-pfas" }
+      ]
+    },
+    pfna: {
+      about: {
+        en: "PFNA is a long-chain PFAS associated with some fluoropolymer manufacturing and stain-, grease-, and water-resistant applications. It is persistent and can build up in living organisms.",
+        zh: "PFNA是一种长链PFAS，与某些含氟聚合物制造以及防污、防油脂和防水用途有关。它具有持久性，并可在生物体内累积。"
+      },
+      health: {
+        en: "EPA’s PFNA review is still a draft. The draft identifies liver and male reproductive effects as key concerns and describes more limited immune evidence. Its conclusions may change before EPA finalizes the assessment.",
+        zh: "EPA的PFNA评估仍为草案。草案将肝脏和男性生殖影响列为主要关注点，并描述了较有限的免疫证据。EPA最终完成评估前，结论可能改变。"
+      },
+      evidence: {
+        en: "Because the toxicity review is not final, this card labels the evidence as developing and does not present a medical threshold for an individual.",
+        zh: "由于毒性评估尚未最终完成，本卡片将证据标记为仍在发展，并不提供个人医学阈值。"
+      },
+      refs: [
+        { label: "EPA draft IRIS toxicological review of PFNA", labelZh: "EPA IRIS PFNA毒理学评估草案", url: "https://iris.epa.gov/document/%26deid%3D355409" },
+        { label: "EPA PFAS research and toxicity assessments", labelZh: "EPA PFAS研究与毒性评估", url: "https://www.epa.gov/chemical-research/research-and-polyfluoroalkyl-substances-pfas" }
+      ]
+    },
+    hfpo_da: {
+      about: {
+        en: "HFPO-DA is one of the GenX chemicals used as a processing aid in making some fluoropolymers. It was introduced as a replacement for some older PFAS, but it is also persistent in the environment.",
+        zh: "HFPO-DA是GenX化学品之一，在制造某些含氟聚合物时用作加工助剂。它曾作为部分旧型PFAS的替代品引入，但在环境中同样具有持久性。"
+      },
+      health: {
+        en: "EPA’s final assessment relied mainly on animal evidence and identified the liver as the critical effect, with kidney, immune, blood, and developmental or reproductive effects also reported. EPA had not identified human epidemiology studies when it completed that assessment.",
+        zh: "EPA最终评估主要依据动物证据，并将肝脏影响确定为关键效应；同时也报告了肾脏、免疫、血液以及发育或生殖影响。EPA完成该评估时尚未发现人体流行病学研究。"
+      },
+      evidence: {
+        en: "Animal findings help EPA set protective values, but they do not mean that a person served by this system has experienced the same effects.",
+        zh: "动物研究有助于EPA制定保护性数值，但并不意味着该供水系统的用户已经出现相同影响。"
+      },
+      refs: [
+        { label: "EPA final GenX chemicals toxicity assessment", labelZh: "EPA最终GenX化学品毒性评估", url: "https://www.epa.gov/chemical-research/human-health-toxicity-assessments-genx-chemicals" },
+        { label: "EPA: current understanding of PFAS health risks", labelZh: "EPA：对PFAS健康风险的当前认识", url: "https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas" }
+      ]
+    }
+  };
 
   const COPY = {
     en: {
@@ -195,20 +288,62 @@
     return outcome.key === "hi" ? numeric : numeric * 1000;
   }
 
-  function renderOutcomeCard(system, outcome) {
+  function renderCompoundReferences(guidance) {
+    const heading = currentLang === "zh" ? "资料来源" : "Sources";
+    return `<div class="compound-refs"><div class="compound-refs-label">${heading}</div>${guidance.refs.map((reference, index) => {
+      const label = currentLang === "zh" ? reference.labelZh : reference.label;
+      return `<a href="${escapeHtml(reference.url)}" target="_blank" rel="noopener noreferrer">[${index + 1}] ${escapeHtml(label)}</a>`;
+    }).join("")}</div>`;
+  }
+
+  function renderCompoundEducationCard(system, outcome) {
     const status = outcomeStatus(system, outcome);
-    const value = formatAverage(status.maximum, outcome.key === "hi");
-    const label = currentLang === "zh" && outcome.labelZh ? outcome.labelZh : outcome.label;
-    const fullName = currentLang === "zh" ? "" : outcome.fullName;
-    const statusIcon = status.className === "above" ? "⚠" : status.className === "below" ? "✓" : "—";
-    return `<div class="consumer-compound-card ${status.className}">
-      <div class="consumer-compound-heading">
-        <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(label)}</span>${fullName ? `<span class="consumer-compound-name">${escapeHtml(fullName)}</span>` : ""}</div>
-        <strong>${escapeHtml(value)}</strong>
+    const guidance = COMPOUND_GUIDANCE[outcome.key];
+    const valuePpt = numericAverage(outcome, status);
+    if (!guidance || valuePpt === null || valuePpt <= 0) return "";
+
+    const isZh = currentLang === "zh";
+    const value = formatAverage(status.maximum, false);
+    const statusCopy = status.className === "above"
+      ? (isZh ? "⚠ 检出值达到或超过EPA比较水平" : "⚠ Detected at or above the EPA comparison level")
+      : status.className === "below"
+        ? (isZh ? "✓ 检出值低于EPA比较水平" : "✓ Detected below the EPA comparison level")
+        : (isZh ? "— 已检出；年度比较资料不完整" : "— Detected; yearly comparison data are incomplete");
+    const comparisonRatio = (valuePpt / outcome.comparisonCutoff) * 100;
+    const gaugeFillPct = Math.min(comparisonRatio, 150) / 150 * 100;
+    const ratioLabel = isZh ? `网站技术比较阈值的 ${comparisonRatio.toFixed(0)}%` : `${comparisonRatio.toFixed(0)}% of the website comparison cutoff`;
+    const benchmarkCopy = isZh
+      ? `2024年4月联邦标准：${outcome.federalLevel} ppt · 2026年1月网站技术比较阈值：${outcome.comparisonCutoff} ppt`
+      : `April 2024 federal level: ${outcome.federalLevel} ppt · January 2026 website comparison cutoff: ${outcome.comparisonCutoff} ppt`;
+    const resultHeading = isZh ? "🧪 这个供水系统的检测结果" : "🧪 What this water-system result shows";
+    const aboutHeading = isZh ? `🔎 ${outcome.label}是什么` : `🔎 What ${outcome.label} is`;
+    const healthHeading = isZh ? "🩺 研究发现的潜在健康影响" : "🩺 What researchers know about possible health effects";
+    const actionHeading = isZh ? "✅ 您可以采取的行动" : "✅ What you can do";
+    const evidenceHeading = isZh ? "证据说明：" : "Evidence note:";
+    const actionCopy = isZh
+      ? "如果这是水费账单上的供水系统，请向供水机构索取最新PFAS检测和处理信息。如需家用过滤器，请确认具体型号具有NSF/ANSI 53或58标准下的PFAS减少声明，并按期更换滤芯或滤膜。本网站不销售或推荐任何品牌。"
+      : "If this is the system on your water bill, ask the utility for its latest PFAS testing and treatment information. For a home filter, verify that the exact model has a PFAS-reduction claim under NSF/ANSI 53 or 58, and replace cartridges or membranes on schedule. PFAS Estimator does not sell or endorse brands.";
+    const resultCopy = isZh
+      ? `页面显示的是该供水系统EPA采样点中最高的年度平均值（${value}），不是您家水龙头的检测结果。技术比较并不等同于合规裁定。`
+      : `This is the highest EPA-derived sampling-location yearly average shown for this water system (${value}), not a test from your home faucet. The technical comparison is not by itself a compliance decision.`;
+
+    return `<article class="detail-box compound-education-card ${status.className}">
+      <header class="compound-education-head">
+        <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(outcome.label)}</span><span class="compound-education-name">${escapeHtml(outcome.fullName)}</span></div>
+        <span class="compound-system-name">${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</span>
+      </header>
+      <div class="compound-measurement ${status.className}">
+        <div class="compound-measurement-status">${statusCopy}</div>
+        <div class="compound-measurement-value"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(benchmarkCopy)}</span></div>
+        ${status.className === "incomplete" ? `<p class="compound-incomplete-note">${isZh ? "完整采样资料不足，因此本网站不为该年度平均值分配比较结论。" : "Complete sampling information is unavailable, so the site does not assign a yearly comparison conclusion."}</p>` : `<div class="epa-bar"><div class="epa-bar-label">${escapeHtml(ratioLabel)}</div><div class="bar-track"><div class="bar-fill ${status.className === "above" ? "above" : ""}" style="width:${gaugeFillPct.toFixed(2)}%"></div><div class="bar-tick"></div></div></div>`}
       </div>
-      <div class="consumer-comparison-status">${statusIcon} ${escapeHtml(status.label)}</div>
-      <div class="consumer-comparison-level">${escapeHtml(outcome.benchmark)}</div>
-    </div>`;
+      <div class="science-box compound-result-explanation"><h3>${resultHeading}</h3><p>${escapeHtml(resultCopy)}</p></div>
+      <div class="science-box compound-about"><h3>${aboutHeading}</h3><p>${escapeHtml(guidance.about[currentLang])}</p></div>
+      <div class="science-box compound-health"><h3>${healthHeading}</h3><p>${escapeHtml(guidance.health[currentLang])}</p></div>
+      <div class="science-box compound-action"><h3>${actionHeading}</h3><p>${escapeHtml(actionCopy)}</p></div>
+      <div class="compound-evidence-note"><strong>${evidenceHeading}</strong> ${escapeHtml(guidance.evidence[currentLang])}</div>
+      ${renderCompoundReferences(guidance)}
+    </article>`;
   }
 
   function renderOutcomeList(system) {
@@ -223,17 +358,31 @@
     }).join("");
   }
 
+  function renderHazardIndexEducation(system) {
+    const outcome = OUTCOMES.find(item => item.key === "hi");
+    const status = outcomeStatus(system, outcome);
+    const value = numericAverage(outcome, status);
+    if (value === null || value <= 0) return "";
+    const isZh = currentLang === "zh";
+    return `<aside class="science-box hazard-index-education ${status.className}">
+      <h3>${isZh ? "🧮 如何理解危害指数" : "🧮 How to read the Hazard Index"}</h3>
+      <p><strong>${escapeHtml(formatAverage(status.maximum, true))}</strong> — ${isZh ? "危害指数不是一种化合物浓度，而是PFHxS、PFNA、HFPO-DA和PFBS混合物的相对贡献总和。当前冻结技术比较在指数至少为1.5且至少检出两种组成成分时标记结果。它不是个人健康评分。" : "The Hazard Index is not a compound concentration. It adds the relative contributions of PFHxS, PFNA, HFPO-DA, and PFBS in a mixture. The frozen technical comparison flags an index of at least 1.5 when at least two components were detected. It is not a personal health score."}</p>
+      <a href="/methodology/">${isZh ? "查看完整计算方法和局限 →" : "See the full calculation and limitations →"}</a>
+    </aside>`;
+  }
+
   function renderSystem(system) {
     const above = Number(system.any_system_above_mcl_comparison) === 1;
     const complete = Number(system.any_system_full_set) === 1;
     const headline = !complete ? text("completeUnavailable") : above ? text("atLeastOne") : text("noLocationMeets");
     const detailsLabel = currentLang === "zh" ? "查看所有六项PFAS结果" : "See all six PFAS results";
     const featuredOutcomes = OUTCOMES
+      .filter(outcome => outcome.key !== "hi")
       .map(outcome => ({ outcome, status: outcomeStatus(system, outcome) }))
-      .filter(item => item.status.className === "above" || (item.status.className !== "incomplete" && Number(item.status.maximum) > 0))
-      .sort((a, b) => Number(b.status.className === "above") - Number(a.status.className === "above") || (numericAverage(b.outcome, b.status) || 0) - (numericAverage(a.outcome, a.status) || 0));
+      .filter(item => (numericAverage(item.outcome, item.status) || 0) > 0)
+      .sort((a, b) => Number(b.status.className === "above") - Number(a.status.className === "above") || ((numericAverage(b.outcome, b.status) || 0) / b.outcome.comparisonCutoff) - ((numericAverage(a.outcome, a.status) || 0) / a.outcome.comparisonCutoff));
     const featuredMarkup = featuredOutcomes.length
-      ? `<div class="consumer-compound-grid">${featuredOutcomes.map(item => renderOutcomeCard(system, item.outcome)).join("")}</div>`
+      ? `<div class="compound-education-list">${featuredOutcomes.map(item => renderCompoundEducationCard(system, item.outcome)).join("")}</div>`
       : `<div class="consumer-no-detections">${currentLang === "zh" ? "该供水系统显示的完整年度平均值中没有PFAS检出。" : "No PFAS detection appears in the complete yearly averages shown for this water system."}</div>`;
     return `<article class="detail-box system-summary-card water-system-card ${above ? "has-comparison" : ""}">
       <header class="system-summary-head">
@@ -247,6 +396,7 @@
         <span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span>
       </div>
       ${featuredMarkup}
+      ${renderHazardIndexEducation(system)}
       <details class="compound-results-details">
         <summary>${detailsLabel}</summary>
         <div class="compound-result-list">${renderOutcomeList(system)}</div>

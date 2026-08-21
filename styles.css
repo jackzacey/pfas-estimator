@@ -4640,6 +4640,204 @@ button,
   font-variant-numeric: tabular-nums;
 }
 
+/* Restore the original post-search compound cards while keeping the
+   current system-level release and water-system grouping. */
+.compound-education-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.compound-education-card {
+  min-width: 0;
+  margin-top: 0;
+  padding: 13px;
+  border: 1px solid #dce6e9;
+  background: #fff;
+}
+
+.compound-education-card.above {
+  border-color: var(--warn-tint-border);
+}
+
+.compound-education-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.compound-education-head > div {
+  min-width: 0;
+}
+
+.compound-education-name {
+  margin-left: 6px;
+  color: #7a898f;
+  font-size: 11px;
+}
+
+.compound-system-name {
+  max-width: 46%;
+  color: #7a898f;
+  font-size: 10.5px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.compound-measurement {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--primary-tint-border);
+  border-radius: 8px;
+  background: var(--primary-tint);
+}
+
+.compound-measurement.above {
+  border-color: var(--warn-tint-border);
+  background: var(--warn-tint);
+}
+
+.compound-measurement.incomplete {
+  border-color: var(--border-soft);
+  background: #f6f8f9;
+}
+
+.compound-measurement-status {
+  margin-bottom: 4px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.compound-measurement.above .compound-measurement-status {
+  color: var(--warn-strong);
+}
+
+.compound-measurement.incomplete .compound-measurement-status {
+  color: #66777e;
+}
+
+.compound-measurement-value {
+  display: flex;
+  align-items: baseline;
+  gap: 5px 9px;
+  flex-wrap: wrap;
+  color: #4e6067;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.compound-measurement-value strong {
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.compound-incomplete-note {
+  margin-top: 5px;
+  color: #6e7e85;
+  font-size: 10.5px;
+  line-height: 1.5;
+}
+
+.compound-education-card .epa-bar {
+  margin-top: 8px;
+}
+
+.compound-education-card .epa-bar-label {
+  font-size: 10.5px;
+}
+
+.compound-education-card .science-box {
+  margin-top: 6px;
+  padding: 10px 12px;
+  font-size: 11.5px;
+  line-height: 1.65;
+}
+
+.compound-education-card .science-box h3 {
+  margin-bottom: 4px;
+  font-size: 11.5px;
+  font-weight: 650;
+}
+
+.compound-education-card .science-box p {
+  margin: 0;
+}
+
+.compound-education-card .compound-about {
+  border-left-color: #87b5ca;
+  background: #f2f7f9;
+}
+
+.compound-education-card .compound-health {
+  border-left-color: #b89bd6;
+  background: #f7f3fa;
+}
+
+.compound-education-card .compound-action {
+  border-left-color: #4fae7a;
+  background: #eaf7f0;
+  color: #28563e;
+}
+
+.compound-education-card .compound-action h3 {
+  color: #214d36;
+}
+
+.compound-evidence-note {
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px solid var(--warn-tint-border);
+  border-radius: 8px;
+  background: var(--warn-tint);
+  color: #765518;
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+.compound-education-card .compound-refs {
+  margin-top: 8px;
+}
+
+.compound-education-card .compound-refs a {
+  font-size: 10px;
+}
+
+.hazard-index-education {
+  margin-top: 10px;
+  padding: 11px 12px;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.hazard-index-education.above {
+  border-left-color: var(--warn);
+  background: var(--warn-tint);
+  color: #694c21;
+}
+
+.hazard-index-education p {
+  margin: 0 0 5px;
+}
+
+.hazard-index-education a {
+  color: var(--primary);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hazard-index-education a:hover,
+.hazard-index-education a:focus-visible {
+  text-decoration: underline;
+}
+
 @media (min-width: 901px) {
   .home-shell .home-hero {
     padding: 2.75rem 3rem;
@@ -4727,5 +4925,17 @@ button,
 
   .result-action-links {
     display: grid;
+  }
+
+  .compound-system-name {
+    width: 100%;
+    max-width: none;
+    margin-left: 2px;
+    text-align: left;
+  }
+
+  .compound-education-name {
+    display: inline;
+    margin-left: 4px;
   }
 }
