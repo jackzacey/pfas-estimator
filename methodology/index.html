@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Methods, Data Provenance &amp; Limitations | PFAS Estimator</title>
-  <meta name="description" content="Reproducible methods for a system-level UCMR 5 PFAS environmental-justice analysis and its public-water-system lookup companion." />
+  <title>How PFAS Estimator Works | Methods &amp; Limitations</title>
+  <meta name="description" content="A clear explanation of PFAS Estimator’s ZIP lookup, EPA data, yearly-average comparisons, research methods, and limitations." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://pfasestimator.org/methodology/" />
   <meta name="author" content="Jack Zhang" />
@@ -15,8 +15,8 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="PFAS Estimator" />
-  <meta property="og:title" content="Methods, Data Provenance &amp; Limitations | PFAS Estimator" />
-  <meta property="og:description" content="A transparent account of the UCMR 5 cohort, EPA annual-average classifications, service-area demographics, models, sensitivities, and limitations." />
+  <meta property="og:title" content="How PFAS Estimator Works | Methods &amp; Limitations" />
+  <meta property="og:description" content="How to read a ZIP result, where the EPA data comes from, how comparisons are calculated, and what the research can and cannot answer." />
   <meta property="og:url" content="https://pfasestimator.org/methodology/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -27,14 +27,14 @@
     "@type": "WebPage",
     "@id": "https://pfasestimator.org/methodology/#page",
     "url": "https://pfasestimator.org/methodology/",
-    "name": "Methods, Data Provenance & Limitations | PFAS Estimator",
-    "description": "Methods and limitations for the PFAS Estimator UCMR 5 January 2026 system-level analysis release.",
-    "dateModified": "2026-08-14",
+    "name": "How PFAS Estimator Works | Methods & Limitations",
+    "description": "Plain-language website guidance and full methods for the PFAS Estimator UCMR 5 January 2026 system-level analysis release.",
+    "dateModified": "2026-08-20",
     "author": {"@type": "Person", "name": "Jack Zhang"}
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" />
+  <link rel="stylesheet" href="/styles.css?v=20260820-original-ui-consumer-v2" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -57,29 +57,29 @@
     </nav>
 
     <header class="methodology-hero">
-      <div class="methodology-kicker">Scientific release v0.2 · August 14, 2026</div>
-      <h1>Methods, data provenance &amp; limitations</h1>
-      <p class="methodology-lede">A prespecified, system-level analysis of EPA UCMR 5 PFAS monitoring and community characteristics—and a website that reads from the same frozen outputs.</p>
+      <div class="methodology-kicker">PFAS Estimator · Scientific release v0.2</div>
+      <h1>How PFAS Estimator works</h1>
+      <p class="methodology-lede">How to use a ZIP result, where the EPA data comes from, how the PFAS comparisons are calculated, and what the national research can—and cannot—tell you.</p>
 
       <div class="methodology-meta" aria-label="Methodology status">
-        <span><strong>Design</strong> Cross-sectional ecological</span>
-        <span><strong>Unit</strong> Community water system</span>
-        <span><strong>Primary cohort</strong> Population ≥3,300</span>
-        <span><strong>Status</strong> Preliminary; not peer reviewed</span>
+        <span><strong>Website data</strong> EPA UCMR 5</span>
+        <span><strong>Main unit</strong> Water system</span>
+        <span><strong>Results through</strong> January 15, 2026</span>
+        <span><strong>Research status</strong> Preliminary</span>
       </div>
     </header>
 
     <div class="methodology-layout">
       <aside class="methodology-toc" aria-label="On this page">
         <div class="methodology-toc-title">On this page</div>
-        <a href="#overview">Study question</a>
-        <a href="#sources">Sources &amp; release</a>
-        <a href="#cohort">Cohort construction</a>
-        <a href="#outcomes">Outcome construction</a>
-        <a href="#geography">Service-area characteristics</a>
-        <a href="#models">Statistical analysis</a>
-        <a href="#findings">Preliminary findings</a>
-        <a href="#website">Website role</a>
+        <a href="#overview">Read a ZIP result</a>
+        <a href="#sources">Where the data comes from</a>
+        <a href="#cohort">Which systems are in the research</a>
+        <a href="#outcomes">How PFAS comparisons work</a>
+        <a href="#geography">Community information</a>
+        <a href="#models">How the analysis works</a>
+        <a href="#findings">Main research findings</a>
+        <a href="#website">Website and AI assistant</a>
         <a href="#limitations">Limitations</a>
         <a href="#governance">Governance &amp; review</a>
         <a href="#citations">References</a>
@@ -90,19 +90,23 @@
           <div class="methodology-section-heading">
             <span class="methodology-section-number">01</span>
             <div>
-              <h2>Study question and design</h2>
-              <p>The unit of analysis is the community water system—not the ZIP code.</p>
+              <h2>How to read a ZIP result</h2>
+              <p>Start with your water bill, then read the system’s PFAS results.</p>
             </div>
           </div>
 
-          <div class="truth-callout">
-            <div class="truth-callout-label">What the study can and cannot answer</div>
-            <p><strong>The study evaluates monitoring patterns across public water systems and the aggregate characteristics of their estimated service areas.</strong> It does not estimate individual exposure, household dose, disease risk, causal effects, or regulatory compliance.</p>
+          <ol class="pipeline-list consumer-method-steps">
+            <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the yearly averages</h3><p>The site shows the highest yearly average across each system’s EPA sampling locations. It is not a measurement from your kitchen faucet.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Use the comparison as a next-step signal</h3><p>“At or above” means at least one complete EPA result reached the comparison used in this release. It does not mean every home has the same level or that this website has made a compliance decision.</p></div></li>
+          </ol>
+
+          <div class="interpretation-grid consumer-answer-grid">
+            <div class="interpretation-card can"><h3>What the lookup can help with</h3><ul><li>Find water systems listed for a ZIP code</li><li>Review EPA PFAS yearly averages</li><li>Compare results with the April 2024 federal framework</li><li>Ask better questions of a utility</li></ul></div>
+            <div class="interpretation-card cannot"><h3>What it cannot decide</h3><ul><li>Which system serves a specific home</li><li>What came from a household faucet</li><li>A person’s exposure or health risk</li><li>Whether a utility is legally in compliance</li></ul></div>
           </div>
 
-          <p>The primary question is whether UCMR 5 sampling-location annual-average PFAS benchmark results vary with the racial, ethnic, socioeconomic, and rural composition of populations served, after adjustment for water-system and regional characteristics. The design is a national cross-sectional ecological analysis.</p>
-
-          <p>Race and ethnicity are treated as markers of social and structural conditions, not biological susceptibility. An association can identify an inequitable monitoring pattern, but this design cannot establish the pathway that produced it.</p>
+          <p>The research paper asks a separate national question: whether PFAS results across community water systems vary with the racial, ethnic, economic, and rural composition of their service areas after accounting for system size, water source, ownership, and region. That analysis is ecological and cross-sectional; it does not assign exposure or health outcomes to individuals.</p>
         </section>
 
         <section class="methodology-section" id="sources">
@@ -150,7 +154,7 @@
           <p>The 632 monitored smaller community systems with eligible demographic records are reported separately as an explicitly unweighted sensitivity; they do not represent all small U.S. systems. Nontransient noncommunity systems are excluded from demographic models because residential Census characteristics do not describe school, workplace, hospital, and other nonresidential populations.</p>
 
           <div class="methodology-note">
-            <strong>Why the old ZIP analysis was rejected.</strong> Copying a system’s detections to every reported service ZIP and retaining each ZIP’s maximum omitted nondetection-only ZIPs and repeatedly counted systems. Those operations cannot estimate national prevalence or system-level disparities. ZIPs now route users to potentially relevant systems only; they are not an analytic denominator.
+            <strong>Why the old ZIP analysis was replaced.</strong> The former approach copied one system’s detections into every ZIP it listed and kept the highest value in each ZIP. That repeatedly counted water systems and left out ZIPs with no detections. The new research counts water systems directly. On the website, a ZIP is used only to find water-system names; it is not a research denominator.
           </div>
         </section>
 
@@ -246,17 +250,21 @@
           <div class="methodology-section-heading">
             <span class="methodology-section-number">08</span>
             <div>
-              <h2>Role of the website</h2>
-              <p>Connected to the analysis, but not allowed to redefine it.</p>
+              <h2>Website and PFAS Health Assistant</h2>
+              <p>The lookup uses fixed EPA results; the assistant only explains them.</p>
             </div>
           </div>
 
-          <p>The website is a secondary implementation of the frozen release. A ZIP search retrieves PWS-reported service associations and then displays deterministic system-level EPA annual-average comparisons. The interface does not choose the manuscript denominator, reclassify outcomes, fill missing data, or generate health-risk scores. An optional generative-AI question-and-answer panel can explain the displayed public-system context on request, but it makes no automatic lookup request, cannot change any value or classification, and must not be used as an individual exposure, compliance, diagnosis, or medical-decision tool.</p>
+          <p>The ZIP lookup reads directly from the frozen scientific export. It finds water systems connected with the entered ZIP and displays their EPA yearly averages. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
+
+          <p>The PFAS Health Assistant is optional. It receives a short text summary of the water systems shown only after a visitor asks a question. It can explain terms, health research, utility follow-up, and filter guidance, but it cannot change a number or comparison on the page. If the assistant is unavailable, the ZIP lookup continues to work.</p>
 
           <div class="truth-callout">
-            <div class="truth-callout-label">How to read a lookup result</div>
-            <p>A ZIP association identifies one or more systems that reported serving that ZIP. It does not prove which system serves a particular address. An above-comparison flag identifies monitoring evidence at a system sampling location; it does not establish a household concentration, personal exposure, or compliance determination.</p>
+            <div class="truth-callout-label">Before buying a filter</div>
+            <p>First match the water-system name to your bill. Then look for an exact <strong>NSF/ANSI 53 or NSF/ANSI 58 PFAS-reduction claim</strong> and verify the model in an accredited certification directory. Follow the replacement schedule. EPA notes that current certifications do not necessarily show reduction down to every 2024 federal PFAS limit.</p>
           </div>
+
+          <p><a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">EPA: Reducing PFAS in Your Drinking Water with a Home Filter →</a></p>
         </section>
 
         <section class="methodology-section" id="limitations">
@@ -312,12 +320,14 @@
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/dwreginfo/pfas-rule-implementation" target="_blank" rel="noopener noreferrer">PFAS drinking-water rule implementation</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/sdwa/proposed-pfas-rescission-rule" target="_blank" rel="noopener noreferrer">Proposed PFAS rescission rule</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/ground-water-and-drinking-water/public-water-system-service-areas" target="_blank" rel="noopener noreferrer">Public Water System Service Areas</a>.</li>
+            <li>US Environmental Protection Agency. <a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">Reducing PFAS in Your Drinking Water with a Home Filter</a>.</li>
+            <li>NSF. <a href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">PFAS in Drinking Water: Filter Certification Guidance</a>.</li>
             <li>US Census Bureau. <a href="https://www.census.gov/data/developers/data-sets/acs-5year.html" target="_blank" rel="noopener noreferrer">American Community Survey 5-year data</a>.</li>
             <li>Conley TG. GMM estimation with cross sectional dependence. <em>Journal of Econometrics</em>. 1999;92(1):1–45. <a href="https://doi.org/10.1016/S0304-4076(98)00084-0" target="_blank" rel="noopener noreferrer">doi:10.1016/S0304-4076(98)00084-0</a>.</li>
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Last substantive methods update: August 14, 2026 · Release: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Website explanation updated August 20, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
       </main>
     </div>
   </div>
