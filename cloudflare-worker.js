@@ -1,5 +1,8 @@
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = "llama-3.3-70b-versatile";
+// Llama 3.3 was retired for Groq free/developer projects on August 16, 2026.
+// Keep the current recommended replacement first and a smaller production
+// fallback second. GROQ_MODEL may override this with a comma-separated list.
+const DEFAULT_GROQ_MODELS = ["openai/gpt-oss-120b", "openai/gpt-oss-20b"];
 const SUMMARY_CACHE_SECONDS = 86400;
 const MAX_BODY_BYTES = 30000;
 const DEFAULT_ALLOWED_ORIGINS = [
@@ -363,38 +366,58 @@ Guidelines:
 }
 
 async function callGroq(env, messages, maxTokens) {
-  let response;
-  try {
-    response = await fetch(GROQ_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${env.GROQ_API_KEY}`
-      },
-      body: JSON.stringify({
-        model: GROQ_MODEL,
-        max_tokens: maxTokens,
-        messages
-      })
-    });
-  } catch (error) {
-    const networkError = new Error("Groq could not be reached.");
-    networkError.status = 502;
-    throw networkError;
-  }
+  const configuredModels = String(env.GROQ_MODEL || "")
+    .split(",")
+    .map(value => value.trim())
+    .filter(Boolean);
+  const models = configuredModels.length ? configuredModels : DEFAULT_GROQ_MODELS;
 
-  let data;
-  try {
-    data = await response.json();
-  } catch (error) {
-    const invalidError = new Error("Groq returned an unreadable response.");
-    invalidError.status = 502;
-    throw invalidError;
-  }
+  for (let index = 0; index < models.length; index += 1) {
+    const model = models[index];
+    let response;
+    try {
+      response = await fetch(GROQ_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${env.GROQ_API_KEY}`
+        },
+        body: JSON.stringify({ model, max_tokens: maxTokens, messages })
+      });
+    } catch (error) {
+      const networkError = new Error("Groq could not be reached.");
+      networkError.status = 502;
+      throw networkError;
+    }
 
-  if (!response.ok || data.error) {
+    let data;
+    try {
+      data = await response.json();
+    } catch (error) {
+      const invalidError = new Error("Groq returned an unreadable response.");
+      invalidError.status = 502;
+      throw invalidError;
+    }
+
+    if (response.ok && !data.error) {
+      const content = data?.choices?.[0]?.message?.content;
+      if (typeof content !== "string" || !content.trim()) {
+        const emptyError = new Error("Groq returned an empty response.");
+        emptyError.status = 502;
+        throw emptyError;
+      }
+      return content.trim();
+    }
+
     const upstreamMessage = data?.error?.message || "";
+    const upstreamCode = String(data?.error?.code || "");
     const isRateLimit = response.status === 429 || /rate limit/i.test(upstreamMessage);
+    const modelUnavailable = [400, 403, 404, 422].includes(response.status)
+      && /model|deprecat|retir|permission|access/i.test(`${upstreamMessage} ${upstreamCode}`);
+    console.error("Groq request rejected", { status: response.status, model, code: upstreamCode });
+
+    if (modelUnavailable && index < models.length - 1) continue;
+
     const upstreamError = new Error(
       isRateLimit
         ? "The AI request limit has been reached. Please try again later."
@@ -404,11 +427,7 @@ async function callGroq(env, messages, maxTokens) {
     throw upstreamError;
   }
 
-  const content = data?.choices?.[0]?.message?.content;
-  if (typeof content !== "string" || !content.trim()) {
-    const emptyError = new Error("Groq returned an empty response.");
-    emptyError.status = 502;
-    throw emptyError;
-  }
-  return content.trim();
+  const unavailableError = new Error("No configured AI model is available.");
+  unavailableError.status = 502;
+  throw unavailableError;
 }

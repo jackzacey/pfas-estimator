@@ -12,12 +12,13 @@ The deterministic ZIP lookup, system results, map, state table, and state pages 
 1. Open Cloudflare **Workers & Pages** and select `pfas-groq-proxy`.
 2. Open **Edit Code** and replace the existing Worker with `cloudflare-worker.js`.
 3. Keep `GROQ_API_KEY` configured as an encrypted secret. Never paste the key into the Worker source.
-4. Deploy the Worker.
-5. In the Worker's settings, add a Rate Limiting binding named `AI_RATE_LIMITER` when available. A suitable starting rule is 12 requests per 60 seconds per key. The Worker also includes a best-effort burst guard when this binding is absent.
+4. Do not set `GROQ_MODEL` unless you intentionally want to override the defaults. The Worker now uses `openai/gpt-oss-120b`, with `openai/gpt-oss-20b` as a model-availability fallback. The former `llama-3.3-70b-versatile` model was retired for free and developer projects on August 16, 2026.
+5. Deploy the Worker.
+6. In the Worker's settings, add a Rate Limiting binding named `AI_RATE_LIMITER` when available. A suitable starting rule is 12 requests per 60 seconds per key. The Worker also includes a best-effort burst guard when this binding is absent.
 
 ## Configure the search counters
 
-CounterAPI V1 has been removed. The search and patient-case counters now use a Cloudflare D1 database through the same Worker.
+CounterAPI V1 has been removed. The search and reported-clinical-use counters now use a Cloudflare D1 database through the same Worker.
 
 1. In Cloudflare, open **Storage & Databases**, then **D1 SQL Database**.
 2. Create a database named `pfas-estimator-counters`.

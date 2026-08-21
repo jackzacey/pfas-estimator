@@ -18,18 +18,18 @@
   const COPY = {
     en: {
       navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "Methods & limitations",
-      releaseBadge: "January 2026 EPA release · Reproducible analysis v0.2",
-      heroTitle: "Find EPA-monitored public water systems",
-      heroSubtitle: "Enter a ZIP code to find public water systems that reported serving it and review EPA-derived PFAS sampling-location annual-average comparisons.",
-      truthNote: "<strong>What this lookup can establish:</strong> a monitored public water system reported an association with the ZIP code. It cannot confirm which system serves a particular address, estimate household exposure, or determine regulatory compliance. Confirm service and current water quality with your utility.",
-      printButton: "Print / save this system summary",
-      chatTitle: "PFAS Q&A", chatSubtitle: "Optional AI explanation · Lookup results remain deterministic",
-      suggestMeaning: "What do these system results mean?", suggestUtility: "How do I confirm my utility?", suggestFilter: "What filters reduce PFAS?",
-      askButton: "Ask", chatDisclaimer: "AI responses may be incomplete. Verify personal service with your utility and use a healthcare professional for medical decisions.",
-      searchCounter: "searches", clinicalCounter: "clinical uses reported",
-      clinicalPrompt: "Clinician using this result? Enter the project code to record one anonymous clinical use.", clinicalButton: "Record use", clinicalThanks: "Clinical use recorded. No patient information was collected.",
+      releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
+      heroTitle: "U.S. Tap Water PFAS Checker",
+      heroSubtitle: "Enter your ZIP code to find monitored public water systems that may serve your area and understand their EPA PFAS results.",
+      truthNote: "<strong>How to read these results:</strong> A ZIP code can identify public water systems that reported serving the area. It cannot confirm which system serves a particular home. Results are EPA-derived sampling-location annual averages—not household measurements, exposure estimates, or compliance determinations.",
+      printButton: "Print / Save as PDF for your appointment",
+      chatTitle: "Health Q&A", chatSubtitle: "Grounded in the displayed EPA results · Not medical advice",
+      suggestConcern: "Should I be concerned?", suggestUtility: "How do I confirm my utility?", suggestFilter: "What filter removes PFAS?", suggestHealth: "What health effects are linked to PFAS?",
+      askButton: "Ask", chatDisclaimer: "Always consult a healthcare provider for personal medical guidance.",
+      searchCounter: "searches", clinicalCounter: "clinical uses",
+      clinicalPrompt: "Provider: enter the project code to record an anonymous clinical use", clinicalButton: "Log", clinicalThanks: "Clinical use recorded. No patient information was collected.",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
-      preparing: "Preparing the frozen scientific release.", findSystems: "Find monitored systems",
+      preparing: "Preparing the frozen scientific release.", findSystems: "Check my area",
       verifiedRelease: "Verified release", monitoredSystems: "monitored systems", zipAssociations: "reported ZIP associations", resultsThrough: "EPA results through January 15, 2026",
       loadFailure: "The verified data release could not be loaded. Please use EPA’s UCMR 5 Data Finder while this is resolved.",
       invalidZipTitle: "Enter a valid 5-digit ZIP code", invalidZipContext: "ZIP codes must contain exactly five numbers.",
@@ -37,8 +37,8 @@
       noAssociationContext: "This does not mean the water is PFAS-free. The ZIP may be served by a system not linked in the UCMR file, a private well, or another provider.",
       noAssociationBody: "Use your water bill or local utility website to identify the provider, then review its consumer confidence report or search EPA’s Data Finder by system name.",
       openDataFinder: "Open EPA’s UCMR 5 Data Finder →",
-      associatedTitle: (count, zip) => `${count} monitored public water system${count === 1 ? "" : "s"} associated with ZIP ${zip}`,
-      associatedContext: count => `${count} ${count === 1 ? "system has" : "systems have"} at least one sampling location meeting an April 2024 EPA technical comparison criterion. Verify your actual provider before interpreting any result.`,
+      associatedTitle: (count, zip) => `${count} potentially relevant monitored system${count === 1 ? "" : "s"} for ZIP ${zip}`,
+      associatedContext: count => count ? `${count} displayed system${count === 1 ? " has" : "s have"} at least one sampling location meeting an EPA technical comparison. Confirm which utility actually serves your home.` : "None of the displayed systems has a complete sampling-location annual average meeting an EPA technical comparison. Confirm which utility actually serves your home.",
       communitySystem: "Community water system", publicSystem: "Public water system", residentialNotUsed: "residential Census context is not used for this system",
       completeUnavailable: "Complete-set comparison unavailable", atLeastOne: "At least one location meets an EPA comparison criterion", noLocationMeets: "No complete location average meets an EPA comparison criterion",
       populationServed: "Population served", source: "Primary source", ownership: "Ownership", samplingLocations: "Sampling locations", serviceBoundary: "Service boundary", sdwisStatus: "SDWIS status",
@@ -61,18 +61,18 @@
     },
     zh: {
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
-      releaseBadge: "EPA 2026年1月数据 · 可重复分析 v0.2",
-      heroTitle: "查找经EPA监测的公共供水系统",
-      heroSubtitle: "输入邮政编码，查找报告服务该地区的公共供水系统，并查看EPA衍生的PFAS采样点年度平均值比较。",
-      truthNote: "<strong>此查询可以确认：</strong>某个受监测的公共供水系统报告了与该邮政编码的关联。它不能确认具体住址由哪个系统供水，不能估算家庭暴露，也不能判定法规合规。请向供水机构确认服务和当前水质。",
-      printButton: "打印或保存供水系统摘要",
-      chatTitle: "PFAS问答", chatSubtitle: "可选AI解释 · 查询结果仍由固定数据计算",
-      suggestMeaning: "这些供水系统结果意味着什么？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "哪些过滤器可以减少PFAS？",
-      askButton: "提问", chatDisclaimer: "AI回答可能不完整。请向供水机构确认实际服务，并就医疗决定咨询专业医务人员。",
-      searchCounter: "次查询", clinicalCounter: "次已报告临床使用",
-      clinicalPrompt: "临床人员正在使用此结果？输入项目代码，匿名记录一次临床使用。", clinicalButton: "记录使用", clinicalThanks: "已记录临床使用。未收集患者信息。",
+      releaseBadge: "全美 · EPA UCMR 5 数据 · 教育工具",
+      heroTitle: "美国自来水PFAS查询工具",
+      heroSubtitle: "输入邮政编码，查找可能服务该地区的受监测公共供水系统，并了解其EPA PFAS结果。",
+      truthNote: "<strong>如何理解这些结果：</strong>邮政编码可以找到报告服务该地区的公共供水系统，但不能确认具体住所由哪个系统供水。结果是EPA衍生的采样点年度平均值，不是家庭测量、暴露估计或合规判定。",
+      printButton: "打印或保存PDF以供就诊参考",
+      chatTitle: "健康问答", chatSubtitle: "基于页面显示的EPA结果 · 非医疗建议",
+      suggestConcern: "我应该担心吗？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "哪种过滤器可去除PFAS？", suggestHealth: "PFAS与哪些健康影响有关？",
+      askButton: "提问", chatDisclaimer: "个人医疗问题请始终咨询专业医务人员。",
+      searchCounter: "次查询", clinicalCounter: "次临床使用",
+      clinicalPrompt: "医疗人员：输入项目代码以匿名记录一次临床使用", clinicalButton: "记录", clinicalThanks: "已记录临床使用。未收集患者信息。",
       loadingRelease: "正在加载已验证版本…", releaseUnavailable: "版本不可用", dataUnavailable: "数据不可用", loadingData: "正在加载数据…",
-      preparing: "正在准备冻结的科学数据版本。", findSystems: "查找受监测系统",
+      preparing: "正在准备冻结的科学数据版本。", findSystems: "查询我的地区",
       verifiedRelease: "已验证版本", monitoredSystems: "个受监测系统", zipAssociations: "个报告的邮政编码关联", resultsThrough: "EPA结果截至2026年1月15日",
       loadFailure: "无法加载已验证的数据版本。问题解决前，请使用EPA UCMR 5数据查找器。",
       invalidZipTitle: "请输入有效的5位邮政编码", invalidZipContext: "邮政编码必须恰好包含五位数字。",
@@ -130,8 +130,12 @@
       const value = text(element.dataset.i18nHtml);
       if (typeof value === "string") element.innerHTML = value;
     });
-    $("langEn")?.classList.toggle("active", currentLang === "en");
-    $("langZh")?.classList.toggle("active", currentLang === "zh");
+    if ($("langEn") && $("langZh")) {
+      $("langEn").style.background = currentLang === "en" ? "#175E97" : "#fff";
+      $("langEn").style.color = currentLang === "en" ? "#fff" : "#999";
+      $("langZh").style.background = currentLang === "zh" ? "#175E97" : "#fff";
+      $("langZh").style.color = currentLang === "zh" ? "#fff" : "#999";
+    }
     if ($("zipInput")) $("zipInput").placeholder = currentLang === "zh" ? "输入5位邮政编码" : "Enter a 5-digit ZIP code";
     if ($("aiInput")) $("aiInput").placeholder = currentLang === "zh" ? "询问PFAS或显示的供水系统…" : "Ask about PFAS or the displayed systems…";
     if (release) updateReleaseLabels();
@@ -165,14 +169,12 @@
 
   function updateReleaseLabels() {
     $("releaseStatus").textContent = `${text("verifiedRelease")} · ${release.release_id}`;
-    $("releaseStatus").className = "release-status ready";
     $("lookupDataNote").textContent = `${release.systems.length.toLocaleString()} ${text("monitoredSystems")} · ${Object.keys(release.zip_to_pwsids).length.toLocaleString()} ${text("zipAssociations")} · ${text("resultsThrough")}`;
     $("lookupButton").textContent = text("findSystems");
   }
 
   function setLoadFailure() {
     $("releaseStatus").textContent = text("releaseUnavailable");
-    $("releaseStatus").className = "release-status error";
     $("lookupDataNote").textContent = text("loadFailure");
     $("lookupButton").textContent = text("dataUnavailable");
     $("lookupButton").disabled = true;
@@ -187,27 +189,40 @@
     return { label: text("doesNotMeet"), className: "below", maximum };
   }
 
-  function renderOutcomeTable(system) {
-    const rows = OUTCOMES.map(outcome => {
+  function renderOutcomeList(system) {
+    return OUTCOMES.map(outcome => {
       const status = outcomeStatus(system, outcome);
       const value = formatAverage(status.maximum, outcome.key === "hi");
       const label = currentLang === "zh" && outcome.labelZh ? outcome.labelZh : outcome.label;
-      return `<tr><th scope="row">${escapeHtml(label)}</th><td>${escapeHtml(value)}</td><td>${escapeHtml(outcome.benchmark)}<span class="benchmark-detail">${escapeHtml(outcome.cutoff)}</span></td><td><span class="comparison-status ${status.className}">${escapeHtml(status.label)}</span></td></tr>`;
+      return `<div class="compound-result-row ${status.className}">
+        <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
+        <div><span>${escapeHtml(status.label)}</span><small>${escapeHtml(outcome.benchmark)} · ${escapeHtml(outcome.cutoff)}</small></div>
+      </div>`;
     }).join("");
-    return `<div class="system-table-wrap"><table class="system-result-table"><thead><tr><th>${text("measure")}</th><th>${text("highestAverage")}</th><th>${text("benchmarkHeading")}</th><th>${text("comparisonHeading")}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  }
-
-  function renderDemographicContext(system) {
-    if (!Number(system.primary_inferential_cohort)) return "";
-    return `<details class="service-area-context"><summary>${text("demographicSummary")}</summary><p>${text("demographicNote")}</p><div class="context-stat-grid"><span><strong>${formatPercent(system.pct_hispanic_preferred)}</strong> ${text("hispanic")}</span><span><strong>${formatPercent(system.pct_nh_black_preferred)}</strong> ${text("black")}</span><span><strong>${formatPercent(system.pct_nh_aian_preferred)}</strong> ${text("aian")}</span><span><strong>${formatPercent(system.pct_below_poverty_preferred)}</strong> ${text("poverty")}</span><span><strong>${formatPercent(system.pct_rural_preferred)}</strong> ${text("rural")}</span></div></details>`;
   }
 
   function renderSystem(system) {
     const above = Number(system.any_system_above_mcl_comparison) === 1;
     const complete = Number(system.any_system_full_set) === 1;
-    const typeNote = system.pws_type_desc === "Community water system" ? text("communitySystem") : `${system.pws_type_desc || text("publicSystem")}; ${text("residentialNotUsed")}`;
+    const typeNote = system.pws_type_desc === "Community water system" ? text("communitySystem") : (system.pws_type_desc || text("publicSystem"));
     const headline = !complete ? text("completeUnavailable") : above ? text("atLeastOne") : text("noLocationMeets");
-    return `<article class="system-result-card ${above ? "has-comparison" : ""}"><header class="system-result-header"><div><span class="system-state">${escapeHtml(system.sdwis_state_code || "US")}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3><p>PWSID ${escapeHtml(system.pwsid)} · ${escapeHtml(typeNote)}</p></div><span class="system-headline-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span></header><div class="system-facts"><span><strong>${text("populationServed")}</strong>${formatInteger(system.population_served_count)}</span><span><strong>${text("source")}</strong>${escapeHtml(system.primary_source_desc || text("notReported"))}</span><span><strong>${text("ownership")}</strong>${escapeHtml(system.owner_desc || text("notReported"))}</span><span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span><span><strong>${text("serviceBoundary")}</strong>${escapeHtml(system.boundary_provenance || text("notAvailable"))}</span><span><strong>${text("sdwisStatus")}</strong>${escapeHtml(system.pws_activity_desc || text("notReported"))}</span></div>${renderOutcomeTable(system)}${renderDemographicContext(system)}<p class="system-result-caveat">${text("resultCaveat")}</p></article>`;
+    const detailsLabel = currentLang === "zh" ? "查看六项PFAS技术比较" : "View the six PFAS technical comparisons";
+    return `<article class="detail-box system-summary-card ${above ? "has-comparison" : ""}">
+      <header class="system-summary-head">
+        <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3><p>PWSID ${escapeHtml(system.pwsid)} · ${escapeHtml(typeNote)}</p></div>
+        <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
+      </header>
+      <div class="system-fact-strip">
+        <span><strong>${text("populationServed")}</strong>${formatInteger(system.population_served_count)}</span>
+        <span><strong>${text("source")}</strong>${escapeHtml(system.primary_source_desc || text("notReported"))}</span>
+        <span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span>
+      </div>
+      <details class="compound-results-details" ${above ? "open" : ""}>
+        <summary>${detailsLabel}</summary>
+        <div class="compound-result-list">${renderOutcomeList(system)}</div>
+      </details>
+      <p class="system-result-caveat">${text("resultCaveat")}</p>
+    </article>`;
   }
 
   function buildAssistantContext(systems) {
@@ -333,12 +348,12 @@
     }
     try {
       displayCount("clinicalCount", await counterRequest("clinical", "increment"));
-      $("clinicalConfirm").hidden = false;
+      $("clinicalConfirm").classList.add("visible");
       input.disabled = true;
       $("clinicalButton").disabled = true;
     } catch (error) {
       console.warn("Clinical counter unavailable", error);
-      $("clinicalConfirm").hidden = false;
+      $("clinicalConfirm").classList.add("visible");
       $("clinicalConfirm").textContent = text("unavailableError");
     }
   }
@@ -355,7 +370,8 @@
       context.textContent = text("invalidZipContext");
       body.innerHTML = "";
       $("printBtn").hidden = true;
-      $("clinicalLog").hidden = true;
+      $("printBtn").classList.remove("visible");
+      $("clinicalLog").classList.remove("visible");
       return;
     }
 
@@ -368,6 +384,8 @@
     });
     currentSystems = systems;
     currentContext = buildAssistantContext(systems);
+    $("printZip").textContent = `${currentLang === "zh" ? "邮政编码" : "ZIP code"}: ${zip}`;
+    $("printDate").textContent = `${currentLang === "zh" ? "生成日期" : "Generated"}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : "en-US", { year: "numeric", month: "long", day: "numeric" })}`;
     history.replaceState({}, "", `${window.location.pathname}?zip=${encodeURIComponent(zip)}`);
     if (incrementCounter) {
       incrementSearchCounter();
@@ -380,7 +398,8 @@
       context.textContent = text("noAssociationContext");
       body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p></div>`;
       $("printBtn").hidden = true;
-      $("clinicalLog").hidden = true;
+      $("printBtn").classList.remove("visible");
+      $("clinicalLog").classList.remove("visible");
       resetChat(text("contextReadyNone"));
       return;
     }
@@ -392,7 +411,7 @@
     body.innerHTML = systems.map(renderSystem).join("");
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
-    $("clinicalLog").hidden = false;
+    $("clinicalLog").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
   }
 
@@ -431,14 +450,24 @@
   $("aiSendBtn").addEventListener("click", sendChat);
   $("aiInput").addEventListener("keydown", event => { if (event.key === "Enter") sendChat(); });
   $("aiSuggestions").addEventListener("click", event => {
-    const button = event.target.closest("button[data-question-en]");
+    const button = event.target.closest("[data-question-en]");
     if (!button) return;
+    $("aiInput").value = currentLang === "zh" ? button.dataset.questionZh : button.dataset.questionEn;
+    sendChat();
+  });
+  $("aiSuggestions").addEventListener("keydown", event => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    const button = event.target.closest("[data-question-en]");
+    if (!button) return;
+    event.preventDefault();
     $("aiInput").value = currentLang === "zh" ? button.dataset.questionZh : button.dataset.questionEn;
     sendChat();
   });
   $("clinicalButton").addEventListener("click", recordClinicalUse);
   $("clinicalCode").addEventListener("keydown", event => { if (event.key === "Enter") recordClinicalUse(); });
-  $("languageToggle").addEventListener("click", () => { currentLang = currentLang === "en" ? "zh" : "en"; applyLanguage(); trackEvent("language_switch", { language: currentLang }); });
+  function toggleLanguage() { currentLang = currentLang === "en" ? "zh" : "en"; applyLanguage(); trackEvent("language_switch", { language: currentLang }); }
+  $("languageToggle").addEventListener("click", toggleLanguage);
+  $("languageToggle").addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggleLanguage(); } });
 
   applyLanguage();
   initialize();
