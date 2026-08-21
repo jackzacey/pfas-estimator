@@ -1,0 +1,46 @@
+specification,term,prevalence_ratio,confidence_interval_low,confidence_interval_high,p_value
+primary_census_preferred_weight,"Hispanic proportion, per 10 percentage points",1.1495702893344375,1.0990633185728678,1.2023982856933515,1.197335455189641e-09
+primary_census_preferred_weight,"Non-Hispanic Black proportion, per 10 percentage points",1.0199779899665715,0.922905320448381,1.1272609193658183,0.6982594897446808
+primary_census_preferred_weight,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1802181450757738,0.8878557295491228,1.5688527128990428,0.253884083201315
+primary_census_preferred_weight,"Below-poverty proportion, per 10 percentage points",0.7446789545362519,0.6203509285714425,0.8939242609118476,0.0015605355532464
+primary_census_preferred_weight,"Rural proportion, per 10 percentage points",0.9412053051520608,0.9129191708144452,0.9703678647213336,9.93685282409094e-05
+area_weight_census_sensitivity,"Hispanic proportion, per 10 percentage points",1.1456715604655086,1.0946106586297928,1.1991143281050347,5.028665169200842e-09
+area_weight_census_sensitivity,"Non-Hispanic Black proportion, per 10 percentage points",1.0172537502833183,0.9222363238539646,1.1220607621928116,0.7324101391477329
+area_weight_census_sensitivity,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1561412420577633,0.8685226435429592,1.5390071652412285,0.3201563210854709
+area_weight_census_sensitivity,"Below-poverty proportion, per 10 percentage points",0.7578633152971594,0.6353892119104398,0.9039448481447606,0.0020497029966853
+area_weight_census_sensitivity,"Rural proportion, per 10 percentage points",0.9420325155631168,0.9161944573773116,0.968599245752379,2.571087626320256e-05
+latest_only_census_sensitivity,"Hispanic proportion, per 10 percentage points",1.1499697950827543,1.0990474871309246,1.2032514928494051,1.4751814993613092e-09
+latest_only_census_sensitivity,"Non-Hispanic Black proportion, per 10 percentage points",1.0203614155687737,0.9228687764401374,1.1281532596623134,0.6940220874069555
+latest_only_census_sensitivity,"Non-Hispanic AIAN proportion, per 10 percentage points",1.2203168754993947,0.892835581268969,1.667914348252198,0.2116768766692331
+latest_only_census_sensitivity,"Below-poverty proportion, per 10 percentage points",0.7427644079931681,0.61440321689277,0.8979428339772639,0.0021257410908653
+latest_only_census_sensitivity,"Rural proportion, per 10 percentage points",0.94236028551497,0.913846146810513,0.9717641320864404,0.0001524119709717
+all_monitored_unweighted_sensitivity,"Hispanic proportion, per 10 percentage points",1.1454321083962782,1.094129318889515,1.1991404418965492,6.32864788731454e-09
+all_monitored_unweighted_sensitivity,"Non-Hispanic Black proportion, per 10 percentage points",1.005590597617563,0.9070385298553536,1.11485060086489,0.91563123382467
+all_monitored_unweighted_sensitivity,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1667073026814123,0.8850715058335069,1.5379615332302845,0.2740158647509323
+all_monitored_unweighted_sensitivity,"Below-poverty proportion, per 10 percentage points",0.7538186712041064,0.6330481816364428,0.8976292887960055,0.001512298821253
+all_monitored_unweighted_sensitivity,"Rural proportion, per 10 percentage points",0.9333419190866638,0.9037255494437412,0.9639288592212208,2.7525217207645463e-05
+system_sourced_boundary_census_sensitivity,"Hispanic proportion, per 10 percentage points",1.1445772931040965,1.097932575297425,1.193203671486486,2.0010941574864403e-10
+system_sourced_boundary_census_sensitivity,"Non-Hispanic Black proportion, per 10 percentage points",1.0490896244188144,0.9314511751618229,1.1815853255775877,0.4296724207644065
+system_sourced_boundary_census_sensitivity,"Non-Hispanic AIAN proportion, per 10 percentage points",1.386108807039805,1.0048299350821783,1.912062487266745,0.0466617220615676
+system_sourced_boundary_census_sensitivity,"Below-poverty proportion, per 10 percentage points",0.7303103158909211,0.5983234910358463,0.8914126981264441,0.0020000195707213
+system_sourced_boundary_census_sensitivity,"Rural proportion, per 10 percentage points",0.9195631026472476,0.8832782059904185,0.9573385757911538,4.4535529158906545e-05
+primary_census_preferred_weight:state_clustered,"Hispanic proportion, per 10 percentage points",1.1495702893344375,1.0990633185728678,1.2023982856933515,1.197335455189641e-09
+primary_census_preferred_weight:state_clustered,"Non-Hispanic Black proportion, per 10 percentage points",1.0199779899665715,0.922905320448381,1.1272609193658183,0.6982594897446808
+primary_census_preferred_weight:state_clustered,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1802181450757738,0.8878557295491228,1.5688527128990428,0.253884083201315
+primary_census_preferred_weight:state_clustered,"Below-poverty proportion, per 10 percentage points",0.7446789545362519,0.6203509285714425,0.8939242609118476,0.0015605355532464
+primary_census_preferred_weight:state_clustered,"Rural proportion, per 10 percentage points",0.9412053051520608,0.9129191708144452,0.9703678647213336,9.93685282409094e-05
+primary_census_preferred_weight:spatial_hac_100km,"Hispanic proportion, per 10 percentage points",1.1495702893344375,1.0900583795362822,1.2123312612693662,2.754508351108098e-07
+primary_census_preferred_weight:spatial_hac_100km,"Non-Hispanic Black proportion, per 10 percentage points",1.0199779899665715,0.9509227946266032,1.0940479141892496,0.5802277928264712
+primary_census_preferred_weight:spatial_hac_100km,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1802181450757738,0.9268144775015624,1.5029058174846563,0.1790497462690564
+primary_census_preferred_weight:spatial_hac_100km,"Below-poverty proportion, per 10 percentage points",0.7446789545362519,0.6528662977648121,0.8494032349774846,1.1267033181175885e-05
+primary_census_preferred_weight:spatial_hac_100km,"Rural proportion, per 10 percentage points",0.9412053051520608,0.9145748440713474,0.9686111882356518,3.505917641285614e-05
+primary_census_preferred_weight:spatial_hac_250km,"Hispanic proportion, per 10 percentage points",1.1495702893344375,1.0863261404155051,1.216496410198692,1.3790860097188477e-06
+primary_census_preferred_weight:spatial_hac_250km,"Non-Hispanic Black proportion, per 10 percentage points",1.0199779899665715,0.9349529040190118,1.1127352998682083,0.6560044496939977
+primary_census_preferred_weight:spatial_hac_250km,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1802181450757738,0.9099073553039696,1.5308315311955845,0.2118183939911071
+primary_census_preferred_weight:spatial_hac_250km,"Below-poverty proportion, per 10 percentage points",0.7446789545362519,0.6353167188330352,0.8728666016342365,0.000274829266383
+primary_census_preferred_weight:spatial_hac_250km,"Rural proportion, per 10 percentage points",0.9412053051520608,0.9126528906240672,0.9706509841223782,0.0001156014515153
+primary_census_preferred_weight:spatial_hac_500km,"Hispanic proportion, per 10 percentage points",1.1495702893344375,1.093003196351619,1.2090649455844154,6.152681806579092e-08
+primary_census_preferred_weight:spatial_hac_500km,"Non-Hispanic Black proportion, per 10 percentage points",1.0199779899665715,0.9241152142900496,1.125785057889669,0.6944547591133545
+primary_census_preferred_weight:spatial_hac_500km,"Non-Hispanic AIAN proportion, per 10 percentage points",1.1802181450757738,0.8977964516021016,1.5514818169312976,0.235064956605837
+primary_census_preferred_weight:spatial_hac_500km,"Below-poverty proportion, per 10 percentage points",0.7446789545362519,0.6152779403418837,0.9012946978418684,0.0024690372333589
+primary_census_preferred_weight:spatial_hac_500km,"Rural proportion, per 10 percentage points",0.9412053051520608,0.9131572657414344,0.9701148528091786,8.64859750153647e-05

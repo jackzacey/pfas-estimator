@@ -1,0 +1,85 @@
+{
+  "release_id": "ucmr5-2026-01-15-analysis-v0.2",
+  "generated_utc": "2026-08-15T02:14:17.504928+00:00",
+  "inputs": {
+    "ucmr5_system_analysis_with_demographics.csv": {
+      "bytes": 9521879,
+      "sha256": "4f0e8ec1017ab4a9734f58225a3ea341abc6e35156a8a78dea50342b501decbc"
+    },
+    "epa_ucmr5_average_pfas_locations.csv": {
+      "bytes": 4529318,
+      "sha256": "afa17fd4bb941c0dfcc406010f0499c8a98789ed1be1a80672df7b879713c4f6"
+    },
+    "UCMR5_ZIPCodes.txt": {
+      "bytes": 528832,
+      "sha256": "420e3f4cb1538422dd5f51cd4384327cf0120469e3607ab998e5988929ba60d7"
+    },
+    "primary_spatial_hac_coefficients.csv": {
+      "bytes": 18019,
+      "sha256": "15df7cdd737b6454753cee4637d361367b2db5c7eb6758da6c10665b86337227"
+    },
+    "primary_modified_poisson_coefficients.csv": {
+      "bytes": 23913,
+      "sha256": "348376b1ed130cbe58d6b12a8580e24cacf2fc731f9b2b6b8129b0da1bc2608b"
+    },
+    "primary_model_audit.json": {
+      "bytes": 16611,
+      "sha256": "c73ef263cabdc0bd736a5634c496cb8b22f7a79b2cfcb9957f0f3c46bc82906f"
+    },
+    "primary_spatial_residual_diagnostics.json": {
+      "bytes": 4606,
+      "sha256": "c6346179571e965be2b939823aa1c5bf8915d0ec0f2deefbeac7561ecc252057"
+    },
+    "secondary_outcome_modified_poisson_coefficients.csv": {
+      "bytes": 11031,
+      "sha256": "23ce05aca12633465260d2ed8d5e46d2d1c45c37ace68a1fb79b42a812ed63b8"
+    }
+  },
+  "artifacts": {
+    "manuscript_cohort_flow.csv": {
+      "bytes": 222,
+      "sha256": "c3efa8e4e6e4efdcb0013ebf67caff4e65c10500669d0609f1251b0627281494"
+    },
+    "manuscript_policy_scenario.csv": {
+      "bytes": 286,
+      "sha256": "2801732c18b4bf002f5d10b41f56590a51933c7962b8b5afa2f530c370bfe322"
+    },
+    "manuscript_primary_outcome_counts.csv": {
+      "bytes": 326,
+      "sha256": "eec614812b53217304da1409fd74166eafba94c015b0acba345f2d38d6a5a6bd"
+    },
+    "manuscript_primary_sensitivities.csv": {
+      "bytes": 7747,
+      "sha256": "785a946f0a0427a2d9b31100f50b082db60aea258cae151be2ebaa19c3d3f898"
+    },
+    "manuscript_secondary_outcomes.csv": {
+      "bytes": 2807,
+      "sha256": "b199a18bf699e5e9b0cfb2875831fdcfb0fbab2c7d303f77cfa6e8d79734e682"
+    },
+    "manuscript_table1.csv": {
+      "bytes": 1355,
+      "sha256": "385e0656eb97af069feefd7e8612f5dfe670641c638a28394f787aaf83a30b84"
+    },
+    "manuscript_table2.csv": {
+      "bytes": 722,
+      "sha256": "801f077f6602dcb731a842fb2e23b1a735a7d4a4595fc544a7e87f06974a9e55"
+    },
+    "website_lookup_compact.json": {
+      "bytes": 3047706,
+      "sha256": "0352a53470b61e6dc8a2999b58d7cdd7b227b60407a91eaef70bf5236b269115"
+    },
+    "website_metadata.json": {
+      "bytes": 1585,
+      "sha256": "b54f75e826cff5adb704126388fe5778b53be71f68cb1693e37ccd59f803df7c"
+    },
+    "website_state_summary.json": {
+      "bytes": 11071,
+      "sha256": "64a26545de18c6e50880d618d3c9144a7a8c063fa280aa55beda301119078f2b"
+    },
+    "website_zip_to_monitored_systems.json": {
+      "bytes": 578631,
+      "sha256": "35fb1bdfd48901944519324134badbb93a4f3755de04bc437302f1960aaae608"
+    }
+  },
+  "interpretation": "Manuscript tables and website data in this directory are generated from the same frozen analysis outputs. Manual recalculation is prohibited."
+}

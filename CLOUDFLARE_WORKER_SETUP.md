@@ -1,11 +1,11 @@
 # PFAS Groq Worker deployment
 
-The website now sends two restricted request types to the Worker:
+The website sends two restricted request types to the Worker:
 
-- `summary`: one cached AI request creates the ZIP overview and every compound explanation.
-- `chat`: a short, ZIP-grounded health conversation with limited history.
+- `chat`: one request only when a visitor asks a question. The prompt receives a compact, system-level context and limited conversation history.
+- `counter`: atomic reads or increments for the public search and reported-clinical-use counters.
 
-The Worker no longer accepts arbitrary Groq models, token counts, or raw prompts.
+The deterministic ZIP lookup, system results, map, state table, and state pages make no AI request. The Worker does not accept arbitrary Groq models, token counts, or raw system prompts.
 
 ## Deploy the Worker
 
@@ -42,4 +42,4 @@ After the restricted Worker is deployed, create a replacement Groq API key, upda
 
 ## Deployment order
 
-Push the updated website first, then deploy the Worker immediately afterward. The old Worker does not understand the new request format, so AI requests may be unavailable during the short interval between those two deployments.
+Deploy the updated Worker prompt first, verify one chat and both counters, then push the website. The current production Worker already understands the chat request shape, so the deterministic lookup remains safe if the two deployments are separated; deploying the Worker first ensures the stricter system-association language is active before the new interface appears.

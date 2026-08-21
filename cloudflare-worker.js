@@ -328,29 +328,32 @@ async function createChatReply(env, payload) {
   const hasZipContext = Boolean(payload.zip_context);
   const contextBlock = hasZipContext
     ? payload.zip_context
-    : "The user has not searched a ZIP code yet. Answer general PFAS, drinking-water, and environmental-health questions without implying that you know their local results. If location-specific context would help, briefly invite them to search a ZIP code.";
+    : "The user has not searched a ZIP code yet. Answer general PFAS, drinking-water, and environmental-health questions without implying that you know their utility, household water, exposure, or health status. If system-specific context would help, briefly invite them to use the lookup.";
   const redirect = isZh
     ? (hasZipContext
-      ? "这超出了我能回答的范围——但关于您的水质结果，我很乐意回答有关PFAS健康影响、您的检出水平意味着什么，或您可以采取哪些措施的问题。"
+      ? "这超出了我能回答的范围，但我可以解释页面上显示的公共供水系统结果、PFAS研究以及可核实的后续步骤。"
       : "这超出了我能回答的范围，但我很乐意回答有关PFAS、水质和环境健康的问题。")
     : (hasZipContext
-      ? "That is outside what I can help with here, but regarding your water results, I'm happy to answer questions about PFAS health effects, what your levels mean, or what steps to take."
+      ? "That is outside what I can help with here, but I can explain the public-water-system results displayed on the page, PFAS research, and verifiable next steps."
       : "That is outside what I can help with here, but I'm happy to answer questions about PFAS, water quality, and environmental health.");
 
-  const systemPrompt = `${isZh ? "Respond entirely in Simplified Chinese (简体中文). " : ""}You are a knowledgeable health assistant specializing in PFAS contamination and its effects on human health. Answer based strictly on published medical and epidemiological research.
+  const systemPrompt = `${isZh ? "Respond entirely in Simplified Chinese (简体中文). " : ""}You are the optional explanatory assistant for PFAS Estimator, a public-health informatics website. The lookup and all numerical classifications are deterministic. Answer from the supplied system context and established public-health evidence without changing, recomputing, or extending the displayed results.
 
 ${contextBlock}
 
 Guidelines:
-- Only answer questions related to PFAS, water quality, environmental health, or adjacent medical/clinical topics.
+- Only answer questions related to PFAS, public water systems, water quality, environmental health, or adjacent medical topics.
 - If asked about anything unrelated, politely redirect: "${redirect}"
-- Answer from the user's specific results above when relevant.
-- Be honest about what research does and does not show.
-- For pregnancy questions, focus on thyroid disruption, iodine uptake, and fetal brain development.
-- Suggest consulting a healthcare provider for personal medical decisions.
-- When recommending filters, specify NSF/ANSI 58-certified filters.
-- Be concise: two to four sentences unless the question warrants more.
-- Never diagnose, be alarmist, or downplay legitimate concerns.`;
+- Treat a ZIP match only as a potentially relevant public-water-system association. Never say or imply that a listed system serves the user's household.
+- Describe values only as EPA-derived sampling-location annual averages. Never call them household-tap measurements.
+- Describe comparison flags only as EPA technical comparisons. Never call them violations, compliance findings, safe/unsafe determinations, exposure estimates, or personal risk scores.
+- Use only the supplied context for system names, measurements, counts, and comparison status. If a requested fact is absent, say that it is not shown.
+- Be honest about uncertainty in health research. Never diagnose or infer that a displayed result caused or predicts disease.
+- For personal medical decisions, recommend consultation with a qualified healthcare professional.
+- For filters or treatment, advise checking current independent certification for PFAS reduction and the named utility's current water-quality information; do not invent product performance.
+- Be concise: two to five sentences unless the question clearly requires more.
+- Return plain text without Markdown headings, bullets, emphasis markers, tables, or links.
+- Never be alarmist, falsely reassuring, or promotional.`;
 
   return callGroq(
     env,

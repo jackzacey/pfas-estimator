@@ -1,0 +1,17 @@
+Characteristic,Overall,Above benchmark,Not above benchmark
+"Systems, No.","8,069",964,"7,105"
+"Population served, median [IQR]","10,500 [5,764, 25,252]","16,654 [7,826, 44,903]","9,972 [5,588, 23,310]"
+"Hispanic population, median % [IQR]","7.8 [3.4, 18.5]","9.7 [4.4, 23.9]","7.6 [3.2, 17.8]"
+"Non-Hispanic Black population, median % [IQR]","3.2 [0.9, 10.9]","4.3 [1.4, 13.2]","3.1 [0.8, 10.5]"
+"Non-Hispanic AIAN population, median % [IQR]","0.1 [0.0, 0.2]","0.0 [0.0, 0.2]","0.1 [0.0, 0.3]"
+"Population below poverty, median % [IQR]","11.1 [6.9, 17.0]","9.6 [5.9, 15.0]","11.3 [7.0, 17.2]"
+"Rural population, median % [IQR]","7.1 [1.0, 48.5]","3.2 [0.1, 15.3]","7.9 [1.2, 59.9]"
+"Ground-water source, No. (%)","3,636 (45.1)",434 (45.0),"3,202 (45.1)"
+"Surface-water source, No. (%)","1,966 (24.4)",209 (21.7),"1,757 (24.7)"
+"Purchased surface-water source, No. (%)","2,190 (27.1)",283 (29.4),"1,907 (26.8)"
+"Other source-water category, No. (%)",277 (3.4),38 (3.9),239 (3.4)
+"Local-government ownership, No. (%)","6,836 (84.7)",766 (79.5),"6,070 (85.4)"
+"Private ownership, No. (%)",853 (10.6),159 (16.5),694 (9.8)
+"Other or mixed ownership, No. (%)",380 (4.7),39 (4.0),341 (4.8)
+"System-sourced service-area boundary, No. (%)","5,596 (69.4)",763 (79.1),"4,833 (68.0)"
+"Connecticut older-vintage geography fallback, No. (%)",56 (0.7),27 (2.8),29 (0.4)

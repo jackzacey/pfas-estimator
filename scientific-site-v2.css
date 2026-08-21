@@ -1,0 +1,65 @@
+.scientific-home{display:block;padding:0;background:radial-gradient(circle at 88% 2%,rgba(73,137,177,.16),transparent 30rem),linear-gradient(180deg,#f2f6f7 0%,#eaf0f2 100%)}
+.scientific-home .home-shell{width:min(1160px,calc(100% - 2rem));margin:0 auto;padding:1.25rem 0 2rem}
+.scientific-home .home-top-nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.35rem;margin:0 auto 1rem}
+.scientific-home .home-top-nav a{padding:.55rem .8rem;border-radius:8px;color:#40545e;font-size:13px;font-weight:600;text-decoration:none}
+.scientific-home .home-top-nav a:hover,.scientific-home .home-top-nav a[aria-current="page"]{color:var(--primary);background:rgba(255,255,255,.78)}
+.scientific-page-wrapper{display:block;max-width:1120px;margin:0 auto}
+.scientific-home .home-card{max-width:none;padding:0;overflow:hidden;border:1px solid rgba(203,220,227,.9)}
+.scientific-hero{padding:2.35rem 2.5rem 1.55rem;background:linear-gradient(150deg,#fff 0%,#f6fafb 100%);border-bottom:1px solid var(--border-soft)}
+.scientific-hero .home-hero-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.6rem;margin-bottom:1rem}
+.scientific-hero .badge{margin:0;border-color:#235b78;background:#235b78;color:#fff;letter-spacing:.015em}
+.scientific-hero h1{max-width:740px;margin-bottom:.65rem;font-size:clamp(2rem,5vw,3.25rem);line-height:1.02}
+.scientific-hero .subtitle{max-width:760px;margin:0;font-size:16px}
+.release-status{color:#667b84;font-size:12px;font-weight:650}.release-status.ready{color:#246844}.release-status.error{color:var(--warn-strong)}
+.scientific-lookup-panel{margin:1.5rem 2.5rem 0;padding:1.35rem;background:#fbfcfc;border:1px solid #d9e4e8;border-radius:12px}
+.scientific-interaction-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(310px,.8fr);gap:1.15rem;align-items:start}
+.scientific-lookup-column{min-width:0}
+.scientific-chat-panel{position:sticky;top:1rem;display:flex!important;width:auto;min-width:0;max-height:680px;margin:0;border:1px solid #d7e3e7;border-radius:12px;background:#fff;box-shadow:0 10px 30px rgba(36,77,96,.08)}
+.scientific-chat-panel .ai-messages{min-height:210px;max-height:360px}
+.scientific-chat-panel .ai-suggestions{padding:.55rem .8rem 0}
+.scientific-chat-panel .ai-suggestion{border:1px solid #dbe6ea;background:#f4f8f9;color:#31586a;font:inherit;cursor:pointer}
+.scientific-chat-panel .ai-suggestion:hover{border-color:#91b2c1;background:#edf5f7}
+.scientific-chat-panel .ai-suggestions[hidden]{display:none!important}
+.scientific-chat-panel .ai-input-row input{min-width:0}
+.scientific-chat-panel .ai-input-row button:disabled{opacity:.55;cursor:wait}
+.language-toggle{display:inline-flex;overflow:hidden;padding:2px;border:1px solid #c8d8de;border-radius:999px;background:#fff;color:#667b84;font-size:11px;font-weight:750;cursor:pointer}
+.language-toggle span{padding:.3rem .55rem;border-radius:999px}
+.language-toggle span.active{background:#175e97;color:#fff}
+.clinical-log{margin-top:.8rem;padding:.75rem;border:1px solid #dce6e9;border-radius:8px;background:#f5f9fa;color:#53666f;font-size:11px;line-height:1.5}
+.clinical-log[hidden]{display:none!important}.clinical-log label{display:block;margin-bottom:.45rem}.clinical-log>div{display:flex;gap:.4rem}.clinical-log input{width:78px;padding:.45rem;border:1px solid #cbd9de;border-radius:6px}.clinical-log button{padding:.45rem .65rem;border:0;border-radius:6px;background:#315f75;color:#fff;font-size:11px;font-weight:700}.clinical-log p{margin:.45rem 0 0;color:#246844}
+.counter-stack{position:fixed;right:16px;bottom:16px;z-index:20;display:grid;gap:.35rem;justify-items:end}.counter-stack .counter-badge{position:static;display:block;width:max-content;max-width:calc(100vw - 2rem);padding:.42rem .65rem;border:1px solid rgba(204,220,226,.95);border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 6px 18px rgba(32,70,87,.1);color:#5d717a;font-size:10px;backdrop-filter:blur(8px)}
+.scientific-truth-note{margin-bottom:1rem;border:1px solid #dbe6ea;background:#f0f5f7;color:#40545e}
+.scientific-input-row{margin-bottom:.55rem}.scientific-input-row input{height:48px;background:#fff;font-size:16px}.scientific-input-row button{height:48px;min-width:150px}.scientific-input-row button:disabled{background:#9badb5;box-shadow:none;cursor:wait}
+.lookup-data-note{margin-bottom:.75rem;color:#74868e;font-size:11px;line-height:1.55}.scientific-lookup-panel .home-results-region .result{margin:0}
+.research-snapshot{margin:2.25rem 2.5rem 0;padding-top:2rem;border-top:1px solid var(--border-soft);scroll-margin-top:1rem}
+.section-eyebrow{margin-bottom:.45rem;color:var(--primary);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.research-snapshot h2{margin-bottom:.6rem;font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2rem);letter-spacing:-.025em}.research-lede{max-width:760px;color:#53666f;font-size:14px;line-height:1.7}
+.research-metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin-top:1.3rem}
+.research-metric-card{min-height:142px;padding:1rem;border:1px solid #dbe5e8;border-radius:11px;background:linear-gradient(155deg,#fff 0%,#f5f9fa 100%)}
+.research-metric-value{display:block;margin-bottom:.45rem;color:#164f72;font-family:var(--font-display);font-size:2rem;font-weight:800;letter-spacing:-.04em}.research-metric-label{display:block;color:#53666f;font-size:12px;line-height:1.5}
+.research-two-column{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;margin-top:1.5rem}.research-two-column h3{margin-bottom:.55rem;font-size:14px}.research-two-column ul{padding-left:1.15rem;color:#4f626a;font-size:13px;line-height:1.65}.research-two-column li+li{margin-top:.35rem}
+.research-method-link{margin-top:1.2rem;font-size:13px;font-weight:700}.research-method-link a,.scientific-footer a{color:var(--primary);text-decoration:none}.research-method-link a:hover,.scientific-footer a:hover{text-decoration:underline}
+.scientific-interpretation{margin:2rem 2.5rem 0}.scientific-disclaimer{margin:2rem 2.5rem 2.5rem}
+.scientific-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.75rem 1.5rem;width:min(980px,calc(100% - 2rem));margin:0 auto;padding:0 0 2rem;color:#687a82;font-size:12px}
+.system-result-card{margin-top:1rem;padding:1rem;border:1px solid #dce5e8;border-radius:11px;background:rgba(255,255,255,.88)}.system-result-card.has-comparison{border-color:#edc98f;background:#fffaf1}
+.system-result-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.75rem}.system-result-header h3{margin:0 0 .2rem;color:var(--ink);font-size:15px;line-height:1.35}.system-state{color:#71828a;font-family:var(--mono);font-size:11px}
+.system-headline-status{flex-shrink:0;padding:.3rem .55rem;border-radius:999px;font-size:10px;font-weight:800;text-align:center}.system-headline-status.above{background:#f7dfb8;color:#7a4315}.system-headline-status.below{background:#deedf2;color:#21566f}
+.system-headline-status.incomplete{background:#e8ecee;color:#61727a}
+.system-facts{display:flex;flex-wrap:wrap;gap:.3rem .85rem;margin-bottom:.8rem;color:#61737b;font-size:11px}.system-table-wrap{overflow-x:auto;border:1px solid #e0e7e9;border-radius:8px;background:#fff}
+.system-facts strong{margin-right:.3rem;color:#344a54}.benchmark-detail{display:block;margin-top:.15rem}
+.system-result-table{width:100%;min-width:560px;border-collapse:collapse;font-size:11px}.system-result-table th,.system-result-table td{padding:.55rem .6rem;border-bottom:1px solid #e8edef;text-align:left;vertical-align:top}.system-result-table tr:last-child td{border-bottom:0}.system-result-table th{color:#596c74;background:#f4f7f8;font-weight:750}
+.benchmark-detail{color:#7b8b92;font-size:10px}.comparison-status{font-weight:750}.comparison-status.above{color:#9a5017}.comparison-status.below{color:#25627d}.comparison-status.incomplete{color:#7f8e94}
+.service-area-context{margin-top:.8rem;padding:.75rem;border-radius:8px;background:#eef4f6}.service-area-context h4{margin-bottom:.45rem;font-size:11px}.context-stat-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.4rem;color:#4f636c;font-size:10px}.context-stat-grid span{padding:.4rem;border-radius:6px;background:rgba(255,255,255,.82)}
+.system-result-caveat,.lookup-empty-guidance{margin-top:.7rem;color:#708189;font-size:10.5px;line-height:1.55}
+@media(max-width:900px){.scientific-interaction-grid{grid-template-columns:1fr}.scientific-chat-panel{position:static;max-height:none}.scientific-chat-panel .ai-messages{max-height:320px}}
+@media(max-width:760px){.scientific-hero,.research-snapshot{padding-right:1.35rem;padding-left:1.35rem}.scientific-lookup-panel,.scientific-interpretation,.scientific-disclaimer{margin-right:1.35rem;margin-left:1.35rem}.research-metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.research-two-column{grid-template-columns:1fr;gap:1rem}.context-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.counter-stack{right:8px;bottom:8px}}
+@media(max-width:500px){.scientific-home .home-shell{width:min(100% - 1rem,980px)}.scientific-hero{padding:1.55rem 1rem 1.1rem}.scientific-hero h1{font-size:2rem}.scientific-lookup-panel,.scientific-interpretation,.research-snapshot,.scientific-disclaimer{margin-right:1rem;margin-left:1rem}.scientific-lookup-panel{padding:1rem}.scientific-input-row{display:grid;grid-template-columns:1fr}.scientific-input-row button{width:100%}.research-metric-grid{grid-template-columns:1fr}.research-metric-card{min-height:0}.system-result-header{display:block}.system-headline-status{display:inline-block;margin-top:.5rem}}
+@media print{.scientific-home .home-top-nav,.scientific-hero,.scientific-truth-note,.scientific-input-row,.lookup-data-note,.research-snapshot,.scientific-interpretation,.scientific-disclaimer,.scientific-footer,.print-btn,.scientific-chat-panel,.clinical-log,.counter-stack{display:none!important}.scientific-home .home-shell,.scientific-page-wrapper,.scientific-home .home-card,.scientific-lookup-panel{width:100%;margin:0;padding:0;border:0;box-shadow:none}.scientific-interaction-grid{display:block}.scientific-lookup-panel .result{display:block!important}}
+
+.methodology-section .source-list{margin:.8rem 0 0;padding-left:1.25rem;color:#445961;font-size:13px;line-height:1.72}
+.methodology-section .source-list li+li{margin-top:.42rem}
+.methodology-section .reference-list{margin:.75rem 0 0;padding-left:1.35rem;color:#445961;font-size:12px;line-height:1.65}
+.methodology-section .reference-list li+li{margin-top:.55rem}
+.methodology-section .reference-list a{color:var(--primary)}
+.methodology-section code,.methodology-bottom-note code{font-family:var(--mono);font-size:.92em}
+.methodology-bottom-note{padding:.4rem .5rem 2rem;color:#72838a;font-size:11px;line-height:1.6;text-align:center}

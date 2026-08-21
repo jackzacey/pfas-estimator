@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>PFAS State Comparison Table | PFAS Estimator</title>
-  <meta name="description" content="Compare represented EPA UCMR 5 public drinking-water PFAS detections, water systems, and descriptive monitoring metrics across states and territories." />
+  <title>PFAS System Comparison Table by State | PFAS Estimator</title>
+  <meta name="description" content="Compare unique community water systems with complete EPA UCMR 5 monitoring and technical-comparison results across states and territories." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://pfasestimator.org/state-table/" />
   <meta name="author" content="Jack Zhang" />
@@ -16,8 +16,8 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PFAS Estimator" />
-  <meta property="og:title" content="PFAS State Comparison Table | PFAS Estimator" />
-  <meta property="og:description" content="Compare represented EPA UCMR 5 drinking-water monitoring metrics across U.S. states and territories." />
+  <meta property="og:title" content="PFAS System Comparison Table by State | PFAS Estimator" />
+  <meta property="og:description" content="Compare system-level EPA UCMR 5 technical-comparison results across U.S. states and territories." />
   <meta property="og:url" content="https://pfasestimator.org/state-table/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png" />
   <meta property="og:locale" content="en_US" />
@@ -31,12 +31,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "PFAS State Comparison Table | PFAS Estimator",
+    "name": "PFAS System Comparison Table by State | PFAS Estimator",
     "url": "https://pfasestimator.org/state-table/",
-    "description": "A sortable state-level comparison of represented EPA UCMR 5 public drinking-water PFAS monitoring records.",
+    "description": "A sortable state-level comparison of unique eligible community water systems with complete UCMR 5 monitoring.",
     "isPartOf": {"@id": "https://pfasestimator.org/#website"},
     "about": {"@id": "https://pfasestimator.org/#dataset"},
-    "dateModified": "2026-08-07"
+    "dateModified": "2026-08-20"
   }
   </script>
 
@@ -64,21 +64,21 @@
     <header class="national-hero">
       <div class="national-kicker">National data view</div>
       <h1>State comparison table</h1>
-      <p class="national-lede">Compare descriptive UCMR 5 monitoring metrics across states and territories represented in PFAS Estimator. Select a column heading to sort the table.</p>
+      <p class="national-lede">Compare unique community water systems with complete UCMR 5 monitoring across states and territories. Select a column heading to sort the table.</p>
       <div class="national-meta" aria-label="Table scope">
         <span><strong>Source</strong> EPA UCMR 5</span>
         <span><strong>Period</strong> 2023–2025</span>
-        <span><strong>Records</strong> Detection-only</span>
-        <span><strong>Unit</strong> State or territory</span>
+        <span><strong>Unit</strong> Community water system</span>
+        <span><strong>Release</strong> <span data-release-id>loading…</span></span>
       </div>
     </header>
 
     <main id="national-content">
       <section class="national-metrics" aria-label="Dataset overview">
-        <div><span>14,071</span><p>ZIP codes with at least one retained detection</p></div>
-        <div><span>40,311</span><p>compound–ZIP records</p></div>
-        <div><span>4,885</span><p>represented public water systems</p></div>
-        <div><span>12</span><p>analytes in the processed dataset</p></div>
+        <div><span>8,936</span><p>active community water systems with complete monitoring</p></div>
+        <div><span>1,030</span><p>complete-monitoring systems meeting any April 2024 comparison</p></div>
+        <div><span>8,069</span><p>systems in the primary inferential cohort</p></div>
+        <div><span>964</span><p>primary-cohort systems meeting any comparison</p></div>
       </section>
 
       <section class="national-panel" aria-labelledby="table-panel-title">
@@ -87,26 +87,26 @@
             <span class="national-section-label">Sortable table</span>
             <h2 id="table-panel-title">Represented monitoring records by state</h2>
           </div>
-          <p>Counts reflect retained analytic records and represented water systems. They do not rank overall water quality or individual health risk.</p>
+          <p>Counts use unique eligible systems and complete monitoring. They do not rank overall water quality or individual health risk.</p>
         </div>
 
         <p class="national-data-status" id="nationalDataStatus" role="status" aria-live="polite" hidden></p>
         <div class="national-table-wrap" id="stateSummaryTable"></div>
-        <p class="national-table-footnote">“% above comparison value” is the share of retained compound-level records above an available individual EPA comparison value. PFBS Hazard Index classification is not calculated from this aggregated dataset. Mean level combines analytes with different concentration distributions and is descriptive only.</p>
+        <p class="national-table-footnote">“% meeting any comparison” is the share of active community water systems with complete monitoring that had at least one complete-set sampling location meeting an EPA January 2026 technical comparison. It is not a compliance determination.</p>
       </section>
 
       <section class="national-notes" aria-label="Table interpretation">
         <div>
           <span>Use the table for comparison</span>
-          <p>Sort columns to inspect record volume, represented systems, threshold share, mean detected concentration, or the most common analyte.</p>
+          <p>Sort columns to inspect complete-monitoring denominators, any-comparison prevalence, or compound-specific system counts.</p>
         </div>
         <div>
           <span>Use state pages for detail</span>
-          <p>Select a state name for compound-specific and ZIP-level results with state-specific interpretation.</p>
+          <p>Select a state name for compound-specific system counts and a unique monitored-system directory.</p>
         </div>
         <div>
           <span>Read before citing</span>
-          <p>Review the <a href="/methodology/">full methodology</a> for detection filtering, ZIP duplication, threshold logic, and limitations.</p>
+          <p>Review the <a href="/methodology/">full methodology</a> for system eligibility, sampling-location averages, threshold logic, and limitations.</p>
         </div>
       </section>
     </main>
@@ -116,8 +116,6 @@
     </footer>
   </div>
 
-  <script src="/data.js"></script>
-  <script src="/science.js"></script>
-  <script src="/national-data.js?v=20260807-professional-routes"></script>
+  <script src="/national-data.js?v=20260820-system-release"></script>
 </body>
 </html>
