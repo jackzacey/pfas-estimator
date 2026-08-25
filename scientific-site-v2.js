@@ -22,8 +22,8 @@
         zh: "PFOA是一种长期存在的PFAS，过去与含氟聚合物制造以及耐热、耐油、耐污、防油脂和防水产品有关。它可在环境和人体内存在多年。"
       },
       health: {
-        en: "EPA used three human health effects to set its noncancer value: reduced antibody response to tetanus and diphtheria vaccines in children, lower infant birth weight, and higher total cholesterol in adults. EPA classified PFOA as likely to be carcinogenic to humans through oral exposure and based its quantitative cancer value on kidney cancer evidence. Because PFOA persists in the body, repeated exposure over time is the main concern.",
-        zh: "EPA依据三项人体健康影响制定非癌症毒性值：儿童对破伤风和白喉疫苗的抗体反应降低、婴儿出生体重下降以及成人总胆固醇升高。EPA将经口暴露的PFOA归类为可能对人类致癌，并依据肾癌证据制定定量癌症风险值。由于PFOA可在体内长期存在，持续反复暴露是主要关注点。"
+        en: "EPA links sufficient PFOA exposure with reduced vaccine response in children, lower birth weight, higher cholesterol, and kidney cancer. Long-term exposure matters because PFOA can remain in the body for years.",
+        zh: "EPA将足够的PFOA暴露与儿童疫苗反应下降、出生体重降低、胆固醇升高和肾癌联系起来。PFOA可在体内存在多年，因此长期暴露更值得关注。"
       },
       evidence: {
         en: "EPA’s final assessment draws on human epidemiology, animal toxicology, and mechanistic evidence; the evidence base is stronger than it is for many newer PFAS.",
@@ -40,8 +40,8 @@
         zh: "PFOS是一种持久性PFAS，过去用于防污处理、金属电镀和某些消防泡沫。它可在人体、野生动物和环境中累积。"
       },
       health: {
-        en: "EPA concluded that sufficient PFOS exposure is likely to cause liver, immune, cardiovascular, and developmental effects. Lower infant birth weight and higher total cholesterol in adults were used as the critical effects for EPA’s noncancer value, and immune studies found reduced antibody response in children. EPA also classified PFOS as likely to be carcinogenic to humans. PFOS can accumulate in the body, so continued exposure can add to an existing body burden.",
-        zh: "EPA认为，足够的PFOS暴露可能导致肝脏、免疫、心血管和发育影响。EPA以婴儿出生体重下降和成人总胆固醇升高作为制定非癌症毒性值的关键效应，免疫研究还发现儿童抗体反应降低。EPA也将PFOS归类为可能对人类致癌。PFOS可在体内累积，因此持续暴露会增加已有的体内负担。"
+        en: "EPA links sufficient PFOS exposure with immune, liver, developmental, and cardiovascular effects and classifies PFOS as likely to be carcinogenic. Long-term exposure matters because PFOS can build up in the body.",
+        zh: "EPA将足够的PFOS暴露与免疫、肝脏、发育和心血管影响联系起来，并将PFOS归类为可能对人类致癌。PFOS可在体内累积，因此长期暴露更值得关注。"
       },
       evidence: {
         en: "EPA’s final assessment draws on human, animal, and mechanistic studies and treats developmental, liver, immune, and cardiovascular effects as the strongest noncancer concerns.",
@@ -58,8 +58,8 @@
         zh: "PFHxS是一种持久性PFAS，过去与防污、防水处理和某些消防泡沫有关。它分解很慢，并可能在人体内存在多年。"
       },
       health: {
-        en: "EPA’s final IRIS review concluded that sufficient PFHxS exposure is likely to cause thyroid effects and developmental immune effects. Key evidence included lower anti-tetanus antibody concentrations in children and reduced thyroid hormone T4 in animal offspring. These findings make long-term exposure, pregnancy, and childhood especially relevant periods for exposure reduction. PFHxS also breaks down slowly and can remain in the body for years.",
-        zh: "EPA最终IRIS评估认为，足够的PFHxS暴露可能导致甲状腺影响和发育期免疫影响。关键证据包括儿童抗破伤风抗体浓度下降以及动物后代甲状腺激素T4降低。这些发现使长期暴露、孕期和儿童期成为特别值得减少暴露的时期。PFHxS分解缓慢，并可在体内存在多年。"
+        en: "EPA links sufficient PFHxS exposure with thyroid and developmental immune effects. Pregnancy, infancy, and childhood can be important times to limit avoidable exposure.",
+        zh: "EPA将足够的PFHxS暴露与甲状腺和发育期免疫影响联系起来。孕期、婴儿期和儿童期是减少可避免暴露的重要阶段。"
       },
       evidence: {
         en: "EPA judged the thyroid and developmental immune hazards “likely”; evidence for several other possible outcomes is less certain.",
@@ -76,8 +76,8 @@
         zh: "PFNA是一种长链PFAS，与某些含氟聚合物制造以及防污、防油脂和防水用途有关。它具有持久性，并可在生物体内累积。"
       },
       health: {
-        en: "EPA’s draft review indicates that sufficient PFNA exposure is likely to cause liver effects and male reproductive effects. Animal findings included liver injury and a coherent pattern of adverse male reproductive changes. The draft also found evidence suggesting possible immune suppression, although EPA considered that immune evidence insufficient for a firm conclusion. PFNA is persistent, so continued exposure can increase body burden.",
-        zh: "EPA评估草案认为，足够的PFNA暴露可能导致肝脏影响和男性生殖影响。动物研究发现肝损伤以及一系列一致的不良男性生殖变化。草案还发现提示潜在免疫抑制的证据，但EPA认为免疫证据尚不足以得出明确结论。PFNA具有持久性，因此持续暴露会增加体内负担。"
+        en: "EPA’s draft review links sufficient PFNA exposure with liver and male reproductive effects, mainly from animal studies. The conclusions may change before the review is final.",
+        zh: "EPA评估草案将足够的PFNA暴露与肝脏和男性生殖影响联系起来，证据主要来自动物研究。正式评估完成前，结论仍可能改变。"
       },
       evidence: {
         en: "This is still a draft EPA hazard assessment. The liver and male reproductive concerns are stronger than the current immune evidence, and conclusions may change before finalization.",
@@ -94,8 +94,8 @@
         zh: "HFPO-DA是GenX化学品之一，在制造某些含氟聚合物时用作加工助剂。它曾作为部分旧型PFAS的替代品引入，但在环境中同样具有持久性。"
       },
       health: {
-        en: "EPA’s animal studies reported liver-cell injury, kidney changes, suppressed antibody response, blood changes, early deliveries or developmental delays, and liver and pancreatic tumors. EPA identified the liver as the most sensitive target and described suggestive evidence of carcinogenic potential. HFPO-DA was introduced as a replacement for older PFAS, but replacement does not mean harmless.",
-        zh: "EPA动物研究报告了肝细胞损伤、肾脏变化、抗体反应受抑、血液变化、早产或发育延迟，以及肝脏和胰腺肿瘤。EPA将肝脏确定为最敏感的靶器官，并认为存在提示致癌潜力的证据。HFPO-DA作为旧型PFAS的替代品引入，但“替代品”并不等于无害。"
+        en: "EPA animal studies link sufficient HFPO-DA exposure with liver, kidney, immune, developmental, and tumor effects. Human evidence is limited.",
+        zh: "EPA动物研究将足够的HFPO-DA暴露与肝脏、肾脏、免疫、发育和肿瘤影响联系起来。人体证据仍有限。"
       },
       evidence: {
         en: "The evidence is mainly from animal studies; EPA had not identified human epidemiology studies when it completed the assessment, so the estimate of human risk is less direct.",
@@ -115,12 +115,11 @@
       heroTitle: "U.S. Tap Water PFAS Checker",
       heroSubtitle: "Enter your ZIP code to check PFAS results for local water systems, understand what was found, and see what you can do next.",
       truthNote: "<strong>Before you start:</strong> Your ZIP code can list more than one water system. Match the system name to your water bill before using the results. The measurements come from EPA water-system testing, not your home faucet.",
-      printButton: "Print / Save as PDF for your appointment",
+      printButton: "Print or save for a medical appointment",
       chatTitle: "PFAS Health Assistant", chatSubtitle: "Ask about results, health research, or filters · Not medical advice",
       suggestConcern: "Should I be concerned?", suggestUtility: "How do I confirm my utility?", suggestFilter: "What filter removes PFAS?", suggestHealth: "What health effects are linked to PFAS?",
-      askButton: "Ask", chatDisclaimer: "Always consult a healthcare provider for personal medical guidance.",
-      searchCounter: "searches", clinicalCounter: "clinical uses",
-      clinicalPrompt: "Provider: enter the project code to record an anonymous clinical use", clinicalButton: "Log", clinicalThanks: "Clinical use recorded. No patient information was collected.",
+      askButton: "Ask", chatDisclaimer: "AI can make mistakes. Do not share names or medical details. ZIP results do not use AI.", chatLearnMore: "How it works",
+      searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
       preparing: "Preparing the frozen scientific release.", findSystems: "Check my area",
       verifiedRelease: "Verified release", monitoredSystems: "water systems", zipAssociations: "ZIP codes covered", resultsThrough: "EPA results through January 15, 2026",
@@ -150,7 +149,6 @@
       timeoutError: "The assistant took too long to respond. The lookup remains available; please try the chat again.",
       unavailableError: "The assistant is temporarily unavailable. The verified lookup results above are unaffected.",
       genericError: "The assistant could not complete that request. The verified lookup results above are unaffected.",
-      wrongCode: "The project code was not recognized.",
     },
     zh: {
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
@@ -161,9 +159,8 @@
       printButton: "打印或保存PDF以供就诊参考",
       chatTitle: "PFAS健康助手", chatSubtitle: "可询问结果、健康研究或过滤器 · 非医疗建议",
       suggestConcern: "我应该担心吗？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "哪种过滤器可去除PFAS？", suggestHealth: "PFAS与哪些健康影响有关？",
-      askButton: "提问", chatDisclaimer: "个人医疗问题请始终咨询专业医务人员。",
-      searchCounter: "次查询", clinicalCounter: "次临床使用",
-      clinicalPrompt: "医疗人员：输入项目代码以匿名记录一次临床使用", clinicalButton: "记录", clinicalThanks: "已记录临床使用。未收集患者信息。",
+      askButton: "提问", chatDisclaimer: "AI可能出错。请勿分享姓名或医疗详情。邮政编码结果不使用AI。", chatLearnMore: "工作原理",
+      searchCounter: "次邮政编码查询",
       loadingRelease: "正在加载已验证版本…", releaseUnavailable: "版本不可用", dataUnavailable: "数据不可用", loadingData: "正在加载数据…",
       preparing: "正在准备冻结的科学数据版本。", findSystems: "查询我的地区",
       verifiedRelease: "已验证版本", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "EPA结果截至2026年1月15日",
@@ -193,7 +190,6 @@
       timeoutError: "助手响应时间过长。查询功能仍可使用；请重试。",
       unavailableError: "助手暂时不可用。上方已验证的查询结果不受影响。",
       genericError: "助手无法完成该请求。上方已验证的查询结果不受影响。",
-      wrongCode: "无法识别项目代码。",
     }
   };
 
@@ -311,32 +307,28 @@
         : (isZh ? "— 已检出；年度比较资料不完整" : "— Detected; yearly comparison data are incomplete");
     const comparisonRatio = (valuePpt / outcome.comparisonCutoff) * 100;
     const gaugeFillPct = Math.min(comparisonRatio, 150) / 150 * 100;
-    const ratioLabel = isZh ? `网站技术比较阈值的 ${comparisonRatio.toFixed(0)}%` : `${comparisonRatio.toFixed(0)}% of the website comparison cutoff`;
+    const ratioLabel = isZh ? "检测值与EPA比较水平" : "Measured value compared with the EPA level";
     const benchmarkCopy = isZh
-      ? `2024年4月联邦标准：${outcome.federalLevel} ppt · 2026年1月网站技术比较阈值：${outcome.comparisonCutoff} ppt`
-      : `April 2024 federal level: ${outcome.federalLevel} ppt · January 2026 website comparison cutoff: ${outcome.comparisonCutoff} ppt`;
+      ? `显示的最高年度平均值 · EPA比较水平：${outcome.comparisonCutoff} ppt`
+      : `Highest yearly average shown · EPA comparison: ${outcome.comparisonCutoff} ppt`;
     const resultHeading = isZh ? "🩺 这个水平对您意味着什么" : "🩺 What this level means for you";
     const aboutHeading = isZh ? `🔎 ${outcome.label}是什么` : `🔎 What ${outcome.label} is`;
-    const actionHeading = isZh ? "✅ 您可以采取的行动" : "✅ What you can do";
     const evidenceHeading = isZh ? "证据说明：" : "Evidence note:";
     const concernCopy = status.className === "above"
       ? (isZh
-        ? "这个结果值得认真对待：该供水系统的最高年度平均值达到或超过了EPA技术比较水平。如果这是水费账单上的供水系统，减少持续暴露并向供水机构询问处理和复测计划是合理的下一步。"
-        : "This result deserves attention: the water system’s highest yearly average met or exceeded the EPA technical comparison. If this is the system on your bill, reducing ongoing exposure and asking the utility about treatment and retesting are reasonable next steps.")
+        ? "这个结果值得关注。该供水系统显示的最高年度平均值达到或超过EPA比较水平。采取行动前，请先与水费账单核对系统名称。"
+        : "This result deserves attention. The highest yearly average shown for this water system met or exceeded the EPA comparison. Confirm the system name on your water bill before acting.")
       : status.className === "below"
         ? (isZh
-          ? "该化合物已在采样水中检出，但完整年度平均值低于EPA技术比较水平。低于阈值比高于阈值更令人放心，但并不等于零暴露；如果这是您的供水系统，了解长期趋势并减少可避免的暴露仍然有意义。"
-          : "This compound was detected in sampled water, although the complete yearly average remained below the EPA technical comparison. Below the cutoff is more reassuring than above it, but it is not the same as zero exposure; if this is your system, understanding the long-term trend and reducing avoidable exposure can still be worthwhile.")
+          ? "采样水中检出了这种PFAS，但显示的年度平均值低于EPA比较水平。这更令人放心，但不能证明每个家庭水龙头都不含PFAS。"
+          : "This PFAS was detected, but the yearly average shown stayed below the EPA comparison. That is more reassuring, but it does not prove that every home tap is PFAS-free.")
         : (isZh
-          ? "该化合物已检出，但采样资料不足以完成年度技术比较。现有结果无法说明完整情况，因此如果这是您的供水系统，向供水机构索取完整数据和复测信息很重要。"
-          : "This compound was detected, but the sampling record was not complete enough for the yearly technical comparison. The available result does not settle the full picture, so requesting complete data and retesting information matters if this is your system.");
-    const actionCopy = isZh
-      ? "如果这是水费账单上的供水系统，请询问最高结果来自哪个采样点、较新的结果是升高还是降低、正在使用什么处理方法以及何时复测。如需家用过滤器，请确认具体型号具有NSF/ANSI 53或58标准下的PFAS减少声明，并按期更换滤芯或滤膜。如果家庭中有孕妇、婴幼儿或已知长期暴露者，可将结果带给医疗专业人员讨论。本网站不销售或推荐任何品牌。"
-      : "If this is the system on your bill, ask where the highest sample was collected, whether newer results are rising or falling, what treatment is in place, and when the system will retest. For a home filter, verify that the exact model has a PFAS-reduction claim under NSF/ANSI 53 or 58 and maintain it on schedule. If someone is pregnant, very young, or has known long-term exposure, bringing the result to a healthcare professional for discussion is reasonable. PFAS Estimator does not sell or endorse brands.";
+          ? "检出了这种PFAS，但采样资料不足以完成年度比较。如果这是水费账单上的供水系统，请向供水机构索取完整结果和复测信息。"
+          : "This PFAS was detected, but the sampling record was not complete enough for a yearly comparison. If this is the system on your bill, ask the utility for complete results and retesting information.");
     const resultCopy = `${concernCopy} ${guidance.health[currentLang]}`;
     const riskBoundary = isZh
-      ? "这些危害结论涉及足够暴露条件下的人群或动物证据；单一供水系统平均值不能证明某种疾病由该水源引起。"
-      : "These hazard findings concern sufficient exposure and population or animal evidence; one water-system average cannot prove that a specific illness was caused by this water.";
+      ? "这些研究不能证明某种疾病由这个供水系统引起。"
+      : "These studies cannot prove that this water system caused a specific illness.";
 
     return `<article class="detail-box compound-education-card ${status.className}">
       <header class="compound-education-head">
@@ -349,11 +341,25 @@
         ${status.className === "incomplete" ? `<p class="compound-incomplete-note">${isZh ? "完整采样资料不足，因此本网站不为该年度平均值分配比较结论。" : "Complete sampling information is unavailable, so the site does not assign a yearly comparison conclusion."}</p>` : `<div class="epa-bar"><div class="epa-bar-label">${escapeHtml(ratioLabel)}</div><div class="bar-track"><div class="bar-fill ${status.className === "above" ? "above" : ""}" style="width:${gaugeFillPct.toFixed(2)}%"></div><div class="bar-tick"></div></div></div>`}
       </div>
       <div class="science-box compound-result-explanation"><h3>${resultHeading}</h3><p>${escapeHtml(resultCopy)}</p></div>
-      <div class="science-box compound-about"><h3>${aboutHeading}</h3><p>${escapeHtml(guidance.about[currentLang])}</p></div>
-      <div class="science-box compound-action"><h3>${actionHeading}</h3><p>${escapeHtml(actionCopy)}</p></div>
-      <div class="compound-evidence-note"><strong>${evidenceHeading}</strong> ${escapeHtml(guidance.evidence[currentLang])} ${escapeHtml(riskBoundary)}</div>
-      ${renderCompoundReferences(guidance)}
+      <details class="compound-results-details">
+        <summary>${isZh ? `了解${outcome.label}和资料来源` : `About ${outcome.label} and sources`}</summary>
+        <div class="science-box compound-about"><h3>${aboutHeading}</h3><p>${escapeHtml(guidance.about[currentLang])}</p></div>
+        <div class="compound-evidence-note"><strong>${evidenceHeading}</strong> ${escapeHtml(guidance.evidence[currentLang])} ${escapeHtml(riskBoundary)}</div>
+        ${renderCompoundReferences(guidance)}
+      </details>
     </article>`;
+  }
+
+  function renderSystemAction(hasAboveComparison) {
+    const isZh = currentLang === "zh";
+    const copy = isZh
+      ? (hasAboveComparison
+        ? "请先与水费账单核对供水系统，然后询问最新检测、处理方法和复测计划。如果需要过滤器，请核实具体型号具有NSF/ANSI 53或58的PFAS减少声明。孕妇、幼儿家庭或担心长期暴露的人可保存结果并咨询医疗专业人员。"
+        : "请先与水费账单核对供水系统。如果仍担心PFAS，可询问供水机构的最新检测，或核实具体过滤器型号具有NSF/ANSI 53或58的PFAS减少声明。")
+      : (hasAboveComparison
+        ? "Confirm the system on your water bill. Then ask about newer testing, treatment, and retesting. If you want a filter, verify that the exact model has an NSF/ANSI 53 or 58 PFAS-reduction claim. People who are pregnant, caring for a young child, or concerned about long-term exposure can save the result to discuss with a healthcare professional."
+        : "Confirm the system on your water bill. If you still have PFAS concerns, ask the utility for newer testing or verify that an exact filter model has an NSF/ANSI 53 or 58 PFAS-reduction claim.");
+    return `<div class="science-box compound-action"><h3>${isZh ? "✅ 您可以采取的行动" : "✅ What you can do"}</h3><p>${escapeHtml(copy)}</p></div>`;
   }
 
   function renderOutcomeList(system) {
@@ -393,7 +399,7 @@
       .sort((a, b) => Number(b.status.className === "above") - Number(a.status.className === "above") || ((numericAverage(b.outcome, b.status) || 0) / b.outcome.comparisonCutoff) - ((numericAverage(a.outcome, a.status) || 0) / a.outcome.comparisonCutoff));
     const featuredMarkup = featuredOutcomes.length
       ? `<div class="compound-education-list">${featuredOutcomes.map(item => renderCompoundEducationCard(system, item.outcome)).join("")}</div>`
-      : `<div class="consumer-no-detections">${currentLang === "zh" ? "该供水系统显示的完整年度平均值中没有PFAS检出。" : "No PFAS detection appears in the complete yearly averages shown for this water system."}</div>`;
+      : `<div class="consumer-no-detections">${currentLang === "zh" ? "该供水系统显示的六项PFAS结果中没有检出。" : "No detection appears among the six PFAS results shown for this water system."}</div>`;
     return `<article class="detail-box system-summary-card water-system-card ${above ? "has-comparison" : ""}">
       <header class="system-summary-head">
         <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} ${currentLang === "zh" ? "供水系统" : "WATER SYSTEM"}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3><p>PWSID ${escapeHtml(system.pwsid)}</p></div>
@@ -406,6 +412,7 @@
         <span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span>
       </div>
       ${featuredMarkup}
+      ${renderSystemAction(above)}
       ${renderHazardIndexEducation(system)}
       <details class="compound-results-details">
         <summary>${detailsLabel}</summary>
@@ -443,7 +450,7 @@
     const lines = [
       `Release: ${release.release_id}.`,
       "The ZIP link can list multiple water systems and does not confirm the utility for a specific home. The user should match the system name to a water bill.",
-      "Values are EPA-derived yearly averages from water-system sampling locations, not home-faucet tests. Comparison labels do not by themselves determine compliance, personal exposure, safety, or health risk.",
+      "Each value shown is the highest EPA-derived annual average among that water system's sampling locations. It is not a system-wide average or a home-faucet test. Comparison labels do not by themselves determine compliance, personal exposure, safety, or health risk.",
       `Water systems displayed: ${systems.length}.`
     ];
     selected.forEach(system => {
@@ -541,33 +548,11 @@
   }
 
   async function loadCounters() {
-    const results = await Promise.allSettled([counterRequest("searches"), counterRequest("clinical")]);
-    if (results[0].status === "fulfilled") displayCount("searchCount", results[0].value);
-    if (results[1].status === "fulfilled") displayCount("clinicalCount", results[1].value);
+    try { displayCount("searchCount", await counterRequest("searches")); } catch (error) { console.warn("Search counter unavailable", error); }
   }
 
   async function incrementSearchCounter() {
     try { displayCount("searchCount", await counterRequest("searches", "increment")); } catch (error) { console.warn("Search counter unavailable", error); }
-  }
-
-  async function recordClinicalUse() {
-    const input = $("clinicalCode");
-    if (input.value !== "369") {
-      input.value = "";
-      input.placeholder = text("wrongCode");
-      window.setTimeout(() => { input.placeholder = "···"; }, 1800);
-      return;
-    }
-    try {
-      displayCount("clinicalCount", await counterRequest("clinical", "increment"));
-      $("clinicalConfirm").classList.add("visible");
-      input.disabled = true;
-      $("clinicalButton").disabled = true;
-    } catch (error) {
-      console.warn("Clinical counter unavailable", error);
-      $("clinicalConfirm").classList.add("visible");
-      $("clinicalConfirm").textContent = text("unavailableError");
-    }
   }
 
   function renderLookup(zip, incrementCounter = true) {
@@ -583,7 +568,6 @@
       body.innerHTML = "";
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
-      $("clinicalLog").classList.remove("visible");
       return;
     }
 
@@ -611,7 +595,6 @@
       body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p></div>`;
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
-      $("clinicalLog").classList.remove("visible");
       resetChat(text("contextReadyNone"));
       return;
     }
@@ -623,7 +606,6 @@
     body.innerHTML = `${renderFilterGuide(aboveCount > 0)}${systems.map(renderSystem).join("")}`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
-    $("clinicalLog").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
   }
 
@@ -675,8 +657,6 @@
     $("aiInput").value = currentLang === "zh" ? button.dataset.questionZh : button.dataset.questionEn;
     sendChat();
   });
-  $("clinicalButton").addEventListener("click", recordClinicalUse);
-  $("clinicalCode").addEventListener("keydown", event => { if (event.key === "Enter") recordClinicalUse(); });
   function toggleLanguage() { currentLang = currentLang === "en" ? "zh" : "en"; applyLanguage(); trackEvent("language_switch", { language: currentLang }); }
   $("languageToggle").addEventListener("click", toggleLanguage);
   $("languageToggle").addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggleLanguage(); } });

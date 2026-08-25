@@ -59,7 +59,7 @@
     gtag('config','G-FZQTEJ4LLY');
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
-  <script defer src="/scientific-site-v2.js?v=20260821-compound-risk-awareness"></script>
+  <script defer src="/scientific-site-v2.js?v=20260825-community-resource"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -125,7 +125,7 @@
               <input type="text" id="aiInput" placeholder="Ask about PFAS or your results..." maxlength="700" />
               <button id="aiSendBtn" type="button" data-i18n="askButton">Ask</button>
             </div>
-            <div class="ai-disclaimer" data-i18n="chatDisclaimer">Always consult a healthcare provider for personal medical guidance.</div>
+            <div class="ai-disclaimer"><span data-i18n="chatDisclaimer">AI can make mistakes. Do not share names or medical details. ZIP results do not use AI.</span> <a href="/methodology/#website" data-i18n="chatLearnMore">How it works</a></div>
           </aside>
         </div>
 
@@ -144,13 +144,7 @@
             <div class="print-footer">EPA UCMR 5 results through January 15, 2026. A ZIP search cannot confirm the water system for a specific home. These results are not a home-faucet test or a medical diagnosis.</div>
           </div>
 
-          <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print / Save as PDF for your appointment</button>
-          <div class="clinical-log" id="clinicalLog">
-            <span data-i18n="clinicalPrompt">Provider: enter the project code to record an anonymous clinical use</span>
-            <input type="password" id="clinicalCode" inputmode="numeric" maxlength="3" placeholder="···" />
-            <button id="clinicalButton" type="button" data-i18n="clinicalButton">Log</button>
-            <div class="clinical-confirm" id="clinicalConfirm" data-i18n="clinicalThanks">Clinical use recorded. No patient information was collected.</div>
-          </div>
+          <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save for a medical appointment</button>
         </div>
       </section>
 
@@ -162,6 +156,7 @@
         <p><strong>3. If you want a filter, verify the exact certification.</strong> EPA recommends checking the product label and an accredited certification directory for an <strong>NSF/ANSI 53 or NSF/ANSI 58 PFAS-reduction claim</strong>. Replace filters on schedule. Current certifications do not necessarily show that a device reduces PFAS to every 2024 EPA limit.</p>
         <p><a class="source-link" href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">EPA guide to PFAS filters →</a> · <a class="source-link" href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">Certified filter guidance →</a></p>
         <p>Built by Jack Zhang in Los Gatos, California · <a class="source-link" href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a></p>
+        <p>Joshua Tamayo-Sarver, MD, PhD, provided early feedback that helped shape the project’s clinical framing.</p>
       </section>
 
       <div class="disclaimer">
@@ -171,7 +166,6 @@
   </div>
 </div>
 
-<div class="counter-badge"><span id="searchCount">—</span> <span data-i18n="searchCounter">searches</span></div>
-<div class="counter-badge" style="bottom:52px;"><span id="clinicalCount">—</span> <span data-i18n="clinicalCounter">clinical uses</span></div>
+<div class="counter-badge"><span id="searchCount">—</span> <span data-i18n="searchCounter">ZIP searches</span></div>
 </body>
 </html>

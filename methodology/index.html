@@ -130,7 +130,7 @@
             <strong>Release lock.</strong> Manuscript tables and website records are generated from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. They are not calculated independently in the browser. Input and artifact hashes are recorded so later refreshes cannot silently alter the reported results.
           </div>
 
-          <p>EPA described the January 2026 data as approximately 95% of expected UCMR 5 results and planned a final release for fall 2026. The manuscript must identify this as an interim federal release and perform one controlled refresh before submission if the final release is available.</p>
+          <p>EPA described the January 2026 data as approximately 95% of expected UCMR 5 results and planned a final release for fall 2026. The submitted manuscript identifies this as an interim release. When EPA publishes final results, the project will create a new version instead of silently replacing this one.</p>
         </section>
 
         <section class="methodology-section" id="cohort">
@@ -251,13 +251,15 @@
             <span class="methodology-section-number">08</span>
             <div>
               <h2>Website and PFAS Health Assistant</h2>
-              <p>The lookup uses fixed EPA results; the assistant only explains them.</p>
+              <p>The lookup uses fixed EPA results. The optional assistant helps people understand them.</p>
             </div>
           </div>
 
           <p>The ZIP lookup reads directly from the frozen scientific export. It finds water systems connected with the entered ZIP and displays their EPA yearly averages. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
 
-          <p>The PFAS Health Assistant is optional. It receives a short text summary of the water systems shown only after a visitor asks a question. It can explain terms, health research, utility follow-up, and filter guidance, but it cannot change a number or comparison on the page. If the assistant is unavailable, the ZIP lookup continues to work.</p>
+          <p>The PFAS Health Assistant is optional. The ZIP lookup itself does not use AI. When someone asks a question, the question and a short summary of the displayed water-system results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
+
+          <p>The assistant can explain terms, health research, utility follow-up, and filter guidance. It is limited to a compact evidence set based on EPA, ATSDR, and NSF guidance. It cannot change a number or comparison on the page, confirm which system serves a home, diagnose illness, or determine personal exposure. Its answers may still contain mistakes. If it is unavailable, the ZIP lookup continues to work.</p>
 
           <div class="truth-callout">
             <div class="truth-callout-label">Before buying a filter</div>
@@ -302,7 +304,9 @@
 
           <p><strong>The manuscript and analysis have not completed independent peer review.</strong> Planned or requested review is not represented as completed review, institutional endorsement, or authorship. Authorship must reflect substantive contribution, accountability, final approval, and the ability to defend the work; family relationship, title, or affiliation is not evidence of contribution.</p>
 
-          <p>The remaining high-priority external review targets are below-quantitation handling, mixture construction, service-area interpolation, compositional modeling, spatial inference, and the final policy interpretation. Any resulting method change must be logged and rerun through the same pipeline.</p>
+          <p>Joshua Tamayo-Sarver, MD, PhD, provided early feedback that helped shape the project’s clinical framing. This acknowledgment does not represent current clinical validation, supervision, or institutional endorsement.</p>
+
+          <p>Future external review may identify scientific or communication changes. Any method change must be logged and rerun through the same pipeline.</p>
         </section>
 
         <section class="methodology-section" id="citations">
@@ -321,13 +325,14 @@
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/sdwa/proposed-pfas-rescission-rule" target="_blank" rel="noopener noreferrer">Proposed PFAS rescission rule</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/ground-water-and-drinking-water/public-water-system-service-areas" target="_blank" rel="noopener noreferrer">Public Water System Service Areas</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">Reducing PFAS in Your Drinking Water with a Home Filter</a>.</li>
+            <li>Agency for Toxic Substances and Disease Registry. <a href="https://www.atsdr.cdc.gov/pfas/about/health-effects.html" target="_blank" rel="noopener noreferrer">How PFAS Impacts Your Health</a>.</li>
             <li>NSF. <a href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">PFAS in Drinking Water: Filter Certification Guidance</a>.</li>
             <li>US Census Bureau. <a href="https://www.census.gov/data/developers/data-sets/acs-5year.html" target="_blank" rel="noopener noreferrer">American Community Survey 5-year data</a>.</li>
             <li>Conley TG. GMM estimation with cross sectional dependence. <em>Journal of Econometrics</em>. 1999;92(1):1–45. <a href="https://doi.org/10.1016/S0304-4076(98)00084-0" target="_blank" rel="noopener noreferrer">doi:10.1016/S0304-4076(98)00084-0</a>.</li>
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Website explanation updated August 20, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Website explanation updated August 25, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
       </main>
     </div>
   </div>

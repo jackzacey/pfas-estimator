@@ -15,7 +15,13 @@ const ALLOWED_COMPOUNDS = new Set([
   "PFOA", "PFOS", "PFNA", "PFHxS", "PFHpA", "PFDA",
   "PFBA", "PFPeA", "PFBS", "6:2 FTS", "HFPO-DA", "Lithium"
 ]);
-const ALLOWED_COUNTERS = new Set(["searches", "clinical"]);
+const ALLOWED_COUNTERS = new Set(["searches"]);
+const APPROVED_CHAT_EVIDENCE = `Use only this evidence for general health and filter explanations:
+- EPA says many PFAS break down slowly and can build up in people and the environment. Research links sufficient exposure to certain PFAS with immune, developmental, reproductive, hormonal, cholesterol, liver, and some cancer outcomes. Research is still developing, and a water-system result cannot establish a person's dose, duration of exposure, or health outcome.
+- ATSDR says the chance of a health effect depends on dose, frequency, route, duration, individual sensitivity, and other health factors. Its epidemiologic summary reports associations for specific PFAS, including cholesterol changes, reduced vaccine response, liver-enzyme changes, pregnancy-related high blood pressure, small birth-weight decreases, and kidney or testicular cancer for PFOA.
+- EPA says a home filter may help reduce PFAS after a person confirms what is in their water. A buyer should verify an exact PFAS-reduction claim under NSF/ANSI 53 or NSF/ANSI 58, confirm the model in an accredited directory, and replace it on schedule. Current certifications do not necessarily show reduction to every 2024 federal limit.
+- Do not recommend a brand or claim that a filter eliminates all PFAS.
+Approved source labels: EPA PFAS health guidance; ATSDR PFAS health guidance; EPA home-filter guidance; NSF certification guidance.`;
 
 // This is a best-effort burst guard for deployments without a Cloudflare
 // Rate Limiting binding. Bind AI_RATE_LIMITER for durable per-IP enforcement.
@@ -52,6 +58,9 @@ export default {
     try {
       if (body.action === "counter") {
         const payload = sanitizeCounterRequest(body);
+        if (payload.operation === "increment" && !(await allowRequest(request, env, "counter"))) {
+          return jsonResponse({ error: "Too many counter requests. Please try again shortly." }, 429, cors);
+        }
         const count = await handleCounter(env, payload);
         return jsonResponse({ count }, 200, cors, { "Cache-Control": "no-store" });
       }
@@ -340,29 +349,58 @@ async function createChatReply(env, payload) {
       ? "That is outside what I can help with here, but I can explain the public-water-system results displayed on the page, PFAS research, and verifiable next steps."
       : "That is outside what I can help with here, but I'm happy to answer questions about PFAS, water quality, and environmental health.");
 
-  const systemPrompt = `${isZh ? "Respond entirely in Simplified Chinese (简体中文). " : ""}You are the optional explanatory assistant for PFAS Estimator, a public-health informatics website. The lookup and all numerical classifications are deterministic. Answer from the supplied system context and established public-health evidence without changing, recomputing, or extending the displayed results.
+  const systemPrompt = `${isZh ? "Respond entirely in Simplified Chinese (简体中文). " : ""}You are the optional explanatory assistant for PFAS Estimator, a community water-information resource. The ZIP lookup and all numerical classifications are fixed and do not use AI. Explain the supplied results without changing, recomputing, or extending them.
 
 ${contextBlock}
+
+${APPROVED_CHAT_EVIDENCE}
 
 Guidelines:
 - Only answer questions related to PFAS, public water systems, water quality, environmental health, or adjacent medical topics.
 - If asked about anything unrelated, politely redirect: "${redirect}"
 - Treat a ZIP match only as a potentially relevant public-water-system association. Never say or imply that a listed system serves the user's household.
-- Describe values only as EPA-derived sampling-location annual averages. Never call them household-tap measurements.
+- Describe a displayed value as the highest EPA-derived annual average shown among that water system's sampling locations. Never call it a system-wide average or household-tap measurement.
 - Describe comparison flags only as EPA technical comparisons. Never call them violations, compliance findings, safe/unsafe determinations, exposure estimates, or personal risk scores.
 - Use only the supplied context for system names, measurements, counts, and comparison status. If a requested fact is absent, say that it is not shown.
-- Be honest about uncertainty in health research. Never diagnose or infer that a displayed result caused or predicts disease.
-- For personal medical decisions, recommend consultation with a qualified healthcare professional.
+- For health or filter explanations, use only the approved evidence above. If it does not support an answer, say that the verified sources here do not answer the question.
+- Be honest about uncertainty. Never diagnose, predict disease, or say that a displayed result caused an illness.
+- For personal medical decisions, do not give a direct instruction. Suggest discussing the result with a qualified healthcare professional when appropriate.
 - For filters or treatment, advise checking current independent certification for PFAS reduction and the named utility's current water-quality information; do not invent product performance.
-- Be concise: two to five sentences unless the question clearly requires more.
-- Return plain text without Markdown headings, bullets, emphasis markers, tables, or links.
+- Use familiar words and short sentences. Default to two or three sentences and give the practical answer first.
+- Return plain text without Markdown headings, bullets, emphasis markers, tables, links, or source notes. A source label is added separately.
 - Never be alarmist, falsely reassuring, or promotional.`;
 
-  return callGroq(
+  const content = await callGroq(
     env,
     [{ role: "system", content: systemPrompt }, ...payload.messages],
     420
   );
+  return normalizeChatReply(content, payload);
+}
+
+function normalizeChatReply(content, payload) {
+  const isZh = payload.language === "zh";
+  let reply = cleanString(content, 1800)
+    .replace(/\*\*|__/g, "")
+    .replace(/`/g, "")
+    .replace(/\bsystem[- ]wide(?: EPA)?(?: sampling)? averages\b/gi, "highest annual averages shown among the water system's EPA sampling locations")
+    .replace(/\bsystem[- ]wide(?: EPA)?(?: sampling)? average\b/gi, "highest annual average shown among the water system's EPA sampling locations")
+    .replace(/\bclinically (?:approved|validated)\b/gi, "designed for public education");
+
+  const question = payload.messages.at(-1)?.content?.toLowerCase() || "";
+  let source = "";
+  if (/filter|reverse osmosis|charcoal|carbon|ion exchange|nsf|过滤|滤芯|反渗透/.test(question)) {
+    source = isZh ? "资料：EPA家用过滤器指南和NSF认证指南。" : "Source: EPA home-filter guidance and NSF certification guidance.";
+  } else if (/health|cancer|pregnan|child|baby|immune|thyroid|liver|cholesterol|doctor|medical|健康|癌|孕|儿童|婴儿|免疫|甲状腺|肝|胆固醇|医生|医疗/.test(question)) {
+    source = isZh ? "资料：EPA和ATSDR的PFAS健康指南。" : "Source: EPA and ATSDR PFAS health guidance.";
+  } else if (/pfas|water|utility|system|result|level|comparison|epa|供水|水质|结果|数值|比较/.test(question)) {
+    source = payload.zip_context
+      ? (isZh ? "资料：本页显示的EPA UCMR 5数据。" : "Source: EPA UCMR 5 data shown on this page.")
+      : (isZh ? "资料：EPA PFAS指南。" : "Source: EPA PFAS guidance.");
+  }
+
+  if (source && !/\bsource\s*:/i.test(reply) && !/资料[:：]/.test(reply)) reply = `${reply}\n\n${source}`;
+  return reply;
 }
 
 async function callGroq(env, messages, maxTokens) {
@@ -382,7 +420,7 @@ async function callGroq(env, messages, maxTokens) {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${env.GROQ_API_KEY}`
         },
-        body: JSON.stringify({ model, max_tokens: maxTokens, messages })
+        body: JSON.stringify({ model, max_tokens: maxTokens, temperature: 0.2, messages })
       });
     } catch (error) {
       const networkError = new Error("Groq could not be reached.");
