@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">PFAS Estimator water location mark</title>
+  <rect width="512" height="512" rx="92" fill="#ffffff"/>
+  <g fill="none" stroke="#35aeb1" stroke-width="15">
+    <ellipse cx="256" cy="407" rx="132" ry="45"/>
+    <ellipse cx="256" cy="407" rx="88" ry="29"/>
+    <ellipse cx="256" cy="407" rx="43" ry="14"/>
+  </g>
+  <path fill="#08366b" d="M256 48c-92 0-167 75-167 167 0 125 136 224 154 236a23 23 0 0 0 26 0c18-12 154-111 154-236 0-92-75-167-167-167Z"/>
+  <path fill="#9edbf4" d="M256 123c-24 36-78 99-78 151 0 45 35 81 78 81s78-36 78-81c0-52-54-115-78-151Z"/>
+</svg>

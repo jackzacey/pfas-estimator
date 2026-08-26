@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">PFAS Estimator</title>
+  <desc id="desc">Check EPA water-system results by ZIP code</desc>
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <g transform="translate(80 86)">
+    <g fill="none" stroke="#35aeb1" stroke-width="8">
+      <ellipse cx="185" cy="394" rx="150" ry="48"/>
+      <ellipse cx="185" cy="394" rx="100" ry="31"/>
+      <ellipse cx="185" cy="394" rx="50" ry="15"/>
+    </g>
+    <path fill="#08366b" d="M185 0C91 0 15 76 15 170c0 128 138 228 157 240a23 23 0 0 0 26 0c19-12 157-112 157-240C355 76 279 0 185 0Z"/>
+    <path fill="#9edbf4" d="M185 76c-25 37-79 101-79 154 0 46 35 83 79 83s79-37 79-83c0-53-54-117-79-154Z"/>
+  </g>
+  <g fill="#08366b" font-family="Avenir Next, Avenir, Helvetica Neue, Arial, sans-serif">
+    <text x="450" y="284" font-size="76" font-weight="700" letter-spacing="0.5">PFAS ESTIMATOR</text>
+    <text x="454" y="360" font-size="33" font-weight="500" fill="#1769aa">Check EPA water-system results by ZIP code</text>
+    <rect x="454" y="397" width="575" height="5" rx="2.5" fill="#35aeb1"/>
+    <text x="454" y="451" font-size="23" font-weight="500" letter-spacing="1.4" fill="#4a6278">PUBLIC EPA UCMR 5 DATA • CLEAR NEXT STEPS</text>
+  </g>
+</svg>
