@@ -4,7 +4,6 @@
 import argparse
 import html
 import json
-import shutil
 import tempfile
 from pathlib import Path
 
@@ -45,6 +44,21 @@ def render_template(template, values):
     for key, value in values.items():
         result = result.replace("{{" + key + "}}", str(value))
     return result
+
+
+def atomic_write_text(path, content):
+    """Write one generated file without swapping or removing its parent directory."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        encoding="utf-8",
+        dir=path.parent,
+        prefix=f".{path.name}.",
+        delete=False,
+    ) as handle:
+        handle.write(content)
+        temporary_path = Path(handle.name)
+    temporary_path.replace(path)
 
 
 def eligible_systems_by_state(systems):
@@ -93,7 +107,7 @@ def state_structured_data(base_url, name, slug, description, lastmod):
     return json.dumps({
         "@context": "https://schema.org",
         "@graph": [
-            {"@type": "WebPage", "@id": f"{base_url}/states/{slug}/#page", "url": f"{base_url}/states/{slug}/", "name": f"PFAS monitoring comparisons in {name}", "description": description, "dateModified": lastmod, "isPartOf": {"@id": f"{base_url}/#website"}, "about": {"@id": f"{base_url}/#dataset"}},
+            {"@type": "WebPage", "@id": f"{base_url}/states/{slug}/#page", "url": f"{base_url}/states/{slug}/", "name": f"PFAS in {name} Drinking Water", "description": description, "dateModified": lastmod, "isPartOf": {"@id": f"{base_url}/#website"}, "about": {"@id": f"{base_url}/#dataset"}},
             {"@type": "BreadcrumbList", "itemListElement": [
                 {"@type": "ListItem", "position": 1, "name": "PFAS Estimator", "item": f"{base_url}/"},
                 {"@type": "ListItem", "position": 2, "name": "Explore by state", "item": f"{base_url}/states/"},
@@ -133,10 +147,10 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
       </section>''')
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PFAS Monitoring Comparisons by State | PFAS Estimator</title><meta name="description" content="Browse system-level EPA UCMR 5 technical-comparison summaries for states and territories." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" /></head>
+<title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using unique active community water systems with complete monitoring." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" /></head>
 <body class="methodology-body states-body"><a class="skip-link" href="#states-content">Skip to state directory</a><div class="methodology-shell states-shell">
 <nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary"><a href="/">ZIP Lookup</a><a href="/map/">Map</a><a href="/state-table/">State Table</a><a href="/states/" aria-current="page">Explore by State</a><a href="/methodology/">Full Methodology</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a></nav>
-<header class="methodology-hero states-hero"><div class="methodology-kicker">System-level monitoring directory</div><h1>Explore PFAS comparisons by state</h1><p class="methodology-lede">Browse unique active community water systems with complete UCMR 5 monitoring. State pages preserve the familiar visual directory while replacing legacy ZIP-maximum statistics.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
+<header class="methodology-hero states-hero"><div class="methodology-kicker">System-level monitoring directory</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse unique active community water systems with complete UCMR 5 monitoring. State pages preserve the familiar visual directory while replacing legacy ZIP-maximum statistics.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
 <main class="states-content" id="states-content"><section class="states-orientation"><div class="states-orientation-copy"><span class="states-card-kicker">Place-based exploration</span><h2>See what complete monitoring found</h2><p>Percentages use unique eligible systems as the denominator. They are not ZIP prevalence, household exposure, population risk, or compliance estimates.</p></div><div class="states-zip-cta"><span>Checking a specific area?</span><strong>Start with the system lookup.</strong><a href="/">Open national lookup <span aria-hidden="true">&rarr;</span></a></div></section>
 <section class="state-directory"><div class="state-directory-heading"><div><span class="states-card-kicker">Browse the release</span><h2>Find a state or territory</h2><p>Search by name or abbreviation, or narrow the directory by region.</p></div><span class="state-result-count" id="stateResultsCount" aria-live="polite">{len(rows)} jurisdictions</span></div>
 <div class="state-search-wrap"><label for="stateSearch">Search states and territories</label><div class="state-search-control"><input id="stateSearch" type="search" autocomplete="off" placeholder="Try California, New York, or PR" /><button id="stateSearchClear" class="state-search-clear" type="button" hidden>Clear</button></div></div>
@@ -176,11 +190,19 @@ def validate(summary_rows, grouped, pages):
     return problems
 
 
-def update_sitemap(path, base_url, slugs, lastmod):
+def update_sitemap(path, base_url, slugs, site_meta):
     urls = ["", "map/", "state-table/", "states/", "methodology/"] + [f"states/{slug}/" for slug in slugs]
+    static_lastmods = {
+        "": site_meta["homepage_lastmod"],
+        "map/": site_meta["dataset_lastmod"],
+        "state-table/": site_meta["dataset_lastmod"],
+        "states/": site_meta["states_index_lastmod"],
+        "methodology/": site_meta["methodology_lastmod"],
+    }
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for relative in urls:
         priority = "1.0" if not relative else "0.8" if relative in ("map/", "state-table/", "states/", "methodology/") else "0.6"
+        lastmod = static_lastmods.get(relative, site_meta["state_pages_lastmod"])
         lines.append(f"  <url><loc>{base_url}/{relative}</loc><lastmod>{lastmod}</lastmod><changefreq>monthly</changefreq><priority>{priority}</priority></url>")
     lines.append("</urlset>")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -214,13 +236,13 @@ def main():
         denominator = int(summary["eligible_cws_with_complete_monitoring"])
         above = int(summary["above_any_april_2024_benchmark"])
         pct = above / denominator * 100 if denominator else 0
-        description = f"System-level EPA UCMR 5 PFAS technical-comparison summary for {name}: {above} of {denominator} eligible active community water systems with complete monitoring met at least one comparison."
+        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} eligible community water systems with complete monitoring met a technical comparison."
         pages[slug] = render_template(template, {
-            "TITLE": f"PFAS Monitoring Comparisons in {name} | PFAS Estimator",
+            "TITLE": f"PFAS in {name} Drinking Water | EPA UCMR 5 Results",
             "META_DESCRIPTION": html.escape(description, quote=True),
             "CANONICAL_URL": f'{site_meta["base_url"]}/states/{slug}/',
             "BASE_URL": site_meta["base_url"],
-            "STRUCTURED_DATA_JSON": state_structured_data(site_meta["base_url"], name, slug, description, site_meta["dataset_lastmod"]),
+            "STRUCTURED_DATA_JSON": state_structured_data(site_meta["base_url"], name, slug, description, site_meta["state_pages_lastmod"]),
             "STATE_NAME": html.escape(name), "STATE_CODE": code,
             "ELIGIBLE_SYSTEMS": f"{denominator:,}", "ABOVE_SYSTEMS": f"{above:,}", "PCT_ABOVE": f"{pct:.1f}",
             "RELEASE_ID": metadata["release_id"],
@@ -234,21 +256,11 @@ def main():
     if args.dry_run:
         print(f"Validated {len(pages)} state and territory pages from {sum(len(rows) for rows in grouped.values()):,} unique eligible systems.")
         return
-    with tempfile.TemporaryDirectory(prefix="pfas_state_build_", dir=root) as tmp:
-        build_root = Path(tmp) / "states"
-        build_root.mkdir()
-        (build_root / "index.html").write_text(index_html, encoding="utf-8")
-        for slug, content in pages.items():
-            destination = build_root / slug
-            destination.mkdir()
-            (destination / "index.html").write_text(content, encoding="utf-8")
-        target = root / "states"
-        backup = Path(tmp) / "states_backup"
-        if target.exists():
-            target.rename(backup)
-        build_root.rename(target)
-        shutil.rmtree(backup, ignore_errors=True)
-    update_sitemap(root / "sitemap.xml", site_meta["base_url"], slugs, site_meta["dataset_lastmod"])
+    target = root / "states"
+    atomic_write_text(target / "index.html", index_html)
+    for slug, content in pages.items():
+        atomic_write_text(target / slug / "index.html", content)
+    update_sitemap(root / "sitemap.xml", site_meta["base_url"], slugs, site_meta)
     print(f"Published {len(pages)} validated state and territory pages from the frozen {metadata['release_id']} release.")
 
 

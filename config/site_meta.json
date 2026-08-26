@@ -1,8 +1,10 @@
 {
   "data_updated_label": "August 2026",
   "dataset_lastmod": "2026-08-20",
+  "homepage_lastmod": "2026-08-25",
   "methodology_lastmod": "2026-08-20",
-  "states_index_lastmod": "2026-08-20",
+  "state_pages_lastmod": "2026-08-25",
+  "states_index_lastmod": "2026-08-25",
   "base_url": "https://pfasestimator.org",
   "excluded_from_generation": [],
   "exclusion_reason": {}
