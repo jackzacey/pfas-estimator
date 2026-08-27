@@ -132,10 +132,10 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
             above = int(summary["above_any_april_2024_benchmark"])
             pct = above / denominator * 100 if denominator else 0
             cards.append(f'''          <article class="state-directory-card" data-state-card data-region="{region.lower()}" data-state-search="{html.escape(name.lower())} {code.lower()}">
-            <a href="/states/{slugify(name)}/" aria-label="View system-level PFAS monitoring comparisons for {html.escape(name)}">
+            <a href="/states/{slugify(name)}/" aria-label="View PFAS water-system results for {html.escape(name)}">
               <div class="state-directory-card-top"><span class="state-abbreviation" aria-hidden="true">{code}</span><span class="state-card-region">{region}</span></div>
               <h3>{html.escape(name)}</h3>
-              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of eligible complete-monitoring CWSs meeting any comparison</span></div>
+              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with complete monitoring that met a comparison</span></div>
               <div class="state-card-bar" aria-hidden="true"><span style="width:{min(pct, 100):.1f}%"></span></div>
               <div class="state-card-footer"><span>{above:,} of {denominator:,} systems</span><span class="state-card-link">View systems <span aria-hidden="true">&rarr;</span></span></div>
             </a>
@@ -150,13 +150,13 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
 <title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using unique active community water systems with complete monitoring." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" /></head>
 <body class="methodology-body states-body"><a class="skip-link" href="#states-content">Skip to state directory</a><div class="methodology-shell states-shell">
 <nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary"><a href="/">ZIP Lookup</a><a href="/map/">Map</a><a href="/state-table/">State Table</a><a href="/states/" aria-current="page">Explore by State</a><a href="/methodology/">Full Methodology</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a></nav>
-<header class="methodology-hero states-hero"><div class="methodology-kicker">System-level monitoring directory</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse unique active community water systems with complete UCMR 5 monitoring. State pages preserve the familiar visual directory while replacing legacy ZIP-maximum statistics.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
-<main class="states-content" id="states-content"><section class="states-orientation"><div class="states-orientation-copy"><span class="states-card-kicker">Place-based exploration</span><h2>See what complete monitoring found</h2><p>Percentages use unique eligible systems as the denominator. They are not ZIP prevalence, household exposure, population risk, or compliance estimates.</p></div><div class="states-zip-cta"><span>Checking a specific area?</span><strong>Start with the system lookup.</strong><a href="/">Open national lookup <span aria-hidden="true">&rarr;</span></a></div></section>
+<header class="methodology-hero states-hero"><div class="methodology-kicker">Browse state water-system results</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse active community water systems with complete UCMR 5 monitoring. Each state page counts every water system once.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
+<main class="states-content" id="states-content"><section class="states-orientation"><div class="states-orientation-copy"><span class="states-card-kicker">Browse by location</span><h2>See what EPA monitoring found</h2><p>Percentages use active community water systems with complete monitoring. They do not describe ZIP prevalence, household exposure, personal risk, or compliance.</p></div><div class="states-zip-cta"><span>Checking a specific area?</span><strong>Start with the system lookup.</strong><a href="/">Open national lookup <span aria-hidden="true">&rarr;</span></a></div></section>
 <section class="state-directory"><div class="state-directory-heading"><div><span class="states-card-kicker">Browse the release</span><h2>Find a state or territory</h2><p>Search by name or abbreviation, or narrow the directory by region.</p></div><span class="state-result-count" id="stateResultsCount" aria-live="polite">{len(rows)} jurisdictions</span></div>
 <div class="state-search-wrap"><label for="stateSearch">Search states and territories</label><div class="state-search-control"><input id="stateSearch" type="search" autocomplete="off" placeholder="Try California, New York, or PR" /><button id="stateSearchClear" class="state-search-clear" type="button" hidden>Clear</button></div></div>
 <div class="state-filters" role="group" aria-label="Filter by region"><button class="state-filter is-active" type="button" data-region-filter="all" aria-pressed="true">All</button>{''.join(f'<button class="state-filter" type="button" data-region-filter="{region.lower()}" aria-pressed="false">{region}</button>' for region in REGION_ORDER)}</div>
 <div class="state-threshold-note"><strong>What the percentage means</strong><span>The share of active community water systems with complete monitoring that met at least one EPA technical comparison.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
-<footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 results received through January 15, 2026 · Not a compliance or exposure determination.</p></footer></div>
+<footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 results received through January 15, 2026 · Community water-information resource · Not a compliance or exposure determination.</p></footer></div>
 <script>(()=>{{const input=document.getElementById('stateSearch'),clear=document.getElementById('stateSearchClear'),cards=[...document.querySelectorAll('[data-state-card]')],filters=[...document.querySelectorAll('[data-region-filter]')],count=document.getElementById('stateResultsCount'),empty=document.getElementById('stateDirectoryEmpty');let region='all';function draw(){{const query=input.value.trim().toLowerCase();let shown=0;cards.forEach(card=>{{const visible=(region==='all'||card.dataset.region===region)&&card.dataset.stateSearch.includes(query);card.hidden=!visible;if(visible)shown++;}});document.querySelectorAll('[data-region-section]').forEach(section=>section.hidden=![...section.querySelectorAll('[data-state-card]')].some(card=>!card.hidden));count.textContent=`${{shown}} jurisdiction${{shown===1?'':'s'}}`;empty.hidden=shown!==0;clear.hidden=!query;}}input.addEventListener('input',draw);clear.addEventListener('click',()=>{{input.value='';draw();input.focus();}});filters.forEach(button=>button.addEventListener('click',()=>{{region=button.dataset.regionFilter;filters.forEach(item=>{{item.classList.toggle('is-active',item===button);item.setAttribute('aria-pressed',item===button?'true':'false');}});draw();}}));}})();</script></body></html>'''
 
 
@@ -194,8 +194,8 @@ def update_sitemap(path, base_url, slugs, site_meta):
     urls = ["", "map/", "state-table/", "states/", "methodology/"] + [f"states/{slug}/" for slug in slugs]
     static_lastmods = {
         "": site_meta["homepage_lastmod"],
-        "map/": site_meta["dataset_lastmod"],
-        "state-table/": site_meta["dataset_lastmod"],
+        "map/": site_meta["map_lastmod"],
+        "state-table/": site_meta["state_table_lastmod"],
         "states/": site_meta["states_index_lastmod"],
         "methodology/": site_meta["methodology_lastmod"],
     }
@@ -236,7 +236,7 @@ def main():
         denominator = int(summary["eligible_cws_with_complete_monitoring"])
         above = int(summary["above_any_april_2024_benchmark"])
         pct = above / denominator * 100 if denominator else 0
-        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} eligible community water systems with complete monitoring met a technical comparison."
+        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} active community water systems with complete monitoring met a technical comparison."
         pages[slug] = render_template(template, {
             "TITLE": f"PFAS in {name} Drinking Water | EPA UCMR 5 Results",
             "META_DESCRIPTION": html.escape(description, quote=True),

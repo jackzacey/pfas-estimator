@@ -33,10 +33,10 @@
     "@type": "WebPage",
     "name": "PFAS System Comparison Table by State | PFAS Estimator",
     "url": "https://pfasestimator.org/state-table/",
-    "description": "A sortable state-level comparison of unique eligible community water systems with complete UCMR 5 monitoring.",
+    "description": "A sortable state-level comparison of active community water systems with complete UCMR 5 monitoring.",
     "isPartOf": {"@id": "https://pfasestimator.org/#website"},
     "about": {"@id": "https://pfasestimator.org/#dataset"},
-    "dateModified": "2026-08-20"
+    "dateModified": "2026-08-26"
   }
   </script>
 
@@ -63,7 +63,7 @@
     </nav>
 
     <header class="national-hero">
-      <div class="national-kicker">National data view</div>
+      <div class="national-kicker">Explore EPA water results</div>
       <h1>State comparison table</h1>
       <p class="national-lede">Compare unique community water systems with complete UCMR 5 monitoring across states and territories. Select a column heading to sort the table.</p>
       <div class="national-meta" aria-label="Table scope">
@@ -76,19 +76,19 @@
 
     <main id="national-content">
       <section class="national-metrics" aria-label="Dataset overview">
+        <div><span>10,289</span><p>public water systems available in the ZIP lookup</p></div>
+        <div><span>26,625</span><p>EPA sampling locations represented in the lookup</p></div>
         <div><span>8,936</span><p>active community water systems with complete monitoring</p></div>
-        <div><span>1,030</span><p>complete-monitoring systems meeting any April 2024 comparison</p></div>
-        <div><span>8,069</span><p>systems in the primary inferential cohort</p></div>
-        <div><span>964</span><p>primary-cohort systems meeting any comparison</p></div>
+        <div><span>1,030</span><p>of those systems meeting an April 2024 technical comparison</p></div>
       </section>
 
       <section class="national-panel" aria-labelledby="table-panel-title">
         <div class="national-panel-heading">
           <div>
             <span class="national-section-label">Sortable table</span>
-            <h2 id="table-panel-title">Represented monitoring records by state</h2>
+            <h2 id="table-panel-title">Water-system results by state</h2>
           </div>
-          <p>Counts use unique eligible systems and complete monitoring. They do not rank overall water quality or individual health risk.</p>
+          <p>Each water system is counted once. The table includes active community water systems with complete monitoring and does not rank water quality or personal health risk.</p>
         </div>
 
         <p class="national-data-status" id="nationalDataStatus" role="status" aria-live="polite" hidden></p>
@@ -99,24 +99,24 @@
       <section class="national-notes" aria-label="Table interpretation">
         <div>
           <span>Use the table for comparison</span>
-          <p>Sort columns to inspect complete-monitoring denominators, any-comparison prevalence, or compound-specific system counts.</p>
+          <p>Sort the columns to compare how many water systems had complete monitoring and how many met a technical comparison.</p>
         </div>
         <div>
           <span>Use state pages for detail</span>
-          <p>Select a state name for compound-specific system counts and a unique monitored-system directory.</p>
+          <p>Select a state name to see compound results and the water systems included in that state’s count.</p>
         </div>
         <div>
           <span>Read before citing</span>
-          <p>Review the <a href="/methodology/">full methodology</a> for system eligibility, sampling-location averages, threshold logic, and limitations.</p>
+          <p>Review <a href="/methodology/">how the site works</a> for the inclusion rules, yearly averages, technical comparisons, and limitations.</p>
         </div>
       </section>
     </main>
 
     <footer class="national-footer">
-      <p>PFAS Estimator · Independent educational public-health informatics project · Not medical advice</p>
+      <p>PFAS Estimator · Independent community water-information resource · Not medical advice</p>
     </footer>
   </div>
 
-  <script src="/national-data.js?v=20260820-system-release"></script>
+  <script src="/national-data.js?v=20260826-community-language"></script>
 </body>
 </html>

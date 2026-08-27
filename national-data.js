@@ -59,9 +59,9 @@
     let sortDirection = -1;
     const columns = [
       ["name", "State or territory"],
-      ["eligible", "Eligible CWSs with complete monitoring"],
-      ["above", "Systems meeting any comparison"],
-      ["pctAbove", "% meeting any comparison"],
+      ["eligible", "Water systems with complete monitoring"],
+      ["above", "Water systems meeting any comparison"],
+      ["pctAbove", "Percent meeting a comparison"],
       ["pfoa", "PFOA"],
       ["pfos", "PFOS"],
       ["hazard_index", "Hazard Index"],
@@ -130,10 +130,10 @@
   }
 
   function metricDescription(row, metric) {
-    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of eligible complete-monitoring CWSs met a comparison`;
-    if (metric === "eligible") return `${row.eligible.toLocaleString()} eligible CWSs with complete monitoring`;
-    if (metric === "above") return `${row.above.toLocaleString()} systems met any comparison`;
-    return `${Number(row[metric] || 0).toLocaleString()} systems met the ${COMPOUND_LABELS[metric]} comparison`;
+    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of active community water systems with complete monitoring met a comparison`;
+    if (metric === "eligible") return `${row.eligible.toLocaleString()} active community water systems with complete monitoring`;
+    if (metric === "above") return `${row.above.toLocaleString()} water systems met any comparison`;
+    return `${Number(row[metric] || 0).toLocaleString()} water systems met the ${COMPOUND_LABELS[metric]} comparison`;
   }
 
   async function renderMap() {
@@ -175,7 +175,7 @@
         const code = NAME_TO_ABBREV[feature.properties.name];
         const row = stateData[code];
         if (!row) { tooltip.hidden = true; return; }
-        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} eligible complete-monitoring CWSs met any comparison</small>`;
+        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} active community water systems with complete monitoring met a comparison</small>`;
         const rect = container.getBoundingClientRect();
         let left = event.clientX - rect.left + 16;
         let top = event.clientY - rect.top - 12;
@@ -196,7 +196,7 @@
       });
       paths.append("title").text(feature => {
         const row = stateData[NAME_TO_ABBREV[feature.properties.name]];
-        return row ? `${feature.properties.name}: ${metricDescription(row, metric)}` : `${feature.properties.name}: no eligible complete-monitoring CWSs`;
+        return row ? `${feature.properties.name}: ${metricDescription(row, metric)}` : `${feature.properties.name}: no active community water systems with complete monitoring`;
       });
       svgSelection.append("path").datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b)).attr("fill", "none").attr("stroke", "#fff").attr("stroke-width", .8).attr("pointer-events", "none").attr("d", path);
       setStatus("");

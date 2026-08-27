@@ -121,7 +121,7 @@
       askButton: "Ask", chatDisclaimer: "AI can make mistakes. Do not share names or medical details. ZIP results do not use AI.", chatLearnMore: "How it works",
       searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
-      preparing: "Preparing the frozen scientific release.", findSystems: "Check my area",
+      preparing: "Preparing verified EPA data.", findSystems: "Check my area",
       verifiedRelease: "Verified release", monitoredSystems: "water systems", zipAssociations: "ZIP codes covered", resultsThrough: "EPA results through January 15, 2026",
       loadFailure: "The verified data release could not be loaded. Please use EPA’s UCMR 5 Data Finder while this is resolved.",
       invalidZipTitle: "Enter a valid 5-digit ZIP code", invalidZipContext: "ZIP codes must contain exactly five numbers.",
@@ -429,7 +429,7 @@
       : (hasAboveComparison ? "Thinking about a filter?" : "Want an extra layer of PFAS reduction?");
     const intro = isZh
       ? (hasAboveComparison ? "请先确认被标记的供水系统与水费账单一致，再比较经过认证的过滤器声明。" : "低于比较水平不等于家庭水龙头检测。如果仍想使用过滤器，请核对PFAS减少认证，而不是只看营销用语。")
-      : (hasAboveComparison ? "First confirm that the flagged water system is the one on your bill. Then use the result to compare certified filter claims." : "A below-comparison result is not a home-faucet test. If you still want a filter, compare certified PFAS-reduction claims rather than marketing language.");
+      : (hasAboveComparison ? "First confirm that a water system with an at-or-above result is the one on your bill. Then use the result to compare certified filter claims." : "A below-comparison result is not a home-faucet test. If you still want a filter, compare certified PFAS-reduction claims rather than marketing language.");
     return `<aside class="result-action-guide">
       <span class="result-action-kicker">${isZh ? "下一步" : "What to do next"}</span>
       <h3>${heading}</h3>
@@ -453,6 +453,8 @@
       "Each value shown is the highest EPA-derived annual average among that water system's sampling locations. It is not a system-wide average or a home-faucet test. Comparison labels do not by themselves determine compliance, personal exposure, safety, or health risk.",
       `Water systems displayed: ${systems.length}.`
     ];
+    const comparisonSystems = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1);
+    lines.push(`Water systems with at least one PFAS yearly average at or above an EPA technical comparison: ${comparisonSystems.length}. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}.`);
     selected.forEach(system => {
       const outcomes = OUTCOMES.map(outcome => {
         const status = outcomeStatus(system, outcome);
@@ -515,6 +517,15 @@
     $("aiSuggestions").hidden = true;
     appendChat("user", question);
     chatMessages.push({ role: "user", content: question });
+    const deterministicReply = window.PFASAssistantResultTools?.answerComparisonSystems(question, currentSystems, currentLang);
+    if (deterministicReply) {
+      appendChat("assistant", deterministicReply);
+      chatMessages.push({ role: "assistant", content: deterministicReply });
+      trackEvent("assistant_verified_result_question", { associated_systems: currentSystems.length });
+      button.disabled = false;
+      input.focus();
+      return;
+    }
     const thinking = appendChat("thinking", text("thinking"));
     try {
       const reply = await assistantRequest({ action: "chat", language: currentLang, zip_context: currentContext, messages: chatMessages.slice(-6) });

@@ -36,7 +36,7 @@
     "description": "An interactive state-level map of unique community water systems with complete UCMR 5 monitoring and EPA technical-comparison results.",
     "isPartOf": {"@id": "https://pfasestimator.org/#website"},
     "about": {"@id": "https://pfasestimator.org/#dataset"},
-    "dateModified": "2026-08-20"
+    "dateModified": "2026-08-26"
   }
   </script>
 
@@ -63,9 +63,9 @@
     </nav>
 
     <header class="national-hero">
-      <div class="national-kicker">National data view</div>
-      <h1>PFAS system comparison map</h1>
-      <p class="national-lede">Explore system-level EPA UCMR 5 technical-comparison patterns by state. Change the metric, then select a state to open its monitored-system summary.</p>
+      <div class="national-kicker">Explore EPA water results</div>
+      <h1>PFAS monitoring map</h1>
+      <p class="national-lede">Explore EPA UCMR 5 PFAS results by state. Choose what the colors show, then select a state to see its water-system results.</p>
       <div class="national-meta" aria-label="Map scope">
         <span><strong>Source</strong> EPA UCMR 5</span>
         <span><strong>Period</strong> 2023–2025</span>
@@ -79,17 +79,17 @@
         <div class="national-panel-heading">
           <div>
             <span class="national-section-label">Interactive map</span>
-            <h2 id="map-panel-title">Monitoring patterns by state</h2>
+            <h2 id="map-panel-title">PFAS results by state</h2>
           </div>
-          <p>Color reflects unique eligible community water systems with complete monitoring. It is not a population exposure or compliance map.</p>
+          <p>Each state’s color summarizes active community water systems with complete monitoring. It does not describe every home or determine compliance.</p>
         </div>
 
         <div class="map-controls national-map-controls">
           <label class="map-metric-label" for="mapMetric">Color states by</label>
           <select class="map-select" id="mapMetric">
-            <option value="pctAbove">% of eligible systems meeting any comparison</option>
-            <option value="eligible">Eligible systems with complete monitoring</option>
-            <option value="above">Systems meeting any comparison</option>
+            <option value="pctAbove">% of systems with complete monitoring that met a comparison</option>
+            <option value="eligible">Water systems with complete monitoring</option>
+            <option value="above">Water systems meeting any comparison</option>
             <option value="pfoa">Systems meeting the PFOA comparison</option>
             <option value="pfos">Systems meeting the PFOS comparison</option>
             <option value="pfhxs">Systems meeting the PFHxS comparison</option>
@@ -102,7 +102,7 @@
 
         <p class="national-data-status" id="nationalDataStatus" role="status" aria-live="polite" hidden></p>
         <div class="map-fullscreen national-map" id="mapContainer">
-          <svg id="pfasMapSvg" role="img" aria-label="United States map of represented PFAS monitoring records"></svg>
+          <svg id="pfasMapSvg" role="img" aria-label="United States map of PFAS water-system results"></svg>
           <div class="map-tooltip" id="mapTooltip" hidden></div>
         </div>
         <p class="map-source-note">EPA UCMR 5 (2023–2025) · unique active community water systems with complete monitoring · January 2026 release</p>
@@ -111,7 +111,7 @@
       <section class="national-notes" aria-label="Map interpretation">
         <div>
           <span>Interpretation</span>
-          <p>Darker color indicates a higher system-level value for the selected metric. It does not establish household service, exposure, or compliance.</p>
+          <p>Darker color means a higher value for the selected measure. It does not identify a home’s utility, PFAS exposure, or compliance.</p>
         </div>
         <div>
           <span>Coverage</span>
@@ -119,18 +119,18 @@
         </div>
         <div>
           <span>Methods</span>
-          <p>Read the <a href="/methodology/">full methodology</a> for cohort rules, sampling-location averages, comparisons, and limitations.</p>
+          <p>Read <a href="/methodology/">how the site works</a> for monitoring rules, yearly averages, comparisons, and limitations.</p>
         </div>
       </section>
     </main>
 
     <footer class="national-footer">
-      <p>PFAS Estimator · Independent educational public-health informatics project · Not medical advice</p>
+      <p>PFAS Estimator · Independent community water-information resource · Not medical advice</p>
     </footer>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-  <script src="/national-data.js?v=20260820-system-release"></script>
+  <script src="/national-data.js?v=20260826-community-language"></script>
 </body>
 </html>
