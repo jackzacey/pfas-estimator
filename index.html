@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PFAS Estimator | Check PFAS in Drinking Water by ZIP Code</title>
-  <meta name="description" content="Check EPA PFAS results for public water systems in your ZIP code, understand the results, and learn how to choose a certified PFAS-reduction filter." />
+  <title>PFAS Estimator | Public Water PFAS Monitoring by ZIP Code</title>
+  <meta name="description" content="Find EPA UCMR 5 PFAS monitoring results for public water systems associated with a ZIP code and learn how to verify the system and current official information." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://pfasestimator.org/" />
   <meta name="author" content="Jack Zhang" />
@@ -15,14 +15,14 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PFAS Estimator" />
-  <meta property="og:title" content="PFAS Estimator | Check PFAS in Drinking Water by ZIP Code" />
-  <meta property="og:description" content="Check EPA PFAS results for local public water systems and get clear next steps for confirming your utility and choosing a filter." />
+  <meta property="og:title" content="PFAS Estimator | Public Water PFAS Monitoring by ZIP Code" />
+  <meta property="og:description" content="Find a frozen research snapshot of EPA PFAS monitoring results for public water systems and verify current information with official sources." />
   <meta property="og:url" content="https://pfasestimator.org/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PFAS Estimator | Check PFAS in Drinking Water by ZIP Code" />
-  <meta name="twitter:description" content="Check EPA PFAS results for local public water systems and learn what to do next." />
+  <meta name="twitter:title" content="PFAS Estimator | Public Water PFAS Monitoring by ZIP Code" />
+  <meta name="twitter:description" content="Find EPA PFAS monitoring results for public water systems associated with a ZIP code and learn how to verify current information." />
   <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
 
   <script type="application/ld+json">
@@ -73,8 +73,8 @@
     gtag('config','G-FZQTEJ4LLY');
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
-  <script defer src="/assistant-result-tools.js?v=20260826-community-trust"></script>
-  <script defer src="/scientific-site-v2.js?v=20260826-community-trust"></script>
+  <script defer src="/assistant-result-tools.js?v=20260904-monitoring-clarity-2"></script>
+  <script defer src="/scientific-site-v2.js?v=20260904-monitoring-clarity-2"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -99,16 +99,16 @@
             <span id="langZh" style="background:#fff;color:#999;">中文</span>
           </div>
         </div>
-        <h1 data-i18n="heroTitle">U.S. Tap Water PFAS Checker</h1>
-        <p class="subtitle" data-i18n="heroSubtitle">Enter your ZIP code to check PFAS results for local water systems, understand what was found, and see what you can do next.</p>
+        <h1 data-i18n="heroTitle">U.S. Public Water PFAS Monitoring Lookup</h1>
+        <p class="subtitle" data-i18n="heroSubtitle">Enter a ZIP code to find public water systems associated with it and review their EPA UCMR 5 monitoring results.</p>
         <span class="visually-hidden" id="releaseStatus">Loading verified release…</span>
       </header>
 
-      <section class="home-lookup-panel" aria-label="ZIP code lookup and PFAS health questions">
+      <section class="home-lookup-panel" aria-label="ZIP code lookup and PFAS monitoring questions">
         <div class="home-interaction-grid">
           <div class="home-lookup-column">
             <div class="context-note" data-i18n-html="truthNote">
-              <strong>Before you start:</strong> Your ZIP code can list more than one water system. Match the system name to your water bill before using the results. The measurements come from EPA water-system testing, not your home faucet.
+              <strong>Before you start:</strong> A ZIP code can list more than one water system. Match the system name to your water bill before reading its results. UCMR 5 samples were collected at entry points to the distribution system, not at your home faucet. <strong>Research snapshot:</strong> This site preserves EPA results received through January 15, 2026. EPA released the final UCMR 5 dataset in August 2026; use the EPA Data Finder for current federal records.
             </div>
             <div class="input-row">
               <label for="zipInput" class="visually-hidden">U.S. ZIP code</label>
@@ -118,25 +118,25 @@
             <div class="visually-hidden" id="lookupDataNote">Preparing verified EPA data.</div>
           </div>
 
-          <aside class="chat-panel visible" id="chatPanel" aria-label="PFAS health question and answer assistant">
+          <aside class="chat-panel visible" id="chatPanel" aria-label="PFAS monitoring question and answer assistant">
             <div class="chat-panel-header">
               <div>
                 <div class="chat-panel-heading">
                   <div class="chat-panel-dot" aria-hidden="true"></div>
-                  <span class="chat-panel-title" data-i18n="chatTitle">PFAS Health Assistant</span>
+                  <span class="chat-panel-title" data-i18n="chatTitle">PFAS Results Assistant</span>
                 </div>
-                <div class="chat-panel-sub" data-i18n="chatSubtitle">Ask about results, health research, or filters · Not medical advice</div>
+                <div class="chat-panel-sub" data-i18n="chatSubtitle">Ask how to read monitoring results or verify official information</div>
               </div>
             </div>
             <div id="aiMessages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation"></div>
             <div class="ai-suggestions" id="aiSuggestions" aria-label="Suggested questions">
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="Should I be concerned about these results?" data-question-zh="我应该担心这些结果吗？" data-i18n="suggestConcern">Should I be concerned?</span>
+              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="What can this monitoring result tell me?" data-question-zh="这项监测结果能说明什么？" data-i18n="suggestConcern">What can this result tell me?</span>
               <span class="ai-suggestion" role="button" tabindex="0" data-question-en="How do I confirm which utility serves my home?" data-question-zh="如何确认哪家供水机构为我的住所供水？" data-i18n="suggestUtility">How do I confirm my utility?</span>
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="What filter can reduce PFAS?" data-question-zh="哪种过滤器可以减少PFAS？" data-i18n="suggestFilter">What filter removes PFAS?</span>
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="What health effects are linked to PFAS?" data-question-zh="PFAS与哪些健康影响有关？" data-i18n="suggestHealth">What health effects are linked to PFAS?</span>
+              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="Where were UCMR 5 samples collected?" data-question-zh="UCMR 5样本在哪里采集？" data-i18n="suggestFilter">Where were samples collected?</span>
+              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="Where can I find current official results?" data-question-zh="在哪里可以找到最新官方结果？" data-i18n="suggestHealth">Where are current results?</span>
             </div>
             <div class="ai-input-row">
-              <label for="aiInput" class="visually-hidden">Ask a PFAS health question</label>
+              <label for="aiInput" class="visually-hidden">Ask a PFAS monitoring question</label>
               <input type="text" id="aiInput" placeholder="Ask about PFAS or your results..." maxlength="700" />
               <button id="aiSendBtn" type="button" data-i18n="askButton">Ask</button>
             </div>
@@ -148,18 +148,18 @@
           <div class="result" id="result">
             <div class="print-header" id="printHeader">
               <div class="print-header-top">
-                <div><h2>PFAS Water Quality Report</h2><div class="print-zip" id="printZip"></div></div>
+                <div><h2>PFAS Public Water Monitoring Report</h2><div class="print-zip" id="printZip"></div></div>
                 <div class="print-meta"><div>pfasestimator.org</div><div id="printDate"></div><div>EPA UCMR 5 Data (2023–2025)</div></div>
               </div>
-              <div class="print-note">This report lists water systems connected with the entered ZIP and summarizes EPA yearly averages. Match the system name to your water bill before using the results.</div>
+              <div class="print-note">This report lists water systems associated with the entered ZIP and summarizes a frozen January 2026 EPA monitoring snapshot. Match the system name to your water bill and check current utility information before using the results.</div>
             </div>
             <div class="result-title" id="resultTitle"></div>
             <div class="result-context" id="resultContext"></div>
             <div id="resultBody"></div>
-            <div class="print-footer">EPA UCMR 5 results through January 15, 2026. A ZIP search cannot confirm the water system for a specific home. These results are not a home-faucet test or a medical diagnosis.</div>
+            <div class="print-footer">Frozen EPA UCMR 5 research snapshot through January 15, 2026. A ZIP search cannot confirm the water system for a specific home. These results do not determine current compliance, household tap concentration, personal exposure, or health risk.</div>
           </div>
 
-          <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save for a medical appointment</button>
+          <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save this water-system result</button>
         </div>
       </section>
 
@@ -167,15 +167,15 @@
         <span class="why-kicker">Clear next steps</span>
         <h2 id="why-water-title">Use the result to make a practical water plan</h2>
         <p><strong>1. Confirm your water system.</strong> Look for the utility name on your water bill. A ZIP code can include several systems, so this is the most important first step.</p>
-        <p><strong>2. Read the PFAS comparison.</strong> The site shows the highest yearly average reported across each system’s EPA sampling locations. “At or above” is a signal to investigate further; it is not proof that every home has the same level. “Below” is not a guarantee that a home is PFAS-free.</p>
-        <p><strong>3. If you want a filter, verify the exact certification.</strong> EPA recommends checking the product label and an accredited certification directory for an <strong>NSF/ANSI 53 or NSF/ANSI 58 PFAS-reduction claim</strong>. Replace filters on schedule. Current certifications do not necessarily show that a device reduces PFAS to every 2024 EPA limit.</p>
-        <p><a class="source-link" href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">EPA guide to PFAS filters →</a> · <a class="source-link" href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">Certified filter guidance →</a></p>
+        <p><strong>2. Read the monitoring comparison.</strong> The site shows the highest yearly average reported across each system’s EPA sampling locations. “At or above” and “below” describe the frozen technical-assistance cutoff only. They do not determine legal compliance, a household tap concentration, personal exposure, or health risk.</p>
+        <p><strong>3. Check current official information.</strong> Read the utility’s current Consumer Confidence Report or contact the utility about newer sampling, treatment, and compliance information. If you independently choose to consider a filter, verify an exact <strong>NSF/ANSI 53 or NSF/ANSI 58 PFAS-reduction claim</strong> and follow the replacement schedule.</p>
+        <p><a class="source-link" href="https://www.epa.gov/ccr" target="_blank" rel="noopener noreferrer">Find a Consumer Confidence Report →</a> · <a class="source-link" href="https://www.atsdr.cdc.gov/pfas/about/" target="_blank" rel="noopener noreferrer">ATSDR overview of PFAS exposure sources →</a> · <a class="source-link" href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">EPA guide to PFAS filters →</a> · <a class="source-link" href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">Certified filter guidance →</a></p>
         <p>Built by Jack Zhang in Los Gatos, California · <a class="source-link" href="mailto:jackzacey@gmail.com">jackzacey@gmail.com</a></p>
         <p>Joshua Tamayo-Sarver, MD, PhD, provided early feedback that helped shape the project’s clinical framing.</p>
       </section>
 
       <div class="disclaimer">
-        EPA UCMR 5 public water-system results, 2023–2025. Confirm your utility before using a ZIP result. This is not a home-water test or medical advice. · <a class="source-link" href="/methodology/">How the site works</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a>
+        Frozen EPA UCMR 5 public water-system research snapshot through January 15, 2026. Confirm your utility and current official information before using a ZIP result. This is not a home-water test, compliance determination, exposure estimate, or medical advice. · <a class="source-link" href="/methodology/">How the site works</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Current EPA Source</a>
       </div>
     </main>
   </div>

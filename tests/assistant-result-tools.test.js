@@ -29,4 +29,34 @@ const chineseReply = tools.answerComparisonSystems("哪些供水系统达到比�
 assert.match(chineseReply, /4个供水系统中，有3个/);
 flaggedNames.forEach(name => assert.ok(chineseReply.includes(name), `Chinese reply missing ${name}`));
 
-console.log("Assistant deterministic-result tests passed for ZIP 01720.");
+assert.match(
+  tools.answerBoundaryQuestion("Am I exposed because of this result?", zipSystems, "en"),
+  /cannot determine your personal exposure, dose, or health risk/i
+);
+assert.match(
+  tools.answerBoundaryQuestion("What percent of my PFAS exposure comes from drinking water?", zipSystems, "en"),
+  /cannot calculate what share/i
+);
+assert.match(
+  tools.answerBoundaryQuestion("Is my utility violating the law?", zipSystems, "en"),
+  /do not by themselves determine whether a water system is in compliance/i
+);
+assert.match(
+  tools.answerBoundaryQuestion("Should I see a doctor?", zipSystems, "en"),
+  /cannot determine whether someone needs medical care/i
+);
+assert.match(
+  tools.answerBoundaryQuestion("No result means there is no PFAS, right?", [], "en"),
+  /does not mean that PFAS is absent/i
+);
+assert.match(
+  tools.answerBoundaryQuestion("Where were the samples collected?", zipSystems, "en"),
+  /entry points to the distribution system/i
+);
+assert.match(
+  tools.answerBoundaryQuestion("Where can I find current official results?", zipSystems, "en"),
+  /final UCMR 5 dataset in August 2026/i
+);
+assert.equal(tools.answerBoundaryQuestion("What is PFOA?", zipSystems, "en"), null);
+
+console.log("Assistant deterministic-result and boundary tests passed for ZIP 01720.");

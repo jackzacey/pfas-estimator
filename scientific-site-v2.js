@@ -7,12 +7,12 @@
   const ASSISTANT_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
   const REQUEST_TIMEOUT_MS = 20000;
   const OUTCOMES = [
-    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "4 ppt EPA limit", cutoff: "Exact website cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
-    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "4 ppt EPA limit", cutoff: "Exact website cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
-    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
-    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
-    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "10 ppt EPA limit", cutoff: "Exact website cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
-    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "EPA benchmark: 1", cutoff: "Exact website cutoff: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
+    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Frozen EPA classification cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Frozen EPA classification cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Frozen EPA classification cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Frozen EPA classification cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Frozen EPA classification cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "April 2024 federal level: 1", cutoff: "Frozen EPA classification cutoff: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
   ];
 
   const COMPOUND_GUIDANCE = {
@@ -58,7 +58,7 @@
         zh: "PFHxS是一种持久性PFAS，过去与防污、防水处理和某些消防泡沫有关。它分解很慢，并可能在人体内存在多年。"
       },
       health: {
-        en: "EPA links sufficient PFHxS exposure with thyroid and developmental immune effects. Pregnancy, infancy, and childhood can be important times to limit avoidable exposure.",
+        en: "EPA links sufficient PFHxS exposure with thyroid and developmental immune effects. This is general research evidence, not a conclusion about exposure or health effects for customers of this water system.",
         zh: "EPA将足够的PFHxS暴露与甲状腺和发育期免疫影响联系起来。孕期、婴儿期和儿童期是减少可避免暴露的重要阶段。"
       },
       evidence: {
@@ -112,12 +112,12 @@
     en: {
       navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "Methods & limitations",
       releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
-      heroTitle: "U.S. Tap Water PFAS Checker",
-      heroSubtitle: "Enter your ZIP code to check PFAS results for local water systems, understand what was found, and see what you can do next.",
-      truthNote: "<strong>Before you start:</strong> Your ZIP code can list more than one water system. Match the system name to your water bill before using the results. The measurements come from EPA water-system testing, not your home faucet.",
-      printButton: "Print or save for a medical appointment",
-      chatTitle: "PFAS Health Assistant", chatSubtitle: "Ask about results, health research, or filters · Not medical advice",
-      suggestConcern: "Should I be concerned?", suggestUtility: "How do I confirm my utility?", suggestFilter: "What filter removes PFAS?", suggestHealth: "What health effects are linked to PFAS?",
+      heroTitle: "U.S. Public Water PFAS Monitoring Lookup",
+      heroSubtitle: "Enter a ZIP code to find public water systems associated with it and review their EPA UCMR 5 monitoring results.",
+      truthNote: "<strong>Before you start:</strong> A ZIP code can list more than one water system. Match the system name to your water bill before reading its results. UCMR 5 samples were collected at entry points to the distribution system, not at your home faucet. <strong>Research snapshot:</strong> This site preserves EPA results received through January 15, 2026. EPA released the final UCMR 5 dataset in August 2026; use the EPA Data Finder for current federal records.",
+      printButton: "Print or save this water-system result",
+      chatTitle: "PFAS Results Assistant", chatSubtitle: "Ask how to read monitoring results or verify official information",
+      suggestConcern: "What can this result tell me?", suggestUtility: "How do I confirm my utility?", suggestFilter: "Where were samples collected?", suggestHealth: "Where are current results?",
       askButton: "Ask", chatDisclaimer: "AI can make mistakes. Do not share names or medical details. ZIP results do not use AI.", chatLearnMore: "How it works",
       searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
@@ -127,22 +127,28 @@
       invalidZipTitle: "Enter a valid 5-digit ZIP code", invalidZipContext: "ZIP codes must contain exactly five numbers.",
       noAssociationTitle: zip => `No water system was found for ZIP ${zip}`,
       noAssociationContext: "This does not mean the water is PFAS-free. The ZIP link may be missing, the home may use a private well, or the local system may not appear in this EPA file.",
-      noAssociationBody: "Check your water bill for the utility name. Then open its current water-quality report or search EPA’s Data Finder by system name.",
+      noAssociationBody: "Check your water bill for the utility name. Then read its current Consumer Confidence Report, contact the utility, or search EPA’s Data Finder by system name. If the home uses a private well, contact the state or local health or environmental agency for testing guidance; private wells are outside this dataset.",
       openDataFinder: "Open EPA’s UCMR 5 Data Finder →",
       associatedTitle: (count, zip) => `${count} water system${count === 1 ? "" : "s"} listed for ZIP ${zip}`,
-      associatedContext: (aboveCount, totalCount) => aboveCount ? `${aboveCount} of ${totalCount} water system${totalCount === 1 ? "" : "s"} below had at least one PFAS result at or above the EPA comparison level. Match the system name to your water bill, then review its results.` : "None of the water systems below had a complete PFAS yearly average at or above the EPA comparison level. Match the system name to your water bill before using the result.",
+      associatedContext: (aboveCount, totalCount) => aboveCount
+        ? (totalCount === 1
+          ? "The listed water system had at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. Match the system name to your water bill before reading its result."
+          : `${aboveCount} of the ${totalCount} listed water systems had at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. Match the system name to your water bill before reading their results.`)
+        : (totalCount === 1
+          ? "The listed water system had no complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. This does not mean that PFAS was not detected. Match the system name to your water bill before reading its result."
+          : `All ${totalCount} listed water systems had no complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. This does not mean that PFAS was not detected. Match the system names to your water bill before reading their results.`),
       communitySystem: "Community water system", publicSystem: "Public water system", residentialNotUsed: "residential Census context is not used for this system",
-      completeUnavailable: "Not enough data for a yearly comparison", atLeastOne: "One or more PFAS results are at or above the EPA comparison level", noLocationMeets: "No PFAS yearly average is at or above the EPA comparison level",
+      completeUnavailable: "Not enough data for a yearly comparison", atLeastOne: "One or more complete PFAS yearly averages are at or above a frozen technical cutoff", noLocationMeets: "No complete PFAS yearly average is at or above a frozen technical cutoff",
       populationServed: "Population served", source: "Primary source", ownership: "Ownership", samplingLocations: "Sampling locations", serviceBoundary: "Service boundary", sdwisStatus: "SDWIS status",
       notReported: "Not reported", notAvailable: "Not available", unnamed: "Unnamed public water system",
       measure: "PFAS", highestAverage: "Highest yearly average", benchmarkHeading: "EPA comparison level", comparisonHeading: "Result",
-      noCompleteAverage: "Not enough data", meets: "At or above comparison level", doesNotMeet: "Below comparison level",
+      noCompleteAverage: "Not enough data", meets: "At or above technical cutoff", doesNotMeet: "Below technical cutoff",
       demographicSummary: "Service-area demographic context used in the research analysis", demographicNote: "Ecological estimates for the modeled service area; these do not describe any individual customer.",
       hispanic: "Hispanic", black: "non-Hispanic Black", aian: "non-Hispanic AIAN", poverty: "below poverty", rural: "rural",
-      resultCaveat: "This is the highest yearly average across the system’s EPA sampling locations—not a test from your home. An EPA comparison does not by itself decide whether the system is in compliance.",
-      welcome: "Ask me about PFAS, filters, health research, or how to read a result. After a ZIP search, I can explain the water systems shown on the page.",
-      contextReadyAbove: "I found one or more PFAS results at or above the EPA comparison level. Ask me what the numbers mean, how to confirm your utility, or what to look for in a filter.",
-      contextReadyBelow: "The water systems shown did not have a complete PFAS yearly average at or above the EPA comparison level. Ask me what that does—and does not—mean.",
+      resultCaveat: "UCMR 5 samples were collected at entry points to the distribution system. The value shown is the highest yearly average among this system’s EPA sampling locations, not a home-faucet result. It does not determine current compliance, household tap concentration, personal exposure, or health risk.",
+      welcome: "Ask me how to read the monitoring results, confirm a water system, understand where samples were collected, or find current official information.",
+      contextReadyAbove: "One or more displayed yearly averages are at or above a frozen EPA technical-assistance cutoff. I can explain what that classification does and does not mean, how to confirm the utility, or where to find current official information.",
+      contextReadyBelow: "No displayed complete yearly average is at or above a frozen EPA technical-assistance cutoff. I can explain why that does not mean PFAS was absent or determine current conditions.",
       contextReadyNone: "I could not find a water system for that ZIP. Ask me how to confirm your utility or check a private well.",
       thinking: "Reviewing your question…",
       rateError: "The assistant has reached its short-term request limit. The lookup remains available; please try the chat again in about a minute.",
@@ -153,12 +159,12 @@
     zh: {
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
       releaseBadge: "全美 · EPA UCMR 5 数据 · 教育工具",
-      heroTitle: "美国自来水PFAS查询工具",
-      heroSubtitle: "输入邮政编码，查看当地供水系统的PFAS结果、了解检测内容并查看下一步建议。",
-      truthNote: "<strong>开始前：</strong>一个邮政编码可能列出多个供水系统。请先将系统名称与水费账单核对。页面数值来自EPA供水系统检测，不是您家水龙头的检测结果。",
-      printButton: "打印或保存PDF以供就诊参考",
-      chatTitle: "PFAS健康助手", chatSubtitle: "可询问结果、健康研究或过滤器 · 非医疗建议",
-      suggestConcern: "我应该担心吗？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "哪种过滤器可去除PFAS？", suggestHealth: "PFAS与哪些健康影响有关？",
+      heroTitle: "美国公共供水PFAS监测查询",
+      heroSubtitle: "输入邮政编码，查找与其关联的公共供水系统并查看EPA UCMR 5监测结果。",
+      truthNote: "<strong>开始前：</strong>一个邮政编码可能列出多个供水系统。阅读结果前，请先将系统名称与水费账单核对。UCMR 5样本采自进入配水系统的位置，而不是您家的水龙头。<strong>研究快照：</strong>本网站保留截至2026年1月15日收到的EPA结果。EPA已于2026年8月发布最终UCMR 5数据集；最新联邦记录请使用EPA数据查找器。",
+      printButton: "打印或保存此供水系统结果",
+      chatTitle: "PFAS结果助手", chatSubtitle: "询问如何理解监测结果或核实官方信息",
+      suggestConcern: "这项结果能说明什么？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "样本在哪里采集？", suggestHealth: "在哪里查看最新结果？",
       askButton: "提问", chatDisclaimer: "AI可能出错。请勿分享姓名或医疗详情。邮政编码结果不使用AI。", chatLearnMore: "工作原理",
       searchCounter: "次邮政编码查询",
       loadingRelease: "正在加载已验证版本…", releaseUnavailable: "版本不可用", dataUnavailable: "数据不可用", loadingData: "正在加载数据…",
@@ -168,22 +174,22 @@
       invalidZipTitle: "请输入有效的5位邮政编码", invalidZipContext: "邮政编码必须恰好包含五位数字。",
       noAssociationTitle: zip => `未找到邮政编码 ${zip} 的供水系统`,
       noAssociationContext: "这并不表示水中不含PFAS。该邮政编码可能由UCMR文件未关联的系统、私人水井或其他供水方服务。",
-      noAssociationBody: "请使用水费账单或当地供水机构网站确认供水方，然后查看消费者信心报告或按系统名称搜索EPA数据。",
+      noAssociationBody: "请使用水费账单或当地供水机构网站确认供水方，然后查看消费者信心报告或按系统名称搜索EPA数据。如果住宅使用私人水井，请向州或当地卫生或环境部门咨询检测指南；私人水井不在此数据集中。",
       openDataFinder: "打开EPA UCMR 5数据查找器 →",
       associatedTitle: (count, zip) => `邮政编码 ${zip} 列出了 ${count} 个供水系统`,
-      associatedContext: (aboveCount, totalCount) => aboveCount ? `${totalCount} 个供水系统中有 ${aboveCount} 个的PFAS结果达到或超过EPA比较水平。请先与水费账单核对系统名称。` : "以下供水系统的完整PFAS年度平均值均未达到EPA比较水平。使用结果前，请先与水费账单核对系统名称。",
+      associatedContext: (aboveCount, totalCount) => aboveCount ? `列出的${totalCount}个供水系统中，有${aboveCount}个至少一项完整PFAS年度平均值达到或超过2026年1月冻结的EPA技术援助分类阈值。阅读结果前，请先与水费账单核对系统名称。` : `列出的${totalCount}个供水系统均没有完整PFAS年度平均值达到或超过2026年1月冻结的EPA技术援助分类阈值。这并不表示未检出PFAS。阅读结果前，请先与水费账单核对系统名称。`,
       communitySystem: "社区供水系统", publicSystem: "公共供水系统", residentialNotUsed: "此系统不使用居民人口普查背景",
-      completeUnavailable: "无法进行完整采样组比较", atLeastOne: "至少一个采样点达到EPA比较条件", noLocationMeets: "没有完整采样点平均值达到EPA比较条件",
+      completeUnavailable: "资料不足，无法进行年度比较", atLeastOne: "至少一项完整PFAS年度平均值达到或超过冻结技术阈值", noLocationMeets: "没有完整PFAS年度平均值达到或超过冻结技术阈值",
       populationServed: "服务人口", source: "主要水源", ownership: "所有权", samplingLocations: "采样点", serviceBoundary: "服务区边界", sdwisStatus: "SDWIS状态",
       notReported: "未报告", notAvailable: "不可用", unnamed: "未命名公共供水系统",
       measure: "指标", highestAverage: "最高采样点平均值", benchmarkHeading: "2024年4月基准", comparisonHeading: "EPA技术比较",
-      noCompleteAverage: "无完整采样组年度平均值", meets: "达到EPA比较条件", doesNotMeet: "未达到EPA比较条件",
+      noCompleteAverage: "资料不足", meets: "达到或超过技术阈值", doesNotMeet: "低于技术阈值",
       demographicSummary: "研究分析使用的服务区人口背景", demographicNote: "这是模型服务区的生态估计，不描述任何个人客户。",
       hispanic: "西班牙裔", black: "非西班牙裔黑人", aian: "非西班牙裔美洲印第安人/阿拉斯加原住民", poverty: "低于贫困线", rural: "农村",
-      resultCaveat: "显示的最大值是该系统内最高的EPA衍生采样点年度平均值。它不是家庭水龙头测量值，比较标记也不是合规判定。",
-      welcome: "您可以随时询问PFAS问题。查询邮政编码后，我可以解释显示的供水系统结果，但不会改变底层计算。",
-      contextReadyAbove: "我可以解释这些可能相关的供水系统结果。至少一个显示系统达到EPA技术比较条件；这不是合规或家庭暴露判定。",
-      contextReadyBelow: "我可以解释这些可能相关的供水系统结果。显示的完整采样点平均值均未达到EPA技术比较条件。",
+      resultCaveat: "UCMR 5样本采自进入配水系统的位置。显示值是该系统EPA采样位置中最高的年度平均值，不是家庭水龙头结果，也不能确定当前合规情况、家庭水龙头浓度、个人暴露或健康风险。",
+      welcome: "您可以询问如何理解监测结果、确认供水系统、了解采样位置或查找最新官方信息。",
+      contextReadyAbove: "一项或多项显示的年度平均值达到或超过冻结的EPA技术援助分类阈值。我可以解释该分类能说明什么、不能说明什么，以及如何确认供水机构或查找最新官方信息。",
+      contextReadyBelow: "显示的完整年度平均值均未达到冻结的EPA技术援助分类阈值。我可以解释为何这不表示PFAS不存在，也不能确定当前状况。",
       contextReadyNone: "没有找到该邮政编码的受监测系统关联。我可以解释这种缺失意味着什么以及不意味着什么。",
       thinking: "正在查看显示的供水系统背景…",
       rateError: "助手已达到短期请求限制。查询功能仍可使用；请约一分钟后重试。",
@@ -301,31 +307,32 @@
     const isZh = currentLang === "zh";
     const value = formatAverage(status.maximum, false);
     const statusCopy = status.className === "above"
-      ? (isZh ? "⚠ 检出值达到或超过EPA比较水平" : "⚠ Detected at or above the EPA comparison level")
+      ? (isZh ? "检出值达到或超过冻结技术阈值" : "Detected at or above the frozen technical cutoff")
       : status.className === "below"
-        ? (isZh ? "✓ 检出值低于EPA比较水平" : "✓ Detected below the EPA comparison level")
+        ? (isZh ? "检出值低于冻结技术阈值" : "Detected below the frozen technical cutoff")
         : (isZh ? "— 已检出；年度比较资料不完整" : "— Detected; yearly comparison data are incomplete");
     const comparisonRatio = (valuePpt / outcome.comparisonCutoff) * 100;
     const gaugeFillPct = Math.min(comparisonRatio, 150) / 150 * 100;
-    const ratioLabel = isZh ? "检测值与EPA比较水平" : "Measured value compared with the EPA level";
+    const ratioLabel = isZh ? "检测值与冻结技术比较阈值" : "Measured value compared with the frozen technical cutoff";
     const benchmarkCopy = isZh
-      ? `显示的最高年度平均值 · EPA比较水平：${outcome.comparisonCutoff} ppt`
-      : `Highest yearly average shown · EPA comparison: ${outcome.comparisonCutoff} ppt`;
-    const resultHeading = isZh ? "🩺 这个水平对您意味着什么" : "🩺 What this level means for you";
+      ? `显示的最高年度平均值 · 2024年4月联邦水平：${outcome.federalLevel} ppt · 冻结分类阈值：${outcome.comparisonCutoff} ppt`
+      : `Highest yearly average shown · April 2024 federal level: ${outcome.federalLevel} ppt · frozen classification cutoff: ${outcome.comparisonCutoff} ppt`;
+    const resultHeading = isZh ? "如何理解这项监测结果" : "How to read this monitoring result";
     const aboutHeading = isZh ? `🔎 ${outcome.label}是什么` : `🔎 What ${outcome.label} is`;
     const evidenceHeading = isZh ? "证据说明：" : "Evidence note:";
     const concernCopy = status.className === "above"
       ? (isZh
-        ? "这个结果值得关注。该供水系统显示的最高年度平均值达到或超过EPA比较水平。采取行动前，请先与水费账单核对系统名称。"
-        : "This result deserves attention. The highest yearly average shown for this water system met or exceeded the EPA comparison. Confirm the system name on your water bill before acting.")
+        ? "该供水系统显示的最高年度平均值达到或超过冻结的EPA技术援助分类阈值。请先与水费账单核对系统名称，然后查看供水机构的最新信息。"
+        : "The highest yearly average shown for this water system is at or above the frozen EPA technical-assistance cutoff. Confirm the system name on your water bill, then check the utility's current information.")
       : status.className === "below"
         ? (isZh
-          ? "采样水中检出了这种PFAS，但显示的年度平均值低于EPA比较水平。这更令人放心，但不能证明每个家庭水龙头都不含PFAS。"
-          : "This PFAS was detected, but the yearly average shown stayed below the EPA comparison. That is more reassuring, but it does not prove that every home tap is PFAS-free.")
+          ? "采样中检出了这种PFAS，但显示的年度平均值低于冻结的EPA技术援助分类阈值。这并不表示PFAS不存在，也不能确定家庭水龙头的浓度。"
+          : "This PFAS was detected, but the yearly average shown is below the frozen EPA technical-assistance cutoff. This does not show that PFAS was absent or determine the concentration at a home faucet.")
         : (isZh
           ? "检出了这种PFAS，但采样资料不足以完成年度比较。如果这是水费账单上的供水系统，请向供水机构索取完整结果和复测信息。"
           : "This PFAS was detected, but the sampling record was not complete enough for a yearly comparison. If this is the system on your bill, ask the utility for complete results and retesting information.");
-    const resultCopy = `${concernCopy} ${guidance.health[currentLang]}`;
+    const generalResearchLabel = isZh ? "一般研究背景：" : "General research context: ";
+    const resultCopy = `${concernCopy} ${generalResearchLabel}${guidance.health[currentLang]}`;
     const riskBoundary = isZh
       ? "这些研究不能证明某种疾病由这个供水系统引起。"
       : "These studies cannot prove that this water system caused a specific illness.";
@@ -354,12 +361,12 @@
     const isZh = currentLang === "zh";
     const copy = isZh
       ? (hasAboveComparison
-        ? "请先与水费账单核对供水系统，然后询问最新检测、处理方法和复测计划。如果需要过滤器，请核实具体型号具有NSF/ANSI 53或58的PFAS减少声明。孕妇、幼儿家庭或担心长期暴露的人可保存结果并咨询医疗专业人员。"
-        : "请先与水费账单核对供水系统。如果仍担心PFAS，可询问供水机构的最新检测，或核实具体过滤器型号具有NSF/ANSI 53或58的PFAS减少声明。")
+        ? "请先与水费账单核对供水系统。然后查看该机构最新的消费者信心报告，或询问最新检测、处理和合规信息。此冻结监测结果本身不能确定家庭水龙头浓度、个人暴露或健康风险。"
+        : "请先与水费账单核对供水系统。然后查看该机构最新的消费者信心报告或询问最新检测信息。低于冻结技术阈值并不表示未检出PFAS，也不能确定家庭水龙头的当前状况。")
       : (hasAboveComparison
-        ? "Confirm the system on your water bill. Then ask about newer testing, treatment, and retesting. If you want a filter, verify that the exact model has an NSF/ANSI 53 or 58 PFAS-reduction claim. People who are pregnant, caring for a young child, or concerned about long-term exposure can save the result to discuss with a healthcare professional."
-        : "Confirm the system on your water bill. If you still have PFAS concerns, ask the utility for newer testing or verify that an exact filter model has an NSF/ANSI 53 or 58 PFAS-reduction claim.");
-    return `<div class="science-box compound-action"><h3>${isZh ? "✅ 您可以采取的行动" : "✅ What you can do"}</h3><p>${escapeHtml(copy)}</p></div>`;
+        ? "Confirm the system on your water bill. Then read its current Consumer Confidence Report or ask the utility about newer sampling, treatment, and compliance information. This frozen monitoring result alone cannot determine a household tap concentration, personal exposure, or health risk."
+        : "Confirm the system on your water bill. Then read its current Consumer Confidence Report or ask the utility about newer sampling. A result below the frozen technical cutoff does not mean PFAS was absent or establish current conditions at a household faucet.");
+    return `<div class="science-box compound-action"><h3>${isZh ? "核实当前信息" : "Verify current information"}</h3><p>${escapeHtml(copy)}</p></div>`;
   }
 
   function renderOutcomeList(system) {
@@ -369,7 +376,7 @@
       const label = currentLang === "zh" && outcome.labelZh ? outcome.labelZh : outcome.label;
       return `<div class="compound-result-row ${status.className}">
         <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
-        <div><span>${escapeHtml(status.label)}</span><small>${escapeHtml(outcome.benchmark)}</small></div>
+        <div><span>${escapeHtml(status.label)}</span><small>${escapeHtml(outcome.benchmark)} · ${escapeHtml(outcome.cutoff)}</small></div>
       </div>`;
     }).join("");
   }
@@ -424,14 +431,12 @@
 
   function renderFilterGuide(hasAboveComparison) {
     const isZh = currentLang === "zh";
-    const heading = isZh
-      ? (hasAboveComparison ? "正在考虑购买过滤器？" : "希望进一步减少PFAS？")
-      : (hasAboveComparison ? "Thinking about a filter?" : "Want an extra layer of PFAS reduction?");
+    const heading = isZh ? "可选的家用过滤器信息" : "Optional home-filter information";
     const intro = isZh
-      ? (hasAboveComparison ? "请先确认被标记的供水系统与水费账单一致，再比较经过认证的过滤器声明。" : "低于比较水平不等于家庭水龙头检测。如果仍想使用过滤器，请核对PFAS减少认证，而不是只看营销用语。")
-      : (hasAboveComparison ? "First confirm that a water system with an at-or-above result is the one on your bill. Then use the result to compare certified filter claims." : "A below-comparison result is not a home-faucet test. If you still want a filter, compare certified PFAS-reduction claims rather than marketing language.");
+      ? "供水系统监测比较不能确定某个家庭是否需要过滤器。请先核对供水机构并查看其最新消费者信心报告。如果您自行考虑过滤器，请核实具体的PFAS减少认证，而不是只看营销用语。"
+      : "A water-system monitoring comparison cannot determine whether a particular home needs a filter. First confirm the utility and read its current Consumer Confidence Report. If you independently consider a filter, verify a specific PFAS-reduction certification rather than relying on marketing language.";
     return `<aside class="result-action-guide">
-      <span class="result-action-kicker">${isZh ? "下一步" : "What to do next"}</span>
+      <span class="result-action-kicker">${isZh ? "一般信息" : "General information"}</span>
       <h3>${heading}</h3>
       <p>${intro}</p>
       <ol>
@@ -450,11 +455,11 @@
     const lines = [
       `Release: ${release.release_id}.`,
       "The ZIP link can list multiple water systems and does not confirm the utility for a specific home. The user should match the system name to a water bill.",
-      "Each value shown is the highest EPA-derived annual average among that water system's sampling locations. It is not a system-wide average or a home-faucet test. Comparison labels do not by themselves determine compliance, personal exposure, safety, or health risk.",
+      "UCMR 5 samples were collected at entry points to the distribution system, not at a household faucet. Each value shown is the highest EPA-derived annual average among that water system's sampling locations. Comparison labels do not determine current compliance, household tap concentration, personal exposure, safety, or health risk.",
       `Water systems displayed: ${systems.length}.`
     ];
     const comparisonSystems = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1);
-    lines.push(`Water systems with at least one PFAS yearly average at or above an EPA technical comparison: ${comparisonSystems.length}. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}.`);
+    lines.push(`Water systems with at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff: ${comparisonSystems.length}. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}. A zero count does not mean PFAS was not detected.`);
     selected.forEach(system => {
       const outcomes = OUTCOMES.map(outcome => {
         const status = outcomeStatus(system, outcome);
@@ -517,7 +522,8 @@
     $("aiSuggestions").hidden = true;
     appendChat("user", question);
     chatMessages.push({ role: "user", content: question });
-    const deterministicReply = window.PFASAssistantResultTools?.answerComparisonSystems(question, currentSystems, currentLang);
+    const deterministicReply = window.PFASAssistantResultTools?.answerBoundaryQuestion(question, currentSystems, currentLang)
+      || window.PFASAssistantResultTools?.answerComparisonSystems(question, currentSystems, currentLang);
     if (deterministicReply) {
       appendChat("assistant", deterministicReply);
       chatMessages.push({ role: "assistant", content: deterministicReply });

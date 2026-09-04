@@ -29,7 +29,7 @@
     "url": "https://pfasestimator.org/methodology/",
     "name": "How PFAS Estimator Works | Methods & Limitations",
     "description": "Plain-language website guidance and full methods for the PFAS Estimator UCMR 5 January 2026 system-level analysis release.",
-    "dateModified": "2026-08-20",
+    "dateModified": "2026-09-04",
     "author": {"@type": "Person", "name": "Jack Zhang"}
   }
   </script>
@@ -97,8 +97,8 @@
 
           <ol class="pipeline-list consumer-method-steps">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the yearly averages</h3><p>The site shows the highest yearly average across each system’s EPA sampling locations. It is not a measurement from your kitchen faucet.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Use the comparison as a next-step signal</h3><p>“At or above” means at least one complete EPA result reached the comparison used in this release. It does not mean every home has the same level or that this website has made a compliance decision.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the yearly averages</h3><p>The site shows the highest yearly average across each system’s EPA sampling locations. UCMR 5 samples were collected at entry points to the distribution system, not at household faucets.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the frozen technical cutoff</h3><p>“At or above” means at least one complete EPA result reached the technical-assistance cutoff used in the January 2026 research release. It does not determine current compliance, a household tap concentration, personal exposure, or health risk.</p></div></li>
           </ol>
 
           <div class="interpretation-grid consumer-answer-grid">
@@ -130,7 +130,7 @@
             <strong>Release lock.</strong> Manuscript tables and website records are generated from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. They are not calculated independently in the browser. Input and artifact hashes are recorded so later refreshes cannot silently alter the reported results.
           </div>
 
-          <p>EPA described the January 2026 data as approximately 95% of expected UCMR 5 results and planned a final release for fall 2026. The submitted manuscript identifies this as an interim release. When EPA publishes final results, the project will create a new version instead of silently replacing this one.</p>
+          <p>EPA described the January 2026 data as approximately 95% of expected UCMR 5 results. EPA subsequently released the final UCMR 5 dataset in August 2026. The submitted manuscript and this research release remain tied to the January snapshot; the final federal data are available through EPA’s Data Finder and are not silently substituted into the frozen analysis.</p>
         </section>
 
         <section class="methodology-section" id="cohort">
@@ -170,7 +170,7 @@
           <ol class="pipeline-list">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Use complete sampling sets</h3><p>Annual averages are defined at an EPA sampling location using its complete required monitoring set. Results below the UCMR minimum reporting level are assigned zero for the calculation.</p></div></li>
             <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Reproduce EPA classifications</h3><p>The primary source is EPA’s January 2026 Average PFAS Results export. A record-level reconstruction is retained as a validation analysis rather than as a substitute for unresolved replacement-record logic.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Classify the combined primary outcome</h3><p>A system is positive when at least one complete-set location meets an April 2024 individual-compound or qualifying-mixture technical comparison.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Classify the combined primary outcome</h3><p>A system enters the combined outcome when at least one complete-set location has a yearly average at or above an April 2024 individual-compound or qualifying-mixture technical cutoff.</p></div></li>
           </ol>
 
           <div class="methodology-table-wrap">
@@ -239,7 +239,7 @@
             </div>
           </div>
 
-          <p>Of 8,069 primary-cohort systems, 964 (11.9%) met at least one April 2024 technical comparison. In the joint adjusted model, each 10-percentage-point higher Hispanic service-area composition corresponded to a prevalence ratio of 1.15 (95% CI, 1.09–1.22). Estimates for non-Hispanic Black composition (PR, 1.02; 95% CI, 0.93–1.11) and non-Hispanic American Indian/Alaska Native composition (PR, 1.18; 95% CI, 0.91–1.53) were null or imprecise.</p>
+          <p>Of 8,069 primary-cohort systems, 964 (11.9%) had at least one yearly average at or above an April 2024 technical cutoff. In the joint adjusted model, each 10-percentage-point higher Hispanic service-area composition corresponded to a prevalence ratio of 1.15 (95% CI, 1.09–1.22). Estimates for non-Hispanic Black composition (PR, 1.02; 95% CI, 0.93–1.11) and non-Hispanic American Indian/Alaska Native composition (PR, 1.18; 95% CI, 0.91–1.53) were null or imprecise.</p>
 
           <p>Poverty composition (PR, 0.74; 95% CI, 0.64–0.87) and rural composition (PR, 0.94; 95% CI, 0.91–0.97) were inversely associated with the combined benchmark outcome. These directions must be reported as prominently as the positive Hispanic-composition association and investigated—not rationalized away.</p>
 
@@ -250,16 +250,16 @@
           <div class="methodology-section-heading">
             <span class="methodology-section-number">08</span>
             <div>
-              <h2>Website and PFAS Health Assistant</h2>
+              <h2>Website and PFAS Results Assistant</h2>
               <p>The lookup uses fixed EPA results. The optional assistant helps people understand them.</p>
             </div>
           </div>
 
           <p>The ZIP lookup reads directly from the frozen scientific export. It finds water systems connected with the entered ZIP and displays their EPA yearly averages. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
 
-          <p>The PFAS Health Assistant is optional. The ZIP lookup itself does not use AI. When someone asks a question, the question and a short summary of the displayed water-system results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
+          <p>The PFAS Results Assistant is optional. The ZIP lookup itself does not use AI. When someone asks a question, the question and a short summary of the displayed water-system results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
 
-          <p>The assistant can explain terms, health research, utility follow-up, and filter guidance. It is limited to a compact evidence set based on EPA, ATSDR, and NSF guidance. It cannot change a number or comparison on the page, confirm which system serves a home, diagnose illness, or determine personal exposure. Its answers may still contain mistakes. If it is unavailable, the ZIP lookup continues to work.</p>
+          <p>The assistant can explain terms, general health research, sampling locations, utility follow-up, and optional filter guidance. It is limited to a compact evidence set based on EPA, ATSDR, and NSF guidance. Deterministic boundary responses prevent it from treating a system result as a safety, compliance, medical, personal-exposure, or exposure-percentage determination. It cannot change a number or comparison on the page. Its other answers may still contain mistakes. If it is unavailable, the ZIP lookup continues to work.</p>
 
           <div class="truth-callout">
             <div class="truth-callout-label">Before buying a filter</div>
@@ -281,7 +281,7 @@
           <ul class="source-list">
             <li><strong>Ecological design:</strong> service-area composition cannot be assigned to individuals and cannot establish individual exposure.</li>
             <li><strong>Cross-sectional timing:</strong> associations do not establish causality or historical exposure.</li>
-            <li><strong>Interim release:</strong> the January 2026 UCMR 5 file is not the final federal release.</li>
+            <li><strong>Frozen interim release:</strong> the research uses the January 2026 UCMR 5 file, not the final federal dataset released in August 2026. Use EPA’s Data Finder for current federal records.</li>
             <li><strong>Service-area uncertainty:</strong> some EPA boundaries are modeled, and demographic interpolation does not eliminate within-area heterogeneity.</li>
             <li><strong>Small-system sampling:</strong> unweighted monitored systems below 3,300 people do not support inference to all small systems or demographic subgroups.</li>
             <li><strong>Correlated community measures:</strong> compositional predictors are interdependent; adjusted coefficients are not isolated causal effects.</li>
@@ -320,19 +320,21 @@
 
           <ol class="reference-list">
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Fifth Unregulated Contaminant Monitoring Rule Data Finder</a>.</li>
+            <li>US Environmental Protection Agency. <a href="https://www.epa.gov/ccr" target="_blank" rel="noopener noreferrer">Consumer Confidence Reports</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.regulations.gov/document/EPA-HQ-OW-2020-0530-0127" target="_blank" rel="noopener noreferrer">Selection of Nationally Representative Public Water Systems for UCMR: 2021 Update</a>. EPA 815-B-21-012.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/dwreginfo/pfas-rule-implementation" target="_blank" rel="noopener noreferrer">PFAS drinking-water rule implementation</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/sdwa/proposed-pfas-rescission-rule" target="_blank" rel="noopener noreferrer">Proposed PFAS rescission rule</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/ground-water-and-drinking-water/public-water-system-service-areas" target="_blank" rel="noopener noreferrer">Public Water System Service Areas</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">Reducing PFAS in Your Drinking Water with a Home Filter</a>.</li>
             <li>Agency for Toxic Substances and Disease Registry. <a href="https://www.atsdr.cdc.gov/pfas/about/health-effects.html" target="_blank" rel="noopener noreferrer">How PFAS Impacts Your Health</a>.</li>
+            <li>Agency for Toxic Substances and Disease Registry. <a href="https://www.atsdr.cdc.gov/pfas/about/" target="_blank" rel="noopener noreferrer">PFAS exposure sources and general information</a>.</li>
             <li>NSF. <a href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">PFAS in Drinking Water: Filter Certification Guidance</a>.</li>
             <li>US Census Bureau. <a href="https://www.census.gov/data/developers/data-sets/acs-5year.html" target="_blank" rel="noopener noreferrer">American Community Survey 5-year data</a>.</li>
             <li>Conley TG. GMM estimation with cross sectional dependence. <em>Journal of Econometrics</em>. 1999;92(1):1–45. <a href="https://doi.org/10.1016/S0304-4076(98)00084-0" target="_blank" rel="noopener noreferrer">doi:10.1016/S0304-4076(98)00084-0</a>.</li>
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Website explanation updated August 25, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Website explanation updated September 4, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
       </main>
     </div>
   </div>

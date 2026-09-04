@@ -60,8 +60,8 @@
     const columns = [
       ["name", "State or territory"],
       ["eligible", "Water systems with complete monitoring"],
-      ["above", "Water systems meeting any comparison"],
-      ["pctAbove", "Percent meeting a comparison"],
+      ["above", "Water systems at or above any frozen cutoff"],
+      ["pctAbove", "Percent at or above a frozen cutoff"],
       ["pfoa", "PFOA"],
       ["pfos", "PFOS"],
       ["hazard_index", "Hazard Index"],
@@ -130,10 +130,10 @@
   }
 
   function metricDescription(row, metric) {
-    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of active community water systems with complete monitoring met a comparison`;
+    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of active community water systems with complete monitoring had a yearly average at or above a frozen technical cutoff`;
     if (metric === "eligible") return `${row.eligible.toLocaleString()} active community water systems with complete monitoring`;
-    if (metric === "above") return `${row.above.toLocaleString()} water systems met any comparison`;
-    return `${Number(row[metric] || 0).toLocaleString()} water systems met the ${COMPOUND_LABELS[metric]} comparison`;
+    if (metric === "above") return `${row.above.toLocaleString()} water systems had a yearly average at or above any frozen technical cutoff`;
+    return `${Number(row[metric] || 0).toLocaleString()} water systems had a yearly average at or above the ${COMPOUND_LABELS[metric]} frozen technical cutoff`;
   }
 
   async function renderMap() {
@@ -175,7 +175,7 @@
         const code = NAME_TO_ABBREV[feature.properties.name];
         const row = stateData[code];
         if (!row) { tooltip.hidden = true; return; }
-        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} active community water systems with complete monitoring met a comparison</small>`;
+        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} active community water systems with complete monitoring had a yearly average at or above a frozen technical cutoff</small>`;
         const rect = container.getBoundingClientRect();
         let left = event.clientX - rect.left + 16;
         let top = event.clientY - rect.top - 12;
