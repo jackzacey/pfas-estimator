@@ -4939,3 +4939,376 @@ button,
     margin-left: 4px;
   }
 }
+
+/* ── SEPTEMBER 2026 READABILITY PASS ── */
+/* Preserve the established layout while giving public-facing explanations
+   enough type size and spacing to be read without zooming. */
+.site-nav a {
+  font-size: 13px;
+}
+
+.home-lookup-panel .context-note {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.home-shell .home-interaction-grid .chat-panel-title {
+  font-size: 14px;
+}
+
+.home-shell .home-interaction-grid .chat-panel-sub,
+.home-shell .home-interaction-grid .ai-suggestion {
+  font-size: 12.5px;
+}
+
+.home-shell .home-interaction-grid .ai-msg,
+.home-shell .home-interaction-grid .ai-input-row input {
+  font-size: 14px;
+}
+
+.home-shell .home-interaction-grid .ai-disclaimer {
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+.home-shell .home-results-region .result-title {
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.home-shell .home-results-region .result-context {
+  max-width: 850px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.result-boundary {
+  margin: 14px 0 16px;
+  padding: 15px 16px;
+  border: 1px solid var(--primary-tint-border);
+  border-left: 4px solid var(--primary);
+  border-radius: 0 9px 9px 0;
+  background: #f4f8fa;
+  color: #334e5b;
+}
+
+.result-boundary h3 {
+  margin: 0 0 5px;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.result-boundary p {
+  max-width: 900px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.result-boundary a,
+.compound-action a {
+  display: inline-block;
+  margin-top: 7px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.result-boundary a:hover,
+.result-boundary a:focus-visible,
+.compound-action a:hover,
+.compound-action a:focus-visible {
+  text-decoration: underline;
+}
+
+.result-next-step {
+  margin: 14px 0;
+  padding: 15px 16px;
+  border: 1px solid #cfe6da;
+  border-left: 4px solid #4fae7a;
+  border-radius: 0 9px 9px 0;
+  background: #f1faf5;
+  color: #315642;
+}
+
+.result-next-step h3 {
+  margin: 0 0 5px;
+  color: #214d36;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.result-next-step p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.result-next-step a {
+  display: inline-block;
+  margin-top: 7px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.result-next-step a:hover,
+.result-next-step a:focus-visible {
+  text-decoration: underline;
+}
+
+.system-summary-head h3 {
+  font-size: 16px;
+}
+
+.system-summary-head p,
+.system-state-label {
+  font-size: 12px;
+}
+
+.system-summary-status {
+  max-width: 230px;
+  padding: 7px 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.water-system-match,
+.system-fact-strip,
+.consumer-no-detections {
+  font-size: 13.5px;
+}
+
+.compound-education-name,
+.compound-system-name {
+  font-size: 12.5px;
+}
+
+.compound-measurement-status {
+  font-size: 14px;
+}
+
+.compound-measurement-value,
+.compound-incomplete-note,
+.compound-education-card .epa-bar-label {
+  font-size: 13px;
+}
+
+.compound-measurement-value strong {
+  font-size: 16px;
+}
+
+.compound-education-card .science-box,
+.compound-education-card .science-box h3,
+.hazard-index-education {
+  font-size: 14px;
+}
+
+.compound-evidence-note {
+  font-size: 13px;
+}
+
+.compound-education-card .compound-refs a,
+.hazard-index-education a {
+  font-size: 12.5px;
+}
+
+.compound-results-details summary {
+  padding: 11px 12px;
+  font-size: 13px;
+}
+
+.compound-result-row strong,
+.compound-result-row > div:last-child > span,
+.compound-result-row small {
+  font-size: 12.5px;
+}
+
+.lookup-empty-guidance {
+  font-size: 14px;
+}
+
+.result-action-guide {
+  padding: 0;
+  overflow: hidden;
+}
+
+.result-action-guide > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 15px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.result-action-guide > summary::-webkit-details-marker {
+  display: none;
+}
+
+.result-action-guide > summary strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.result-action-kicker {
+  font-size: 10.5px;
+}
+
+.optional-filter-hint {
+  flex: 0 0 auto;
+  color: var(--primary);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.optional-filter-guide[open] .optional-filter-hint {
+  visibility: hidden;
+}
+
+.result-action-body {
+  padding: 0 15px 15px;
+  border-top: 1px solid var(--primary-tint-border);
+}
+
+.result-action-guide p,
+.result-action-guide li {
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.result-action-guide small {
+  font-size: 12px;
+}
+
+.home-shell .why-section p {
+  font-size: 14.5px;
+}
+
+.home-shell .disclaimer,
+.counter-badge {
+  font-size: 12px;
+}
+
+/* Long-form methods remain technical, but no longer rely on tiny type. */
+.methodology-lede,
+.methodology-section > p,
+.pipeline-step p,
+.source-list li,
+.interpretation-card li,
+.methodology-note,
+.truth-callout p,
+.limitations-list p,
+.status-row p,
+.citation-box p {
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.methodology-table,
+.methodology-table th,
+.methodology-table td {
+  font-size: 13px;
+}
+
+.methodology-footer p {
+  font-size: 12px;
+}
+
+/* Map, tables, directory cards, and state profiles use the same readable
+   baseline without changing their grid or card structure. */
+.national-meta span,
+.state-detail-meta span {
+  font-size: 12px;
+}
+
+.national-panel-heading > p,
+.national-data-status,
+.state-detail-section-heading > p,
+.state-detail-overview .headline-stat p,
+.state-detail-actions > p {
+  font-size: 14px;
+}
+
+.national-map-controls .map-metric-label,
+.national-map-controls .map-select {
+  font-size: 13px;
+}
+
+.national-map .map-tooltip strong,
+.national-map .map-tooltip p,
+.national-map .map-tooltip small {
+  font-size: 12.5px;
+}
+
+.national-metrics p,
+.national-state-table,
+.national-state-table th button,
+.national-table-footnote,
+.national-notes p,
+.state-detail-table,
+.state-detail-table th,
+.state-detail-table caption,
+.state-detail-notes p,
+.state-detail-links a {
+  font-size: 13px;
+}
+
+.national-notes span,
+.national-footer,
+.state-detail-footer,
+.state-detail-kicker,
+.state-detail-section-label,
+.headline-stat-label,
+.state-detail-hero .breadcrumb {
+  font-size: 12px;
+}
+
+.states-orientation-copy p,
+.state-directory-heading p,
+.state-threshold-note span {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.states-zip-cta > span,
+.state-region-heading span,
+.state-card-region {
+  font-size: 12px;
+}
+
+.states-zip-cta strong,
+.states-zip-cta a,
+.state-threshold-note strong,
+.state-card-stat span,
+.state-card-footer,
+.state-card-link {
+  font-size: 13px;
+}
+
+.state-directory-card h3 {
+  font-size: 16px;
+}
+
+@media (max-width: 620px) {
+  .result-action-guide > summary {
+    align-items: flex-start;
+  }
+
+  .system-summary-status {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .counter-badge {
+    display: none;
+  }
+}

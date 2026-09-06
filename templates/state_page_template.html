@@ -18,7 +18,7 @@
   <meta property="og:image" content="{{BASE_URL}}/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">{{STRUCTURED_DATA_JSON}}</script>
-  <link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" />
+  <link rel="stylesheet" href="/styles.css?v=20260905-readable-results" />
 </head>
 <body class="state-detail-body">
   <a class="skip-link" href="#state-detail-content">Skip to state monitoring results</a>
@@ -28,7 +28,7 @@
       <a href="{{BASE_URL}}/map/">Map</a>
       <a href="{{BASE_URL}}/state-table/">State Table</a>
       <a href="{{BASE_URL}}/states/" aria-current="page">Explore by State</a>
-      <a href="{{BASE_URL}}/methodology/">Full Methodology</a>
+      <a href="{{BASE_URL}}/methodology/">How It Works</a>
       <a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a>
     </nav>
 
@@ -48,24 +48,24 @@
     <main class="state-detail-content" id="state-detail-content">
       <section class="state-detail-overview" aria-label="State summary">
         <div class="headline-stat">
-          <span class="headline-stat-label">Systems with any yearly average at or above a frozen federal technical cutoff</span>
+          <span class="headline-stat-label">Systems reaching a study comparison level</span>
           <div class="big"><strong>{{PCT_ABOVE}}%</strong><span>{{ABOVE_SYSTEMS}} of {{ELIGIBLE_SYSTEMS}} active community water systems with complete monitoring</span></div>
-          <p>All {{ELIGIBLE_SYSTEMS}} systems in this summary had complete monitoring. {{ABOVE_SYSTEMS}} had at least one yearly average at or above a frozen January 2026 EPA technical-assistance cutoff; {{BELOW_SYSTEMS}} did not. This is not a household exposure, personal risk, or compliance determination.</p>
+          <p>All {{ELIGIBLE_SYSTEMS}} systems had complete monitoring. {{ABOVE_SYSTEMS}} reached at least one study comparison level; {{BELOW_SYSTEMS}} did not. “Study comparison level” means the dated EPA technical cutoff used in this January 2026 research release. It does not determine household exposure, health risk, or current legal compliance.</p>
         </div>
         <div class="state-detail-actions">
-          <span class="state-detail-section-label">Continue with local context</span>
-          <h2>Check potentially relevant systems</h2>
+          <span class="state-detail-section-label">Check your area</span>
+          <h2>Find your water system</h2>
           <p>ZIP codes are used only to route visitors to public water systems that reported serving them. Confirm the actual provider using a water bill or utility record.</p>
           <div class="cta-row"><a class="button-link" href="{{BASE_URL}}/">Open the system lookup &rarr;</a><a class="button-link secondary" href="{{BASE_URL}}/methodology/">Read the methodology</a></div>
         </div>
       </section>
 
       <section class="state-detail-panel state-section">
-        <div class="state-detail-section-heading"><div><span class="state-detail-section-label">Compound summary</span><h2>System counts in {{STATE_NAME}}</h2></div><p>Each count shows how many included water systems had a yearly average at or above the named frozen technical cutoff.</p></div>
+        <div class="state-detail-section-heading"><div><span class="state-detail-section-label">Compound summary</span><h2>System counts in {{STATE_NAME}}</h2></div><p>Each count shows how many included water systems reached the named study level.</p></div>
         <div class="state-detail-table-wrap">
           <table class="state-table state-detail-table">
-            <caption>Active community water systems with complete monitoring at or above frozen EPA January 2026 technical cutoffs in {{STATE_NAME}}.</caption>
-            <thead><tr><th scope="col">Technical cutoff</th><th scope="col">Systems at or above cutoff</th><th scope="col">Water systems included</th><th scope="col">Percent</th></tr></thead>
+            <caption>Community water systems reaching the dated EPA comparison levels used in the January 2026 research release for {{STATE_NAME}}.</caption>
+            <thead><tr><th scope="col">Study comparison</th><th scope="col">Systems reaching level</th><th scope="col">Water systems included</th><th scope="col">Percent</th></tr></thead>
             <tbody>{{COMPOUND_TABLE_ROWS}}</tbody>
           </table>
         </div>
@@ -76,14 +76,14 @@
         <div class="zip-table-wrap">
           <table class="state-table state-detail-table state-system-table">
             <caption>Active community water systems with complete UCMR 5 monitoring in {{STATE_NAME}}.</caption>
-            <thead><tr><th scope="col">Public water system</th><th scope="col">PWSID</th><th scope="col">Population served</th><th scope="col">Primary source</th><th scope="col">Sampling locations</th><th scope="col">Frozen technical cutoffs</th></tr></thead>
+            <thead><tr><th scope="col">Public water system</th><th scope="col">PWSID</th><th scope="col">Population served</th><th scope="col">Primary source</th><th scope="col">Sampling locations</th><th scope="col">Study comparison</th></tr></thead>
             <tbody>{{SYSTEM_TABLE_ROWS}}</tbody>
           </table>
         </div>
       </section>
 
       <section class="state-detail-notes" aria-label="Interpretation and related links">
-        <div><span class="state-detail-section-label">Read this correctly</span><h2>What these results mean</h2><p>The percentage compares active community water systems with complete monitoring. A system is counted when at least one complete-set sampling location had a yearly average at or above an individual PFAS or Hazard Index technical cutoff. Each system is counted once, even if it is linked with several ZIP codes. These results do not identify a home’s utility, exposure, health risk, or compliance. Private wells are excluded, and small systems were not comprehensively monitored. {{STATE_CONTEXT_NOTE}}</p></div>
+        <div><span class="state-detail-section-label">How the count works</span><h2>What is included</h2><p>Each active community water system with complete monitoring is counted once, even if it is linked with several ZIP codes. Private wells are excluded, and UCMR 5 did not comprehensively monitor every small system. {{STATE_CONTEXT_NOTE}}</p></div>
         <div><span class="state-detail-section-label">Continue exploring</span><h2>Related links</h2><p class="state-detail-links"><a href="{{BASE_URL}}/">PFAS Estimator system lookup</a><a href="{{BASE_URL}}/state-table/">National state comparison table</a><a href="{{BASE_URL}}/methodology/">Full methodology and limitations</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Current EPA UCMR 5 Data Finder</a>{{STATE_CONTEXT_LINK}}</p></div>
       </section>
 

@@ -7,12 +7,12 @@
   const ASSISTANT_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
   const REQUEST_TIMEOUT_MS = 20000;
   const OUTCOMES = [
-    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Frozen EPA classification cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
-    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Frozen EPA classification cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
-    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Frozen EPA classification cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
-    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Frozen EPA classification cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
-    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Frozen EPA classification cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
-    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "April 2024 federal level: 1", cutoff: "Frozen EPA classification cutoff: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
+    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Study cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Study cutoff: 4.05 ppt", federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Study cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Study cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Study cutoff: 15 ppt", federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "April 2024 federal level: 1", cutoff: "Study cutoff: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
   ];
 
   const COMPOUND_GUIDANCE = {
@@ -110,15 +110,15 @@
 
   const COPY = {
     en: {
-      navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "Methods & limitations",
+      navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "How it works",
       releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
       heroTitle: "U.S. Public Water PFAS Monitoring Lookup",
-      heroSubtitle: "Enter a ZIP code to find public water systems associated with it and review their EPA UCMR 5 monitoring results.",
-      truthNote: "<strong>Before you start:</strong> A ZIP code can list more than one water system. Match the system name to your water bill before reading its results. UCMR 5 samples were collected at entry points to the distribution system, not at your home faucet. <strong>Research snapshot:</strong> This site preserves EPA results received through January 15, 2026. EPA released the final UCMR 5 dataset in August 2026; use the EPA Data Finder for current federal records.",
+      heroSubtitle: "Enter a ZIP code to see EPA PFAS monitoring results for public water systems connected with that area.",
+      truthNote: "<strong>Before you search:</strong> A ZIP code may list more than one water system, so match the system name to your water bill. This research snapshot uses EPA results received through January 15, 2026. For the newest federal records, use EPA’s Data Finder.",
       printButton: "Print or save this water-system result",
-      chatTitle: "PFAS Results Assistant", chatSubtitle: "Ask how to read monitoring results or verify official information",
+      chatTitle: "PFAS Results Assistant", chatSubtitle: "Ask what a result means or where to verify it",
       suggestConcern: "What can this result tell me?", suggestUtility: "How do I confirm my utility?", suggestFilter: "Where were samples collected?", suggestHealth: "Where are current results?",
-      askButton: "Ask", chatDisclaimer: "AI can make mistakes. Do not share names or medical details. ZIP results do not use AI.", chatLearnMore: "How it works",
+      askButton: "Ask", chatDisclaimer: "AI answers may be wrong. Do not share personal or medical information. The ZIP results do not use AI.", chatLearnMore: "How it works",
       searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
       preparing: "Preparing verified EPA data.", findSystems: "Check my area",
@@ -132,23 +132,24 @@
       associatedTitle: (count, zip) => `${count} water system${count === 1 ? "" : "s"} listed for ZIP ${zip}`,
       associatedContext: (aboveCount, totalCount) => aboveCount
         ? (totalCount === 1
-          ? "The listed water system had at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. Match the system name to your water bill before reading its result."
-          : `${aboveCount} of the ${totalCount} listed water systems had at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. Match the system name to your water bill before reading their results.`)
+          ? "At least one PFAS yearly average for this system reached the study comparison level. Confirm the system name below before using the result."
+          : `${aboveCount} of these ${totalCount} systems had at least one PFAS yearly average that reached the study comparison level. Confirm the correct system below.`)
         : (totalCount === 1
-          ? "The listed water system had no complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. This does not mean that PFAS was not detected. Match the system name to your water bill before reading its result."
-          : `All ${totalCount} listed water systems had no complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. This does not mean that PFAS was not detected. Match the system names to your water bill before reading their results.`),
+          ? "No complete PFAS yearly average for this system reached the study comparison level. PFAS may still have been detected. Confirm the system name below."
+          : `None of these ${totalCount} systems had a complete PFAS yearly average that reached the study comparison level. PFAS may still have been detected. Confirm the correct system below.`),
       communitySystem: "Community water system", publicSystem: "Public water system", residentialNotUsed: "residential Census context is not used for this system",
-      completeUnavailable: "Not enough data for a yearly comparison", atLeastOne: "One or more complete PFAS yearly averages are at or above a frozen technical cutoff", noLocationMeets: "No complete PFAS yearly average is at or above a frozen technical cutoff",
+      completeUnavailable: "Not enough data for a yearly comparison", atLeastOne: "Reached the study comparison level", noLocationMeets: "Below the study comparison level",
       populationServed: "Population served", source: "Primary source", ownership: "Ownership", samplingLocations: "Sampling locations", serviceBoundary: "Service boundary", sdwisStatus: "SDWIS status",
       notReported: "Not reported", notAvailable: "Not available", unnamed: "Unnamed public water system",
       measure: "PFAS", highestAverage: "Highest yearly average", benchmarkHeading: "EPA comparison level", comparisonHeading: "Result",
-      noCompleteAverage: "Not enough data", meets: "At or above technical cutoff", doesNotMeet: "Below technical cutoff",
+      noCompleteAverage: "Not enough data", meets: "Reached study comparison", doesNotMeet: "Below study comparison",
       demographicSummary: "Service-area demographic context used in the research analysis", demographicNote: "Ecological estimates for the modeled service area; these do not describe any individual customer.",
       hispanic: "Hispanic", black: "non-Hispanic Black", aian: "non-Hispanic AIAN", poverty: "below poverty", rural: "rural",
-      resultCaveat: "UCMR 5 samples were collected at entry points to the distribution system. The value shown is the highest yearly average among this system’s EPA sampling locations, not a home-faucet result. It does not determine current compliance, household tap concentration, personal exposure, or health risk.",
+      resultBoundaryTitle: "Read this before using the results",
+      resultBoundaryBody: "“Study comparison level” means the dated EPA technical cutoff used in this January 2026 research release. UCMR 5 samples were collected where water enters the distribution system, not at home faucets. These results cannot determine current legal compliance, household tap levels, personal exposure, or health risk.",
       welcome: "Ask me how to read the monitoring results, confirm a water system, understand where samples were collected, or find current official information.",
-      contextReadyAbove: "One or more displayed yearly averages are at or above a frozen EPA technical-assistance cutoff. I can explain what that classification does and does not mean, how to confirm the utility, or where to find current official information.",
-      contextReadyBelow: "No displayed complete yearly average is at or above a frozen EPA technical-assistance cutoff. I can explain why that does not mean PFAS was absent or determine current conditions.",
+      contextReadyAbove: "One or more results reached the study comparison level. I can explain what that means, how to confirm the utility, or where to find current information.",
+      contextReadyBelow: "No complete result reached the study comparison level. I can explain why that does not mean PFAS was absent or describe current conditions.",
       contextReadyNone: "I could not find a water system for that ZIP. Ask me how to confirm your utility or check a private well.",
       thinking: "Reviewing your question…",
       rateError: "The assistant has reached its short-term request limit. The lookup remains available; please try the chat again in about a minute.",
@@ -186,7 +187,8 @@
       noCompleteAverage: "资料不足", meets: "达到或超过技术阈值", doesNotMeet: "低于技术阈值",
       demographicSummary: "研究分析使用的服务区人口背景", demographicNote: "这是模型服务区的生态估计，不描述任何个人客户。",
       hispanic: "西班牙裔", black: "非西班牙裔黑人", aian: "非西班牙裔美洲印第安人/阿拉斯加原住民", poverty: "低于贫困线", rural: "农村",
-      resultCaveat: "UCMR 5样本采自进入配水系统的位置。显示值是该系统EPA采样位置中最高的年度平均值，不是家庭水龙头结果，也不能确定当前合规情况、家庭水龙头浓度、个人暴露或健康风险。",
+      resultBoundaryTitle: "使用结果前请先阅读",
+      resultBoundaryBody: "“研究比较水平”是本网站2026年1月研究版本使用的、具有日期标记的EPA技术阈值。UCMR 5样本采自水进入配水系统的位置，而不是家庭水龙头。这些结果不能确定当前法律合规情况、家庭水龙头浓度、个人暴露或健康风险。",
       welcome: "您可以询问如何理解监测结果、确认供水系统、了解采样位置或查找最新官方信息。",
       contextReadyAbove: "一项或多项显示的年度平均值达到或超过冻结的EPA技术援助分类阈值。我可以解释该分类能说明什么、不能说明什么，以及如何确认供水机构或查找最新官方信息。",
       contextReadyBelow: "显示的完整年度平均值均未达到冻结的EPA技术援助分类阈值。我可以解释为何这不表示PFAS不存在，也不能确定当前状况。",
@@ -307,66 +309,56 @@
     const isZh = currentLang === "zh";
     const value = formatAverage(status.maximum, false);
     const statusCopy = status.className === "above"
-      ? (isZh ? "检出值达到或超过冻结技术阈值" : "Detected at or above the frozen technical cutoff")
+      ? (isZh ? "检出值达到研究比较水平" : "Reached the study comparison level")
       : status.className === "below"
-        ? (isZh ? "检出值低于冻结技术阈值" : "Detected below the frozen technical cutoff")
+        ? (isZh ? "检出值低于研究比较水平" : "Below the study comparison level")
         : (isZh ? "— 已检出；年度比较资料不完整" : "— Detected; yearly comparison data are incomplete");
     const comparisonRatio = (valuePpt / outcome.comparisonCutoff) * 100;
     const gaugeFillPct = Math.min(comparisonRatio, 150) / 150 * 100;
-    const ratioLabel = isZh ? "检测值与冻结技术比较阈值" : "Measured value compared with the frozen technical cutoff";
+    const ratioLabel = isZh ? "显示值与研究比较水平" : "Value shown compared with the study level";
     const benchmarkCopy = isZh
-      ? `显示的最高年度平均值 · 2024年4月联邦水平：${outcome.federalLevel} ppt · 冻结分类阈值：${outcome.comparisonCutoff} ppt`
-      : `Highest yearly average shown · April 2024 federal level: ${outcome.federalLevel} ppt · frozen classification cutoff: ${outcome.comparisonCutoff} ppt`;
-    const resultHeading = isZh ? "如何理解这项监测结果" : "How to read this monitoring result";
-    const aboutHeading = isZh ? `🔎 ${outcome.label}是什么` : `🔎 What ${outcome.label} is`;
+      ? `最高年度平均值 · 研究比较水平：${outcome.comparisonCutoff} ppt（基于2024年4月EPA水平）`
+      : `Highest yearly average · Study level: ${outcome.comparisonCutoff} ppt (based on April 2024 EPA levels)`;
+    const aboutHeading = isZh ? `${outcome.label}是什么` : `What ${outcome.label} is`;
+    const healthHeading = isZh ? "健康研究发现" : "What health research says";
     const evidenceHeading = isZh ? "证据说明：" : "Evidence note:";
-    const concernCopy = status.className === "above"
-      ? (isZh
-        ? "该供水系统显示的最高年度平均值达到或超过冻结的EPA技术援助分类阈值。请先与水费账单核对系统名称，然后查看供水机构的最新信息。"
-        : "The highest yearly average shown for this water system is at or above the frozen EPA technical-assistance cutoff. Confirm the system name on your water bill, then check the utility's current information.")
-      : status.className === "below"
-        ? (isZh
-          ? "采样中检出了这种PFAS，但显示的年度平均值低于冻结的EPA技术援助分类阈值。这并不表示PFAS不存在，也不能确定家庭水龙头的浓度。"
-          : "This PFAS was detected, but the yearly average shown is below the frozen EPA technical-assistance cutoff. This does not show that PFAS was absent or determine the concentration at a home faucet.")
-        : (isZh
-          ? "检出了这种PFAS，但采样资料不足以完成年度比较。如果这是水费账单上的供水系统，请向供水机构索取完整结果和复测信息。"
-          : "This PFAS was detected, but the sampling record was not complete enough for a yearly comparison. If this is the system on your bill, ask the utility for complete results and retesting information.");
-    const generalResearchLabel = isZh ? "一般研究背景：" : "General research context: ";
-    const resultCopy = `${concernCopy} ${generalResearchLabel}${guidance.health[currentLang]}`;
     const riskBoundary = isZh
-      ? "这些研究不能证明某种疾病由这个供水系统引起。"
-      : "These studies cannot prove that this water system caused a specific illness.";
+      ? "这些证据描述的是充分暴露后的潜在危害。该监测结果不测量任何个人的暴露，也不能预测疾病。"
+      : "This evidence describes potential hazards after sufficient exposure. The monitoring result does not measure any person’s exposure or predict illness.";
 
     return `<article class="detail-box compound-education-card ${status.className}">
       <header class="compound-education-head">
         <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(outcome.label)}</span><span class="compound-education-name">${escapeHtml(outcome.fullName)}</span></div>
-        <span class="compound-system-name">${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</span>
       </header>
       <div class="compound-measurement ${status.className}">
         <div class="compound-measurement-status">${statusCopy}</div>
         <div class="compound-measurement-value"><strong>${escapeHtml(value)}</strong><span>${escapeHtml(benchmarkCopy)}</span></div>
         ${status.className === "incomplete" ? `<p class="compound-incomplete-note">${isZh ? "完整采样资料不足，因此本网站不为该年度平均值分配比较结论。" : "Complete sampling information is unavailable, so the site does not assign a yearly comparison conclusion."}</p>` : `<div class="epa-bar"><div class="epa-bar-label">${escapeHtml(ratioLabel)}</div><div class="bar-track"><div class="bar-fill ${status.className === "above" ? "above" : ""}" style="width:${gaugeFillPct.toFixed(2)}%"></div><div class="bar-tick"></div></div></div>`}
       </div>
-      <div class="science-box compound-result-explanation"><h3>${resultHeading}</h3><p>${escapeHtml(resultCopy)}</p></div>
       <details class="compound-results-details">
-        <summary>${isZh ? `了解${outcome.label}和资料来源` : `About ${outcome.label} and sources`}</summary>
+        <summary>${isZh ? `了解${outcome.label}、健康研究和资料来源` : `About ${outcome.label}, health research, and sources`}</summary>
         <div class="science-box compound-about"><h3>${aboutHeading}</h3><p>${escapeHtml(guidance.about[currentLang])}</p></div>
+        <div class="science-box compound-health"><h3>${healthHeading}</h3><p>${escapeHtml(guidance.health[currentLang])}</p></div>
         <div class="compound-evidence-note"><strong>${evidenceHeading}</strong> ${escapeHtml(guidance.evidence[currentLang])} ${escapeHtml(riskBoundary)}</div>
         ${renderCompoundReferences(guidance)}
       </details>
     </article>`;
   }
 
-  function renderSystemAction(hasAboveComparison) {
+  function renderResultNextStep() {
     const isZh = currentLang === "zh";
     const copy = isZh
-      ? (hasAboveComparison
-        ? "请先与水费账单核对供水系统。然后查看该机构最新的消费者信心报告，或询问最新检测、处理和合规信息。此冻结监测结果本身不能确定家庭水龙头浓度、个人暴露或健康风险。"
-        : "请先与水费账单核对供水系统。然后查看该机构最新的消费者信心报告或询问最新检测信息。低于冻结技术阈值并不表示未检出PFAS，也不能确定家庭水龙头的当前状况。")
-      : (hasAboveComparison
-        ? "Confirm the system on your water bill. Then read its current Consumer Confidence Report or ask the utility about newer sampling, treatment, and compliance information. This frozen monitoring result alone cannot determine a household tap concentration, personal exposure, or health risk."
-        : "Confirm the system on your water bill. Then read its current Consumer Confidence Report or ask the utility about newer sampling. A result below the frozen technical cutoff does not mean PFAS was absent or establish current conditions at a household faucet.");
-    return `<div class="science-box compound-action"><h3>${isZh ? "核实当前信息" : "Verify current information"}</h3><p>${escapeHtml(copy)}</p></div>`;
+      ? "将上面的供水系统名称与水费账单核对。然后查看该机构最新的消费者信心报告，或询问最新检测和处理信息。"
+      : "Match a water-system name above to your water bill. Then read that utility’s current Consumer Confidence Report or ask about newer sampling and treatment.";
+    return `<aside class="result-next-step"><h3>${isZh ? "下一步" : "Next step"}</h3><p>${escapeHtml(copy)}</p><a href="https://www.epa.gov/ccr" target="_blank" rel="noopener noreferrer">${isZh ? "查找消费者信心报告 →" : "Find a Consumer Confidence Report →"}</a></aside>`;
+  }
+
+  function renderResultBoundary() {
+    return `<aside class="result-boundary" role="note">
+      <h3>${text("resultBoundaryTitle")}</h3>
+      <p>${text("resultBoundaryBody")}</p>
+      <a href="/methodology/#overview">${currentLang === "zh" ? "查看完整解释 →" : "See the full explanation →"}</a>
+    </aside>`;
   }
 
   function renderOutcomeList(system) {
@@ -385,11 +377,11 @@
     const outcome = OUTCOMES.find(item => item.key === "hi");
     const status = outcomeStatus(system, outcome);
     const value = numericAverage(outcome, status);
-    if (value === null || value <= 0) return "";
+    if (value === null || value <= 0 || status.className !== "above") return "";
     const isZh = currentLang === "zh";
     return `<aside class="science-box hazard-index-education ${status.className}">
-      <h3>${isZh ? "🧮 如何理解危害指数" : "🧮 How to read the Hazard Index"}</h3>
-      <p><strong>${escapeHtml(formatAverage(status.maximum, true))}</strong> — ${isZh ? "危害指数不是一种化合物浓度，而是PFHxS、PFNA、HFPO-DA和PFBS混合物的相对贡献总和。当前冻结技术比较在指数至少为1.5且至少检出两种组成成分时标记结果。它不是个人健康评分。" : "The Hazard Index is not a compound concentration. It adds the relative contributions of PFHxS, PFNA, HFPO-DA, and PFBS in a mixture. The frozen technical comparison flags an index of at least 1.5 when at least two components were detected. It is not a personal health score."}</p>
+      <h3>${isZh ? "混合物危害指数" : "Mixture Hazard Index"}</h3>
+      <p><strong>${escapeHtml(formatAverage(status.maximum, true))}</strong> — ${isZh ? "这是一项PFAS混合物的计算指标，不是化合物浓度或个人健康评分。" : "This is a calculated PFAS-mixture measure, not a compound concentration or personal health score."}</p>
       <a href="/methodology/">${isZh ? "查看完整计算方法和局限 →" : "See the full calculation and limitations →"}</a>
     </aside>`;
   }
@@ -419,34 +411,33 @@
         <span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span>
       </div>
       ${featuredMarkup}
-      ${renderSystemAction(above)}
       ${renderHazardIndexEducation(system)}
       <details class="compound-results-details">
         <summary>${detailsLabel}</summary>
         <div class="compound-result-list">${renderOutcomeList(system)}</div>
       </details>
-      <p class="system-result-caveat">${text("resultCaveat")}</p>
     </article>`;
   }
 
-  function renderFilterGuide(hasAboveComparison) {
+  function renderFilterGuide() {
     const isZh = currentLang === "zh";
-    const heading = isZh ? "可选的家用过滤器信息" : "Optional home-filter information";
+    const heading = isZh ? "家用过滤器信息" : "Home-filter information";
     const intro = isZh
       ? "供水系统监测比较不能确定某个家庭是否需要过滤器。请先核对供水机构并查看其最新消费者信心报告。如果您自行考虑过滤器，请核实具体的PFAS减少认证，而不是只看营销用语。"
       : "A water-system monitoring comparison cannot determine whether a particular home needs a filter. First confirm the utility and read its current Consumer Confidence Report. If you independently consider a filter, verify a specific PFAS-reduction certification rather than relying on marketing language.";
-    return `<aside class="result-action-guide">
-      <span class="result-action-kicker">${isZh ? "一般信息" : "General information"}</span>
-      <h3>${heading}</h3>
-      <p>${intro}</p>
-      <ol>
-        <li>${isZh ? "寻找 <strong>NSF/ANSI 53或NSF/ANSI 58</strong> 以及明确的PFAS减少声明。" : "Look for <strong>NSF/ANSI 53 or NSF/ANSI 58</strong> and a specific PFAS-reduction claim."}</li>
-        <li>${isZh ? "在认可的认证目录中核实具体型号。" : "Verify the exact model in an accredited certification directory."}</li>
-        <li>${isZh ? "按照制造商规定的时间更换滤芯或滤膜。" : "Replace the cartridge or membrane on the manufacturer’s schedule."}</li>
-      </ol>
-      <p class="result-action-links"><a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">${isZh ? "EPA过滤器指南 →" : "EPA filter guide →"}</a><a href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">${isZh ? "认证指南 →" : "Certification guidance →"}</a></p>
-      <small>${isZh ? "EPA指出，现有过滤器认证不一定证明产品可将PFAS降低到2024年每项联邦限值。PFAS Estimator不认可或销售任何产品。" : "EPA notes that current filter certifications do not necessarily show reduction down to every 2024 federal PFAS limit. PFAS Estimator does not endorse or sell products."}</small>
-    </aside>`;
+    return `<details class="result-action-guide optional-filter-guide">
+      <summary><span><span class="result-action-kicker">${isZh ? "可选信息" : "Optional information"}</span><strong>${heading}</strong></span><span class="optional-filter-hint">${isZh ? "打开指南" : "Open guide"}</span></summary>
+      <div class="result-action-body">
+        <p>${intro}</p>
+        <ol>
+          <li>${isZh ? "寻找 <strong>NSF/ANSI 53或NSF/ANSI 58</strong> 以及明确的PFAS减少声明。" : "Look for <strong>NSF/ANSI 53 or NSF/ANSI 58</strong> and a specific PFAS-reduction claim."}</li>
+          <li>${isZh ? "在认可的认证目录中核实具体型号。" : "Verify the exact model in an accredited certification directory."}</li>
+          <li>${isZh ? "按照制造商规定的时间更换滤芯或滤膜。" : "Replace the cartridge or membrane on the manufacturer’s schedule."}</li>
+        </ol>
+        <p class="result-action-links"><a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">${isZh ? "EPA过滤器指南 →" : "EPA filter guide →"}</a><a href="https://www.nsf.org/consumer-resources/articles/pfas-drinking-water" target="_blank" rel="noopener noreferrer">${isZh ? "认证指南 →" : "Certification guidance →"}</a></p>
+        <small>${isZh ? "EPA指出，现有过滤器认证不一定证明产品可将PFAS降低到2024年每项联邦限值。PFAS Estimator不认可或销售任何产品。" : "EPA notes that current certifications do not necessarily show reduction to every 2024 federal PFAS limit. PFAS Estimator does not endorse or sell products."}</small>
+      </div>
+    </details>`;
   }
 
   function buildAssistantContext(systems) {
@@ -459,7 +450,7 @@
       `Water systems displayed: ${systems.length}.`
     ];
     const comparisonSystems = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1);
-    lines.push(`Water systems with at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff: ${comparisonSystems.length}. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}. A zero count does not mean PFAS was not detected.`);
+    lines.push(`Water systems reaching at least one study comparison level: ${comparisonSystems.length}. Here, a study comparison level means the dated EPA technical cutoff used in the January 2026 research release. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}. A zero count does not mean PFAS was not detected.`);
     selected.forEach(system => {
       const outcomes = OUTCOMES.map(outcome => {
         const status = outcomeStatus(system, outcome);
@@ -617,10 +608,13 @@
     }
 
     const aboveCount = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1).length;
+    const hasAnyDisplayedDetection = systems.some(system => OUTCOMES
+      .filter(outcome => outcome.key !== "hi")
+      .some(outcome => (numericAverage(outcome, outcomeStatus(system, outcome)) || 0) > 0));
     result.className = aboveCount ? "result found-above" : "result found-below";
     title.textContent = text("associatedTitle")(systems.length, zip);
     context.textContent = text("associatedContext")(aboveCount, systems.length);
-    body.innerHTML = `${renderFilterGuide(aboveCount > 0)}${systems.map(renderSystem).join("")}`;
+    body.innerHTML = `${renderResultBoundary()}${systems.map(renderSystem).join("")}${renderResultNextStep()}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));

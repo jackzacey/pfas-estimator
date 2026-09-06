@@ -32,11 +32,11 @@ Object.entries(frozenHashes).forEach(([relative, expected]) => {
 });
 
 const approvedStyleHashes = {
-  "styles.css": "bc69b02e561564decdacde2c905daff42ca2bd01fd02dbdde9f425248166dfb3",
+  "styles.css": "b13b43bf4b5558026dbbb72a8d2ca536c78aa72be349b4b11df5d02d2e15a603",
   "scientific-site-v2.css": "2d6a139e20ee7170ea3ed47c61aee6902691f88aaa06c167164f020fb0951174",
 };
 Object.entries(approvedStyleHashes).forEach(([relative, expected]) => {
-  assert.equal(sha256(relative), expected, `${relative} changed during the wording-only interface revision`);
+  assert.equal(sha256(relative), expected, `${relative} changed outside the approved readability revision`);
 });
 
 const metadata = JSON.parse(readText("analysis/exports/ucmr5_jan2026_v0_2/website_metadata.json"));
@@ -84,11 +84,23 @@ assert.ok(
 
 [
   "U.S. Public Water PFAS Monitoring Lookup",
+  "Study comparison level",
+  "Read this before using the results",
   "entry points to the distribution system",
   "Consumer Confidence Report",
   "EPA released the final UCMR 5 dataset in August 2026",
   "does not mean PFAS was not detected",
-  "does not determine current compliance, household tap concentration, personal exposure, or health risk",
+  "cannot determine current legal compliance, household tap levels, personal exposure, or health risk",
 ].forEach(phrase => assert.ok(publicText.includes(phrase), `Required clarification is missing: ${phrase}`));
+
+const resultSource = readText("scientific-site-v2.js");
+assert.ok(
+  resultSource.indexOf("${renderResultBoundary()}") < resultSource.indexOf("${systems.map(renderSystem).join(\"\")}"),
+  "The prominent result boundary must appear before the water-system cards",
+);
+assert.ok(
+  resultSource.indexOf("${systems.map(renderSystem).join(\"\")}") < resultSource.lastIndexOf("renderFilterGuide()"),
+  "Optional filter guidance must appear after the water-system cards",
+);
 
 console.log("Frozen-release and reviewer-feedback regression tests passed.");

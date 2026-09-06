@@ -40,7 +40,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" />
+  <link rel="stylesheet" href="/styles.css?v=20260905-readable-results" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -58,7 +58,7 @@
       <a href="/map/">Map</a>
       <a href="/state-table/" aria-current="page">State Table</a>
       <a href="/states/">Explore by State</a>
-      <a href="/methodology/">Full Methodology</a>
+      <a href="/methodology/">How It Works</a>
       <a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a>
     </nav>
 
@@ -79,7 +79,7 @@
         <div><span>10,289</span><p>public water systems available in the ZIP lookup</p></div>
         <div><span>26,625</span><p>EPA sampling locations represented in the lookup</p></div>
         <div><span>8,936</span><p>active community water systems with complete monitoring</p></div>
-        <div><span>1,030</span><p>of those systems with a yearly average at or above a frozen technical cutoff</p></div>
+        <div><span>1,030</span><p>of those systems reaching at least one study comparison level</p></div>
       </section>
 
       <section class="national-panel" aria-labelledby="table-panel-title">
@@ -88,18 +88,18 @@
             <span class="national-section-label">Sortable table</span>
             <h2 id="table-panel-title">Water-system results by state</h2>
           </div>
-          <p>Each water system is counted once. The table includes active community water systems with complete monitoring and does not rank water quality or personal health risk.</p>
+          <p>Each water system is counted once. Select a heading to sort the results.</p>
         </div>
 
         <p class="national-data-status" id="nationalDataStatus" role="status" aria-live="polite" hidden></p>
         <div class="national-table-wrap" id="stateSummaryTable"></div>
-        <p class="national-table-footnote">“Percent at or above a frozen cutoff” is the share of active community water systems with complete monitoring that had at least one complete-set sampling location with a yearly average at or above an EPA January 2026 technical-assistance cutoff. It is not a compliance determination and does not mean PFAS was absent from other systems.</p>
+        <p class="national-table-footnote"><strong>Read this correctly:</strong> “Study comparison level” means the dated EPA technical cutoff used in this January 2026 research release. The table does not rank water quality or determine current compliance, household exposure, or health risk. A lower count does not mean PFAS was absent.</p>
       </section>
 
       <section class="national-notes" aria-label="Table interpretation">
         <div>
           <span>Use the table for comparison</span>
-          <p>Sort the columns to compare how many water systems had complete monitoring and how many had a yearly average at or above a frozen technical cutoff.</p>
+          <p>Sort the columns to compare complete monitoring and study-level results across states.</p>
         </div>
         <div>
           <span>Use state pages for detail</span>
@@ -107,7 +107,7 @@
         </div>
         <div>
           <span>Read before citing</span>
-          <p>Review <a href="/methodology/">how the site works</a> for the inclusion rules, yearly averages, technical comparisons, and limitations.</p>
+          <p>Review <a href="/methodology/">how the site works</a> for inclusion rules, exact calculations, and limitations.</p>
         </div>
       </section>
     </main>
@@ -117,6 +117,6 @@
     </footer>
   </div>
 
-  <script src="/national-data.js?v=20260904-monitoring-clarity"></script>
+  <script src="/national-data.js?v=20260905-readable-results"></script>
 </body>
 </html>

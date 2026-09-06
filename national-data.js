@@ -60,8 +60,8 @@
     const columns = [
       ["name", "State or territory"],
       ["eligible", "Water systems with complete monitoring"],
-      ["above", "Water systems at or above any frozen cutoff"],
-      ["pctAbove", "Percent at or above a frozen cutoff"],
+      ["above", "Water systems reaching any study level"],
+      ["pctAbove", "Percent reaching a study level"],
       ["pfoa", "PFOA"],
       ["pfos", "PFOS"],
       ["hazard_index", "Hazard Index"],
@@ -130,10 +130,10 @@
   }
 
   function metricDescription(row, metric) {
-    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of active community water systems with complete monitoring had a yearly average at or above a frozen technical cutoff`;
+    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of community water systems with complete monitoring reached a study comparison level`;
     if (metric === "eligible") return `${row.eligible.toLocaleString()} active community water systems with complete monitoring`;
-    if (metric === "above") return `${row.above.toLocaleString()} water systems had a yearly average at or above any frozen technical cutoff`;
-    return `${Number(row[metric] || 0).toLocaleString()} water systems had a yearly average at or above the ${COMPOUND_LABELS[metric]} frozen technical cutoff`;
+    if (metric === "above") return `${row.above.toLocaleString()} water systems reached at least one study comparison level`;
+    return `${Number(row[metric] || 0).toLocaleString()} water systems reached the ${COMPOUND_LABELS[metric]} study level`;
   }
 
   async function renderMap() {
@@ -175,7 +175,7 @@
         const code = NAME_TO_ABBREV[feature.properties.name];
         const row = stateData[code];
         if (!row) { tooltip.hidden = true; return; }
-        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} active community water systems with complete monitoring had a yearly average at or above a frozen technical cutoff</small>`;
+        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} systems with complete monitoring reached a study comparison level</small>`;
         const rect = container.getBoundingClientRect();
         let left = event.clientX - rect.left + 16;
         let top = event.clientY - rect.top - 12;

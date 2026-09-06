@@ -17,12 +17,12 @@ STATE_REGIONS = {
 }
 REGION_ORDER = ("Northeast", "Midwest", "South", "West", "Territories")
 COMPARISONS = (
-    ("PFOA: April 2024 level 4 ppt; frozen cutoff 4.05 ppt", "above_pfoa", "pfoa_system_above_mcl_comparison"),
-    ("PFOS: April 2024 level 4 ppt; frozen cutoff 4.05 ppt", "above_pfos", "pfos_system_above_mcl_comparison"),
-    ("PFHxS: April 2024 level 10 ppt; frozen cutoff 15 ppt", "above_pfhxs", "pfhxs_system_above_mcl_comparison"),
-    ("PFNA: April 2024 level 10 ppt; frozen cutoff 15 ppt", "above_pfna", "pfna_system_above_mcl_comparison"),
-    ("HFPO-DA: April 2024 level 10 ppt; frozen cutoff 15 ppt", "above_hfpo_da", "hfpo_da_system_above_mcl_comparison"),
-    ("Hazard Index: April 2024 level 1; frozen cutoff 1.5 with at least two detected components", "above_hazard_index", "hi_system_above_mcl_comparison"),
+    ("PFOA: study level 4.05 ppt (April 2024 EPA level: 4 ppt)", "above_pfoa", "pfoa_system_above_mcl_comparison"),
+    ("PFOS: study level 4.05 ppt (April 2024 EPA level: 4 ppt)", "above_pfos", "pfos_system_above_mcl_comparison"),
+    ("PFHxS: study level 15 ppt (April 2024 EPA level: 10 ppt)", "above_pfhxs", "pfhxs_system_above_mcl_comparison"),
+    ("PFNA: study level 15 ppt (April 2024 EPA level: 10 ppt)", "above_pfna", "pfna_system_above_mcl_comparison"),
+    ("HFPO-DA: study level 15 ppt (April 2024 EPA level: 10 ppt)", "above_hfpo_da", "hfpo_da_system_above_mcl_comparison"),
+    ("Hazard Index: study level 1.5 with at least two detected components (April 2024 EPA level: 1)", "above_hazard_index", "hi_system_above_mcl_comparison"),
 )
 STATE_CONTEXT_LINKS = {
     "MI": (
@@ -99,7 +99,7 @@ def system_rows(rows):
     rendered = []
     for row in rows:
         above = int(row.get("any_system_above_mcl_comparison") or 0) == 1
-        status = '<span class="comparison-status above">At or above one or more cutoffs</span>' if above else '<span class="comparison-status below">No yearly average at or above a cutoff</span>'
+        status = '<span class="comparison-status above">Reached a study level</span>' if above else '<span class="comparison-status below">Below the study levels</span>'
         rendered.append(
             "<tr>"
             f'<th scope="row">{html.escape(str(row.get("ucmr_pws_name") or "Unnamed system"))}</th>'
@@ -117,7 +117,7 @@ def state_context(code, name):
     url, label = STATE_CONTEXT_LINKS.get(code, DEFAULT_STATE_CONTEXT)
     if code == "MI":
         note = (
-            "This page applies the frozen federal research cutoffs, not Michigan drinking-water "
+            "This page applies the dated federal comparison levels used in the research, not Michigan drinking-water "
             "standards. UCMR 5 results alone do not determine compliance with either framework."
         )
     else:
@@ -161,7 +161,7 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
             <a href="/states/{slugify(name)}/" aria-label="View PFAS water-system results for {html.escape(name)}">
               <div class="state-directory-card-top"><span class="state-abbreviation" aria-hidden="true">{code}</span><span class="state-card-region">{region}</span></div>
               <h3>{html.escape(name)}</h3>
-              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with complete monitoring at or above a frozen technical cutoff</span></div>
+              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with complete monitoring reaching a study comparison level</span></div>
               <div class="state-card-bar" aria-hidden="true"><span style="width:{min(pct, 100):.1f}%"></span></div>
               <div class="state-card-footer"><span>{above:,} of {denominator:,} systems</span><span class="state-card-link">View systems <span aria-hidden="true">&rarr;</span></span></div>
             </a>
@@ -173,15 +173,15 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
       </section>''')
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using unique active community water systems with complete monitoring." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260820-original-ui-system-data" /></head>
+<title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using unique active community water systems with complete monitoring." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260905-readable-results" /></head>
 <body class="methodology-body states-body"><a class="skip-link" href="#states-content">Skip to state directory</a><div class="methodology-shell states-shell">
-<nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary"><a href="/">ZIP Lookup</a><a href="/map/">Map</a><a href="/state-table/">State Table</a><a href="/states/" aria-current="page">Explore by State</a><a href="/methodology/">Full Methodology</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a></nav>
+<nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary"><a href="/">ZIP Lookup</a><a href="/map/">Map</a><a href="/state-table/">State Table</a><a href="/states/" aria-current="page">Explore by State</a><a href="/methodology/">How It Works</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a></nav>
 <header class="methodology-hero states-hero"><div class="methodology-kicker">Browse state water-system results</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse active community water systems with complete UCMR 5 monitoring. Each state page counts every water system once.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
-<main class="states-content" id="states-content"><section class="states-orientation"><div class="states-orientation-copy"><span class="states-card-kicker">Browse by location</span><h2>See what EPA monitoring found</h2><p>Percentages use active community water systems with complete monitoring. They do not describe ZIP prevalence, household exposure, personal risk, or compliance.</p></div><div class="states-zip-cta"><span>Checking a specific area?</span><strong>Start with the system lookup.</strong><a href="/">Open national lookup <span aria-hidden="true">&rarr;</span></a></div></section>
+<main class="states-content" id="states-content"><section class="states-orientation"><div class="states-orientation-copy"><span class="states-card-kicker">Browse by location</span><h2>See what EPA monitoring found</h2><p>These percentages summarize water systems, not ZIP codes or households.</p></div><div class="states-zip-cta"><span>Checking a specific area?</span><strong>Start with the system lookup.</strong><a href="/">Open national lookup <span aria-hidden="true">&rarr;</span></a></div></section>
 <section class="state-directory"><div class="state-directory-heading"><div><span class="states-card-kicker">Browse the release</span><h2>Find a state or territory</h2><p>Search by name or abbreviation, or narrow the directory by region.</p></div><span class="state-result-count" id="stateResultsCount" aria-live="polite">{len(rows)} jurisdictions</span></div>
 <div class="state-search-wrap"><label for="stateSearch">Search states and territories</label><div class="state-search-control"><input id="stateSearch" type="search" autocomplete="off" placeholder="Try California, New York, or PR" /><button id="stateSearchClear" class="state-search-clear" type="button" hidden>Clear</button></div></div>
 <div class="state-filters" role="group" aria-label="Filter by region"><button class="state-filter is-active" type="button" data-region-filter="all" aria-pressed="true">All</button>{''.join(f'<button class="state-filter" type="button" data-region-filter="{region.lower()}" aria-pressed="false">{region}</button>' for region in REGION_ORDER)}</div>
-<div class="state-threshold-note"><strong>What the percentage means</strong><span>The share of active community water systems with complete monitoring that had at least one yearly average at or above a frozen January 2026 EPA technical-assistance cutoff.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
+<div class="state-threshold-note"><strong>Read this correctly</strong><span>“Study comparison level” means the dated EPA technical cutoff used in this January 2026 research release. These percentages do not determine household exposure, health risk, or current legal compliance.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
 <footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 results received through January 15, 2026 · Community water-information resource · Not a compliance or exposure determination.</p></footer></div>
 <script>(()=>{{const input=document.getElementById('stateSearch'),clear=document.getElementById('stateSearchClear'),cards=[...document.querySelectorAll('[data-state-card]')],filters=[...document.querySelectorAll('[data-region-filter]')],count=document.getElementById('stateResultsCount'),empty=document.getElementById('stateDirectoryEmpty');let region='all';function draw(){{const query=input.value.trim().toLowerCase();let shown=0;cards.forEach(card=>{{const visible=(region==='all'||card.dataset.region===region)&&card.dataset.stateSearch.includes(query);card.hidden=!visible;if(visible)shown++;}});document.querySelectorAll('[data-region-section]').forEach(section=>section.hidden=![...section.querySelectorAll('[data-state-card]')].some(card=>!card.hidden));count.textContent=`${{shown}} jurisdiction${{shown===1?'':'s'}}`;empty.hidden=shown!==0;clear.hidden=!query;}}input.addEventListener('input',draw);clear.addEventListener('click',()=>{{input.value='';draw();input.focus();}});filters.forEach(button=>button.addEventListener('click',()=>{{region=button.dataset.regionFilter;filters.forEach(item=>{{item.classList.toggle('is-active',item===button);item.setAttribute('aria-pressed',item===button?'true':'false');}});draw();}}));}})();</script></body></html>'''
 
@@ -263,7 +263,7 @@ def main():
         above = int(summary["above_any_april_2024_benchmark"])
         below = denominator - above
         pct = above / denominator * 100 if denominator else 0
-        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} active community water systems with complete monitoring had a yearly average at or above a frozen technical cutoff."
+        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} active community water systems with complete monitoring reached a study comparison level."
         context_note, context_link = state_context(code, name)
         pages[slug] = render_template(template, {
             "TITLE": f"PFAS in {name} Drinking Water | EPA UCMR 5 Results",

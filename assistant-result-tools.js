@@ -33,9 +33,9 @@
 
     const safety = askedSafety ? "This site does not classify any water system as safe or unsafe. " : "";
     const result = atOrAbove.length
-      ? `The page shows ${atOrAbove.length} of ${systems.length} listed water systems with at least one complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff: ${names.join("; ")}. `
-      : `All ${systems.length} listed water systems had no complete PFAS yearly average at or above a frozen January 2026 EPA technical-assistance cutoff. This does not mean PFAS was not detected. `;
-    return `${safety}${result}A ZIP match does not identify which system serves your home, so compare these names with your water bill and check the utility's current information.\n\nSource: frozen EPA UCMR 5 research data shown on this page.`;
+      ? `${atOrAbove.length} of ${systems.length} listed water systems reached at least one study comparison level: ${names.join("; ")}. `
+      : `None of the ${systems.length} listed water systems reached a study comparison level. This does not mean PFAS was not detected. `;
+    return `${safety}${result}Match the system name to your water bill, then check the utility's current information.\n\nSource: dated EPA UCMR 5 research data shown on this page.`;
   }
 
   function answerBoundaryQuestion(question, systems, language = "en") {
@@ -63,9 +63,9 @@
     }
 
     if (asksExposureShare) return "This lookup cannot calculate what share of a person's total PFAS exposure comes from drinking water. A water-system monitoring result cannot determine personal dose, and food, consumer products, and other environmental sources may also contribute.\n\nSource: EPA and ATSDR PFAS guidance.";
-    if (asksPersonalExposure) return "This lookup cannot determine your personal exposure, dose, or health risk from a water-system monitoring result. Confirm the utility on your bill and use its current information; determining a household tap concentration requires appropriate household sampling.\n\nSource: frozen EPA UCMR 5 research data shown on this page.";
+    if (asksPersonalExposure) return "This water-system result cannot determine your personal exposure, dose, or health risk. Match the utility to your water bill and check its current information. Measuring a home’s tap water requires appropriate household sampling.\n\nSource: dated EPA UCMR 5 research data shown on this page.";
     if (asksCompliance) return "UCMR 5 monitoring results do not by themselves determine whether a water system is in compliance. Check current compliance information from the utility, the state drinking-water agency, or its Consumer Confidence Report.\n\nSource: EPA UCMR 5 and Consumer Confidence Report guidance.";
-    if (asksSafety) return "This site does not classify a water system or household tap as safe or unsafe. The result is a frozen water-system monitoring comparison and does not determine current compliance, household tap concentration, personal exposure, or health risk.\n\nSource: frozen EPA UCMR 5 research data shown on this page.";
+    if (asksSafety) return "This site does not classify a water system or home tap as safe or unsafe. A dated water-system monitoring result cannot determine current compliance, household tap levels, personal exposure, or health risk.\n\nSource: EPA UCMR 5 research data shown on this page.";
     if (asksMedical) return "This water-system monitoring result alone cannot determine whether someone needs medical care. For a personal medical concern, a qualified healthcare professional would need individual history and appropriate exposure information, not this system result alone.\n\nSource: EPA and ATSDR PFAS health guidance.";
     if (asksNoResultMeaning) return "No displayed result does not mean that PFAS is absent or that the water is safe or unsafe. First confirm the utility, then check its current Consumer Confidence Report or contact it directly; private wells are outside this dataset.\n\nSource: EPA UCMR 5 and Consumer Confidence Report guidance.";
     if (asksSamplingLocation) return "UCMR 5 samples were collected at entry points to the distribution system, not at an individual household faucet. The results therefore describe water-system monitoring, not the water inside a particular home.\n\nSource: EPA UCMR 5 sampling guidance.";
