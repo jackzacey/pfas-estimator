@@ -50,6 +50,10 @@ assert.match(
   /does not mean that PFAS is absent/i
 );
 assert.match(
+  tools.answerBoundaryQuestion("Why does this show zero?", zipSystems, "en"),
+  /not a measured zero and does not prove that PFAS was absent/i
+);
+assert.match(
   tools.answerBoundaryQuestion("Where were the samples collected?", zipSystems, "en"),
   /entry points to the distribution system/i
 );

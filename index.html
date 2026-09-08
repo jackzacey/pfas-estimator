@@ -74,7 +74,7 @@
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
   <script defer src="/assistant-result-tools.js?v=20260905-readable-results"></script>
-  <script defer src="/scientific-site-v2.js?v=20260905-readable-results"></script>
+  <script defer src="/scientific-site-v2.js?v=20260908-monitoring-context"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -151,12 +151,12 @@
                 <div><h2>PFAS Public Water Monitoring Report</h2><div class="print-zip" id="printZip"></div></div>
                 <div class="print-meta"><div>pfasestimator.org</div><div id="printDate"></div><div>EPA UCMR 5 Data (2023–2025)</div></div>
               </div>
-              <div class="print-note">This report lists water systems associated with the entered ZIP and summarizes a frozen January 2026 EPA monitoring snapshot. Match the system name to your water bill and check current utility information before using the results.</div>
+              <div class="print-note">This report lists water systems associated with the entered ZIP and summarizes a frozen January 2026 EPA monitoring snapshot. Each system card gives its sampling period. A below-reporting-level result is not proof that the concentration was zero.</div>
             </div>
             <div class="result-title" id="resultTitle"></div>
             <div class="result-context" id="resultContext"></div>
             <div id="resultBody"></div>
-            <div class="print-footer">Frozen EPA UCMR 5 research snapshot through January 15, 2026. A ZIP search cannot confirm the water system for a specific home. These results do not determine current compliance, household tap concentration, personal exposure, or health risk.</div>
+            <div class="print-footer">Frozen EPA UCMR 5 research snapshot through January 15, 2026. Match the system name to your water bill. Results below EPA reporting levels are not proof of zero concentration. This report does not determine current compliance, household tap concentration, personal exposure, or health risk.</div>
           </div>
 
           <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save this water-system result</button>

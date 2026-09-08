@@ -39,9 +39,25 @@ Object.entries(approvedStyleHashes).forEach(([relative, expected]) => {
   assert.equal(sha256(relative), expected, `${relative} changed outside the approved readability revision`);
 });
 
+assert.equal(
+  sha256("analysis/exports/ucmr5_jan2026_v0_2/website_monitoring_periods.json"),
+  "a2c56f2b34cd76db6efd00d9318cd08ea661f0c02e6e6b17b3f078ab5cfd0513",
+  "Website sampling-period context changed without an intentional rebuild",
+);
+
 const metadata = JSON.parse(readText("analysis/exports/ucmr5_jan2026_v0_2/website_metadata.json"));
 assert.equal(metadata.primary_inferential_cohort.systems, 8069);
 assert.equal(metadata.primary_inferential_cohort.events, 964);
+
+const monitoringPeriods = JSON.parse(readText("analysis/exports/ucmr5_jan2026_v0_2/website_monitoring_periods.json"));
+assert.equal(monitoringPeriods.release_id, metadata.release_id);
+assert.equal(monitoringPeriods.systems.length, 10289);
+const monitoringColumns = monitoringPeriods.columns;
+const bostonPeriodValues = monitoringPeriods.systems.find(row => row[0] === "MA3035000");
+const bostonPeriod = Object.fromEntries(monitoringColumns.map((column, index) => [column, bostonPeriodValues[index]]));
+assert.equal(bostonPeriod.monitoring_start, "2024-01-10");
+assert.equal(bostonPeriod.monitoring_end, "2024-10-22");
+assert.equal(bostonPeriod.sampling_event_count, 4);
 
 const stateSummary = JSON.parse(readText("analysis/exports/ucmr5_jan2026_v0_2/website_state_summary.json"));
 assert.equal(stateSummary.states.reduce((sum, row) => sum + Number(row.eligible_cws_with_complete_monitoring), 0), 8936);
@@ -90,6 +106,9 @@ assert.ok(
   "Consumer Confidence Report",
   "EPA released the final UCMR 5 dataset in August 2026",
   "does not mean PFAS was not detected",
+  "Below EPA reporting level",
+  "This does not mean their concentrations were zero",
+  "Sampling period",
   "cannot determine current legal compliance, household tap levels, personal exposure, or health risk",
 ].forEach(phrase => assert.ok(publicText.includes(phrase), `Required clarification is missing: ${phrase}`));
 

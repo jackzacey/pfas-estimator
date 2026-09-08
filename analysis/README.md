@@ -41,6 +41,20 @@ This creates untracked outputs in `analysis/outputs/` and performs no benchmark 
 6. Run prespecified descriptive, weighted, disparity, policy, and sensitivity analyses.
 7. Export website-ready tables from the locked analysis outputs.
 
+## Website monitoring-date context
+
+The public lookup keeps the locked numerical release unchanged but adds the
+sampling period for each displayed water system. Regenerate that presentation
+sidecar from the same frozen January 2026 occurrence file with:
+
+```bash
+python3 analysis/scripts/17_build_website_monitoring_periods.py \
+  --all /Users/jackzhang/Downloads/ucmr5-occurrence-data/UCMR5_All.txt
+```
+
+This writes `website_monitoring_periods.json`. It does not recalculate annual
+averages, comparison classifications, manuscript tables, or model results.
+
 ## Service-area attribute linkage
 
 Run:
