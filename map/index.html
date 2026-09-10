@@ -16,8 +16,8 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PFAS Estimator" />
-  <meta property="og:title" content="National PFAS System Comparison Map | PFAS Estimator" />
-  <meta property="og:description" content="Explore system-level EPA UCMR 5 technical-comparison patterns across U.S. states." />
+  <meta property="og:title" content="National PFAS Monitoring Map | PFAS Estimator" />
+  <meta property="og:description" content="Explore EPA UCMR 5 yearly-average and study-benchmark patterns across U.S. states." />
   <meta property="og:url" content="https://pfasestimator.org/map/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta property="og:locale" content="en_US" />
@@ -31,16 +31,16 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "National PFAS System Comparison Map | PFAS Estimator",
+    "name": "National PFAS Monitoring Map | PFAS Estimator",
     "url": "https://pfasestimator.org/map/",
-    "description": "An interactive state-level map of unique community water systems with complete UCMR 5 monitoring and EPA technical-comparison results.",
+    "description": "An interactive state-level map of community water systems with enough required UCMR 5 samples for a yearly average and EPA-based study-benchmark results.",
     "isPartOf": {"@id": "https://pfasestimator.org/#website"},
     "about": {"@id": "https://pfasestimator.org/#dataset"},
-    "dateModified": "2026-08-26"
+    "dateModified": "2026-09-10"
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260905-readable-results" />
+  <link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -81,21 +81,21 @@
             <span class="national-section-label">Interactive map</span>
             <h2 id="map-panel-title">PFAS results by state</h2>
           </div>
-          <p>Each state’s color summarizes community water systems with complete monitoring.</p>
+          <p>Each state’s color summarizes community water systems with enough required samples to calculate a yearly average.</p>
         </div>
 
         <div class="map-controls national-map-controls">
           <label class="map-metric-label" for="mapMetric">Color states by</label>
           <select class="map-select" id="mapMetric">
-            <option value="pctAbove">% of systems reaching a study comparison level</option>
-            <option value="eligible">Water systems with complete monitoring</option>
-            <option value="above">Systems reaching any study level</option>
-            <option value="pfoa">Systems reaching the PFOA study level</option>
-            <option value="pfos">Systems reaching the PFOS study level</option>
-            <option value="pfhxs">Systems reaching the PFHxS study level</option>
-            <option value="pfna">Systems reaching the PFNA study level</option>
-            <option value="hfpo_da">Systems reaching the HFPO-DA study level</option>
-            <option value="hazard_index">Systems reaching the Hazard Index study level</option>
+            <option value="pctAbove">% of systems at or above a study benchmark</option>
+            <option value="eligible">Systems with enough samples for a yearly average</option>
+            <option value="above">Systems at or above any study benchmark</option>
+            <option value="pfoa">Systems at or above the PFOA study benchmark</option>
+            <option value="pfos">Systems at or above the PFOS study benchmark</option>
+            <option value="pfhxs">Systems at or above the PFHxS study benchmark</option>
+            <option value="pfna">Systems at or above the PFNA study benchmark</option>
+            <option value="hfpo_da">Systems at or above the HFPO-DA study benchmark</option>
+            <option value="hazard_index">Systems at or above the Hazard Index study benchmark</option>
           </select>
           <div class="map-legend" id="mapLegend" aria-label="Map legend"></div>
         </div>
@@ -105,13 +105,13 @@
           <svg id="pfasMapSvg" role="img" aria-label="United States map of PFAS water-system results"></svg>
           <div class="map-tooltip" id="mapTooltip" hidden></div>
         </div>
-        <p class="map-source-note">EPA UCMR 5 (2023–2025) · community water systems with complete monitoring · January 2026 research release</p>
+        <p class="map-source-note">EPA UCMR 5 (2023–2025) · community water systems with enough required samples for a yearly average · January 2026 research release</p>
       </section>
 
       <section class="national-notes" aria-label="Map interpretation">
         <div>
           <span>Interpretation</span>
-          <p>“Study comparison level” means the dated EPA technical cutoff used in this January 2026 research release. The map cannot identify a home’s utility, exposure, health risk, or current compliance.</p>
+          <p><strong>Complete monitoring</strong> means at least one sampling location had all required samples needed for a yearly average. An <strong>EPA-based study benchmark</strong> is the unrounded cutoff this research uses to reproduce EPA’s January 2026 technical-assistance classification around the April 2024 federal levels. It is not a current standard or compliance finding. The map cannot identify a home’s utility, exposure, or health risk.</p>
         </div>
         <div>
           <span>Coverage</span>
@@ -131,6 +131,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-  <script src="/national-data.js?v=20260905-readable-results"></script>
+  <script src="/national-data.js?v=20260910-cdphe-clarity"></script>
 </body>
 </html>

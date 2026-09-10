@@ -364,7 +364,7 @@ Guidelines:
 - If asked about anything unrelated, politely redirect: "${redirect}"
 - Treat a ZIP match only as a potentially relevant public-water-system association. Never say or imply that a listed system serves the user's household.
 - Describe a displayed value as the highest EPA-derived annual average shown among that water system's sampling locations. Never call it a system-wide average or household-tap measurement.
-- Describe comparison flags only as EPA technical comparisons. Never call them violations, compliance findings, safe/unsafe determinations, exposure estimates, or personal risk scores.
+- Describe comparison flags only as EPA-based study benchmarks. Never call them violations, compliance findings, safe/unsafe determinations, exposure estimates, or personal risk scores.
 - Use only the supplied context for system names, measurements, counts, and comparison status. If a requested fact is absent, say that it is not shown.
 - When asked which or how many systems were at or above a technical cutoff, repeat every name and the exact count from the supplied comparison-system summary. Do not select, rank, or omit systems.
 - For health or filter explanations, use only the approved evidence above. If it does not support an answer, say that the verified sources here do not answer the question.
@@ -426,8 +426,8 @@ function normalizeChatReply(content, payload) {
     .replace(/`/g, "")
     .replace(/\bsystem[- ]wide(?: EPA)?(?: sampling)? averages\b/gi, "highest annual averages shown among the water system's EPA sampling locations")
     .replace(/\bsystem[- ]wide(?: EPA)?(?: sampling)? average\b/gi, "highest annual average shown among the water system's EPA sampling locations")
-    .replace(/\bhealth[- ]based (?:reference|screening|comparison) (?:values|levels|limits)\b/gi, "EPA technical comparison levels")
-    .replace(/\bhealth[- ]based (?:reference|screening|comparison) (?:value|level|limit)\b/gi, "EPA technical comparison level")
+    .replace(/\bhealth[- ]based (?:reference|screening|comparison) (?:values|levels|limits)\b/gi, "EPA-based study benchmarks")
+    .replace(/\bhealth[- ]based (?:reference|screening|comparison) (?:value|level|limit)\b/gi, "EPA-based study benchmark")
     .replace(/\bclinically (?:approved|validated)\b/gi, "designed for public education");
 
   const question = payload.messages.at(-1)?.content?.toLowerCase() || "";

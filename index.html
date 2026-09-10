@@ -64,7 +64,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260905-readable-results" />
+  <link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -73,8 +73,8 @@
     gtag('config','G-FZQTEJ4LLY');
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
-  <script defer src="/assistant-result-tools.js?v=20260905-readable-results"></script>
-  <script defer src="/scientific-site-v2.js?v=20260908-monitoring-context"></script>
+  <script defer src="/assistant-result-tools.js?v=20260910-cdphe-clarity"></script>
+  <script defer src="/scientific-site-v2.js?v=20260910-cdphe-clarity"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -129,11 +129,11 @@
               </div>
             </div>
             <div id="aiMessages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation"></div>
-            <div class="ai-suggestions" id="aiSuggestions" aria-label="Suggested questions">
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="What can this monitoring result tell me?" data-question-zh="这项监测结果能说明什么？" data-i18n="suggestConcern">What can this result tell me?</span>
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="How do I confirm which utility serves my home?" data-question-zh="如何确认哪家供水机构为我的住所供水？" data-i18n="suggestUtility">How do I confirm my utility?</span>
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="Where were UCMR 5 samples collected?" data-question-zh="UCMR 5样本在哪里采集？" data-i18n="suggestFilter">Where were samples collected?</span>
-              <span class="ai-suggestion" role="button" tabindex="0" data-question-en="Where can I find current official results?" data-question-zh="在哪里可以找到最新官方结果？" data-i18n="suggestHealth">Where are current results?</span>
+            <div class="ai-suggestions" id="aiSuggestions" aria-label="Quick explanations">
+              <button class="ai-suggestion" type="button" data-faq-key="result" data-i18n="suggestConcern">What can this result tell me?</button>
+              <button class="ai-suggestion" type="button" data-faq-key="utility" data-i18n="suggestUtility">How do I confirm my utility?</button>
+              <button class="ai-suggestion" type="button" data-faq-key="sampling" data-i18n="suggestFilter">Where were samples collected?</button>
+              <button class="ai-suggestion" type="button" data-faq-key="current" data-i18n="suggestHealth">Where are current results?</button>
             </div>
             <div class="ai-input-row">
               <label for="aiInput" class="visually-hidden">Ask a PFAS monitoring question</label>
@@ -178,5 +178,15 @@
 </div>
 
 <div class="counter-badge"><span id="searchCount">—</span> <span data-i18n="searchCounter">ZIP searches</span></div>
+
+<dialog class="faq-dialog" id="faqDialog" aria-labelledby="faqDialogTitle" aria-describedby="faqDialogBody">
+  <div class="faq-dialog-card">
+    <button class="faq-dialog-close" id="faqDialogClose" type="button" aria-label="Close explanation">Close</button>
+    <span class="faq-dialog-kicker" data-i18n="quickExplanation">Quick explanation</span>
+    <h2 id="faqDialogTitle"></h2>
+    <p id="faqDialogBody"></p>
+    <a id="faqDialogLink" href="/methodology/">Read the full explanation →</a>
+  </div>
+</dialog>
 </body>
 </html>

@@ -59,9 +59,9 @@
     let sortDirection = -1;
     const columns = [
       ["name", "State or territory"],
-      ["eligible", "Water systems with complete monitoring"],
-      ["above", "Water systems reaching any study level"],
-      ["pctAbove", "Percent reaching a study level"],
+      ["eligible", "Systems with enough samples for a yearly average"],
+      ["above", "Systems at or above any study benchmark"],
+      ["pctAbove", "Percent at or above a study benchmark"],
       ["pfoa", "PFOA"],
       ["pfos", "PFOS"],
       ["hazard_index", "Hazard Index"],
@@ -130,10 +130,10 @@
   }
 
   function metricDescription(row, metric) {
-    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of community water systems with complete monitoring reached a study comparison level`;
-    if (metric === "eligible") return `${row.eligible.toLocaleString()} active community water systems with complete monitoring`;
-    if (metric === "above") return `${row.above.toLocaleString()} water systems reached at least one study comparison level`;
-    return `${Number(row[metric] || 0).toLocaleString()} water systems reached the ${COMPOUND_LABELS[metric]} study level`;
+    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of community water systems with enough required samples for a yearly average had a result at or above an EPA-based study benchmark`;
+    if (metric === "eligible") return `${row.eligible.toLocaleString()} active community water systems with enough required samples for a yearly average`;
+    if (metric === "above") return `${row.above.toLocaleString()} water systems had at least one yearly average at or above an EPA-based study benchmark`;
+    return `${Number(row[metric] || 0).toLocaleString()} water systems had a yearly average at or above the ${COMPOUND_LABELS[metric]} study benchmark`;
   }
 
   async function renderMap() {
@@ -175,7 +175,7 @@
         const code = NAME_TO_ABBREV[feature.properties.name];
         const row = stateData[code];
         if (!row) { tooltip.hidden = true; return; }
-        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} systems with complete monitoring reached a study comparison level</small>`;
+        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} systems with complete monitoring had a yearly average at or above a study benchmark</small>`;
         const rect = container.getBoundingClientRect();
         let left = event.clientX - rect.left + 16;
         let top = event.clientY - rect.top - 12;
@@ -196,7 +196,7 @@
       });
       paths.append("title").text(feature => {
         const row = stateData[NAME_TO_ABBREV[feature.properties.name]];
-        return row ? `${feature.properties.name}: ${metricDescription(row, metric)}` : `${feature.properties.name}: no active community water systems with complete monitoring`;
+        return row ? `${feature.properties.name}: ${metricDescription(row, metric)}` : `${feature.properties.name}: no active community water systems with enough required samples for a yearly average`;
       });
       svgSelection.append("path").datum(topojson.mesh(us, us.objects.states, (a, b) => a !== b)).attr("fill", "none").attr("stroke", "#fff").attr("stroke-width", .8).attr("pointer-events", "none").attr("d", path);
       setStatus("");

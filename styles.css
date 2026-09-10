@@ -4243,6 +4243,7 @@ button,
 
 .home-shell .home-interaction-grid .ai-suggestion {
   display: flex;
+  width: 100%;
   min-height: 30px;
   align-items: center;
   padding: 5px 8px;
@@ -4250,10 +4251,148 @@ button,
   border-radius: 6px;
   background: #fff;
   color: #345f78;
+  cursor: pointer;
+  font-family: var(--font-sans);
   font-size: 9.75px;
   line-height: 1.3;
+  text-align: left;
   white-space: normal;
   box-shadow: 0 1px 2px rgba(16,30,38,0.025);
+}
+
+.result-glossary {
+  margin: 0.9rem 0 0.75rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(23, 94, 151, 0.14);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.result-glossary h4 {
+  margin: 0 0 0.55rem;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.result-glossary dl,
+.result-glossary dl > div {
+  margin: 0;
+}
+
+.result-glossary dl {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.result-glossary dt {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.result-glossary dd {
+  margin: 0.12rem 0 0;
+  color: var(--muted);
+  font-size: 10.75px;
+  line-height: 1.55;
+}
+
+.faq-dialog {
+  width: min(520px, calc(100% - 2rem));
+  max-width: 520px;
+  margin: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink);
+  box-shadow: 0 24px 64px rgba(16, 30, 38, 0.26);
+}
+
+.faq-dialog::backdrop {
+  background: rgba(16, 30, 38, 0.48);
+  backdrop-filter: blur(2px);
+}
+
+.faq-dialog-card {
+  position: relative;
+  padding: 1.65rem 1.7rem 1.55rem;
+  border: 1px solid #d8e3e7;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.faq-dialog-kicker {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.faq-dialog h2 {
+  max-width: calc(100% - 72px);
+  margin: 0 0 0.75rem;
+  color: var(--ink);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.faq-dialog p {
+  margin: 0 0 1rem;
+  color: #405862;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.faq-dialog a {
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.faq-dialog a:hover,
+.faq-dialog a:focus-visible {
+  text-decoration: underline;
+}
+
+.faq-dialog-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  min-height: 32px;
+  padding: 0 0.65rem;
+  border: 1px solid #d8e3e7;
+  border-radius: 6px;
+  background: #f7fafb;
+  color: #526972;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: 650;
+}
+
+.faq-dialog-close:hover,
+.faq-dialog-close:focus-visible {
+  border-color: #b7ccd6;
+  background: #eef5f8;
+  outline: 3px solid rgba(23, 94, 151, 0.08);
+}
+
+@media (max-width: 560px) {
+  .faq-dialog-card {
+    padding: 1.4rem 1.2rem 1.3rem;
+  }
+
+  .faq-dialog h2 {
+    max-width: calc(100% - 58px);
+    font-size: 18px;
+  }
 }
 
 .home-shell .home-interaction-grid .ai-suggestion:hover,

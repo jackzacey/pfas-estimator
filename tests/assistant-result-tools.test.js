@@ -54,6 +54,10 @@ assert.match(
   /not a measured zero and does not prove that PFAS was absent/i
 );
 assert.match(
+  tools.answerBoundaryQuestion("What does complete monitoring mean?", zipSystems, "en"),
+  /all required samples needed to calculate a yearly average/i
+);
+assert.match(
   tools.answerBoundaryQuestion("Where were the samples collected?", zipSystems, "en"),
   /entry points to the distribution system/i
 );

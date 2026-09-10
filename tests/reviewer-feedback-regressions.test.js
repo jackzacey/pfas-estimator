@@ -32,7 +32,7 @@ Object.entries(frozenHashes).forEach(([relative, expected]) => {
 });
 
 const approvedStyleHashes = {
-  "styles.css": "b13b43bf4b5558026dbbb72a8d2ca536c78aa72be349b4b11df5d02d2e15a603",
+  "styles.css": "6ad4148ba4062131babd7fc9326e915914a6a8d7efd02c7d32a0b8f5dbc1d817",
   "scientific-site-v2.css": "2d6a139e20ee7170ea3ed47c61aee6902691f88aaa06c167164f020fb0951174",
 };
 Object.entries(approvedStyleHashes).forEach(([relative, expected]) => {
@@ -95,12 +95,16 @@ assert.ok(
   "None met",
   "Systems meeting any",
   "Systems meeting comparison",
+  "Systems reaching",
+  "reached a study comparison level",
   "patient-friendly interpretation a careful doctor",
 ].forEach(phrase => assert.ok(!publicText.includes(phrase), `Misleading public phrase remains: ${phrase}`));
 
 [
   "U.S. Public Water PFAS Monitoring Lookup",
-  "Study comparison level",
+  "EPA-based study benchmark",
+  "Complete monitoring",
+  "all required samples needed to calculate a yearly average",
   "Read this before using the results",
   "entry points to the distribution system",
   "Consumer Confidence Report",
@@ -112,7 +116,12 @@ assert.ok(
   "cannot determine current legal compliance, household tap levels, personal exposure, or health risk",
 ].forEach(phrase => assert.ok(publicText.includes(phrase), `Required clarification is missing: ${phrase}`));
 
+const homeSource = readText("index.html");
 const resultSource = readText("scientific-site-v2.js");
+assert.ok(homeSource.includes('<dialog class="faq-dialog"'), "Quick explanations should open in an accessible dialog");
+assert.ok(homeSource.includes('type="button" data-faq-key="result"'), "Quick explanations should use native buttons");
+assert.ok(resultSource.includes("dialog.showModal()"), "The quick-explanation dialog must open without posting a chat message");
+
 assert.ok(
   resultSource.indexOf("${renderResultBoundary()}") < resultSource.indexOf("${systems.map(renderSystem).join(\"\")}"),
   "The prominent result boundary must appear before the water-system cards",

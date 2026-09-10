@@ -33,8 +33,8 @@
 
     const safety = askedSafety ? "This site does not classify any water system as safe or unsafe. " : "";
     const result = atOrAbove.length
-      ? `${atOrAbove.length} of ${systems.length} listed water systems reached at least one study comparison level: ${names.join("; ")}. `
-      : `None of the ${systems.length} listed water systems reached a study comparison level. PFAS may have been detected below that level or may have been below EPA reporting limits. `;
+      ? `${atOrAbove.length} of ${systems.length} listed water systems had at least one yearly average at or above an EPA-based study benchmark: ${names.join("; ")}. `
+      : `None of the ${systems.length} listed water systems had a yearly average at or above an EPA-based study benchmark. PFAS may have been detected below a benchmark or may have been below EPA reporting levels. `;
     return `${safety}${result}Match the system name to your water bill, then check the utility's current information.\n\nSource: dated EPA UCMR 5 research data shown on this page.`;
   }
 
@@ -48,6 +48,7 @@
     const asksMedical = /\b(?:see|visit|call|ask|need)\b.{0,24}\b(?:doctor|physician|medical care|healthcare professional)\b|(?:看|咨询|联系).{0,12}(?:医生|医疗专业人员)/.test(value);
     const asksNoResultMeaning = /\b(?:no|missing|without)\b.{0,16}\b(?:result|data|record)\b.*\b(?:no pfas|pfas[- ]free|safe|zero|absent)\b|没有.{0,12}(?:结果|数据).{0,12}(?:没有PFAS|安全|零)/.test(value);
     const asksBelowReportingMeaning = /\b(?:why|mean|means|meaning|show(?:s|ing)?|display(?:s|ing)?)\b.{0,28}\b(?:0|zero|below (?:the )?(?:epa )?reporting (?:level|limit)|not detected|non[- ]?detect)\b|\b(?:0|zero|below (?:the )?(?:epa )?reporting (?:level|limit)|not detected|non[- ]?detect)\b.{0,28}\b(?:mean|means|meaning)\b|(?:零|低于.{0,8}报告限值|未检出).{0,12}(?:含义|意思|为什么)/.test(value);
+    const asksCompleteMonitoringMeaning = /\b(?:what|define|mean|means|meaning)\b.{0,24}\bcomplete monitoring\b|\bcomplete monitoring\b.{0,24}\b(?:mean|means|meaning)\b|完整监测.{0,12}(?:含义|意思|什么)/.test(value);
     const asksSamplingLocation = /\bwhere\b.*\b(?:sample|sampling|collect|collected|tested)\b|样本.*哪里|在哪里.*采样/.test(value);
     const asksCurrentData = /\b(?:current|latest|newest|up[- ]to[- ]date|official)\b.*\b(?:results?|data|records?|information)\b|(?:最新|当前|官方).*(?:结果|数据|信息)/.test(value);
 
@@ -58,7 +59,8 @@
       if (asksSafety) return "本网站不会把供水系统或家庭水龙头归类为“安全”或“不安全”。该结果是冻结的供水系统监测比较，不能确定当前合规情况、家庭水龙头浓度、个人暴露或健康风险。\n\n资料：本页显示的EPA UCMR 5冻结研究数据。";
       if (asksMedical) return "这项供水系统监测结果本身不能确定某人是否需要医疗护理。如有个人医疗问题，请根据个人病史和适当的暴露信息咨询合格的医疗专业人员。\n\n资料：EPA和ATSDR的PFAS健康指南。";
       if (asksNoResultMeaning) return "没有显示结果并不表示水中没有PFAS，也不表示水是安全或不安全的。请先确认供水机构，然后查看其最新消费者信心报告或联系供水机构；私人水井不在此数据集中。\n\n资料：EPA UCMR 5和消费者信心报告指南。";
-      if (asksBelowReportingMeaning) return "“低于EPA报告限值”表示实验室结果低于UCMR 5可以定量报告的最低水平。EPA在年度平均值计算中将这类结果按零计，但这不等于测得浓度为零，也不能证明PFAS不存在。\n\n资料：EPA UCMR 5报告和年度平均值指南。";
+      if (asksBelowReportingMeaning) return "“低于EPA报告限值”表示实验室结果低于UCMR 5可以定量报告的最低浓度。EPA在年度平均值计算中将这类结果按零计，但这不等于测得浓度为零，也不能证明PFAS不存在。\n\n资料：EPA UCMR 5报告和年度平均值指南。";
+      if (asksCompleteMonitoringMeaning) return "“完整监测”表示该供水系统至少一个采样点具有计算年度平均值所需的全部规定样本。它不表示所有家庭都经过检测，也不表示供水系统安全或合规。\n\n资料：EPA UCMR 5年度平均值指南。";
       if (asksSamplingLocation) return "UCMR 5样本采自进入配水系统的位置，而不是某个家庭的水龙头。因此结果代表供水系统监测，不代表特定住宅内的水。\n\n资料：EPA UCMR 5采样指南。";
       if (asksCurrentData) return "本网站保留截至2026年1月15日收到的研究快照。EPA已于2026年8月发布最终UCMR 5数据集；最新信息请查看EPA数据查找器、供水机构和消费者信心报告。\n\n资料：EPA UCMR 5数据查找器。";
       return null;
@@ -70,7 +72,8 @@
     if (asksSafety) return "This site does not classify a water system or home tap as safe or unsafe. A dated water-system monitoring result cannot determine current compliance, household tap levels, personal exposure, or health risk.\n\nSource: EPA UCMR 5 research data shown on this page.";
     if (asksMedical) return "This water-system monitoring result alone cannot determine whether someone needs medical care. For a personal medical concern, a qualified healthcare professional would need individual history and appropriate exposure information, not this system result alone.\n\nSource: EPA and ATSDR PFAS health guidance.";
     if (asksNoResultMeaning) return "No displayed result does not mean that PFAS is absent or that the water is safe or unsafe. First confirm the utility, then check its current Consumer Confidence Report or contact it directly; private wells are outside this dataset.\n\nSource: EPA UCMR 5 and Consumer Confidence Report guidance.";
-    if (asksBelowReportingMeaning) return "“Below EPA reporting level” means the laboratory result was lower than the minimum concentration UCMR 5 reports quantitatively. EPA counts that result as zero when calculating the yearly average, but it is not a measured zero and does not prove that PFAS was absent.\n\nSource: EPA UCMR 5 reporting and yearly-average guidance.";
+    if (asksBelowReportingMeaning) return "“Below EPA reporting level” means the laboratory result was lower than the minimum concentration UCMR 5 reports as a number for that compound. EPA counts that result as zero when calculating the yearly average, but it is not a measured zero and does not prove that PFAS was absent.\n\nSource: EPA UCMR 5 reporting and yearly-average guidance.";
+    if (asksCompleteMonitoringMeaning) return "“Complete monitoring” means at least one sampling location for the water system had all required samples needed to calculate a yearly average. It does not mean that every home was tested or that the system is safe or compliant.\n\nSource: EPA UCMR 5 yearly-average guidance.";
     if (asksSamplingLocation) return "UCMR 5 samples were collected at entry points to the distribution system, not at an individual household faucet. The results therefore describe water-system monitoring, not the water inside a particular home.\n\nSource: EPA UCMR 5 sampling guidance.";
     if (asksCurrentData) return `This site preserves a research snapshot of EPA results received through January 15, 2026${hasSystems ? " for the systems displayed" : ""}. EPA released the final UCMR 5 dataset in August 2026; use the EPA Data Finder, the utility, and its Consumer Confidence Report for current information.\n\nSource: EPA UCMR 5 Data Finder.`;
     return null;

@@ -34,7 +34,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260905-readable-results" />
+  <link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -98,7 +98,7 @@
           <ol class="pipeline-list consumer-method-steps">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
             <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the sampling period and results</h3><p>Each water-system card gives the dates when that system was monitored. It then shows the highest yearly average across the system’s EPA sampling locations.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the study comparison</h3><p>“Reached the study comparison level” means at least one complete yearly average reached the dated EPA technical cutoff used in this January 2026 research release.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the study benchmark</h3><p>“At or above an EPA-based study benchmark” means at least one complete yearly average was at or above the unrounded cutoff this research uses to reproduce EPA’s January 2026 technical-assistance classification around the April 2024 federal levels. It is not a current standard or compliance finding.</p></div></li>
           </ol>
 
           <div class="interpretation-grid consumer-answer-grid">
@@ -144,12 +144,12 @@
 
           <div class="methodology-metrics" aria-label="Cohort flow">
             <div class="methodology-metric"><span class="methodology-metric-value">10,289</span><span class="methodology-metric-label">systems in EPA’s average-results export</span></div>
-            <div class="methodology-metric"><span class="methodology-metric-value">8,936</span><span class="methodology-metric-label">active CWSs with complete monitoring</span></div>
+            <div class="methodology-metric"><span class="methodology-metric-value">8,936</span><span class="methodology-metric-label">active CWSs with enough required samples for a yearly average</span></div>
             <div class="methodology-metric"><span class="methodology-metric-value">8,701</span><span class="methodology-metric-label">eligible demographic records</span></div>
             <div class="methodology-metric"><span class="methodology-metric-value">8,069</span><span class="methodology-metric-label">systems in the primary inferential cohort</span></div>
           </div>
 
-          <p>UCMR 5 attempted to monitor all eligible systems serving at least 3,300 people and selected 800 smaller systems through a population-weighted, source- and size-stratified design intended to support national occurrence estimates. Public row-level inclusion probabilities or analysis weights were not identified. The primary inferential cohort therefore includes active community water systems serving at least 3,300 people with complete monitoring, an eligible service-area boundary, and sufficient demographic coverage.</p>
+          <p><strong>Complete monitoring</strong> means at least one sampling location for a water system had all required samples needed to calculate a yearly average. It does not mean that every home was tested or that the system was safe or compliant. UCMR 5 attempted to monitor all eligible systems serving at least 3,300 people and selected 800 smaller systems through a population-weighted, source- and size-stratified design intended to support national occurrence estimates. Public row-level inclusion probabilities or analysis weights were not identified. The primary inferential cohort therefore includes active community water systems serving at least 3,300 people with complete monitoring, an eligible service-area boundary, and sufficient demographic coverage.</p>
 
           <p>The 632 monitored smaller community systems with eligible demographic records are reported separately as an explicitly unweighted sensitivity; they do not represent all small U.S. systems. Nontransient noncommunity systems are excluded from demographic models because residential Census characteristics do not describe school, workplace, hospital, and other nonresidential populations.</p>
 
@@ -168,7 +168,7 @@
           </div>
 
           <ol class="pipeline-list">
-            <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Use complete sampling sets</h3><p>Annual averages are defined at an EPA sampling location using its complete required monitoring set. EPA assigns results below the UCMR minimum reporting level a value of zero for this calculation. On the public result card, those records are labeled “Below EPA reporting level” instead of being presented as measured zero concentrations.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Use complete sampling sets</h3><p>Annual averages are defined at an EPA sampling location using its complete required monitoring set. The <strong>EPA reporting level</strong> is the lowest concentration UCMR 5 reports as a number for that compound. EPA assigns results below that level a value of zero for the yearly-average calculation, but they are not measured zero concentrations and do not prove that a compound was absent.</p></div></li>
             <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Reproduce EPA classifications</h3><p>The primary source is EPA’s January 2026 Average PFAS Results export. A record-level reconstruction is retained as a validation analysis rather than as a substitute for unresolved replacement-record logic.</p></div></li>
             <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Classify the combined primary outcome</h3><p>A system enters the combined outcome when at least one complete-set location has a yearly average at or above an April 2024 individual-compound or qualifying-mixture technical cutoff.</p></div></li>
           </ol>
@@ -282,7 +282,7 @@
             <li><strong>Ecological design:</strong> service-area composition cannot be assigned to individuals and cannot establish individual exposure.</li>
             <li><strong>Cross-sectional timing:</strong> associations do not establish causality or historical exposure.</li>
             <li><strong>Frozen interim release:</strong> the research uses the January 2026 UCMR 5 file, not the final federal dataset released in August 2026. Use EPA’s Data Finder for current federal records.</li>
-            <li><strong>Reporting limits:</strong> “Below EPA reporting level” means the laboratory result was below UCMR 5’s minimum level for quantitative reporting. It does not establish that the compound was absent or that its concentration was literally zero.</li>
+            <li><strong>EPA reporting level:</strong> This is the lowest concentration UCMR 5 reports as a number for a compound. A result below that level does not establish that the compound was absent or that its concentration was literally zero.</li>
             <li><strong>Service-area uncertainty:</strong> some EPA boundaries are modeled, and demographic interpolation does not eliminate within-area heterogeneity.</li>
             <li><strong>Small-system sampling:</strong> unweighted monitored systems below 3,300 people do not support inference to all small systems or demographic subgroups.</li>
             <li><strong>Correlated community measures:</strong> compositional predictors are interdependent; adjusted coefficients are not isolated causal effects.</li>
@@ -335,7 +335,7 @@
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Website explanation updated September 4, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Website explanation updated September 10, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
       </main>
     </div>
   </div>
