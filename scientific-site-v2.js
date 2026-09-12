@@ -16,6 +16,27 @@
     { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "April 2024 federal level: 1", cutoff: "Study benchmark: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
   ];
 
+  const STATE_NAMES = Object.freeze({
+    AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado",
+    CT: "Connecticut", DE: "Delaware", DC: "District of Columbia", FL: "Florida", GA: "Georgia",
+    HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky",
+    LA: "Louisiana", ME: "Maine", MD: "Maryland", MA: "Massachusetts", MI: "Michigan", MN: "Minnesota",
+    MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada", NH: "New Hampshire",
+    NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota",
+    OH: "Ohio", OK: "Oklahoma", OR: "Oregon", PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina",
+    SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia",
+    WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming", PR: "Puerto Rico",
+    GU: "Guam", AS: "American Samoa", MP: "Northern Mariana Islands", VI: "U.S. Virgin Islands",
+  });
+  const DEFAULT_STATE_PROGRAM = Object.freeze({
+    url: "https://www.epa.gov/DWdata/primacy-agency-drinking-water-data",
+  });
+  const STATE_PROGRAMS = Object.freeze({
+    MI: Object.freeze({
+      url: "https://www.michigan.gov/egle/about/organization/drinking-water-and-environmental-health/noncommunity-water-supply/drinking-water-analytes",
+    }),
+  });
+
   const COMPOUND_GUIDANCE = {
     pfoa: {
       about: {
@@ -114,8 +135,8 @@
       navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "How it works",
       releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
       heroTitle: "U.S. Public Water PFAS Monitoring Lookup",
-      heroSubtitle: "Enter a ZIP code to see EPA PFAS monitoring results for public water systems connected with that area.",
-      truthNote: "<strong>Before you search:</strong> A ZIP code may list more than one water system, so match the system name to your water bill. This research snapshot uses EPA results received through January 15, 2026. For the newest federal records, use EPA’s Data Finder.",
+      heroSubtitle: "Enter a ZIP code to find possible public water systems for that area and review their EPA PFAS monitoring results.",
+      truthNote: "<strong>Before you search:</strong> A ZIP code can list more than one water system. First match a system name to your water bill. EPA collected UCMR 5 samples where treated water enters the distribution system, not at household faucets. This site uses a fixed research snapshot of results received through January 15, 2026. For newer federal records, use EPA’s Data Finder.",
       printButton: "Print or save this water-system result",
       chatTitle: "PFAS Results Assistant", chatSubtitle: "Open a quick explanation or ask a question",
       suggestConcern: "What can this result tell me?", suggestUtility: "How do I confirm my utility?", suggestFilter: "Where were samples collected?", suggestHealth: "Where are current results?",
@@ -161,14 +182,14 @@
       demographicSummary: "Service-area demographic context used in the research analysis", demographicNote: "Ecological estimates for the modeled service area; these do not describe any individual customer.",
       hispanic: "Hispanic", black: "non-Hispanic Black", aian: "non-Hispanic AIAN", poverty: "below poverty", rural: "rural",
       resultBoundaryTitle: "Read this before using the results",
-      resultBoundaryBody: "The sampling dates shown below identify when each system was monitored. A result below an EPA reporting level is not proof that its concentration was zero. Samples were collected where water enters the distribution system, not at home faucets, and the results cannot determine current legal compliance, household tap levels, personal exposure, or health risk.",
+      resultBoundaryBody: "The dates below show when EPA monitored each system. EPA sampled where treated water enters the distribution system, not at household faucets. If a result is below an EPA reporting level, it does not mean the concentration was zero or that the compound was absent. These results cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk.",
       keyTerms: "Key terms on this page",
       completeMonitoringTerm: "Complete monitoring",
-      completeMonitoringDefinition: "At least one sampling location for the water system had all required samples needed to calculate a yearly average.",
+      completeMonitoringDefinition: "For at least one sampling location, the water system had every required sample needed to calculate a yearly average. It does not mean every location or home was tested.",
       studyBenchmarkTerm: "EPA-based study benchmark",
-      studyBenchmarkDefinition: "The unrounded cutoff used in this research to reproduce EPA’s January 2026 technical-assistance classification around the April 2024 federal levels. It is not a current standard or compliance finding.",
+      studyBenchmarkDefinition: "This research uses an unrounded cutoff to reproduce EPA’s January 2026 technical-assistance classification based on the April 2024 federal levels. The benchmark is fixed for this study. It is not a current federal or state standard, and it does not show whether a water system complies with the law.",
       reportingLevelTerm: "EPA reporting level",
-      reportingLevelDefinition: "The lowest concentration UCMR 5 reports as a numeric measurement for that compound. A result below it is not a measured zero and does not prove the compound was absent.",
+      reportingLevelDefinition: "The lowest concentration that UCMR 5 reports as a number for that compound. A result below this level is not a measured zero and does not prove that the compound was absent.",
       welcome: "Ask me how to read the monitoring results, confirm a water system, understand where samples were collected, or find current official information.",
       contextReadyAbove: "One or more yearly averages were at or above an EPA-based study benchmark. I can explain what that means, how to confirm the utility, or where to find current information.",
       contextReadyBelow: "No complete yearly average was at or above an EPA-based study benchmark. I can explain why that does not mean PFAS was absent or describe current conditions.",
@@ -183,8 +204,8 @@
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
       releaseBadge: "全美 · EPA UCMR 5 数据 · 教育工具",
       heroTitle: "美国公共供水PFAS监测查询",
-      heroSubtitle: "输入邮政编码，查找与其关联的公共供水系统并查看EPA UCMR 5监测结果。",
-      truthNote: "<strong>开始前：</strong>一个邮政编码可能列出多个供水系统。阅读结果前，请先将系统名称与水费账单核对。UCMR 5样本采自进入配水系统的位置，而不是您家的水龙头。<strong>研究快照：</strong>本网站保留截至2026年1月15日收到的EPA结果。EPA已于2026年8月发布最终UCMR 5数据集；最新联邦记录请使用EPA数据查找器。",
+      heroSubtitle: "输入邮政编码，查找该地区可能的公共供水系统，并查看其EPA PFAS监测结果。",
+      truthNote: "<strong>开始前：</strong>一个邮政编码可能列出多个供水系统。请先将系统名称与水费账单核对。EPA的UCMR 5样本采自处理后的水进入配水系统的位置，而不是家庭水龙头。本网站使用截至2026年1月15日收到的固定研究数据快照。更新的联邦记录请使用EPA数据查找器。",
       printButton: "打印或保存此供水系统结果",
       chatTitle: "PFAS结果助手", chatSubtitle: "打开简要说明或询问监测结果",
       suggestConcern: "这项结果能说明什么？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "样本在哪里采集？", suggestHealth: "在哪里查看最新结果？",
@@ -220,14 +241,14 @@
       demographicSummary: "研究分析使用的服务区人口背景", demographicNote: "这是模型服务区的生态估计，不描述任何个人客户。",
       hispanic: "西班牙裔", black: "非西班牙裔黑人", aian: "非西班牙裔美洲印第安人/阿拉斯加原住民", poverty: "低于贫困线", rural: "农村",
       resultBoundaryTitle: "使用结果前请先阅读",
-      resultBoundaryBody: "下方的采样日期说明每个供水系统何时接受监测。低于EPA报告限值不等于实际浓度为零。样本采自水进入配水系统的位置，而不是家庭水龙头；这些结果不能确定当前合规情况、家庭水龙头浓度、个人暴露或健康风险。",
+      resultBoundaryBody: "下方日期说明EPA何时监测每个供水系统。样本采自处理后的水进入配水系统的位置，而不是家庭水龙头。低于EPA报告限值不等于浓度为零，也不能证明该化合物不存在。这些结果不能确认某个住宅的供水系统，也不能确定当前法律合规情况、家庭水龙头浓度、个人暴露或健康风险。",
       keyTerms: "本页重要术语",
       completeMonitoringTerm: "完整监测",
-      completeMonitoringDefinition: "该供水系统至少一个采样点具有计算年度平均值所需的全部规定样本。",
+      completeMonitoringDefinition: "该供水系统至少一个采样点具有计算年度平均值所需的全部规定样本。这不表示每个采样点或每个家庭都接受了检测。",
       studyBenchmarkTerm: "基于EPA的研究基准",
-      studyBenchmarkDefinition: "本研究使用的未舍入阈值，用于重现EPA于2026年1月围绕2024年4月联邦水平作出的技术援助分类。它不是现行标准或合规结论。",
+      studyBenchmarkDefinition: "本研究使用未舍入阈值，以重现EPA于2026年1月基于2024年4月联邦水平作出的技术援助分类。该基准在本研究中保持固定。它不是现行的联邦或州标准，也不能说明供水系统是否符合法律要求。",
       reportingLevelTerm: "EPA报告限值",
-      reportingLevelDefinition: "UCMR 5可将该化合物作为数值报告的最低浓度。低于此值不等于测得为零，也不能证明该化合物不存在。",
+      reportingLevelDefinition: "UCMR 5将该化合物作为数值报告的最低浓度。低于此值不等于测得为零，也不能证明该化合物不存在。",
       welcome: "您可以询问如何理解监测结果、确认供水系统、了解采样位置或查找最新官方信息。",
       contextReadyAbove: "一项或多项年度平均值达到或超过基于EPA的研究基准。我可以解释这意味着什么、如何确认供水机构或在哪里查找最新信息。",
       contextReadyBelow: "没有完整年度平均值达到或超过基于EPA的研究基准。我可以解释为何这不表示PFAS不存在，也不能确定当前状况。",
@@ -480,7 +501,28 @@
     return `<aside class="result-next-step"><h3>${isZh ? "下一步" : "Next step"}</h3><p>${escapeHtml(copy)}</p><a href="https://www.epa.gov/ccr" target="_blank" rel="noopener noreferrer">${isZh ? "查找消费者信心报告 →" : "Find a Consumer Confidence Report →"}</a></aside>`;
   }
 
-  function renderResultBoundary() {
+  function renderStateContext(systems) {
+    const stateCodes = [...new Set(systems.map(system => String(system.sdwis_state_code || "").toUpperCase()).filter(Boolean))];
+    const isZh = currentLang === "zh";
+    if (stateCodes.length !== 1) {
+      const body = isZh
+        ? "列出的供水系统跨越多个州或地区。本网站使用基于2024年4月联邦水平的固定研究阈值。州级规定可能不同。这些结果不能确定当前联邦或州级法律合规情况。"
+        : "The listed systems span more than one state or territory. This site uses fixed research cutoffs based on the April 2024 federal levels. State rules may differ. These results do not determine current federal or state compliance.";
+      const label = isZh ? "查找官方州或地区饮用水项目 →" : "Find official state or territory drinking-water programs →";
+      return `<div><dt>${isZh ? "联邦研究基准与州级规定" : "Federal study benchmark and state rules"}</dt><dd>${escapeHtml(body)} <a href="${DEFAULT_STATE_PROGRAM.url}" target="_blank" rel="noopener noreferrer">${label}</a></dd></div>`;
+    }
+
+    const stateCode = stateCodes[0];
+    const stateName = STATE_NAMES[stateCode] || stateCode;
+    const program = STATE_PROGRAMS[stateCode] || DEFAULT_STATE_PROGRAM;
+    const body = isZh
+      ? `本网站使用基于2024年4月联邦水平的固定研究阈值。${stateName}可能采用不同的现行标准或指南。该结果不能确定当前联邦或州级法律合规情况。`
+      : `This site uses fixed research cutoffs based on the April 2024 federal levels. ${stateName} may use different current standards or guidance. This result does not determine current federal or state compliance.`;
+    const label = isZh ? `查看${stateName}的现行官方信息 →` : `Check current official ${stateName} information →`;
+    return `<div><dt>${isZh ? `联邦研究基准与${stateName}规定` : `Federal study benchmark and ${stateName} rules`}</dt><dd>${escapeHtml(body)} <a href="${escapeHtml(program.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></dd></div>`;
+  }
+
+  function renderResultBoundary(systems) {
     return `<aside class="result-boundary" role="note">
       <h3>${text("resultBoundaryTitle")}</h3>
       <p>${text("resultBoundaryBody")}</p>
@@ -490,6 +532,7 @@
           <div><dt>${text("completeMonitoringTerm")}</dt><dd>${text("completeMonitoringDefinition")}</dd></div>
           <div><dt>${text("studyBenchmarkTerm")}</dt><dd>${text("studyBenchmarkDefinition")}</dd></div>
           <div><dt>${text("reportingLevelTerm")}</dt><dd>${text("reportingLevelDefinition")}</dd></div>
+          ${renderStateContext(systems)}
         </dl>
       </div>
       <a href="/methodology/#overview">${currentLang === "zh" ? "查看完整解释 →" : "See the full explanation →"}</a>
@@ -769,7 +812,7 @@
     result.className = aboveCount ? "result found-above" : "result found-below";
     title.textContent = text("associatedTitle")(systems.length, zip);
     context.textContent = text("associatedContext")(aboveCount, systems.length, detectedSystemCount);
-    body.innerHTML = `${renderResultBoundary()}${systems.map(renderSystem).join("")}${renderResultNextStep()}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}`;
+    body.innerHTML = `${renderResultBoundary(systems)}${systems.map(renderSystem).join("")}${renderResultNextStep()}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));

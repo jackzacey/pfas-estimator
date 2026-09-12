@@ -113,7 +113,10 @@ assert.ok(
   "Below EPA reporting level",
   "This does not mean their concentrations were zero",
   "Sampling period",
-  "cannot determine current legal compliance, household tap levels, personal exposure, or health risk",
+  "cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk",
+  "It does not mean every location or home was tested",
+  "may use different current standards or guidance",
+  "does not determine current federal or state compliance",
 ].forEach(phrase => assert.ok(publicText.includes(phrase), `Required clarification is missing: ${phrase}`));
 
 const homeSource = readText("index.html");
@@ -121,9 +124,12 @@ const resultSource = readText("scientific-site-v2.js");
 assert.ok(homeSource.includes('<dialog class="faq-dialog"'), "Quick explanations should open in an accessible dialog");
 assert.ok(homeSource.includes('type="button" data-faq-key="result"'), "Quick explanations should use native buttons");
 assert.ok(resultSource.includes("dialog.showModal()"), "The quick-explanation dialog must open without posting a chat message");
+assert.ok(resultSource.includes("Current Michigan drinking-water standards") || resultSource.includes("michigan.gov/egle"), "Michigan lookup results should link to current official state context");
+assert.ok(homeSource.includes('href="https://doi.org/10.5281/zenodo.21968954"'), "The homepage should visibly link to the archived data and code");
+assert.ok(readText("methodology/index.html").includes("this release has not yet been independently reproduced"), "Independent reproduction status should be stated plainly");
 
 assert.ok(
-  resultSource.indexOf("${renderResultBoundary()}") < resultSource.indexOf("${systems.map(renderSystem).join(\"\")}"),
+  resultSource.indexOf("${renderResultBoundary(systems)}") < resultSource.indexOf("${systems.map(renderSystem).join(\"\")}"),
   "The prominent result boundary must appear before the water-system cards",
 );
 assert.ok(

@@ -26,8 +26,8 @@ COMPARISONS = (
 )
 STATE_CONTEXT_LINKS = {
     "MI": (
-        "https://www.michigan.gov/mdhhs/safety-injury-prev/environmental-health/pfas/learn/mdhhs-comparison-values",
-        "Michigan PFAS drinking-water standards and comparison values",
+        "https://www.michigan.gov/egle/about/organization/drinking-water-and-environmental-health/noncommunity-water-supply/drinking-water-analytes",
+        "Current Michigan drinking-water standards",
     ),
 }
 DEFAULT_STATE_CONTEXT = (
@@ -117,15 +117,18 @@ def state_context(code, name):
     url, label = STATE_CONTEXT_LINKS.get(code, DEFAULT_STATE_CONTEXT)
     if code == "MI":
         note = (
-            "This page applies the dated federal comparison levels used in the research, not Michigan drinking-water "
-            "standards. UCMR 5 results alone do not determine compliance with either framework."
+            "The labels on this page use fixed research cutoffs based on the April 2024 federal levels. "
+            "Michigan has separate state drinking-water standards. These UCMR 5 results do not determine "
+            "current federal or Michigan compliance."
         )
     else:
         note = (
-            f"This page does not apply {name}'s state-specific standards or determine compliance. "
-            "Use the official state or territory drinking-water program for current regulatory information."
+            "The labels on this page use fixed research cutoffs based on the April 2024 federal levels. "
+            f"{name} may use different current standards or guidance. These UCMR 5 results do not determine "
+            "current federal or state compliance."
         )
-    link = f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(label)}</a>'
+        label = f"Find the official {name} drinking-water program"
+    link = f'<a href="{html.escape(url, quote=True)}" target="_blank" rel="noopener noreferrer">{html.escape(label)} &rarr;</a>'
     return note, link
 
 
@@ -161,7 +164,7 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
             <a href="/states/{slugify(name)}/" aria-label="View PFAS water-system results for {html.escape(name)}">
               <div class="state-directory-card-top"><span class="state-abbreviation" aria-hidden="true">{code}</span><span class="state-card-region">{region}</span></div>
               <h3>{html.escape(name)}</h3>
-              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with complete monitoring had a yearly average at or above a study benchmark</span></div>
+              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with enough required samples had a yearly average at or above a study benchmark</span></div>
               <div class="state-card-bar" aria-hidden="true"><span style="width:{min(pct, 100):.1f}%"></span></div>
               <div class="state-card-footer"><span>{above:,} of {denominator:,} systems</span><span class="state-card-link">View systems <span aria-hidden="true">&rarr;</span></span></div>
             </a>
@@ -176,13 +179,13 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
 <title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using community water systems with enough required samples for a yearly average." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" /></head>
 <body class="methodology-body states-body"><a class="skip-link" href="#states-content">Skip to state directory</a><div class="methodology-shell states-shell">
 <nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary"><a href="/">ZIP Lookup</a><a href="/map/">Map</a><a href="/state-table/">State Table</a><a href="/states/" aria-current="page">Explore by State</a><a href="/methodology/">How It Works</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a></nav>
-<header class="methodology-hero states-hero"><div class="methodology-kicker">Browse state water-system results</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse active community water systems with enough required UCMR 5 samples to calculate a yearly average. Each state page counts every water system once.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
+<header class="methodology-hero states-hero"><div class="methodology-kicker">Browse state water-system results</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse active community water systems with enough required UCMR 5 samples to calculate a yearly average. Each system is counted once on its state page.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
 <main class="states-content" id="states-content"><section class="states-orientation"><div class="states-orientation-copy"><span class="states-card-kicker">Browse by location</span><h2>See what EPA monitoring found</h2><p>These percentages summarize water systems, not ZIP codes or households.</p></div><div class="states-zip-cta"><span>Checking a specific area?</span><strong>Start with the system lookup.</strong><a href="/">Open national lookup <span aria-hidden="true">&rarr;</span></a></div></section>
 <section class="state-directory"><div class="state-directory-heading"><div><span class="states-card-kicker">Browse the release</span><h2>Find a state or territory</h2><p>Search by name or abbreviation, or narrow the directory by region.</p></div><span class="state-result-count" id="stateResultsCount" aria-live="polite">{len(rows)} jurisdictions</span></div>
 <div class="state-search-wrap"><label for="stateSearch">Search states and territories</label><div class="state-search-control"><input id="stateSearch" type="search" autocomplete="off" placeholder="Try California, New York, or PR" /><button id="stateSearchClear" class="state-search-clear" type="button" hidden>Clear</button></div></div>
 <div class="state-filters" role="group" aria-label="Filter by region"><button class="state-filter is-active" type="button" data-region-filter="all" aria-pressed="true">All</button>{''.join(f'<button class="state-filter" type="button" data-region-filter="{region.lower()}" aria-pressed="false">{region}</button>' for region in REGION_ORDER)}</div>
-<div class="state-threshold-note"><strong>Key terms</strong><span>“Complete monitoring” means at least one sampling location had all required samples needed for a yearly average. An “EPA-based study benchmark” is the unrounded cutoff this research uses to reproduce EPA’s January 2026 technical-assistance classification around the April 2024 federal levels. It is not a current standard or compliance finding. These percentages do not determine household exposure or health risk.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
-<footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 results received through January 15, 2026 · Community water-information resource · Not a compliance or exposure determination.</p></footer></div>
+<div class="state-threshold-note"><strong>Key terms</strong><span>“Complete monitoring” means at least one sampling location had every required sample needed to calculate a yearly average. It does not mean every location or home was tested. An “EPA-based study benchmark” is a fixed, unrounded research cutoff used to reproduce EPA’s January 2026 technical-assistance classification based on the April 2024 federal levels. It is not a current federal or state standard. These percentages do not determine compliance, household exposure, or health risk.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
+<footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 results received through January 15, 2026 · <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code</a> · Not a compliance or exposure determination.</p></footer></div>
 <script>(()=>{{const input=document.getElementById('stateSearch'),clear=document.getElementById('stateSearchClear'),cards=[...document.querySelectorAll('[data-state-card]')],filters=[...document.querySelectorAll('[data-region-filter]')],count=document.getElementById('stateResultsCount'),empty=document.getElementById('stateDirectoryEmpty');let region='all';function draw(){{const query=input.value.trim().toLowerCase();let shown=0;cards.forEach(card=>{{const visible=(region==='all'||card.dataset.region===region)&&card.dataset.stateSearch.includes(query);card.hidden=!visible;if(visible)shown++;}});document.querySelectorAll('[data-region-section]').forEach(section=>section.hidden=![...section.querySelectorAll('[data-state-card]')].some(card=>!card.hidden));count.textContent=`${{shown}} jurisdiction${{shown===1?'':'s'}}`;empty.hidden=shown!==0;clear.hidden=!query;}}input.addEventListener('input',draw);clear.addEventListener('click',()=>{{input.value='';draw();input.focus();}});filters.forEach(button=>button.addEventListener('click',()=>{{region=button.dataset.regionFilter;filters.forEach(item=>{{item.classList.toggle('is-active',item===button);item.setAttribute('aria-pressed',item===button?'true':'false');}});draw();}}));}})();</script></body></html>'''
 
 

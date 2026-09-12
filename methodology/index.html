@@ -29,7 +29,7 @@
     "url": "https://pfasestimator.org/methodology/",
     "name": "How PFAS Estimator Works | Methods & Limitations",
     "description": "Plain-language website guidance and full methods for the PFAS Estimator UCMR 5 January 2026 system-level analysis release.",
-    "dateModified": "2026-09-08",
+    "dateModified": "2026-09-12",
     "author": {"@type": "Person", "name": "Jack Zhang"}
   }
   </script>
@@ -59,7 +59,7 @@
     <header class="methodology-hero">
       <div class="methodology-kicker">PFAS Estimator · Research release v0.2</div>
       <h1>How the site and research work</h1>
-      <p class="methodology-lede">Start with a plain-language guide to the lookup. Continue for the complete data, calculations, statistical methods, and limitations.</p>
+      <p class="methodology-lede">The first section explains how to read a ZIP result. The sections that follow provide the complete data sources, calculations, statistical methods, and limitations.</p>
 
       <div class="methodology-meta" aria-label="Methodology status">
         <span><strong>Website data</strong> EPA UCMR 5</span>
@@ -97,24 +97,24 @@
 
           <ol class="pipeline-list consumer-method-steps">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the sampling period and results</h3><p>Each water-system card gives the dates when that system was monitored. It then shows the highest yearly average across the system’s EPA sampling locations.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the study benchmark</h3><p>“At or above an EPA-based study benchmark” means at least one complete yearly average was at or above the unrounded cutoff this research uses to reproduce EPA’s January 2026 technical-assistance classification around the April 2024 federal levels. It is not a current standard or compliance finding.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the sampling period and results</h3><p>Each water-system card shows when EPA monitored that system. For each PFAS, the card reports the highest yearly average among the system’s EPA sampling locations. These are system monitoring results, not measurements from household faucets.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the study benchmark</h3><p>This label compares a complete yearly average with a fixed, unrounded research cutoff. The cutoff reproduces EPA’s January 2026 technical-assistance classification, which was based on the April 2024 federal levels. It is not a current federal or state standard, and the label is not a compliance finding.</p></div></li>
           </ol>
 
           <div class="interpretation-grid consumer-answer-grid">
-            <div class="interpretation-card can"><h3>What the lookup can help with</h3><ul><li>Find water systems listed for a ZIP code</li><li>Review EPA PFAS yearly averages</li><li>Compare results with the April 2024 federal framework</li><li>Ask better questions of a utility</li></ul></div>
-            <div class="interpretation-card cannot"><h3>What it cannot decide</h3><ul><li>Which system serves a specific home</li><li>PFAS at a household faucet</li><li>Personal exposure or health risk</li><li>Current legal compliance</li></ul></div>
+            <div class="interpretation-card can"><h3>What the lookup can help with</h3><ul><li>Find possible water systems for a ZIP code</li><li>Review EPA PFAS yearly averages</li><li>Compare results with fixed study benchmarks based on the April 2024 federal levels</li><li>Prepare questions for a utility</li></ul></div>
+            <div class="interpretation-card cannot"><h3>What it cannot decide</h3><ul><li>Which system serves a specific home</li><li>PFAS levels at a household faucet</li><li>Personal exposure or health risk</li><li>Current federal or state legal compliance</li></ul></div>
           </div>
 
-          <p>The research paper asks a separate national question: whether PFAS results across community water systems vary with the racial, ethnic, economic, and rural composition of their service areas after accounting for system size, water source, ownership, and region. That analysis is ecological and cross-sectional; it does not assign exposure or health outcomes to individuals.</p>
+          <p>The research paper asks a separate national question. It tests whether PFAS results across community water systems vary with the racial, ethnic, economic, and rural composition of their service areas after accounting for system size, water source, ownership, and region. The analysis is ecological and cross-sectional. It does not assign exposure or health outcomes to individuals.</p>
         </section>
 
         <section class="methodology-section" id="sources">
           <div class="methodology-section-heading">
             <span class="methodology-section-number">02</span>
             <div>
-              <h2>Authoritative sources and frozen release</h2>
-              <p>Every public number is generated from one versioned analysis source.</p>
+              <h2>Authoritative sources and fixed research release</h2>
+              <p>Every public number comes from the same dated, versioned analysis.</p>
             </div>
           </div>
 
@@ -127,10 +127,10 @@
           </ul>
 
           <div class="methodology-note">
-            <strong>Release lock.</strong> Manuscript tables and website records are generated from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. They are not calculated independently in the browser. Input and artifact hashes are recorded so later refreshes cannot silently alter the reported results.
+            <strong>Fixed release.</strong> Manuscript tables and website records come from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. The browser does not recalculate them. Recorded hashes identify the exact inputs and outputs, so a later data refresh cannot silently change these results. <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View the archived data, code, and release record (DOI) →</a>
           </div>
 
-          <p>EPA described the January 2026 data as approximately 95% of expected UCMR 5 results. EPA subsequently released the final UCMR 5 dataset in August 2026. The submitted manuscript and this research release remain tied to the January snapshot; the final federal data are available through EPA’s Data Finder and are not silently substituted into the frozen analysis.</p>
+          <p>EPA described the January 2026 file as containing approximately 95% of expected UCMR 5 results. EPA released the final UCMR 5 dataset in August 2026. The submitted manuscript and this research release still use the January snapshot. The final federal data are available through EPA’s Data Finder, but they are not substituted into this fixed analysis.</p>
         </section>
 
         <section class="methodology-section" id="cohort">
@@ -138,7 +138,7 @@
             <span class="methodology-section-number">03</span>
             <div>
               <h2>Cohort construction and sampling design</h2>
-              <p>The primary denominator follows the federal monitoring design.</p>
+              <p>The main analysis follows the federal monitoring design.</p>
             </div>
           </div>
 
@@ -149,12 +149,12 @@
             <div class="methodology-metric"><span class="methodology-metric-value">8,069</span><span class="methodology-metric-label">systems in the primary inferential cohort</span></div>
           </div>
 
-          <p><strong>Complete monitoring</strong> means at least one sampling location for a water system had all required samples needed to calculate a yearly average. It does not mean that every home was tested or that the system was safe or compliant. UCMR 5 attempted to monitor all eligible systems serving at least 3,300 people and selected 800 smaller systems through a population-weighted, source- and size-stratified design intended to support national occurrence estimates. Public row-level inclusion probabilities or analysis weights were not identified. The primary inferential cohort therefore includes active community water systems serving at least 3,300 people with complete monitoring, an eligible service-area boundary, and sufficient demographic coverage.</p>
+          <p><strong>Complete monitoring</strong> means that, for at least one sampling location, a water system had every required sample needed to calculate a yearly average. It does not mean every location or home was tested, and it does not show that the system was safe or compliant. UCMR 5 sought to monitor all eligible systems serving at least 3,300 people. It also selected 800 smaller systems using a population-weighted design stratified by water source and system size to support national occurrence estimates. Public row-level inclusion probabilities or analysis weights were not identified. For that reason, the primary inferential cohort includes active community water systems serving at least 3,300 people that had complete monitoring, an eligible service-area boundary, and sufficient demographic coverage.</p>
 
-          <p>The 632 monitored smaller community systems with eligible demographic records are reported separately as an explicitly unweighted sensitivity; they do not represent all small U.S. systems. Nontransient noncommunity systems are excluded from demographic models because residential Census characteristics do not describe school, workplace, hospital, and other nonresidential populations.</p>
+          <p>The 632 monitored smaller community systems with eligible demographic records are reported separately in an explicitly unweighted sensitivity analysis. They do not represent all small U.S. systems. Nontransient noncommunity systems are excluded from the demographic models because residential Census characteristics do not describe the populations of schools, workplaces, hospitals, and other nonresidential systems.</p>
 
           <div class="methodology-note">
-            <strong>Why the old ZIP analysis was replaced.</strong> The former approach copied one system’s detections into every ZIP it listed and kept the highest value in each ZIP. That repeatedly counted water systems and left out ZIPs with no detections. The new research counts water systems directly. On the website, a ZIP is used only to find water-system names; it is not a research denominator.
+            <strong>Why the old ZIP analysis was replaced.</strong> The former approach copied one system’s detections into every ZIP it listed and kept the highest value in each ZIP. As a result, water systems could be counted repeatedly, while ZIP codes with no detections were left out. The new research counts each water system directly. The website uses a ZIP only to find possible water-system names; ZIP codes are not the unit counted in the research.
           </div>
         </section>
 
@@ -297,13 +297,15 @@
             <span class="methodology-section-number">10</span>
             <div>
               <h2>Governance, validation, and review status</h2>
-              <p>Transparent about what has and has not been independently checked.</p>
+              <p>A clear record of internal checks and independent review status.</p>
             </div>
           </div>
 
-          <p>Automated tests cover annual-average comparison rules, Hazard Index classification, prevalence-ratio recovery, and false-discovery-rate behavior. The EPA average-results normalization was validated against the January 2026 federal summary counts. Release artifacts carry cryptographic hashes.</p>
+          <p><strong>Internal validation status:</strong> automated tests cover annual-average comparison rules, Hazard Index classification, prevalence-ratio recovery, and false-discovery-rate behavior. The EPA average-results normalization was checked against the January 2026 federal summary counts. Release files carry cryptographic hashes that can reveal an unintended change.</p>
 
-          <p><strong>The manuscript and analysis have not completed independent peer review.</strong> Planned or requested review is not represented as completed review, institutional endorsement, or authorship. Authorship must reflect substantive contribution, accountability, final approval, and the ability to defend the work; family relationship, title, or affiliation is not evidence of contribution.</p>
+          <p><strong>Independent review status:</strong> the manuscript and analysis have not completed independent peer review, and this release has not yet been independently reproduced. Planned or requested review is not represented as completed review, institutional endorsement, or authorship. Authorship must reflect substantive contribution, accountability, final approval, and the ability to defend the work; family relationship, title, or affiliation is not evidence of contribution.</p>
+
+          <p>The <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">archived data and code</a> provide the versioned materials needed for an outside reviewer to attempt reproduction. Public availability supports review; it is not evidence that independent validation has already occurred.</p>
 
           <p>Joshua Tamayo-Sarver, MD, PhD, provided early feedback that helped shape the project’s clinical framing. This acknowledgment does not represent current clinical validation, supervision, or institutional endorsement.</p>
 
@@ -320,6 +322,7 @@
           </div>
 
           <ol class="reference-list">
+            <li>Zhang J. <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">PFAS UCMR 5 reproducibility release v0.2.0</a>. Zenodo. doi:10.5281/zenodo.21968954.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Fifth Unregulated Contaminant Monitoring Rule Data Finder</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.epa.gov/ccr" target="_blank" rel="noopener noreferrer">Consumer Confidence Reports</a>.</li>
             <li>US Environmental Protection Agency. <a href="https://www.regulations.gov/document/EPA-HQ-OW-2020-0530-0127" target="_blank" rel="noopener noreferrer">Selection of Nationally Representative Public Water Systems for UCMR: 2021 Update</a>. EPA 815-B-21-012.</li>
@@ -335,7 +338,7 @@
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Website explanation updated September 10, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Website explanation updated September 12, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
       </main>
     </div>
   </div>

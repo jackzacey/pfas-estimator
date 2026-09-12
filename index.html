@@ -74,7 +74,7 @@
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
   <script defer src="/assistant-result-tools.js?v=20260910-cdphe-clarity"></script>
-  <script defer src="/scientific-site-v2.js?v=20260910-cdphe-clarity"></script>
+  <script defer src="/scientific-site-v2.js?v=20260912-readable-context"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -100,7 +100,7 @@
           </div>
         </div>
         <h1 data-i18n="heroTitle">U.S. Public Water PFAS Monitoring Lookup</h1>
-        <p class="subtitle" data-i18n="heroSubtitle">Enter a ZIP code to see EPA PFAS monitoring results for public water systems connected with that area.</p>
+        <p class="subtitle" data-i18n="heroSubtitle">Enter a ZIP code to find possible public water systems for that area and review their EPA PFAS monitoring results.</p>
         <span class="visually-hidden" id="releaseStatus">Loading verified release…</span>
       </header>
 
@@ -108,7 +108,7 @@
         <div class="home-interaction-grid">
           <div class="home-lookup-column">
             <div class="context-note" data-i18n-html="truthNote">
-              <strong>Before you search:</strong> A ZIP code may list more than one water system, so match the system name to your water bill. This research snapshot uses EPA results received through January 15, 2026. For the newest federal records, use EPA’s Data Finder.
+              <strong>Before you search:</strong> A ZIP code can list more than one water system. First match a system name to your water bill. EPA collected UCMR 5 samples where treated water enters the distribution system, not at household faucets. This site uses a fixed research snapshot of results received through January 15, 2026. For newer federal records, use EPA’s Data Finder.
             </div>
             <div class="input-row">
               <label for="zipInput" class="visually-hidden">U.S. ZIP code</label>
@@ -151,12 +151,12 @@
                 <div><h2>PFAS Public Water Monitoring Report</h2><div class="print-zip" id="printZip"></div></div>
                 <div class="print-meta"><div>pfasestimator.org</div><div id="printDate"></div><div>EPA UCMR 5 Data (2023–2025)</div></div>
               </div>
-              <div class="print-note">This report lists water systems associated with the entered ZIP and summarizes a frozen January 2026 EPA monitoring snapshot. Each system card gives its sampling period. A below-reporting-level result is not proof that the concentration was zero.</div>
+              <div class="print-note">This report lists public water systems linked to the entered ZIP. It summarizes a fixed research snapshot of EPA results received through January 15, 2026. Each system card shows when EPA collected its samples. A result below an EPA reporting level does not mean the concentration was zero or that the compound was absent.</div>
             </div>
             <div class="result-title" id="resultTitle"></div>
             <div class="result-context" id="resultContext"></div>
             <div id="resultBody"></div>
-            <div class="print-footer">Frozen EPA UCMR 5 research snapshot through January 15, 2026. Match the system name to your water bill. Results below EPA reporting levels are not proof of zero concentration. This report does not determine current compliance, household tap concentration, personal exposure, or health risk.</div>
+            <div class="print-footer">Fixed EPA UCMR 5 research snapshot through January 15, 2026. Match the system name to your water bill. A result below an EPA reporting level does not mean the concentration was zero or that the compound was absent. This report cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk.</div>
           </div>
 
           <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save this water-system result</button>
@@ -165,13 +165,14 @@
 
       <section class="why-section" aria-labelledby="why-water-title">
         <span class="why-kicker">About the project</span>
-        <h2 id="why-water-title">Independent PFAS monitoring research</h2>
-        <p>PFAS Estimator makes EPA public-water monitoring data easier to find and understand. It was built by Jack Zhang in Los Gatos, California. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
-        <p><a class="source-link" href="/methodology/">Read the methods and limitations →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com">Contact Jack</a></p>
+        <h2 id="why-water-title">About this independent research</h2>
+        <p>PFAS Estimator helps people find and read EPA public-water monitoring data. It was built by Jack Zhang in Los Gatos, California. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
+        <p>The archived data and code are public, and automated internal checks are in place. The analysis has not yet been independently reproduced or peer reviewed.</p>
+        <p><a class="source-link" href="/methodology/">Read the methods and limitations →</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View archived data and code (DOI) →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com">Contact Jack</a></p>
       </section>
 
       <div class="disclaimer">
-        Independent research and education tool · <a class="source-link" href="/methodology/">Methods and limitations</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Current EPA data</a>
+        Independent research and education tool · <a class="source-link" href="/methodology/">Methods and limitations</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Current EPA data</a>
       </div>
     </main>
   </div>
