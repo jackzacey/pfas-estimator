@@ -470,13 +470,14 @@
     const aboutHeading = isZh ? `${outcome.label}是什么` : `What ${outcome.label} is`;
     const healthHeading = isZh ? "健康研究发现" : "What health research says";
     const evidenceHeading = isZh ? "证据说明：" : "Evidence note:";
+    const pollutantCategory = isZh ? "PFAS化学污染物：" : "PFAS chemical pollutant:";
     const riskBoundary = isZh
       ? "这些证据描述的是充分暴露后的潜在危害。该监测结果不测量任何个人的暴露，也不能预测疾病。"
       : "This evidence describes potential hazards after sufficient exposure. The monitoring result does not measure any person’s exposure or predict illness.";
 
     return `<article class="detail-box compound-education-card ${status.className}">
       <header class="compound-education-head">
-        <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(outcome.label)}</span><span class="compound-education-name">${escapeHtml(outcome.fullName)}</span></div>
+        <div><h4 class="compound-pollutant-title"><span class="compound-pollutant-category">${pollutantCategory}</span><span class="compound-pollutant-name">${escapeHtml(outcome.label)}</span></h4><p class="compound-education-name">${escapeHtml(outcome.fullName)}</p></div>
       </header>
       <div class="compound-measurement ${status.className}">
         <div class="compound-measurement-status">${statusCopy}</div>

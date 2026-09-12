@@ -4811,10 +4811,42 @@ button,
   min-width: 0;
 }
 
+.compound-education-card .compound-pollutant-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 7px;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  line-height: 1.2;
+}
+
+.compound-pollutant-category {
+  color: #53666f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+
+.compound-pollutant-name {
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+}
+
+.compound-education-card.above .compound-pollutant-name {
+  color: var(--warn-strong);
+}
+
 .compound-education-name {
-  margin-left: 6px;
+  display: block;
+  margin: 3px 0 0;
   color: #7a898f;
-  font-size: 11px;
+  font-size: 12.5px;
+  line-height: 1.45;
 }
 
 .compound-system-name {
@@ -5073,10 +5105,7 @@ button,
     text-align: left;
   }
 
-  .compound-education-name {
-    display: inline;
-    margin-left: 4px;
-  }
+  .compound-education-name { margin-top: 3px; }
 }
 
 /* ── SEPTEMBER 2026 READABILITY PASS ── */

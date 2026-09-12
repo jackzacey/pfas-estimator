@@ -32,7 +32,7 @@ Object.entries(frozenHashes).forEach(([relative, expected]) => {
 });
 
 const approvedStyleHashes = {
-  "styles.css": "6ad4148ba4062131babd7fc9326e915914a6a8d7efd02c7d32a0b8f5dbc1d817",
+  "styles.css": "76db1be1366bcf2886fde57ec0e0e53e17bceebe7d98caa3442d887f09f7ca9d",
   "scientific-site-v2.css": "2d6a139e20ee7170ea3ed47c61aee6902691f88aaa06c167164f020fb0951174",
 };
 Object.entries(approvedStyleHashes).forEach(([relative, expected]) => {
@@ -124,6 +124,8 @@ const resultSource = readText("scientific-site-v2.js");
 assert.ok(homeSource.includes('<dialog class="faq-dialog"'), "Quick explanations should open in an accessible dialog");
 assert.ok(homeSource.includes('type="button" data-faq-key="result"'), "Quick explanations should use native buttons");
 assert.ok(resultSource.includes("dialog.showModal()"), "The quick-explanation dialog must open without posting a chat message");
+assert.ok(resultSource.includes("PFAS chemical pollutant:"), "Each detected compound card should identify PFAS as a chemical pollutant");
+assert.ok(resultSource.includes('class="compound-pollutant-name"'), "Each detected compound should have a prominent categorical name");
 assert.ok(resultSource.includes("Current Michigan drinking-water standards") || resultSource.includes("michigan.gov/egle"), "Michigan lookup results should link to current official state context");
 assert.ok(homeSource.includes('href="https://doi.org/10.5281/zenodo.21968954"'), "The homepage should visibly link to the archived data and code");
 assert.ok(readText("methodology/index.html").includes("this release has not yet been independently reproduced"), "Independent reproduction status should be stated plainly");
