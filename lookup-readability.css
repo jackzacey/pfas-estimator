@@ -1,0 +1,108 @@
+/* ZIP lookup only. Existing theme, typography, and card styles are inherited.
+   The chat grows after a question; readers can expand the whole conversation. */
+.home-shell .home-interaction-grid .chat-panel,
+.home-shell .home-interaction-grid .chat-panel.visible {
+  height: auto;
+  max-height: none;
+}
+
+.home-shell .home-interaction-grid .ai-messages {
+  flex: 0 1 auto;
+  min-height: 140px;
+  max-height: 520px;
+}
+
+.home-shell .home-interaction-grid .chat-panel.has-conversation {
+  height: auto;
+  min-height: 520px;
+  max-height: none;
+}
+
+.home-shell .home-interaction-grid .chat-panel.has-conversation .ai-messages {
+  flex: 0 1 auto;
+  min-height: 280px;
+  max-height: 520px;
+}
+
+.home-shell .home-interaction-grid .chat-panel.chat-expanded .ai-messages {
+  max-height: none;
+  overflow-y: visible;
+}
+
+.home-shell .home-interaction-grid .ai-msg {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  flex-shrink: 0;
+}
+
+.home-shell .home-interaction-grid .chat-expand-button {
+  flex: 0 0 auto;
+  width: auto;
+  margin: 0.5rem 1rem;
+  align-self: flex-start;
+}
+
+.home-shell .home-interaction-grid [hidden] {
+  display: none !important;
+}
+
+/* Consistent, gently rounded results using the existing theme and type scale. */
+.home-shell .home-results-region :is(
+  .result-next-step, .result-action-guide, .result-boundary,
+  .result-glossary, .compound-results-details, .hazard-index-education
+) {
+  border-radius: 10px;
+}
+
+.home-shell .home-results-region :is(.result-next-step, .result-boundary) {
+  padding: 16px;
+  margin-block: 16px;
+}
+
+.home-shell .home-results-region .result-action-guide {
+  margin-block: 16px;
+}
+
+/* The filter introduction is always visible, so it needs its own top padding. */
+.home-shell .home-results-region .result-action-guide > .result-action-body {
+  padding: 16px;
+  border-top: 0;
+}
+
+.home-shell .home-results-region .result-action-guide > .compound-results-details {
+  margin: 0 16px 16px;
+}
+
+.home-shell .home-results-region .optional-filter-guide > .result-action-body {
+  padding: 16px;
+}
+
+.home-shell .home-results-region .compound-results-details > summary {
+  min-height: 44px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.home-shell .home-results-region .compound-results-details > summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -3px;
+}
+
+.home-shell .home-results-region .result-glossary dl {
+  gap: 14px;
+}
+
+.home-shell .home-results-region .result-glossary dl > div + div {
+  padding-top: 14px;
+  border-top: 1px solid var(--border-soft);
+}
+
+.home-shell .home-results-region .result-glossary dd {
+  margin-top: 5px;
+}
+
+.home-shell #lookup-number-guide {
+  scroll-margin-top: 20px;
+}

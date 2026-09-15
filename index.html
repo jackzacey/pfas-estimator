@@ -65,6 +65,7 @@
   </script>
 
   <link rel="stylesheet" href="/styles.css?v=20260912-pollutant-heading" />
+  <link rel="stylesheet" href="/lookup-readability.css?v=20260915" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -74,7 +75,7 @@
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
   <script defer src="/assistant-result-tools.js?v=20260910-cdphe-clarity"></script>
-  <script defer src="/scientific-site-v2.js?v=20260912-readable-context"></script>
+  <script defer src="/scientific-site-v2.js?v=20260914-readability"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -99,8 +100,8 @@
             <span id="langZh" style="background:#fff;color:#999;">中文</span>
           </div>
         </div>
-        <h1 data-i18n="heroTitle">U.S. Public Water PFAS Monitoring Lookup</h1>
-        <p class="subtitle" data-i18n="heroSubtitle">Enter a ZIP code to find possible public water systems for that area and review their EPA PFAS monitoring results.</p>
+        <h1 data-i18n="heroTitle">Check for PFAS in your water system</h1>
+        <p class="subtitle" data-i18n="heroSubtitle">PFAS are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.</p>
         <span class="visually-hidden" id="releaseStatus">Loading verified release…</span>
       </header>
 
@@ -108,7 +109,7 @@
         <div class="home-interaction-grid">
           <div class="home-lookup-column">
             <div class="context-note" data-i18n-html="truthNote">
-              <strong>Before you search:</strong> A ZIP code can list more than one water system. First match a system name to your water bill. EPA collected UCMR 5 samples where treated water enters the distribution system, not at household faucets. This site uses a fixed research snapshot of results received through January 15, 2026. For newer federal records, use EPA’s Data Finder.
+              <strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included.
             </div>
             <div class="input-row">
               <label for="zipInput" class="visually-hidden">U.S. ZIP code</label>
@@ -129,6 +130,7 @@
               </div>
             </div>
             <div id="aiMessages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation"></div>
+            <button id="chatExpandBtn" class="ai-suggestion chat-expand-button" type="button" aria-controls="aiMessages" aria-expanded="false" hidden>Show full conversation</button>
             <div class="ai-suggestions" id="aiSuggestions" aria-label="Quick explanations">
               <button class="ai-suggestion" type="button" data-faq-key="result" data-i18n="suggestConcern">What can this result tell me?</button>
               <button class="ai-suggestion" type="button" data-faq-key="utility" data-i18n="suggestUtility">How do I confirm my utility?</button>

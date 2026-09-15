@@ -101,22 +101,22 @@ assert.ok(
 ].forEach(phrase => assert.ok(!publicText.includes(phrase), `Misleading public phrase remains: ${phrase}`));
 
 [
-  "U.S. Public Water PFAS Monitoring Lookup",
+  "Check for PFAS in your water system",
   "EPA-based study benchmark",
   "Complete monitoring",
   "all required samples needed to calculate a yearly average",
-  "Read this before using the results",
+  "How to read the numbers",
   "entry points to the distribution system",
   "Consumer Confidence Report",
   "EPA released the final UCMR 5 dataset in August 2026",
   "does not mean PFAS was not detected",
   "Below EPA reporting level",
-  "This does not mean their concentrations were zero",
+  "Smaller amounts may still have been present",
   "Sampling period",
   "cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk",
   "It does not mean every location or home was tested",
   "may use different current standards or guidance",
-  "does not determine current federal or state compliance",
+  "whether the water meets current drinking-water rules",
 ].forEach(phrase => assert.ok(publicText.includes(phrase), `Required clarification is missing: ${phrase}`));
 
 const homeSource = readText("index.html");
@@ -130,10 +130,12 @@ assert.ok(resultSource.includes("Current Michigan drinking-water standards") || 
 assert.ok(homeSource.includes('href="https://doi.org/10.5281/zenodo.21968954"'), "The homepage should visibly link to the archived data and code");
 assert.ok(readText("methodology/index.html").includes("this release has not yet been independently reproduced"), "Independent reproduction status should be stated plainly");
 
-assert.ok(
-  resultSource.indexOf("${renderResultBoundary(systems)}") < resultSource.indexOf("${systems.map(renderSystem).join(\"\")}"),
-  "The prominent result boundary must appear before the water-system cards",
-);
+assert.ok(resultSource.includes("the PFAS level at your faucet, your personal exposure or health risk"),
+  "Every system must keep the household and health interpretation boundary visible");
+assert.ok(resultSource.indexOf("${renderResultNextStep()}") < resultSource.indexOf("${featuredMarkup}"),
+  "The next step should appear before the detailed chemical cards");
+assert.ok(resultSource.indexOf("${systems.map(renderSystem).join(\"\")}") < resultSource.indexOf("${renderResultBoundary(systems)}"),
+  "The full glossary should follow the results in the approved readability flow");
 assert.ok(
   resultSource.indexOf("${systems.map(renderSystem).join(\"\")}") < resultSource.lastIndexOf("renderFilterGuide()"),
   "Optional filter guidance must appear after the water-system cards",
