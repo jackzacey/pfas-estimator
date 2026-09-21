@@ -32,6 +32,9 @@
     url: "https://www.epa.gov/DWdata/primacy-agency-drinking-water-data",
   });
   const STATE_PROGRAMS = Object.freeze({
+    VT: Object.freeze({ url: "https://dec.vermont.gov/water/drinking-water/water-quality-monitoring/and-polyfluoroalkyl-substances-pfas-drinking-water" }),
+    MN: Object.freeze({ url: "https://www.health.mn.gov/communities/environment/water/pfasmap.html" }),
+    PA: Object.freeze({ url: "https://www.pa.gov/agencies/dep/programs-and-services/water/bureau-of-safe-drinking-water/public-drinking-water" }),
     MI: Object.freeze({
       url: "https://www.michigan.gov/egle/about/organization/drinking-water-and-environmental-health/noncommunity-water-supply/drinking-water-analytes",
     }),
@@ -136,12 +139,12 @@
       releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
       heroTitle: "Check for PFAS in your water system",
       heroSubtitle: "PFAS are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.",
-      truthNote: "<strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included.",
+      truthNote: '<strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Use a private well? Find testing guidance →</a>',
       printButton: "Print or save this water-system result",
-      chatTitle: "PFAS Results Assistant", chatSubtitle: "Get help understanding PFAS and these results",
+      chatTitle: "PFAS Results Assistant", chatSubtitle: "Optional AI help — not a water-safety assessment",
       expandChat: "Show full conversation", collapseChat: "Collapse conversation",
       suggestConcern: "What can this result tell me?", suggestUtility: "How do I confirm my utility?", suggestFilter: "Where were samples collected?", suggestHealth: "Where are current results?",
-      askButton: "Ask", chatDisclaimer: "AI answers may be wrong. Do not share personal or medical information. The ZIP results do not use AI.", chatLearnMore: "How it works",
+      askButton: "Ask", chatDisclaimer: "AI answers may be wrong. Verify them with official records; do not use them to decide whether water is safe or to make medical decisions. Do not share personal or medical information. The ZIP results do not use AI.", chatLearnMore: "How it works",
       quickExplanation: "Quick explanation", closeExplanation: "Close",
       faqResultTitle: "What this result can tell you",
       faqResultBody: "It shows what EPA testing found in a public water system during the dates listed. Confirm the provider on your water bill first. These samples cannot tell us the PFAS level at your faucet, your personal exposure or health risk, or whether the water meets current drinking-water rules.",
@@ -198,12 +201,12 @@
       releaseBadge: "全美 · EPA UCMR 5 数据 · 教育工具",
       heroTitle: "查查您的供水系统是否检出PFAS",
       heroSubtitle: "PFAS是一类化学污染物。输入邮政编码，查找您所在地区公共供水系统的检测结果。",
-      truthNote: "<strong>先确认供水机构。</strong>一个邮政编码可能列出多个系统。请与水费账单上的名称核对。这里不包括私人水井。",
+      truthNote: '<strong>先确认供水机构。</strong>一个邮政编码可能列出多个系统。请与水费账单上的名称核对。这里不包括私人水井。<a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">使用私人水井？查找检测指导 →</a>',
       printButton: "打印或保存此供水系统结果",
-      chatTitle: "PFAS结果助手", chatSubtitle: "打开简要说明或询问监测结果",
+      chatTitle: "PFAS结果助手", chatSubtitle: "可选AI帮助——不是饮用水安全评估",
       expandChat: "展开完整对话", collapseChat: "收起对话",
       suggestConcern: "这项结果能说明什么？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "样本在哪里采集？", suggestHealth: "在哪里查看最新结果？",
-      askButton: "提问", chatDisclaimer: "AI可能出错。请勿分享姓名或医疗详情。邮政编码结果不使用AI。", chatLearnMore: "工作原理",
+      askButton: "提问", chatDisclaimer: "AI可能出错。请用官方记录核实回答，不要用它判断水质是否安全或作医疗决定。请勿分享个人或医疗信息。邮政编码结果不使用AI。", chatLearnMore: "工作原理",
       quickExplanation: "简要说明", closeExplanation: "关闭",
       faqResultTitle: "这项结果能说明什么",
       faqResultBody: "它显示所列公共供水系统的冻结EPA监测结果及采样时间。它不能确认该系统是否为您家供水，也不能确定当前合规情况、家庭水龙头浓度、个人暴露或健康风险。",
@@ -478,7 +481,7 @@
         <div class="compound-measurement-status">${escapeHtml(outcome.label)} ${isZh ? "在该系统的样本中被检出。" : "was found in this system’s samples."}</div>
         <p class="compound-incomplete-note">${statusCopy}</p>
         <div class="compound-measurement-value"><span>${isZh ? "最高年度平均值：" : "Highest yearly average:"}</span><strong>${escapeHtml(value)}</strong></div>
-        <p class="compound-incomplete-note">${escapeHtml(benchmarkCopy)}</p>
+        <p class="compound-incomplete-note">${escapeHtml(benchmarkCopy)}${isZh ? "。这是固定的研究比较，不是现行标准，也不是安全判定。" : ". A fixed research comparison, not a current standard or a safety verdict."}</p>
         ${status.className === "incomplete" ? "" : `<div class="epa-bar"><div class="epa-bar-label">${escapeHtml(ratioLabel)}</div><div class="bar-track"><div class="bar-fill ${status.className === "above" ? "above" : ""}" style="width:${gaugeFillPct.toFixed(2)}%"></div><div class="bar-tick"></div></div></div>`}
       </div>
       <details class="compound-results-details">
@@ -492,11 +495,48 @@
     </article>`;
   }
 
+  // This is a record-age notice, not a health or regulatory threshold.
+  function samplingAgeNotice(system, now = new Date()) {
+    const endDate = monitoringById.get(String(system.pwsid))?.monitoring_end;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(endDate || "")) return currentLang === "zh" ? "采样日期未报告；请向供水机构查询最新检测。" : "Sample dates are not reported; ask your provider for current tests.";
+    const end = new Date(`${endDate}T00:00:00Z`);
+    if (!Number.isFinite(end.getTime()) || end.toISOString().slice(0, 10) !== endDate) return currentLang === "zh" ? "采样日期无法核实；请向供水机构查询。" : "Sample dates could not be verified; check with your provider.";
+    const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+    if (end > today) return currentLang === "zh" ? "采样日期无法核实；请向供水机构查询。" : "Sample dates could not be verified; check with your provider.";
+    const anniversary = new Date(end);
+    anniversary.setUTCFullYear(anniversary.getUTCFullYear() + 1);
+    return today > anniversary
+      ? (currentLang === "zh" ? "此记录中最新的样本已超过一年。这是历史监测，不是今天的水质检测。" : "The newest sample in this record is over a year old. This is historical monitoring, not a test of today's water.")
+      : (currentLang === "zh" ? "这是所列日期的历史监测，不是今天的水质检测。" : "These are historical results from the dates shown, not a test of today's water.");
+  }
+
+  function renderPrivateWellGuidance(systems = []) {
+    const isZh = currentLang === "zh";
+    const maine = systems.some(system => system.sdwis_state_code === "ME");
+    return `<p class="water-system-match">${isZh ? "使用私人水井？本工具不包含您的井水。" : "Use a private well? This lookup does not include your well water."} <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">${isZh ? "查找您所在州的井水检测指导 →" : "Find your state's well-testing guidance →"}</a>${maine ? ` · <a href="https://www.maine.gov/dhhs/mecdc/healthy-living/health-and-safety/pfas-in-maine/pfas-and-well-water" target="_blank" rel="noopener noreferrer">${isZh ? "缅因州CDC：PFAS与井水 →" : "Maine CDC: PFAS and well water →"}</a>` : ""}</p>`;
+  }
+
+  function renderProviderHelp(system) {
+    const isZh = currentLang === "zh";
+    const purchased = /purchased/i.test(system.primary_source_desc || "");
+    return `<p class="water-system-match">${isZh ? "请让账单上的供水机构确认此处的系统名称和PWSID（公共供水系统编号）。同一家企业可能经营多个系统；邮编不能确认您家的供水范围。" : "Confirm this system name and PWSID (public water system ID) with the provider on your bill. One company may run several systems; a ZIP match does not confirm service to your home."}${purchased ? (isZh ? " 此记录标注为购入水：请向您的供水机构确认上游供应商及适用于您家的报告。本数据未列出供应商名称。" : " This record lists purchased water: ask your provider which supplier it buys from and which report applies to your home. The supplier's name is not included in this dataset.") : ""}</p>`;
+  }
+
+  function renderOfficialRecords(system) {
+    const isZh = currentLang === "zh";
+    const state = system.sdwis_state_code;
+    const program = STATE_PROGRAMS[state] || DEFAULT_STATE_PROGRAM;
+    const label = !STATE_PROGRAMS[state]
+      ? (isZh ? "查找您所在州的饮用水机构" : "Find your state drinking-water agency")
+      : state === "MN" ? (isZh ? "明尼苏达州官方PFAS检测仪表板" : "Minnesota's official PFAS testing dashboard") : (isZh ? "官方州饮用水信息" : `Official ${STATE_NAMES[state] || "state"} drinking-water information`);
+    return `<p class="result-action-links"><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${isZh ? "EPA原始样本记录（按名称或PWSID搜索）" : "EPA sample records — search by system name or PWSID"}</a> · <a href="${escapeHtml(program.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a></p>`;
+  }
+
   function renderResultNextStep() {
     const isZh = currentLang === "zh";
     const copy = isZh
-      ? "如果这是您的供水机构，请查看其最新年度水质报告（消费者信心报告），并询问：“最近的PFAS检测发现了什么？此后是否增加了处理措施？”"
-      : "If this is your provider, check its latest annual water-quality report (Consumer Confidence Report). Ask: “What did your most recent PFAS tests find, and has treatment changed since then?”";
+      ? "如果这是您的供水机构，请查看其最新年度水质报告（消费者信心报告）。报告可能未列出PFAS，因此也请询问：“最近的PFAS检测发现了什么？此后是否增加了处理措施？”"
+      : "If this is your provider, check its latest annual water-quality report (Consumer Confidence Report). PFAS may not be listed, so also ask: “What did your most recent PFAS tests find, and has treatment changed since then?”";
     return `<aside class="result-next-step"><h3>${isZh ? "下一步：查看最新检测" : "Next step: check recent tests"}</h3><p>${escapeHtml(copy)}</p><a href="https://www.epa.gov/ccr" target="_blank" rel="noopener noreferrer">${isZh ? "查找水质报告 →" : "Find your water-quality report →"}</a></aside>`;
   }
 
@@ -531,6 +571,7 @@
           <div><dt>${isZh ? "年度平均值是什么？" : "What is the yearly average?"}</dt><dd>${isZh ? "我们按采样点计算一年的平均值，再显示该系统中最高的平均值。低于报告限值的样本按零参与计算，但不代表实际浓度为零。" : "We average the samples from a year at each testing location, then show the highest of those averages for the system. Samples below the reporting limit count as zero in the calculation; they are not measured zeros."}</dd></div>
           <div><dt>${isZh ? "研究比较水平是什么？" : "What is the study comparison level?"}</dt><dd>${isZh ? "这是基于2024年4月EPA水平的固定研究基准，不是现行联邦或州标准。低于它不能证明水是安全的，达到或超过它也不能确定违法。" : "It is a fixed research benchmark based on April 2024 EPA levels, not a current federal or state standard. A lower result does not establish safety; reaching or exceeding it does not establish a legal violation."}</dd></div>
           <div><dt>${isZh ? "万亿分之一是什么？" : "What does parts per trillion mean?"}</dt><dd>${isZh ? "它表示水中化学物质的浓度，缩写为ppt，不是健康风险评分。" : "It describes the concentration of a chemical in water. The abbreviation is ppt. It is not a health-risk score."}</dd></div>
+          <div><dt>${isZh ? "本页包含所有PFAS吗？" : "Does this show all PFAS?"}</dt><dd>${isZh ? "不是。本页显示五种PFAS及一个混合物指数，不是PFAS总浓度。PFBS参与混合物计算，但本存档未提供其单独的系统汇总值。不能把不同地点或年份的最高平均值相加来检验州级总量标准。" : "No. It shows five individual PFAS and a mixture index, not a total PFAS concentration. PFBS contributes to the mixture calculation, but this archive has no separate system summary for it. The highest averages may come from different locations or years; adding them cannot test a state's combined-PFAS standard."}</dd></div>
         </dl>
       </div>
       <a href="/methodology/#outcomes">${isZh ? "完整计算方法、报告限值和局限 →" : "Full calculations, reporting limits and limitations →"}</a>
@@ -539,21 +580,21 @@
     </aside>`;
   }
 
-  function renderOutcomeList(system) {
-    return OUTCOMES.map(outcome => {
+  function renderOutcomeList(system, excludedKeys = []) {
+    return OUTCOMES.filter(outcome => !excludedKeys.includes(outcome.key)).map(outcome => {
       const status = outcomeStatus(system, outcome);
       const value = formatOutcomeValue(outcome, status);
-      const label = currentLang === "zh" && outcome.labelZh ? outcome.labelZh : outcome.label;
+      const label = outcome.key === "hi" ? (currentLang === "zh" ? "PFAS混合物指数" : "PFAS mixture index") : outcome.label;
       const detail = status.belowReporting && outcome.key !== "hi"
         ? (currentLang === "zh"
-          ? `UCMR 5报告限值：${outcome.reportingLimit} ppt · 低于限值的结果在年度平均值计算中按零计`
-          : `UCMR 5 reporting level: ${outcome.reportingLimit} ppt · Below-limit results count as zero in the yearly-average calculation`)
+          ? `低于 ${outcome.reportingLimit} ppt 的报告限值；不等于零。低于限值的结果在平均值计算中按零计，但不是测得为零。`
+          : `Below the ${outcome.reportingLimit} ppt reporting limit, not necessarily zero. Below-limit samples count as zero in the average, but are not measured zeros.`)
         : status.belowReporting && outcome.key === "hi"
           ? (currentLang === "zh" ? "PFAS混合物计算指标 · 研究基准：1.5" : "Calculated PFAS-mixture measure · Study benchmark: 1.5")
           : `${outcome.benchmark} · ${outcome.cutoff}`;
       return `<div class="compound-result-row ${status.className}">
         <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
-        <div><span>${escapeHtml(status.label)}</span><small>${escapeHtml(detail)}</small></div>
+        <div><span>${escapeHtml(status.label)}</span><small>${escapeHtml(detail)}</small>${outcome.key === "hi" ? `<small>${currentLang === "zh" ? "危害指数综合PFHxS、PFNA、GenX和PFBS相对于各自参考值的比例；它不是浓度或患病概率。" : "The Hazard Index combines PFHxS, PFNA, GenX and PFBS relative to their reference values. It is not a concentration or the chance of illness."}</small>` : ""}</div>
       </div>`;
     }).join("");
   }
@@ -591,7 +632,7 @@
       : detectedOutcomes.length
         ? (isZh ? "样本中检出了PFAS。在资料足够的年度比较中，没有达到或超过本研究比较水平的结果。" : "PFAS were found in the samples. Where enough samples were available, no yearly comparison reached or exceeded the study level.")
         : (isZh ? "在资料完整的结果中，本页五种PFAS均未达到EPA报告限值。更低浓度仍可能存在。" : "In the results with complete sampling, the five PFAS shown were not detected at or above EPA reporting limits. Smaller amounts may still have been present.");
-    const detailsLabel = isZh ? "全部检测数字及供水系统信息" : "All test numbers and water-system details";
+    const detailsLabel = isZh ? "供水系统详情" : "Water-system details";
     const featuredOutcomes = OUTCOMES
       .filter(outcome => outcome.key !== "hi")
       .map(outcome => ({ outcome, status: outcomeStatus(system, outcome) }))
@@ -605,16 +646,20 @@
         <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} ${currentLang === "zh" ? "供水系统" : "WATER SYSTEM"}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3><p>PWSID ${escapeHtml(system.pwsid)}</p></div>
         <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
       </header>
-      <p class="water-system-match">${isZh ? "这是您的供水机构吗？请与水费账单上的名称核对。" : "Is this your water provider? Match the name to your water bill."}</p>
+      ${renderProviderHelp(system)}
       <div class="system-fact-strip">
         <span><strong>${isZh ? "检测日期" : "When samples were taken"}</strong>${escapeHtml(formatMonitoringPeriod(system))}</span>
       </div>
+      <p class="water-system-match"><strong>${escapeHtml(samplingAgeNotice(system))}</strong></p>
       <div class="consumer-no-detections"><p>${finding}</p>${!allIndividualComplete ? `<p>${isZh ? "部分化学物质缺少规定样本，因此无法完成所有年度比较。" : "Some chemicals are missing required samples, so not every yearly comparison is available."}</p>` : ""}</div>
       <p class="water-system-match">${isZh ? "这些样本采自处理后的水进入管网的位置。它们不能说明您家水龙头的PFAS浓度、您的个人暴露或健康风险，也不能确定是否符合现行饮用水规定。" : "These samples were taken where treated water enters the pipe network. They cannot tell us the PFAS level at your faucet, your personal exposure or health risk, or whether the water meets current drinking-water rules."}</p>
       ${renderResultNextStep()}
+      ${renderOfficialRecords(system)}
       <p class="water-system-match">${isZh ? "下方每个浓度数字都是该系统各采样点年度平均值中的最高值。比较水平是基于2024年4月EPA水平的研究基准，不是现行标准。" : "Each concentration below is the highest yearly average across this system’s testing locations. Comparison levels are research benchmarks based on April 2024 EPA levels, not current drinking-water standards."} <a href="#lookup-number-guide">${isZh ? "数字说明" : "How the numbers work"}</a></p>
       ${featuredMarkup}
       ${renderHazardIndexEducation(system)}
+      <div class="compound-result-list">${renderOutcomeList(system, featuredOutcomes.map(item => item.outcome.key))}</div>
+      <p class="water-system-match">${isZh ? "本页显示五种PFAS和一个混合物指数，不是全部PFAS或总浓度。" : "This shows five individual PFAS and a mixture index, not all PFAS or a total concentration."} <a href="/methodology/#outcomes">${isZh ? "包含哪些化学物质及其局限 →" : "Which chemicals are included and why →"}</a></p>
       <details class="compound-results-details">
         <summary>${detailsLabel}</summary>
         <div class="system-fact-strip">
@@ -622,7 +667,6 @@
           <span><strong>${text("source")}</strong>${escapeHtml(system.primary_source_desc || text("notReported"))}</span>
           <span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span>
         </div>
-        <div class="compound-result-list">${renderOutcomeList(system)}</div>
       </details>
     </article>`;
   }
@@ -837,7 +881,7 @@
       result.className = "result not-found";
       title.textContent = text("noAssociationTitle")(zip);
       context.textContent = text("noAssociationContext");
-      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p></div>`;
+      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p>${renderPrivateWellGuidance()}</div>`;
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
       resetChat(text("contextReadyNone"));
@@ -854,7 +898,7 @@
     result.className = aboveCount ? "result found-above" : "result found-below";
     title.textContent = text("associatedTitle")(systems.length, zip);
     context.textContent = text("associatedContext")(aboveCount, systems.length, detectedSystemCount);
-    body.innerHTML = `${systems.map(renderSystem).join("")}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}<div id="lookup-number-guide">${renderResultBoundary(systems)}</div>`;
+    body.innerHTML = `${systems.map(renderSystem).join("")}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}<div id="lookup-number-guide">${renderResultBoundary(systems)}</div>`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));

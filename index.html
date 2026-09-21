@@ -75,7 +75,7 @@
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
   <script defer src="/assistant-result-tools.js?v=20260910-cdphe-clarity"></script>
-  <script defer src="/scientific-site-v2.js?v=20260914-readability"></script>
+  <script defer src="/scientific-site-v2.js?v=20260921-reviewer-clarity"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -109,7 +109,7 @@
         <div class="home-interaction-grid">
           <div class="home-lookup-column">
             <div class="context-note" data-i18n-html="truthNote">
-              <strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included.
+              <strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Use a private well? Find testing guidance →</a>
             </div>
             <div class="input-row">
               <label for="zipInput" class="visually-hidden">U.S. ZIP code</label>
@@ -126,7 +126,7 @@
                   <div class="chat-panel-dot" aria-hidden="true"></div>
                   <span class="chat-panel-title" data-i18n="chatTitle">PFAS Results Assistant</span>
                 </div>
-                <div class="chat-panel-sub" data-i18n="chatSubtitle">Ask what a result means or where to verify it</div>
+                <div class="chat-panel-sub" data-i18n="chatSubtitle">Optional AI help — not a water-safety assessment</div>
               </div>
             </div>
             <div id="aiMessages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation"></div>
@@ -142,7 +142,7 @@
               <input type="text" id="aiInput" placeholder="Ask about PFAS or your results..." maxlength="700" />
               <button id="aiSendBtn" type="button" data-i18n="askButton">Ask</button>
             </div>
-            <div class="ai-disclaimer"><span data-i18n="chatDisclaimer">AI answers may be wrong. Do not share personal or medical information. The ZIP results do not use AI.</span> <a href="/methodology/#website" data-i18n="chatLearnMore">How it works</a></div>
+            <div class="ai-disclaimer"><span data-i18n="chatDisclaimer">AI answers may be wrong. Verify them with official records; do not use them to decide whether water is safe or to make medical decisions. Do not share personal or medical information. The ZIP results do not use AI.</span> <a href="/methodology/#website" data-i18n="chatLearnMore">How it works</a></div>
           </aside>
         </div>
 
