@@ -158,14 +158,14 @@
       searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
       preparing: "Preparing EPA data.", findSystems: "Find results",
-      verifiedRelease: "Verified release", monitoredSystems: "water systems", zipAssociations: "ZIP codes covered", resultsThrough: "EPA results through January 15, 2026",
+      verifiedRelease: "Archived EPA dataset", monitoredSystems: "water systems", zipAssociations: "ZIP associations", resultsThrough: "EPA results through January 15, 2026",
       loadFailure: "The verified data release could not be loaded. Please use EPA’s UCMR 5 Data Finder while this is resolved.",
       invalidZipTitle: "Enter a valid 5-digit ZIP code", invalidZipContext: "ZIP codes must contain exactly five numbers.",
       noAssociationTitle: zip => `We could not match a water system to ZIP ${zip}`,
       noAssociationContext: "A missing result does not mean your water is free of PFAS. Our data may not include your provider or its link to this ZIP code.",
       noAssociationBody: "Find your provider’s name on your water bill, then ask it for recent PFAS results or search EPA’s Data Finder by name. If you use a private well, ask your state or local health or environmental agency about testing. Private wells are not included here.",
       openDataFinder: "Open EPA’s UCMR 5 Data Finder →",
-      associatedTitle: (count, zip) => `${count} water system${count === 1 ? "" : "s"} listed for ZIP ${zip}`,
+      associatedTitle: (count, zip) => `${count} possible water system${count === 1 ? "" : "s"} for ZIP ${zip}`,
       associatedContext: (aboveCount, totalCount) => totalCount === 1
         ? "Check that this provider’s name matches your water bill. A ZIP match alone cannot confirm who supplies your home."
         : "Find the provider named on your water bill below. These systems have separate results; a finding at one may not apply to your provider.",
@@ -220,7 +220,7 @@
       searchCounter: "次邮政编码查询",
       loadingRelease: "正在加载已验证版本…", releaseUnavailable: "版本不可用", dataUnavailable: "数据不可用", loadingData: "正在加载数据…",
       preparing: "正在准备冻结的科学数据版本。", findSystems: "查询我的地区",
-      verifiedRelease: "已验证版本", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "EPA结果截至2026年1月15日",
+      verifiedRelease: "EPA归档数据", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "EPA结果截至2026年1月15日",
       loadFailure: "无法加载已验证的数据版本。问题解决前，请使用EPA UCMR 5数据查找器。",
       invalidZipTitle: "请输入有效的5位邮政编码", invalidZipContext: "邮政编码必须恰好包含五位数字。",
       noAssociationTitle: zip => `未找到邮政编码 ${zip} 的供水系统`,
@@ -397,6 +397,38 @@
     const startText = start.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
     const endText = end.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
     return currentLang === "zh" ? `${startText}至${endText}` : `${startText} to ${endText}`;
+  }
+
+  // Apply only explicit, source-backed exclusions. State mismatch alone is not
+  // grounds to remove a provider: some systems legitimately cross state lines.
+  function applyZipReviews(payload, reviews) {
+    if (reviews.release_id !== payload.release_id || !Array.isArray(reviews.reviews)) {
+      throw new Error("ZIP review release does not match lookup data");
+    }
+    const links = Object.fromEntries(Object.entries(payload.zip_to_pwsids).map(([zip, ids]) => [zip, [...ids]]));
+    const correctedZips = new Set(payload.corrected_zips || []);
+    for (const review of reviews.reviews) {
+      if (!review.pwsid || !Array.isArray(review.excluded_zips) || !review.sources?.length) {
+        throw new Error("Invalid ZIP review record");
+      }
+      for (const zip of review.excluded_zips) {
+        if (!/^\d{5}$/.test(zip)) throw new Error("Invalid reviewed ZIP");
+        if (!links[zip]?.includes(review.pwsid)) continue;
+        links[zip] = links[zip].filter(id => id !== review.pwsid);
+        if (!links[zip].length) delete links[zip];
+        correctedZips.add(zip);
+      }
+    }
+    if (!reviews.pending_associations || typeof reviews.pending_associations !== "object" || Array.isArray(reviews.pending_associations)) {
+      throw new Error("Missing pending ZIP review inventory");
+    }
+    const pending = reviews.pending_associations;
+    for (const [zip, ids] of Object.entries(pending)) {
+      if (!/^\d{5}$/.test(zip) || !Array.isArray(ids) || ids.some(id => !links[zip]?.includes(id))) {
+        throw new Error("Invalid pending ZIP association");
+      }
+    }
+    return { ...payload, zip_to_pwsids: links, corrected_zips: [...correctedZips], pending_associations: pending };
   }
 
   function hydrateRows(payload) {
@@ -612,6 +644,38 @@
     </aside>`;
   }
 
+  function partitionZipSystems(payload, zip, byId) {
+    const pending = new Set(payload.pending_associations?.[zip] || []);
+    const candidates = (payload.zip_to_pwsids[zip] || []).map(id => byId.get(String(id))).filter(Boolean);
+    candidates.sort((a, b) => String(a.ucmr_pws_name).localeCompare(String(b.ucmr_pws_name)) || String(a.pwsid).localeCompare(String(b.pwsid)));
+    return { systems: candidates.filter(s => !pending.has(s.pwsid)), uncertain: candidates.filter(s => pending.has(s.pwsid)) };
+  }
+
+  function renderUncertainAssociations(systems) {
+    if (!systems.length) return "";
+    const isZh = currentLang === "zh";
+    const heading = isZh ? "需确认的其他供水机构关联" : "Other provider links needing confirmation";
+    const explanation = isZh
+      ? "来源文件还列出了以下供水机构，但其服务范围与该邮编的关联需要核实。这不表示未做检测。请向账单上的供水机构确认，或按系统编号查看EPA记录。"
+      : "The source file also lists these providers, but their connection to this ZIP needs review. This does not mean they have no testing data. Confirm your provider or search EPA records using the system ID.";
+    return `<details class="compound-results-details"><summary>${heading} (${systems.length})</summary><p>${explanation}</p><ul>${systems.map(s => `<li>${escapeHtml(s.ucmr_pws_name)} — ${escapeHtml(s.sdwis_state_code)} · PWSID ${escapeHtml(s.pwsid)}</li>`).join("")}</ul><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></details>`;
+  }
+
+  async function readReviewedLookup(response, reviews) {
+    const raw = await response.text();
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(raw));
+    const hash = Array.from(new Uint8Array(digest), value => value.toString(16).padStart(2, "0")).join("");
+    if (hash !== reviews.source_sha256) throw new Error("ZIP review source checksum does not match");
+    return applyZipReviews(JSON.parse(raw), reviews);
+  }
+
+  function renderAssociationReview(system) {
+    if (!release?.pending_associations?.[lastLookupZip]?.includes(system.pwsid)) return "";
+    return `<p class="water-system-match"><strong>${currentLang === "zh"
+      ? "此供水机构与该邮编的关联尚待核实。请向账单上的供水机构确认，不要仅凭此匹配判断供水范围。"
+      : "This provider’s connection to your ZIP needs checking. Confirm with the provider on your bill before treating these as relevant results."}</strong></p>`;
+  }
+
   function renderSystem(system) {
     const above = Number(system.any_system_above_mcl_comparison) === 1;
     const complete = Number(system.any_system_full_set) === 1;
@@ -647,6 +711,7 @@
         <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
       </header>
       ${renderProviderHelp(system)}
+      ${renderAssociationReview(system)}
       <div class="system-fact-strip">
         <span><strong>${isZh ? "检测日期" : "When samples were taken"}</strong>${escapeHtml(formatMonitoringPeriod(system))}</span>
       </div>
@@ -861,14 +926,15 @@
     }
 
     lastLookupZip = zip;
-    const systems = (release.zip_to_pwsids[zip] || []).map(id => systemsById.get(String(id))).filter(Boolean);
-    systems.sort((a, b) => {
-      const aPriority = Number(a.primary_occurrence_cohort) * 2 + Number(a.any_system_above_mcl_comparison);
-      const bPriority = Number(b.primary_occurrence_cohort) * 2 + Number(b.any_system_above_mcl_comparison);
-      return bPriority - aPriority || String(a.ucmr_pws_name).localeCompare(String(b.ucmr_pws_name));
-    });
+    const { systems, uncertain } = partitionZipSystems(release, zip, systemsById);
     currentSystems = systems;
-    currentContext = buildAssistantContext(systems);
+    currentContext = systems.length ? buildAssistantContext(systems) : uncertain.length
+      ? "Only unresolved ZIP associations were found. Do not infer that testing is absent. Ask the user to confirm their provider; no concentrations are supplied for these unresolved associations."
+      : buildAssistantContext(systems);
+    const pendingIds = release.pending_associations?.[zip] || [];
+    if (pendingIds.length) {
+      currentContext += `\nZIP associations needing review: ${pendingIds.join(", ")}. Do not claim these systems serve the searched ZIP or the user's home; ask the user to confirm the provider.`;
+    }
     $("printZip").textContent = `${currentLang === "zh" ? "邮政编码" : "ZIP code"}: ${zip}`;
     $("printDate").textContent = `${currentLang === "zh" ? "生成日期" : "Generated"}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : "en-US", { year: "numeric", month: "long", day: "numeric" })}`;
     history.replaceState({}, "", `${window.location.pathname}?zip=${encodeURIComponent(zip)}`);
@@ -879,12 +945,18 @@
 
     if (!systems.length) {
       result.className = "result not-found";
-      title.textContent = text("noAssociationTitle")(zip);
-      context.textContent = text("noAssociationContext");
-      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p>${renderPrivateWellGuidance()}</div>`;
+      title.textContent = uncertain.length
+        ? (currentLang === "zh" ? "供水机构关联需要确认" : "Provider matches need confirmation")
+        : text("noAssociationTitle")(zip);
+      context.textContent = uncertain.length
+        ? (currentLang === "zh" ? "此邮编仅有待核实的关联，不能据此判断当地水质或是否做过检测。" : "Only unresolved provider links were found for this ZIP. They cannot establish local water quality or whether testing occurred.")
+        : text("noAssociationContext");
+      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p>${renderPrivateWellGuidance()}</div>${renderUncertainAssociations(uncertain)}`;
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
-      resetChat(text("contextReadyNone"));
+      resetChat(uncertain.length
+        ? (currentLang === "zh" ? "请先确认账单上的供水机构；这里的邮编关联尚待核实。" : "Please confirm the provider on your bill; the ZIP associations here are still under review.")
+        : text("contextReadyNone"));
       return;
     }
 
@@ -898,7 +970,12 @@
     result.className = aboveCount ? "result found-above" : "result found-below";
     title.textContent = text("associatedTitle")(systems.length, zip);
     context.textContent = text("associatedContext")(aboveCount, systems.length, detectedSystemCount);
-    body.innerHTML = `${systems.map(renderSystem).join("")}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}<div id="lookup-number-guide">${renderResultBoundary(systems)}</div>`;
+    if (release.corrected_zips?.includes(zip)) {
+      context.textContent += currentLang === "zh"
+        ? " 此邮编的部分错误关联已移除；供水机构列表仍可能不完整。"
+        : " Incorrect associations have been removed for this ZIP; the provider list may still be incomplete.";
+    }
+    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}<div id="lookup-number-guide">${renderResultBoundary(systems)}</div>`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
@@ -913,13 +990,14 @@
     resetChat();
     loadCounters();
     try {
-      const [lookupResponse, metadataResponse, monitoringResponse] = await Promise.all([
+      const [lookupResponse, metadataResponse, monitoringResponse, zipReviewsResponse] = await Promise.all([
         fetch(LOOKUP_URL, { cache: "no-cache" }),
         fetch(METADATA_URL, { cache: "no-cache" }),
-        fetch(MONITORING_PERIODS_URL, { cache: "no-cache" })
+        fetch(MONITORING_PERIODS_URL, { cache: "no-cache" }),
+        fetch("/config/zip-association-reviews.json", { cache: "no-cache" })
       ]);
-      if (!lookupResponse.ok || !metadataResponse.ok || !monitoringResponse.ok) throw new Error("Frozen analysis files unavailable");
-      release = await lookupResponse.json();
+      if (!lookupResponse.ok || !metadataResponse.ok || !monitoringResponse.ok || !zipReviewsResponse.ok) throw new Error("Frozen analysis files unavailable");
+      release = await readReviewedLookup(lookupResponse, await zipReviewsResponse.json());
       metadata = await metadataResponse.json();
       const monitoringPeriods = await monitoringResponse.json();
       if (release.release_id !== metadata.release_id || release.release_id !== monitoringPeriods.release_id) throw new Error("Release identifiers do not match");

@@ -1,0 +1,10 @@
+{
+  "description": "Overrides for the review screen only; not service-area evidence.",
+  "sources": [
+    "https://pe.usps.com/imm_archive/html/imm_archive_20090511/imm/immc2_003.htm"
+  ],
+  "prefix_states": {
+    "008": "VI",
+    "039": "ME"
+  }
+}

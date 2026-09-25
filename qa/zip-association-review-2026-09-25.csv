@@ -1,0 +1,412 @@
+zip,pwsid,system_name,prefix_state,system_state,boundary_provenance,decision
+01504,RI1559518,WOONSOCKET WATER DIVISION,MA,RI,System Sourced,needs_review_retained
+01801,OK1010604,BRYAN CO. RWS & SWMD #2,MA,OK,System Sourced,needs_review_retained
+02019,RI1559518,WOONSOCKET WATER DIVISION,MA,RI,System Sourced,needs_review_retained
+02535,OK1010604,BRYAN CO. RWS & SWMD #2,MA,OK,System Sourced,needs_review_retained
+03581,OK1010604,BRYAN CO. RWS & SWMD #2,NH,OK,System Sourced,needs_review_retained
+03865,MA3128000,HAVERHILL WATER DEPT,NH,MA,System Sourced,needs_review_retained
+04027,NH2001010,ROCHESTER WATER DEPT,ME,NH,System Sourced,needs_review_retained
+05261,MA1341000,WILLIAMSTOWN WATER DEPT,VT,MA,System Sourced,needs_review_retained
+06379,RI1559512,WESTERLY WATER DEPARTMENT,CT,RI,System Sourced,needs_review_retained
+07302,OK1010604,BRYAN CO. RWS & SWMD #2,NJ,OK,System Sourced,needs_review_retained
+07446,OK1010604,BRYAN CO. RWS & SWMD #2,NJ,OK,System Sourced,needs_review_retained
+08618,PA1090074,PA AMERICAN WATER CO YARDLEY,NJ,PA,System Sourced,needs_review_retained
+08628,PA1090074,PA AMERICAN WATER CO YARDLEY,NJ,PA,System Sourced,needs_review_retained
+10022,HI0000151,KOHALA RANCH WATER CO.,NY,HI,Modeled,reviewed_exclusion
+11790,HI0000151,KOHALA RANCH WATER CO.,NY,HI,Modeled,reviewed_exclusion
+12020,HI0000151,KOHALA RANCH WATER CO.,NY,HI,Modeled,reviewed_exclusion
+15376,WV3303508,OHIO COUNTY PSD,PA,WV,System Sourced,needs_review_retained
+15376,WV3303516,WHEELING WATER,PA,WV,System Sourced,needs_review_retained
+15377,WV3303508,OHIO COUNTY PSD,PA,WV,System Sourced,needs_review_retained
+16116,OH5001611,AQUA OHIO - STRUTHERS,PA,OH,System Sourced,needs_review_retained
+16132,OH5001611,AQUA OHIO - STRUTHERS,PA,OH,System Sourced,needs_review_retained
+16155,OH5001611,AQUA OHIO - STRUTHERS,PA,OH,System Sourced,needs_review_retained
+19082,DE0000663,WILMINGTON WATER DEPARTMENT,PA,DE,System Sourced,needs_review_retained
+19085,HI0000151,KOHALA RANCH WATER CO.,PA,HI,Modeled,reviewed_exclusion
+19940,MD0220001,TOWN OF DELMAR,DE,MD,System Sourced,needs_review_retained
+20001,VA6013080,NATIONAL AIRPORT,DC,VA,,needs_review_retained
+24251,TN0000056,BLOOMINGDALE UTILITY DISTRICT,VA,TN,System Sourced,needs_review_retained
+24251,TN0000349,KINGSPORT WATER DEPT,VA,TN,System Sourced,needs_review_retained
+24258,TN0000056,BLOOMINGDALE UTILITY DISTRICT,VA,TN,System Sourced,needs_review_retained
+24351,NC0286010,"MOUNT AIRY, CITY OF",VA,NC,System Sourced,needs_review_retained
+24738,VA1185061,"BLUEFIELD, TOWN OF",WV,VA,Modeled,needs_review_retained
+25801,IL1995120,CORINTH PWD,WV,IL,,needs_review_retained
+25813,IL1995120,CORINTH PWD,WV,IL,,needs_review_retained
+27048,MS0760076,BLACK BAYOU WATER ASSN.,NC,MS,System Sourced,needs_review_retained
+28114,SC1120001,DANIEL MORGAN WATER DISTRICT (1120001),NC,SC,Modeled,needs_review_retained
+28114,SC1120002,GRASSY POND WATER CO (1120002),NC,SC,Modeled,needs_review_retained
+28539,OK1010604,BRYAN CO. RWS & SWMD #2,NC,OK,System Sourced,needs_review_retained
+28904,GA2810000,HIAWASSEE,NC,GA,Modeled,needs_review_retained
+29341,NC2023003,GRASSY POND WATER CORPORATION,SC,NC,Modeled,needs_review_retained
+29356,NC0175010,"TRYON, TOWN OF",SC,NC,System Sourced,needs_review_retained
+29707,NC0160156,LAMPLIGHTER SOUTH-DANBY,SC,NC,Modeled,needs_review_retained
+29707,OK1010604,BRYAN CO. RWS & SWMD #2,SC,OK,System Sourced,needs_review_retained
+29835,GA0730000,COLUMBIA COUNTY,SC,GA,System Sourced,needs_review_retained
+30703,MS0440003,COLUMBUS LIGHT & WATER,GA,MS,System Sourced,needs_review_retained
+30741,TN0000107,TENNESSEE AMERICAN WATER,GA,TN,System Sourced,needs_review_retained
+30742,TN0000107,TENNESSEE AMERICAN WATER,GA,TN,System Sourced,needs_review_retained
+30750,TN0000107,TENNESSEE AMERICAN WATER,GA,TN,System Sourced,needs_review_retained
+32507,IL1995120,CORINTH PWD,FL,IL,,needs_review_retained
+32754,MO2024138,CLARK COUNTY CONS PWSD 1,FL,MO,System Sourced,needs_review_retained
+32903,HI0000151,KOHALA RANCH WATER CO.,FL,HI,Modeled,reviewed_exclusion
+34685,HI0000151,KOHALA RANCH WATER CO.,FL,HI,Modeled,reviewed_exclusion
+34769,IL1995120,CORINTH PWD,FL,IL,,needs_review_retained
+34769,OK1010604,BRYAN CO. RWS & SWMD #2,FL,OK,System Sourced,needs_review_retained
+34771,MO2024138,CLARK COUNTY CONS PWSD 1,FL,MO,System Sourced,needs_review_retained
+35960,GA1150000,CAVE SPRING,AL,GA,Modeled,needs_review_retained
+36561,FL1170525,EMERALD COAST UTILITIES AUTHORITY,AL,FL,System Sourced,needs_review_retained
+37027,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37042,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37043,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37122,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37202,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37211,OK1010604,BRYAN CO. RWS & SWMD #2,TN,OK,System Sourced,needs_review_retained
+37219,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37229,KY0240521,CHRISTIAN CO WATER DISTRICT,TN,KY,System Sourced,needs_review_retained
+37363,GA0470000,CATOOSA UTIL. DIST. AUTHORITY,TN,GA,Modeled,needs_review_retained
+37411,GA0470000,CATOOSA UTIL. DIST. AUTHORITY,TN,GA,Modeled,needs_review_retained
+37412,GA0470000,CATOOSA UTIL. DIST. AUTHORITY,TN,GA,Modeled,needs_review_retained
+37421,GA0470000,CATOOSA UTIL. DIST. AUTHORITY,TN,GA,Modeled,needs_review_retained
+37902,IL1995120,CORINTH PWD,TN,IL,,needs_review_retained
+38449,AL0001420,ARDMORE WATER SYSTEM,TN,AL,Modeled,needs_review_retained
+39057,OK1010604,BRYAN CO. RWS & SWMD #2,MS,OK,System Sourced,needs_review_retained
+39525,IA9133701,WARREN WATER DISTRICT,MS,IA,Modeled,needs_review_retained
+40233,OH2101412,"DEL-CO WATER COMPANY, INC.",KY,OH,System Sourced,needs_review_retained
+41011,IN5278001,PATRIOT WATER DEPARTMENT,KY,IN,Modeled,needs_review_retained
+42001,IL1995120,CORINTH PWD,KY,IL,,needs_review_retained
+42041,TN0000648,SOUTH FULTON WATER SYSTEM,KY,TN,System Sourced,needs_review_retained
+42223,TN0000820,FORT CAMPBELL WATER SYSTEM,KY,TN,System Sourced,needs_review_retained
+43218,OK1010604,BRYAN CO. RWS & SWMD #2,OH,OK,System Sourced,needs_review_retained
+44115,HI0000151,KOHALA RANCH WATER CO.,OH,HI,Modeled,reviewed_exclusion
+46307,IL1995120,CORINTH PWD,IN,IL,,needs_review_retained
+47003,OH0903912,SOUTHWEST REGIONAL WATER DISTRICT,IN,OH,System Sourced,needs_review_retained
+47010,OH0903912,SOUTHWEST REGIONAL WATER DISTRICT,IN,OH,System Sourced,needs_review_retained
+47012,OH0903912,SOUTHWEST REGIONAL WATER DISTRICT,IN,OH,System Sourced,needs_review_retained
+47016,OH0903912,SOUTHWEST REGIONAL WATER DISTRICT,IN,OH,System Sourced,needs_review_retained
+47060,OH0903912,SOUTHWEST REGIONAL WATER DISTRICT,IN,OH,System Sourced,needs_review_retained
+47060,OH3100812,HARRISON CITY PWS,IN,OH,Modeled,needs_review_retained
+47220,HI0000151,KOHALA RANCH WATER CO.,IN,HI,Modeled,reviewed_exclusion
+47591,IL1995120,CORINTH PWD,IN,IL,,needs_review_retained
+47620,IL1995120,CORINTH PWD,IN,IL,,needs_review_retained
+48103,HI0000151,KOHALA RANCH WATER CO.,MI,HI,Modeled,reviewed_exclusion
+48133,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+48144,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+48145,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+48157,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+48177,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+48182,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+49267,OH4801411,"TOLEDO, CITY OF",MI,OH,System Sourced,needs_review_retained
+49267,OK1010604,BRYAN CO. RWS & SWMD #2,MI,OK,System Sourced,needs_review_retained
+50548,OK1010604,BRYAN CO. RWS & SWMD #2,IA,OK,System Sourced,needs_review_retained
+50602,ND4500242,DICKINSON CITY OF,IA,ND,System Sourced,needs_review_retained
+51001,SD4600626,CLAY RURAL WATER SYSTEM,IA,SD,System Sourced,needs_review_retained
+52001,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52353,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52402,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52405,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52411,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52556,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52573,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52601,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52619,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52625,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52626,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52627,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52631,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52632,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52639,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52649,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52653,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52656,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52730,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52753,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52761,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52778,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52803,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+52807,MO2024138,CLARK COUNTY CONS PWSD 1,IA,MO,System Sourced,needs_review_retained
+53569,MO2024138,CLARK COUNTY CONS PWSD 1,WI,MO,System Sourced,needs_review_retained
+53720,IA2322066,CAMANCHE WATER SUPPLY,WI,IA,Modeled,needs_review_retained
+53916,KY0920025,BEAVER DAM MUNICIPAL WATER & SEWER,WI,KY,System Sourced,needs_review_retained
+54313,MO2024138,CLARK COUNTY CONS PWSD 1,WI,MO,System Sourced,needs_review_retained
+54534,MI0003420,IRONWOOD,WI,MI,Modeled,needs_review_retained
+54759,MO5024023,BARTON DADE CEDAR JASP COUNTYCONS PWSD 1,WI,MO,System Sourced,needs_review_retained
+56136,SD4600430,BROOKINGS-DEUEL RURAL WATER SYSTEM,MN,SD,System Sourced,needs_review_retained
+56143,IA3060001,IOWA LAKES REGIONAL WATER - LAKES AREA,MN,IA,,needs_review_retained
+56257,SD4600864,GRANT-ROBERTS RURAL WATER SYSTEM,MN,SD,System Sourced,needs_review_retained
+56520,OK1010604,BRYAN CO. RWS & SWMD #2,MN,OK,System Sourced,needs_review_retained
+57186,HI0000151,KOHALA RANCH WATER CO.,SD,HI,Modeled,reviewed_exclusion
+57620,ND4501434,SOUTHWEST WATER AUTHORITY,SD,ND,Modeled,needs_review_retained
+57638,ND4501434,SOUTHWEST WATER AUTHORITY,SD,ND,Modeled,needs_review_retained
+57640,ND4501434,SOUTHWEST WATER AUTHORITY,SD,ND,Modeled,needs_review_retained
+57644,ND4501434,SOUTHWEST WATER AUTHORITY,SD,ND,Modeled,needs_review_retained
+58436,SD4601089,WEB WATER DEVELOPMENT ASSOCIATION,ND,SD,System Sourced,needs_review_retained
+58439,SD4601089,WEB WATER DEVELOPMENT ASSOCIATION,ND,SD,System Sourced,needs_review_retained
+58506,OK1010604,BRYAN CO. RWS & SWMD #2,ND,OK,System Sourced,needs_review_retained
+58528,084690510,STANDING ROCK RURAL WATER SYSTEM,ND,SD,System Sourced,needs_review_retained
+58538,084690510,STANDING ROCK RURAL WATER SYSTEM,ND,SD,System Sourced,needs_review_retained
+58568,084690510,STANDING ROCK RURAL WATER SYSTEM,ND,SD,System Sourced,needs_review_retained
+58570,084690510,STANDING ROCK RURAL WATER SYSTEM,ND,SD,System Sourced,needs_review_retained
+58573,SD4601089,WEB WATER DEVELOPMENT ASSOCIATION,ND,SD,System Sourced,needs_review_retained
+58581,SD4601089,WEB WATER DEVELOPMENT ASSOCIATION,ND,SD,System Sourced,needs_review_retained
+59840,HI0000151,KOHALA RANCH WATER CO.,MT,HI,Modeled,reviewed_exclusion
+60010,HI0000151,KOHALA RANCH WATER CO.,IL,HI,Modeled,reviewed_exclusion
+60014,HI0000151,KOHALA RANCH WATER CO.,IL,HI,Modeled,reviewed_exclusion
+60097,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+60504,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+60527,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+60565,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+60605,HI0000151,KOHALA RANCH WATER CO.,IL,HI,Modeled,reviewed_exclusion
+60630,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61071,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61231,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61265,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61345,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61425,IA0400902,RATHBUN REG WTR ASSN (BURLINGTON),IL,IA,System Sourced,needs_review_retained
+61427,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61454,IA0400902,RATHBUN REG WTR ASSN (BURLINGTON),IL,IA,System Sourced,needs_review_retained
+61469,IA0400902,RATHBUN REG WTR ASSN (BURLINGTON),IL,IA,System Sourced,needs_review_retained
+61483,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61523,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+61605,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62002,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62025,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62234,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62242,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62301,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62305,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62306,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62314,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62321,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62326,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62334,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62338,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62341,IA0400901,RATHBUN REG WATER ASSN (FT MADISON),IL,IA,System Sourced,needs_review_retained
+62341,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62354,IA0400901,RATHBUN REG WATER ASSN (FT MADISON),IL,IA,System Sourced,needs_review_retained
+62358,IA0400901,RATHBUN REG WATER ASSN (FT MADISON),IL,IA,System Sourced,needs_review_retained
+62379,IA0400901,RATHBUN REG WATER ASSN (FT MADISON),IL,IA,System Sourced,needs_review_retained
+62422,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62613,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62650,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+62704,MO2024138,CLARK COUNTY CONS PWSD 1,IL,MO,System Sourced,needs_review_retained
+63043,IL1995120,CORINTH PWD,MO,IL,,needs_review_retained
+63044,IL1995120,CORINTH PWD,MO,IL,,needs_review_retained
+63166,IL1995120,CORINTH PWD,MO,IL,,needs_review_retained
+63430,IA0400901,RATHBUN REG WATER ASSN (FT MADISON),MO,IA,System Sourced,needs_review_retained
+63465,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+63465,IA0400901,RATHBUN REG WATER ASSN (FT MADISON),MO,IA,System Sourced,needs_review_retained
+63535,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+63548,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+63555,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+63565,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+64445,IA7329029,CLARINDA WATER PLANT,MO,IA,Modeled,needs_review_retained
+64498,IA6950075,RED OAK WATER SUPPLY,MO,IA,Modeled,needs_review_retained
+64661,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+64672,IA0400900,RATHBUN REGIONAL WATER ASSN (RATHBUN),MO,IA,System Sourced,needs_review_retained
+64741,KS2001104,"FORT SCOTT, CITY OF",MO,KS,System Sourced,needs_review_retained
+66053,MO1024111,CASS COUNTY PWSD 7,KS,MO,System Sourced,needs_review_retained
+66103,MO1010415,KANSAS CITY PWS,KS,MO,System Sourced,needs_review_retained
+66205,MO1010415,KANSAS CITY PWS,KS,MO,System Sourced,needs_review_retained
+66208,MO1010415,KANSAS CITY PWS,KS,MO,System Sourced,needs_review_retained
+66211,MO1010415,KANSAS CITY PWS,KS,MO,System Sourced,needs_review_retained
+67401,OK1010604,BRYAN CO. RWS & SWMD #2,KS,OK,System Sourced,needs_review_retained
+68325,KS2015708,"MUNDEN, CITY OF",NE,KS,System Sourced,needs_review_retained
+71351,061800001,TUNICA-BILOXI TRIBE OF LA,LA,NM,Modeled,needs_review_retained
+71866,OK1010604,BRYAN CO. RWS & SWMD #2,AR,OK,System Sourced,needs_review_retained
+72648,OK1010604,BRYAN CO. RWS & SWMD #2,AR,OK,System Sourced,needs_review_retained
+72901,OK1010604,BRYAN CO. RWS & SWMD #2,AR,OK,System Sourced,needs_review_retained
+74633,TX1830001,CITY OF CARTHAGE,OK,TX,System Sourced,needs_review_retained
+75002,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75007,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75009,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75010,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75013,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75019,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75020,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75021,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75022,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75023,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75028,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75033,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75034,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75040,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75042,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75043,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75044,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75048,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75056,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75058,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75062,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75069,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75070,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75071,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75072,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75074,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75075,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75076,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75077,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75078,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75081,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75090,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75091,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75092,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75093,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75094,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75098,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75205,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75217,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75222,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75225,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75229,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75240,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75243,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75244,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75248,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75254,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75401,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75409,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75423,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75424,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75439,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75452,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75454,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75459,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75474,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75487,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+75495,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76034,HI0000151,KOHALA RANCH WATER CO.,TX,HI,Modeled,reviewed_exclusion
+76039,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76051,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76179,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76182,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76209,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76210,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76227,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76244,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76302,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76385,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+76712,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+77025,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+77346,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+77399,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+77494,LA1099009,UNITED WATER SYSTEM,TX,LA,Modeled,needs_review_retained
+77546,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+78209,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+78373,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+78624,IL1995120,CORINTH PWD,TX,IL,,needs_review_retained
+78704,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+78739,OR4100665,TUALATIN VALLEY WATER DISTRICT,TX,OR,System Sourced,needs_review_retained
+79007,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79012,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79015,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79118,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79124,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79512,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79705,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79707,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+79768,OK1010604,BRYAN CO. RWS & SWMD #2,TX,OK,System Sourced,needs_review_retained
+80205,OK1010604,BRYAN CO. RWS & SWMD #2,CO,OK,System Sourced,needs_review_retained
+80212,HI0000151,KOHALA RANCH WATER CO.,CO,HI,Modeled,reviewed_exclusion
+80306,AZ0407025,PHOENIX CITY OF,CO,AZ,System Sourced,needs_review_retained
+80443,HI0000151,KOHALA RANCH WATER CO.,CO,HI,Modeled,reviewed_exclusion
+80528,OK1010604,BRYAN CO. RWS & SWMD #2,CO,OK,System Sourced,needs_review_retained
+81007,OK1010604,BRYAN CO. RWS & SWMD #2,CO,OK,System Sourced,needs_review_retained
+81132,OK1010604,BRYAN CO. RWS & SWMD #2,CO,OK,System Sourced,needs_review_retained
+84062,OK1010604,BRYAN CO. RWS & SWMD #2,UT,OK,System Sourced,needs_review_retained
+85013,HI0000151,KOHALA RANCH WATER CO.,AZ,HI,Modeled,reviewed_exclusion
+85078,HI0000151,KOHALA RANCH WATER CO.,AZ,HI,Modeled,reviewed_exclusion
+85345,HI0000151,KOHALA RANCH WATER CO.,AZ,HI,Modeled,reviewed_exclusion
+86021,UTAH27006,HILDALE - COLORADO CITY,AZ,UT,System Sourced,needs_review_retained
+86040,OK1010604,BRYAN CO. RWS & SWMD #2,AZ,OK,System Sourced,needs_review_retained
+86504,NN3500211,Mariano Lake-Pinedale-Church Rock NTUA,AZ,NM,,needs_review_retained
+86504,NN3500245,Farmington Rural-Shiprock-Beclabito NTUA,AZ,NM,,needs_review_retained
+86504,NN3503028,Toadlena NTUA,AZ,NM,,needs_review_retained
+86504,NN3503039,Crownpoint-Littlewater-Three Mile Point NTUA,AZ,NM,,needs_review_retained
+87144,OK1010604,BRYAN CO. RWS & SWMD #2,NM,OK,System Sourced,needs_review_retained
+87199,HI0000151,KOHALA RANCH WATER CO.,NM,HI,Modeled,reviewed_exclusion
+89031,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+89074,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+89118,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+89120,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+89121,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+89135,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+89435,HI0000151,KOHALA RANCH WATER CO.,NV,HI,Modeled,reviewed_exclusion
+90064,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+90247,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+90266,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+90401,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+91001,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+91401,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+91762,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+91780,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+91916,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+92020,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+92023,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+92028,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+92118,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+92283,090400089,Quechan Utility,CA,AZ,Modeled,needs_review_retained
+92284,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+92624,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+92646,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+92679,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93015,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+93117,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93309,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93455,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+93460,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93465,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93921,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93923,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+93940,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94086,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+94104,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94107,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94123,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94126,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94533,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94539,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+94549,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94558,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94566,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94611,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+94901,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95032,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95060,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95060,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+95073,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95207,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+95354,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95404,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95482,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+95524,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+95688,OK1010604,BRYAN CO. RWS & SWMD #2,CA,OK,System Sourced,needs_review_retained
+96146,HI0000151,KOHALA RANCH WATER CO.,CA,HI,Modeled,reviewed_exclusion
+96799,AS9711948,Central ASG,HI,AS,,needs_review_retained
+96910,GU0000003,GWA CENTRAL WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96910,GU0000006,GWA NORTHERN WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96910,GU0000010,U.S. NAVY WATER SYSTEM,HI,GU,,needs_review_retained
+96913,GU0000006,GWA NORTHERN WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96913,GU0000010,U.S. NAVY WATER SYSTEM,HI,GU,,needs_review_retained
+96915,GU0000001,GWA SOUTHERN WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96915,GU0000003,GWA CENTRAL WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96915,GU0000006,GWA NORTHERN WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96915,GU0000010,U.S. NAVY WATER SYSTEM,HI,GU,,needs_review_retained
+96929,GU0000006,GWA NORTHERN WATER SYSTEM,HI,GU,System Sourced,needs_review_retained
+96929,GU0000009,ANDERSEN AIR FORCE BASE WATER SYSTEM,HI,GU,,needs_review_retained
+96929,GU0000010,U.S. NAVY WATER SYSTEM,HI,GU,,needs_review_retained
+96950,MP0000001,Commonwealth Utilities Corp (Saipan),HI,MP,System Sourced,needs_review_retained
+96950,MP0000171,Commonwealth Health Corporation,HI,MP,,needs_review_retained
+97124,HI0000151,KOHALA RANCH WATER CO.,OR,HI,Modeled,reviewed_exclusion
+97229,HI0000151,KOHALA RANCH WATER CO.,OR,HI,Modeled,reviewed_exclusion
+98029,OK1010604,BRYAN CO. RWS & SWMD #2,WA,OK,System Sourced,needs_review_retained
+98036,HI0000151,KOHALA RANCH WATER CO.,WA,HI,Modeled,reviewed_exclusion
+98105,HI0000151,KOHALA RANCH WATER CO.,WA,HI,Modeled,reviewed_exclusion
+98109,OK1010604,BRYAN CO. RWS & SWMD #2,WA,OK,System Sourced,needs_review_retained
+98117,OK1010604,BRYAN CO. RWS & SWMD #2,WA,OK,System Sourced,needs_review_retained
+98136,HI0000151,KOHALA RANCH WATER CO.,WA,HI,Modeled,reviewed_exclusion
+98277,HI0000151,KOHALA RANCH WATER CO.,WA,HI,Modeled,reviewed_exclusion
+98607,HI0000151,KOHALA RANCH WATER CO.,WA,HI,Modeled,reviewed_exclusion
+99009,IL1995120,CORINTH PWD,WA,IL,,needs_review_retained
+99210,OK1010604,BRYAN CO. RWS & SWMD #2,WA,OK,System Sourced,needs_review_retained
+99511,HI0000151,KOHALA RANCH WATER CO.,AK,HI,Modeled,reviewed_exclusion
+99826,HI0000151,KOHALA RANCH WATER CO.,AK,HI,Modeled,reviewed_exclusion
