@@ -1,48 +1,48 @@
 /* ZIP lookup only. Existing theme, typography, and card styles are inherited.
    The chat grows after a question; readers can expand the whole conversation. */
-.home-shell .home-interaction-grid .chat-panel,
-.home-shell .home-interaction-grid .chat-panel.visible {
+.home-shell .chat-panel,
+.home-shell .chat-panel.visible {
   height: auto;
   max-height: none;
 }
 
-.home-shell .home-interaction-grid .ai-messages {
+.home-shell .ai-messages {
   flex: 0 1 auto;
   min-height: 140px;
   max-height: 520px;
 }
 
-.home-shell .home-interaction-grid .chat-panel.has-conversation {
+.home-shell .chat-panel.has-conversation {
   height: auto;
   min-height: 520px;
   max-height: none;
 }
 
-.home-shell .home-interaction-grid .chat-panel.has-conversation .ai-messages {
+.home-shell .chat-panel.has-conversation .ai-messages {
   flex: 0 1 auto;
   min-height: 280px;
   max-height: 520px;
 }
 
-.home-shell .home-interaction-grid .chat-panel.chat-expanded .ai-messages {
+.home-shell .chat-panel.chat-expanded .ai-messages {
   max-height: none;
   overflow-y: visible;
 }
 
-.home-shell .home-interaction-grid .ai-msg {
+.home-shell .ai-msg {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
   flex-shrink: 0;
 }
 
-.home-shell .home-interaction-grid .chat-expand-button {
+.home-shell .chat-expand-button {
   flex: 0 0 auto;
   width: auto;
   margin: 0.5rem 1rem;
   align-self: flex-start;
 }
 
-.home-shell .home-interaction-grid [hidden] {
+.home-shell [hidden] {
   display: none !important;
 }
 
@@ -106,3 +106,13 @@
 .home-shell #lookup-number-guide {
   scroll-margin-top: 20px;
 }
+
+/* Keep interpretation and source access usable without the optional assistant. */
+.home-shell { display:block; }
+.home-shell .chat-panel { margin-top:1.5rem; }
+.coverage-note,.official-provider-links { padding:1rem; margin:1rem 0; background:#f0f5f8; border-radius:10px; color:#203747; font-size:1rem; line-height:1.6; }
+.evidence-outcome { margin:0.75rem 0; overflow-wrap:anywhere; }
+.evidence-outcome summary { cursor:pointer; padding:0.5rem 0; }
+.result-evidence p,.result-evidence li { font-size:1rem; line-height:1.6; }
+.result-evidence a:focus-visible,.official-provider-links a:focus-visible { outline:3px solid #175e97; outline-offset:3px; }
+@media print { .home-shell .chat-panel { display:none!important; } .coverage-note,.official-provider-links { break-inside:avoid; } }

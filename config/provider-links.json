@@ -1,0 +1,38 @@
+{
+  "checked": "2026-09-27",
+  "scope": "Pilot links verified by system ID; no household service claim. Report year is the year described inside the report.",
+  "systems": {
+    "CA4310011": {
+      "name": "San Jose Water",
+      "report_year": 2024,
+      "report_url": "https://www.sjwater.com/media/pitpqczh/sjw_2025_ccr_1-2.pdf",
+      "official_url": "https://www.sjwater.com/",
+      "identity_source": "https://www.sjwater.com/media/pitpqczh/sjw_2025_ccr_1-2.pdf",
+      "checked": "2026-09-27"
+    },
+    "VT0005202": {
+      "name": "Newport City Water System",
+      "report_year": 2025,
+      "report_url": "https://www.newportvermont.org/wp-content/uploads/2026/05/Consumer-Confidence-Water-Quality-Report-2025.pdf",
+      "official_url": "https://www.newportvermont.org/documents/consumer-confidence-water-quality-report-2025/",
+      "identity_source": "https://www.newportvermont.org/wp-content/uploads/2026/05/Consumer-Confidence-Water-Quality-Report-2025.pdf",
+      "checked": "2026-09-27"
+    },
+    "NC0201010": {
+      "name": "City of Burlington",
+      "report_year": 2025,
+      "report_url": "https://www.burlingtonnc.gov/DocumentCenter/View/6734/Annual-Drinking-Water-Quality-Report",
+      "official_url": "https://www.burlingtonnc.gov/56/Water-Resources",
+      "identity_source": "https://www.burlingtonnc.gov/DocumentCenter/View/6734/Annual-Drinking-Water-Quality-Report",
+      "checked": "2026-09-27"
+    },
+    "PA4550005": {
+      "name": "Selinsgrove Municipal Authority",
+      "report_year": 2024,
+      "report_url": "https://selinsgrove.org/wp-content/uploads/2025NewCCR.pdf",
+      "official_url": "https://selinsgrove.org/municipal-services/public-water/",
+      "identity_source": "https://selinsgrove.org/wp-content/uploads/2025NewCCR.pdf",
+      "checked": "2026-09-27"
+    }
+  }
+}

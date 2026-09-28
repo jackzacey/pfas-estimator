@@ -21,21 +21,24 @@
     if (!asksForComparisonSystems(question) || !Array.isArray(systems) || !systems.length) return null;
     const atOrAbove = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1);
     const names = atOrAbove.map(systemName);
+    const below = systems.filter(s => Number(s.any_system_above_mcl_comparison) !== 1 && s._comparisonCoverage?.all === true);
+    const unresolved = systems.filter(s => Number(s.any_system_above_mcl_comparison) !== 1 && s._comparisonCoverage?.all !== true);
+    const gaps = systems.filter(s => s._comparisonCoverage?.all !== true);
     const askedSafety = /\bunsafe\b|\bsafe\b|不安全|安全/.test(String(question || "").toLowerCase());
 
     if (language === "zh") {
       const safety = askedSafety ? "本网站不会把任何供水系统归类为“安全”或“不安全”。" : "";
       const result = atOrAbove.length
         ? `页面显示的${systems.length}个供水系统中，有${atOrAbove.length}个至少一项完整PFAS年度平均值达到或超过2026年1月冻结的EPA技术援助分类阈值：${names.join("；")}。`
-        : `页面显示的${systems.length}个供水系统中，没有系统的完整PFAS年度平均值达到2026年1月冻结的研究比较水平。PFAS可能已检出，也可能低于EPA报告限值。`;
-      return `${safety}${result}邮政编码关联不能确定哪一个系统为您家供水，请与水费账单上的名称核对并查看供水机构的最新信息。\n\n资料：本页显示的EPA UCMR 5冻结研究数据。`;
+        : `页面显示的${systems.length}个供水系统中，可用的年度比较中未发现达到研究基准的结果。`;
+      return `${safety}${result} ${below.length}个系统的六项研究比较在所有归档采样点均可用，且均低于基准；${unresolved.length}个系统未发现达到基准的结果，但比较覆盖不完整或未经核实。${gaps.length}个系统存在覆盖缺口或覆盖未经核实（可能包括已达到基准的系统）。缺失比较不等于低于基准。邮政编码关联不能确定哪一个系统为您家供水，请与水费账单上的名称核对并查看供水机构的最新信息。\n\n资料：本页显示的EPA UCMR 5冻结研究数据。`;
     }
 
     const safety = askedSafety ? "This site does not classify any water system as safe or unsafe. " : "";
     const result = atOrAbove.length
       ? `${atOrAbove.length} of ${systems.length} listed water systems had at least one yearly average at or above an EPA-based study benchmark: ${names.join("; ")}. `
-      : `None of the ${systems.length} listed water systems had a yearly average at or above an EPA-based study benchmark. PFAS may have been detected below a benchmark or may have been below EPA reporting levels. `;
-    return `${safety}${result}Match the system name to your water bill, then check the utility's current information.\n\nSource: dated EPA UCMR 5 research data shown on this page.`;
+      : `No available yearly comparison was at or above a study benchmark. `;
+    return `${safety}${result}${below.length} systems had all six study comparisons available at every archived location and all were below benchmark. ${unresolved.length} had no above-benchmark finding but incomplete or unverified comparison coverage. Coverage is incomplete or unverified for ${gaps.length} systems overall, including any with an above-benchmark finding. Unavailable comparisons are not below-benchmark results; below a benchmark does not mean no PFAS. Match the system name to your water bill, then check the utility's current information.\n\nSource: dated EPA UCMR 5 research data shown on this page.`;
   }
 
   function answerBoundaryQuestion(question, systems, language = "en") {
