@@ -130,9 +130,9 @@ assert.ok(resultSource.includes("Current Michigan drinking-water standards") || 
 assert.ok(homeSource.includes('href="https://doi.org/10.5281/zenodo.21968954"'), "The homepage should visibly link to the archived data and code");
 assert.ok(readText("methodology/index.html").includes("this release has not yet been independently reproduced"), "Independent reproduction status should be stated plainly");
 
-assert.ok(resultSource.includes("the PFAS level at your faucet, your personal exposure or health risk"),
+assert.ok(resultSource.includes("not a home tap test or a safety/compliance verdict"),
   "Every system must keep the household and health interpretation boundary visible");
-assert.ok(resultSource.indexOf("${renderResultNextStep()}") < resultSource.indexOf("${featuredMarkup}"),
+assert.ok(resultSource.indexOf('class="compact-next"') < resultSource.indexOf("${featuredMarkup}"),
   "The next step should appear before the detailed chemical cards");
 assert.ok(resultSource.indexOf("${systems.map(renderSystem).join(\"\")}") < resultSource.indexOf("${renderResultBoundary(systems)}"),
   "The full glossary should follow the results in the approved readability flow");

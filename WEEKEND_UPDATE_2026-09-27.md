@@ -34,3 +34,7 @@ The source files are not replaced. A changed input checksum fails generation. Th
 The exact alternative ATSDR tool/version and record-selection logic still require reconciliation; the supplied historical UCMR3 output is not a same-record comparison. This change does not claim that discrepancy fully resolved. Independent scientific review and reader comprehension testing remain outstanding. The four-link pilot is not a national provider directory; upstream suppliers and town aliases are not invented. A current-data release remains separate from the frozen study.
 
 The evidence payload is approximately 8.2 MB uncompressed; transfer compression should be enabled by hosting. A later per-system lazy-loading optimization may be appropriate, but must preserve fail-closed validation. This update has not been pushed or deployed.
+
+## Layout follow-up
+
+The ZIP search now fills a single compact row; obsolete two-column sizing, decorative divider and minimum heights are removed. Default results show the provider, dates, short finding, missing-comparison warning, six values and an official report link. Coverage counts, source reconstruction notes, detailed chemical explanations and the glossary remain available in native expandable sections. Historical-data and nondetection boundaries remain visible. Desktop and 390 px mobile previews were checked. Existing rendering/data regression tests pass; the next-step placement assertion now checks the concise report link ahead of expanded chemical details.

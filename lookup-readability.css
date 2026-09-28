@@ -108,7 +108,7 @@
 }
 
 /* Keep interpretation and source access usable without the optional assistant. */
-.home-shell { display:block; }
+.home-shell .home-interaction-grid { display:block; }
 .home-shell .chat-panel { margin-top:1.5rem; }
 .coverage-note,.official-provider-links { padding:1rem; margin:1rem 0; background:#f0f5f8; border-radius:10px; color:#203747; font-size:1rem; line-height:1.6; }
 .evidence-outcome { margin:0.75rem 0; overflow-wrap:anywhere; }
@@ -116,3 +116,25 @@
 .result-evidence p,.result-evidence li { font-size:1rem; line-height:1.6; }
 .result-evidence a:focus-visible,.official-provider-links a:focus-visible { outline:3px solid #175e97; outline-offset:3px; }
 @media print { .home-shell .chat-panel { display:none!important; } .coverage-note,.official-provider-links { break-inside:avoid; } }
+
+/* The assistant now has its own row: remove the old two-column geometry. */
+.home-shell .home-interaction-grid { display:block; min-height:0; }
+.home-shell .home-interaction-grid::before { width:100%; }
+.home-shell .home-interaction-grid::after { display:none; }
+.home-shell .home-interaction-grid .home-lookup-column { width:100%; min-height:0; padding:1.25rem; box-sizing:border-box; }
+.home-shell .home-interaction-grid .input-row { display:flex; box-sizing:border-box; }
+.home-shell .home-interaction-grid .input-row input[type="text"] { flex:1 1 0; width:0; min-width:0; }
+.home-shell .home-interaction-grid .input-row button { flex:0 0 auto; }
+.compact-system .compact-dates,.compact-system .compact-caption,.compact-system .compact-limit { font-size:0.9rem; line-height:1.5; color:#475d69; margin:0.65rem 0; }
+.compact-system .compact-finding { margin:0.7rem 0; line-height:1.5; }
+.compact-system .compact-warning { margin:0.7rem 0; padding:0.65rem 0.8rem; border-left:3px solid #98731e; background:#fbf7ed; color:#624b16; line-height:1.5; font-size:0.9rem; }
+.compact-outcomes { margin:0.65rem 0; border:1px solid #dce5e9; border-radius:10px; overflow:hidden; }
+.compact-outcome { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0.5rem; padding:0.6rem 0.85rem; line-height:1.45; }
+.compact-outcome + .compact-outcome { border-top:1px solid #e3eaee; }
+.compact-outcome strong { text-align:right; overflow-wrap:anywhere; }
+.compact-outcome small { grid-column:1/-1; color:#8a481d; }
+.compact-outcome.above { background:#fff5ed; }
+.compact-outcome.incomplete { color:#66582f; }
+.compact-next { margin:1rem 0; font-weight:600; }
+.optional-help { margin:0.8rem 0; }
+@media(max-width:600px) { .home-shell .home-interaction-grid .input-row { flex-direction:row; } .home-shell .home-interaction-grid .input-row button { width:auto; padding-inline:12px; } }

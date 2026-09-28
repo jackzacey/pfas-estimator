@@ -701,8 +701,7 @@
       const value = status.maximum == null ? (zh ? "无年度平均值" : "No yearly average") : status.maximum === 0 ? (zh ? "低于报告限值；计算按零计" : "Below reporting level; coded zero for averaging") : `${status.maximum} ${o.key === "hi" ? (zh ? "（无单位指数）" : "(unitless index)") : `µg/L × 1,000 = ${formatAverage(status.maximum)}`}`;
       return `<details class="evidence-outcome"><summary>${escapeHtml(o.key === "hi" ? (zh ? "混合物指数" : "Mixture index") : o.label)} — ${escapeHtml(formatOutcomeValue(o,status))}</summary><p>${escapeHtml(value)}</p><p>${zh ? "最高值对应采样点数" : "Locations sharing this maximum"}: ${matching.length}${matching.length > 5 ? (zh ? "（下列显示前5个）" : " (first 5 shown below)") : ""}</p><ul>${examples}</ul></details>`;
     }).join("");
-    return `<div class="coverage-note"><strong>${zh ? "可计算年度比较的采样点 / 归档采样点" : "Locations with a complete yearly comparison / archived locations"}</strong><p>${escapeHtml(summaries)}</p></div>
-      <details class="compound-results-details result-evidence"><summary>${zh ? "这些数字的来源和计算方式" : "How these numbers were produced"}</summary>
+    return `<details class="compound-results-details result-evidence"><summary>${zh ? "采样覆盖与数据来源" : "Sampling coverage and sources"}</summary><div class="coverage-note"><strong>${zh ? "可计算年度比较的采样点 / 归档采样点" : "Locations with a complete yearly comparison / archived locations"}</strong><p>${escapeHtml(summaries)}</p></div>
       <p>${zh ? "采用EPA于2026年1月发布的采样点年度平均值；每种物质显示各点最高平均值。不同物质可能来自不同点，不能相加为总浓度。" : "We use EPA’s January 2026 sampling-location yearly averages and display the highest for each chemical. Different chemicals can come from different locations; these maxima cannot be added into a total concentration."}</p>
       <p>${zh ? "以下日期是该采样点该物质的源记录日期，不是EPA平均值所用记录的已核实清单。EPA汇总文件未列出确切纳入样本；替换记录和舍入可能影响重新计算。" : "Dates below describe source records at that location for that chemical, not a verified list of samples included in EPA’s average. The EPA summary does not identify the exact retained samples; replacement records and rounding can affect reconstruction."}</p>
       <p>${zh ? "低于报告限值的样本在平均值中按零计，但不是测得浓度为零。显示保留EPA导出值的精度，不推断额外有效位。" : "Below-reporting-level samples count as zero in the average but are not measured zeros. We retain the precision of EPA’s exported average rather than infer extra digits."}</p>${details}
@@ -730,7 +729,6 @@
       : detectedOutcomes.length
         ? (isZh ? "样本中检出了PFAS。在资料足够的年度比较中，没有达到或超过本研究比较水平的结果。" : "PFAS were found in the samples. Where enough samples were available, no yearly comparison reached or exceeded the study level.")
         : (isZh ? "在资料完整的结果中，本页五种PFAS均未达到EPA报告限值。更低浓度仍可能存在。" : "In the results with complete sampling, the five PFAS shown were not detected at or above EPA reporting limits. Smaller amounts may still have been present.");
-    const detailsLabel = isZh ? "供水系统详情" : "Water-system details";
     const featuredOutcomes = OUTCOMES
       .filter(outcome => outcome.key !== "hi")
       .map(outcome => ({ outcome, status: outcomeStatus(system, outcome) }))
@@ -739,34 +737,51 @@
     const featuredMarkup = featuredOutcomes.length
       ? `<div class="compound-education-list">${featuredOutcomes.map(item => renderCompoundEducationCard(system, item.outcome)).join("")}</div>`
       : "";
-    return `<article class="detail-box system-summary-card water-system-card ${above ? "has-comparison" : ""}">
+    const compactRows = OUTCOMES.map(outcome => {
+      const status = outcomeStatus(system, outcome);
+      const label = outcome.key === "hi" ? (isZh ? "混合物指数（无单位）" : "Mixture index (unitless)") : outcome.label;
+      return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "达到研究基准" : "At or above study benchmark"}</small>` : ""}</div>`;
+    }).join("");
+    const shortFinding = above
+      ? (isZh ? "至少一项可用结果达到研究基准。" : "At least one available result reaches the study benchmark.")
+      : !complete
+        ? (isZh ? "样本不足，无法进行年度比较。" : "Not enough samples for a yearly comparison.")
+        : detectedOutcomes.length
+          ? (isZh ? "可用的年度比较均低于研究基准。" : "Available yearly comparisons are below the study benchmarks.")
+          : (isZh ? "完整样本中未检出本页五种PFAS；不代表含量为零。" : "The five PFAS shown were not detected in complete samples; this does not mean zero.");
+    const age = samplingAgeNotice(system);
+    const shortAge = age.includes("over a year old") || age.includes("超过一年")
+      ? (isZh ? "最新样本已超过一年。" : "Newest sample is over a year old.")
+      : age.includes("historical results") || age.includes("所列日期")
+        ? (isZh ? "历史检测，不代表今天的水质。" : "Historical tests, not today's water.") : age;
+    const direct = providerLinks[String(system.pwsid)];
+    const nextLink = direct
+      ? `<a href="${escapeHtml(direct.report_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(direct.name)} — ${direct.report_year} ${isZh ? "水质报告" : "water-quality report"} →</a>`
+      : `<a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${isZh ? "查找更新的官方结果 →" : "Check newer official results →"}</a>`;
+    return `<article class="detail-box system-summary-card water-system-card compact-system ${above ? "has-comparison" : ""}">
       <header class="system-summary-head">
-        <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} ${currentLang === "zh" ? "供水系统" : "WATER SYSTEM"}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3><p>PWSID ${escapeHtml(system.pwsid)}</p></div>
+        <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} · PWSID ${escapeHtml(system.pwsid)}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3></div>
         <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
       </header>
-
       ${renderAssociationReview(system)}
-      <div class="system-fact-strip">
-        <span><strong>${isZh ? "检测日期" : "When samples were taken"}</strong>${escapeHtml(formatMonitoringPeriod(system))}</span>
-      </div>
-      <p class="water-system-match"><strong>${escapeHtml(samplingAgeNotice(system))}</strong></p>
-      <div class="consumer-no-detections"><p>${finding}</p>${!allIndividualComplete ? `<p>${isZh ? "部分采样点或化学物质的比较不可用，或覆盖未经核实。缺失比较不能视为低于基准。" : "Some location or chemical comparisons are unavailable, or coverage has not been verified. Missing comparisons cannot be treated as below benchmark."}</p>` : ""}</div>
-      <p class="water-system-match">${isZh ? "这些样本采自处理后的水进入管网的位置。它们不能说明您家水龙头的PFAS浓度、您的个人暴露或健康风险，也不能确定是否符合现行饮用水规定。" : "These samples were taken where treated water enters the pipe network. They cannot tell us the PFAS level at your faucet, your personal exposure or health risk, or whether the water meets current drinking-water rules."}</p>
-      ${renderOfficialRecords(system)}
-      <details class="compound-results-details"><summary>${isZh ? "确认供水机构和最新信息" : "Confirm this provider and current information"}</summary>${renderProviderHelp(system)}${renderResultNextStep()}</details>
-      <p class="water-system-match">${isZh ? "下方每个浓度数字都是该系统各采样点年度平均值中的最高值。比较水平是基于2024年4月EPA水平的研究基准，不是现行标准。" : "Each concentration below is the highest yearly average across this system’s testing locations. Comparison levels are research benchmarks based on April 2024 EPA levels, not current drinking-water standards."} <a href="#lookup-number-guide">${isZh ? "数字说明" : "How the numbers work"}</a></p>
+      <p class="compact-dates">${isZh ? "采样" : "Sampled"}: ${escapeHtml(formatMonitoringPeriod(system))}. ${escapeHtml(shortAge)}</p>
+      <p class="compact-finding">${shortFinding}</p>
+      ${!allIndividualComplete ? `<p class="compact-warning">${isZh ? "部分比较缺失或未经核实。缺失比较不能视为低于基准。" : "Some comparisons are missing or unverified. Missing comparisons cannot be treated as below benchmark."}</p>` : ""}
+      <p class="compact-caption">${isZh ? "各采样点中的最高年度平均值 · 五种PFAS与混合物指数" : "Highest yearly averages across locations · five PFAS and a mixture index"}</p>
+      <div class="compact-outcomes">${compactRows}</div>
+      <p class="compact-caption">${isZh ? "“低于”指低于报告限值，不代表含量为零。" : "“Below” means below the reporting limit, not zero."}</p>
+      <p class="compact-limit">${isZh ? "历史供水系统记录，不代表您家水龙头的检测，也不能判定安全或合规。" : "Historical system records—not a home tap test or a safety/compliance verdict."}</p>
+      <p class="compact-next">${nextLink}</p>
+      <details class="compound-results-details result-chemistry"><summary>${isZh ? "比较水平与化学物质说明" : "Benchmarks and chemical details"}</summary>
+        <p>${isZh ? "基准是基于2024年4月EPA水平的固定研究比较，不是现行标准。" : "Benchmarks are fixed research comparisons based on April 2024 EPA levels, not current standards."}</p>
+        <p>${finding}</p>${featuredMarkup}${renderHazardIndexEducation(system)}
+        <div class="compound-result-list">${renderOutcomeList(system, featuredOutcomes.map(item => item.outcome.key))}</div>
+        <p><a href="/methodology/#outcomes">${isZh ? "包含哪些化学物质及其局限 →" : "Chemical coverage and limitations →"}</a></p>
+      </details>
       ${renderEvidence(system)}
-      ${featuredMarkup}
-      ${renderHazardIndexEducation(system)}
-      <div class="compound-result-list">${renderOutcomeList(system, featuredOutcomes.map(item => item.outcome.key))}</div>
-      <p class="water-system-match">${isZh ? "本页显示五种PFAS和一个混合物指数，不是全部PFAS或总浓度。" : "This shows five individual PFAS and a mixture index, not all PFAS or a total concentration."} <a href="/methodology/#outcomes">${isZh ? "包含哪些化学物质及其局限 →" : "Which chemicals are included and why →"}</a></p>
-      <details class="compound-results-details">
-        <summary>${detailsLabel}</summary>
-        <div class="system-fact-strip">
-          <span><strong>${text("populationServed")}</strong>${formatInteger(system.population_served_count)}</span>
-          <span><strong>${text("source")}</strong>${escapeHtml(system.primary_source_desc || text("notReported"))}</span>
-          <span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span>
-        </div>
+      <details class="compound-results-details"><summary>${isZh ? "供水机构详情与官方链接" : "Provider details and official links"}</summary>${renderProviderHelp(system)}${renderOfficialRecords(system)}${renderResultNextStep()}
+        <p>${escapeHtml(age)}</p>
+        <div class="system-fact-strip"><span><strong>${text("populationServed")}</strong>${formatInteger(system.population_served_count)}</span><span><strong>${text("source")}</strong>${escapeHtml(system.primary_source_desc || text("notReported"))}</span><span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span></div>
       </details>
     </article>`;
   }
@@ -1012,7 +1027,7 @@
         ? " 此邮编的部分错误关联已移除；供水机构列表仍可能不完整。"
         : " Incorrect associations have been removed for this ZIP; the provider list may still be incomplete.";
     }
-    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? renderFilterGuide() : ""}<div id="lookup-number-guide">${renderResultBoundary(systems)}</div>`;
+    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? `<details class="compound-results-details optional-help"><summary>${currentLang === "zh" ? "考虑使用过滤器？" : "Considering a filter?"}</summary>${renderFilterGuide()}</details>` : ""}<details class="compound-results-details optional-help" id="lookup-number-guide"><summary>${currentLang === "zh" ? "数字说明与常见问题" : "What the numbers mean"}</summary>${renderResultBoundary(systems)}</details>`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
