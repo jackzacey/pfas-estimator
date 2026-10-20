@@ -120,9 +120,10 @@ def build(raw, sdwis_zip, output, epa_averages):
     module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
     sdwis, _, _ = module.read_sdwis(sdwis_zip)
     metadata, observations, dates, system_events, sizes, periods = {}, defaultdict(lambda: defaultdict(dict)), defaultdict(set), defaultdict(set), {}, defaultdict(set)
+    sample_detections = defaultdict(list)
     source_rows, target_rows, duplicate_rows, extra_events = 0, 0, 0, 0
     with source.open(encoding='cp1252', newline='') as f:
-        for r in csv.DictReader(f, delimiter='\t'):
+        for source_line, r in enumerate(csv.DictReader(f, delimiter='\t'), start=2):
             source_rows += 1
             if r['Contaminant'] not in CHEMICALS:
                 continue
@@ -150,6 +151,8 @@ def build(raw, sdwis_zip, output, epa_averages):
             observations[key][chem][code] = pair
             extra_events += code not in expected_events(r['FacilityWaterType'])
             date = datetime.strptime(r['CollectionDate'], '%m/%d/%Y').date().isoformat()
+            if chem in CHEMICALS[:5] and sign == '=' and value > 0:
+                sample_detections[key].append([CHEMICALS.index(chem), float(value * 1000), date, r['SampleID'], code, source_line])
             dates[(*key, chem)].add(date)
             periods[r['PWSID']].add(date)
             system_events[r['PWSID']].add((key[1], key[2], code, date))
@@ -186,7 +189,10 @@ def build(raw, sdwis_zip, output, epa_averages):
         ps = []
         for chem in CHEMICALS:
             ds = sorted(dates.get((*key,chem),set())); ps.append([ds[0],ds[-1]] if ds else None)
-        evidence[pwsid].append([facility,point,meta['FacilityName'],meta['SamplePointName'],row_number,[o[:3] for o in outcomes],ps])
+        # Keep every raw detection at a location whose chemical annual average
+        # is incomplete; never substitute a sample value for that average.
+        samples = [d for d in sample_detections[key] if not outcomes[d[0]][1]]
+        evidence[pwsid].append([facility,point,meta['FacilityName'],meta['SamplePointName'],row_number,[o[:3] for o in outcomes],ps,samples])
         location_rows.append(row)
     row_validation=validate_official(epa_averages,location_rows)
     for s in systems.values():
@@ -214,7 +220,7 @@ def build(raw, sdwis_zip, output, epa_averages):
     loc_path=output/'website_location_averages.csv'
     with loc_path.open('w',newline='') as f:
         w=csv.DictWriter(f,fieldnames=list(location_rows[0]));w.writeheader();w.writerows(location_rows)
-    write(output/'lookup-evidence.json',{'release_id':RELEASE,'lookup_sha256':digest(output/'website_lookup_compact.json'),'source_sha256':digest(loc_path),'occurrence_sha256':digest(source),'outcomes':KEYS,'date_chemicals':CHEMICALS,'columns':['facility_id','sample_point_id','facility_name','sample_point_name','source_csv_line','outcomes_present_full_average','occurrence_date_ranges'],'date_scope':'Dates of final UCMR source records at each location and chemical.','systems':dict(sorted(evidence.items()))})
+    write(output/'lookup-evidence.json',{'release_id':RELEASE,'lookup_sha256':digest(output/'website_lookup_compact.json'),'source_sha256':digest(loc_path),'occurrence_sha256':digest(source),'outcomes':KEYS,'date_chemicals':CHEMICALS,'columns':['facility_id','sample_point_id','facility_name','sample_point_name','source_csv_line','outcomes_present_full_average','occurrence_date_ranges','incomplete_annual_sample_detections'],'sample_detection_columns':['chemical_index','concentration_ppt','collection_date','sample_id','sample_event','occurrence_source_csv_line'],'sample_detection_scope':'Positive reported samples for the five displayed individual PFAS at locations without a complete chemical annual average. All matching source rows retained, including any duplicate source records; not annual averages or state monitoring.','date_scope':'Dates of final UCMR source records at each location and chemical.','systems':dict(sorted(evidence.items()))})
     write(output/'website_monitoring_periods.json',{'release_id':RELEASE,'columns':['pwsid','monitoring_start','monitoring_end','monitoring_years','sampling_event_count'],'systems':[[i,min(periods[i]),max(periods[i]),','.join(sorted({d[:4] for d in periods[i]})),len(system_events[i])] for i in sorted(systems)]})
     summaries=[]
     for state in sorted({s['sdwis_state_code'] for s in systems.values() if s['primary_occurrence_cohort']}):

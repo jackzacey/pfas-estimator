@@ -716,20 +716,38 @@
       <p>${zh ? "来源行对应归档文件" : "Source rows refer to the archived file"}: website_location_averages.csv. ${zh ? "研究快照" : "Website release"}: August 2026.</p></details>`;
   }
 
+  function incompleteSampleDetections(system) {
+    // Evidence was validated and pinned before rendering; no state results are merged.
+    return (evidenceById.get(String(system.pwsid)) || []).flatMap(r =>
+      (r[7] || []).map(d => ({label:OUTCOMES[d[0]].label, value:d[1], date:d[2],
+        sampleId:d[3], event:d[4], sourceLine:d[5], facility:r[0], point:r[1], name:r[2]})));
+  }
+
+  function renderIncompleteSamples(system) {
+    const samples = incompleteSampleDetections(system);
+    if (!samples.length) return "";
+    const zh = currentLang === "zh";
+    const rows = samples.map(d => `<li><strong>${escapeHtml(d.label)}: ${escapeHtml(String(d.value))} ppt</strong> · ${escapeHtml(d.date)} · ${escapeHtml(d.name)} (${escapeHtml(d.facility)} / ${escapeHtml(d.point)})<br><small>${zh ? "样本编号" : "Sample ID"}: ${escapeHtml(d.sampleId)} · ${escapeHtml(d.event)} · UCMR5_All.txt ${zh ? "行" : "line"} ${d.sourceLine}</small></li>`).join("");
+    return `<section class="coverage-note incomplete-sample-context"><strong>${zh ? "年度比较不完整的采样点检出了PFAS" : "PFAS detected at locations without a complete yearly comparison"}</strong><p>${zh ? "以下为历史单次样本，不是年度平均值。这些结果不纳入上方完整年度平均值，也不代表今天的家庭水质或合规情况。" : "These are historical individual samples, not yearly averages. They are excluded from the complete yearly averages above and do not establish today's household water quality or compliance."}</p><details><summary>${zh ? "查看样本来源记录" : "View source sample records"} (${samples.length})</summary><ul>${rows}</ul></details></section>`;
+  }
+
   function renderSystem(system) {
     const above = Number(system.any_system_above_mcl_comparison) === 1;
     const complete = Number(system.any_system_full_set) === 1;
     const detectedOutcomes = OUTCOMES
       .filter(outcome => outcome.key !== "hi")
       .filter(outcome => (numericAverage(outcome, outcomeStatus(system, outcome)) || 0) > 0);
+    const sampleDetections = incompleteSampleDetections(system);
     const isZh = currentLang === "zh";
     const allIndividualComplete = system._comparisonCoverage?.all === true;
-    const headline = above || detectedOutcomes.length
+    const headline = above || detectedOutcomes.length || sampleDetections.length
       ? (isZh ? "检出了PFAS" : "PFAS were found")
       : !allIndividualComplete
         ? (isZh ? "检测数据不完整" : "Testing data are incomplete")
         : (isZh ? "完整样本中未检出" : "No detections in complete samples");
-    const finding = !complete && !above && !detectedOutcomes.length
+    const finding = sampleDetections.length && !above
+      ? (isZh ? "年度比较不完整的采样点存在PFAS检出结果；单次样本与下方完整年度结果分开显示。" : "PFAS were detected at locations without complete yearly comparisons; individual samples are shown separately from the complete annual results.")
+      : !complete && !above && !detectedOutcomes.length
       ? (isZh ? "规定样本不足，无法进行年度比较。我们无法根据缺失的结果判断是否存在PFAS。" : "There are not enough required samples for a yearly comparison. Missing results cannot tell us whether PFAS were present.")
       : above
       ? (isZh ? "至少一项化学物质或混合物的年度平均值高于EPA比较水平。下方可查看具体结果。" : "At least one chemical or mixture yearly average was above an April 2024 EPA comparison level. The results below show which ones.")
@@ -749,7 +767,9 @@
       const label = outcome.key === "hi" ? (isZh ? "混合物指数（无单位）" : "Mixture index (unitless)") : outcome.label;
       return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "高于EPA比较水平" : "Above EPA comparison level"}</small>` : ""}</div>`;
     }).join("");
-    const shortFinding = above
+    const shortFinding = sampleDetections.length && !above
+      ? (isZh ? "部分采样点检出了PFAS，但该物质的年度样本不足。请同时查看完整年度平均值和单次样本。" : "Some locations had PFAS detections but insufficient samples for that chemical's yearly average. Review both the complete annual averages and individual samples.")
+      : above
       ? (isZh ? "至少一项可用结果高于EPA比较水平。" : "At least one available yearly average is above an EPA comparison level.")
       : !complete
         ? (isZh ? "样本不足，无法进行年度比较。" : "Not enough samples for a yearly comparison.")
@@ -777,6 +797,7 @@
       <p class="compact-caption">${isZh ? "各采样点中的最高年度平均值 · 五种PFAS与混合物指数" : "Highest yearly averages across locations · five PFAS and a mixture index"}</p>
       <div class="compact-outcomes">${compactRows}</div>
       <p class="compact-caption">${isZh ? "“低于”指低于报告限值，不代表含量为零。" : "“Below” means below the reporting limit, not zero."}</p>
+      ${renderIncompleteSamples(system)}
       <p class="compact-limit">${isZh ? "历史供水系统记录，不代表您家水龙头的检测，也不能判定安全或合规。" : "Historical system records—not a home tap test or a safety/compliance verdict."}</p>
       <p class="compact-next">${nextLink}</p>
       <details class="compound-results-details result-chemistry"><summary>${isZh ? "比较水平与化学物质说明" : "Benchmarks and chemical details"}</summary>
@@ -833,6 +854,8 @@
         const status = outcomeStatus(system, outcome);
         return `${outcome.label}: ${formatOutcomeValue(outcome, status)}; ${status.label}`;
       }).join(" | ");
+      const samples = incompleteSampleDetections(system);
+      if (samples.length) lines.push(`${system.ucmr_pws_name}: ${samples.length} source sample records contain detections at locations lacking complete chemical annual averages. Examples: ${samples.slice(0,5).map(d => `${d.label} ${d.value} ppt; ${d.date}; facility ${d.facility}; point ${d.point}; sample ${d.sampleId}`).join(" | ")}. These are individual historical samples, excluded from complete annual summaries, not annual exceedances or separately collected state monitoring records.`);
       lines.push(`Comparison coverage across all six outcomes and archived locations: ${system._comparisonCoverage?.all ? "complete" : "incomplete or unverified"}.`);
       lines.push(`${system.ucmr_pws_name} (PWSID ${system.pwsid}, ${system.sdwis_state_code}; sampling period ${formatMonitoringPeriod(system)}): ${outcomes}`);
     });
@@ -1032,7 +1055,7 @@
       .some(outcome => (numericAverage(outcome, outcomeStatus(system, outcome)) || 0) > 0)).length;
     const hasAnyDisplayedDetection = systems.some(system => OUTCOMES
       .filter(outcome => outcome.key !== "hi")
-      .some(outcome => (numericAverage(outcome, outcomeStatus(system, outcome)) || 0) > 0));
+      .some(outcome => (numericAverage(outcome, outcomeStatus(system, outcome)) || 0) > 0) || incompleteSampleDetections(system).length > 0);
     result.className = aboveCount ? "result found-above" : "result found-below";
     title.textContent = text("associatedTitle")(systems.length, zip);
     context.textContent = text("associatedContext")(aboveCount, systems.length, detectedSystemCount);
@@ -1072,7 +1095,7 @@
       const evidenceText = await evidenceResponse.text();
       const evidenceDigest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(evidenceText));
       const evidenceHash = Array.from(new Uint8Array(evidenceDigest), v => v.toString(16).padStart(2, "0")).join("");
-      if (evidenceHash !== "8155dab0ba01fdac03ec2de5e0ca07e51f3b2673c91287ddeca8824958c324a6") throw new Error("Evidence checksum does not match");
+      if (evidenceHash !== "66676706b9f2aac3f32725cacdb3210ae9dd391c1a0151d8352970c3f49e1c37") throw new Error("Evidence checksum does not match");
       const evidence = PFASLookupEvidence.validate(JSON.parse(evidenceText), release, release.source_lookup_sha256);
       evidenceById = new Map(Object.entries(evidence.systems));
       providerLinks = (await linksResponse.json()).systems;
