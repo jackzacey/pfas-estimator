@@ -29,12 +29,12 @@
     "url": "https://pfasestimator.org/methodology/",
     "name": "How PFAS Estimator Works | Methods & Limitations",
     "description": "Plain-language website guidance and full methods for the PFAS Estimator UCMR 5 January 2026 system-level analysis release.",
-    "dateModified": "2026-09-21",
+    "dateModified": "2026-10-19",
     "author": {"@type": "Person", "name": "Jack Zhang"}
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -64,7 +64,7 @@
       <div class="methodology-meta" aria-label="Methodology status">
         <span><strong>Website data</strong> EPA UCMR 5</span>
         <span><strong>Main unit</strong> Water system</span>
-        <span><strong>Results through</strong> January 15, 2026</span>
+        <span><strong>Website data</strong> Final UCMR 5, August 2026</span>
         <span><strong>Research status</strong> Preliminary</span>
       </div>
     </header>
@@ -86,7 +86,8 @@
       </aside>
 
       <main class="methodology-content" id="methodology-content">
-        <section class="methodology-section" id="overview">
+        <aside class="result-boundary"><h2>Website data update — October 19, 2026</h2><p>The ZIP lookup, map, state table, and state pages now use the final EPA UCMR 5 dataset released in August 2026. We reconstruct complete sampling-location averages from the final sample records, apply EPA’s significant-digit rounding, and display the highest location average for each system and chemical. Samples below reporting limits count as zero only in those calculations.</p><p>All 28 system-count checks match EPA’s final July 2026 comparison table. A record-by-record comparison with the Data Finder export is documented in the <a href="/analysis/exports/ucmr5_final_aug2026_v1/validation_report.json">website validation report</a>. These data describe historical monitoring, not current household water quality or legal compliance. ZIP links remain candidate provider associations.</p><p>System attributes use the August 12, 2026 SDWIS snapshot. Any demographic or boundary context remains from the archived research. The scientific study and its results below remain on the separate January 2026 release; they have not been rerun with the final data.</p></aside>
+<section class="methodology-section" id="overview">
           <div class="methodology-section-heading">
             <span class="methodology-section-number">01</span>
             <div>
@@ -98,7 +99,7 @@
           <ol class="pipeline-list consumer-method-steps">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
             <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the sampling period and results</h3><p>Each water-system card shows when EPA monitored that system. For each PFAS, the card reports the highest yearly average among the system’s EPA sampling locations. These are system monitoring results, not measurements from household faucets.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the study benchmark</h3><p>This label compares a complete yearly average with a fixed, unrounded research cutoff. The cutoff reproduces EPA’s January 2026 technical-assistance classification, which was based on the April 2024 federal levels. It is not a current federal or state standard, and the label is not a compliance finding.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the EPA comparison</h3><p>This label follows EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels and EPA rounding rules. It is not a current federal or state standard, and the label is not a compliance finding.</p></div></li>
           </ol>
 
           <div class="interpretation-grid consumer-answer-grid">
@@ -114,12 +115,12 @@
             <span class="methodology-section-number">02</span>
             <div>
               <h2>Authoritative sources and fixed research release</h2>
-              <p>Every public number comes from the same dated, versioned analysis.</p>
+              <p>The website and research use separate dated releases, with the sources and validation for each identified here.</p>
             </div>
           </div>
 
           <ul class="source-list">
-            <li><strong>PFAS monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
+            <li><strong>Website monitoring:</strong> final EPA UCMR 5 occurrence files and the unfiltered Average PFAS Results table downloaded October 19, 2026. All 160,223 average-result rows match for presence, completeness, displayed averages, and technical-comparison flags.</li><li><strong>Archived research monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
             <li><strong>System characteristics:</strong> EPA SDWIS Federal Reporting Services.</li>
             <li><strong>Service areas:</strong> EPA Public Water System Service Areas version 3, including system-sourced and modeled boundaries.</li>
             <li><strong>Demographics:</strong> 2020–2024 American Community Survey block-group estimates and Census Planning Database urban/rural fields.</li>
@@ -127,17 +128,17 @@
           </ul>
 
           <div class="methodology-note">
-            <strong>Fixed release.</strong> Manuscript tables and website records come from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. The browser does not recalculate them. Recorded hashes identify the exact inputs and outputs, so a later data refresh cannot silently change these results. <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View the archived data, code, and release record (DOI) →</a>
+            <strong>Fixed release.</strong> Manuscript tables and archived research records come from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. The browser does not recalculate them. Recorded hashes identify the exact inputs and outputs, so a later data refresh cannot silently change these results. <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View the archived data, code, and release record (DOI) →</a>
           </div>
 
-          <p>EPA described the January 2026 file as containing approximately 95% of expected UCMR 5 results. EPA released the final UCMR 5 dataset in August 2026. The submitted manuscript and this research release still use the January snapshot. The final federal data are available through EPA’s Data Finder, but they are not substituted into this fixed analysis.</p>
+          <p>EPA described the January 2026 file as containing approximately 95% of expected UCMR 5 results. EPA released the final UCMR 5 dataset in August 2026. The submitted manuscript and the research analysis below still use the January snapshot; the public lookup and state summaries use the final dataset. The final federal data are available through EPA’s Data Finder, but they are not substituted into this fixed analysis.</p>
         </section>
 
         <section class="methodology-section" id="cohort">
           <div class="methodology-section-heading">
             <span class="methodology-section-number">03</span>
             <div>
-              <h2>Cohort construction and sampling design</h2>
+              <h2>Archived January research cohort and sampling design</h2>
               <p>The main analysis follows the federal monitoring design.</p>
             </div>
           </div>
@@ -191,7 +192,7 @@
           </div>
 
           <div class="methodology-note">
-            <strong>Policy timestamp.</strong> The April 2024 rule is the fixed scenario used in this release. EPA proposed in May 2026 to rescind provisions specific to PFHxS, PFNA, HFPO-DA, and mixture Hazard Index requirements. As checked August 14, 2026, that proposal was not treated as final. Rule status must be checked again at submission.
+            <strong>Policy timestamp.</strong> The April 2024 rule is the fixed scenario used in this release. EPA proposed in May 2026 to rescind provisions specific to PFHxS, PFNA, HFPO-DA, and mixture Hazard Index requirements. As checked October 19, 2026, EPA still describes this as a proposed rule. These historical comparisons are not current compliance findings.
           </div>
         </section>
 
@@ -259,7 +260,7 @@
             </div>
           </div>
 
-          <p>The ZIP lookup reads directly from the frozen scientific export. It finds water systems connected with the entered ZIP, identifies each system’s monitoring dates from the same frozen EPA occurrence file, and displays the EPA yearly averages. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
+          <p>The ZIP lookup reads the separately versioned final August 2026 website release. It finds candidate systems using the final EPA ZIP association file, identifies monitoring dates from the final occurrence records, and displays reconstructed location averages matched against EPA’s Data Finder table. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
 
           <p>The PFAS Results Assistant is optional. The ZIP lookup itself does not use AI. When someone asks a question, the question and a short summary of the displayed water-system results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
 
@@ -342,7 +343,7 @@
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Website explanation updated September 12, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Website explanation updated October 19, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
       </main>
     </div>
   </div>

@@ -16,13 +16,13 @@ vm.runInContext(source.slice(0, source.indexOf(startup)) + `
   globalThis.subject = {
     OUTCOMES, samplingAgeNotice, renderProviderHelp, renderOfficialRecords,
     renderPrivateWellGuidance, renderSystem, renderOutcomeList, renderResultBoundary,
-    outcomeStatus, formatOutcomeValue,
+    outcomeStatus, formatOutcomeValue, formatAverage,
     setLanguage(value) { currentLang = value; },
     setPeriods(rows) { monitoringById = new Map(rows.map(row => [String(row.pwsid), row])); }
   };
 })();`, context);
 const subject = context.subject;
-const readRelease = name => JSON.parse(fs.readFileSync(path.join(root, "analysis/exports/ucmr5_jan2026_v0_2", name), "utf8"));
+const readRelease = name => JSON.parse(fs.readFileSync(path.join(root, "analysis/exports/ucmr5_final_aug2026_v1", name), "utf8"));
 const hydrate = payload => payload.systems.map(row => Object.fromEntries(payload.columns.map((key, index) => [key, row[index]])));
 const systems = hydrate(readRelease("website_lookup_compact.json"));
 const periods = hydrate(readRelease("website_monitoring_periods.json"));
@@ -57,6 +57,13 @@ assert.match(subject.renderPrivateWellGuidance(), /private-drinking-water-well-p
 assert.doesNotMatch(subject.renderPrivateWellGuidance(), /Maine CDC/);
 assert.match(subject.renderPrivateWellGuidance([{ sdwis_state_code: "ME" }]), /Maine CDC/);
 
+for (const language of ["en", "zh"]) {
+  subject.setLanguage(language);
+  for (const value of [0.0008, 0.0004, 0.0005, 0.00001, 0.001, 0.5, 2]) {
+    assert.equal(Number(subject.formatAverage(value, true)), value, "A small nonzero Hazard Index must retain EPA precision");
+  }
+}
+subject.setLanguage("en");
 subject.setPeriods(periods);
 let found = 0, belowLimit = 0, incomplete = 0;
 for (const language of ["en", "zh"]) {
@@ -79,7 +86,12 @@ for (const language of ["en", "zh"]) {
       else if (status.belowReporting && outcome.key !== "hi") {
         belowLimit++;
         assert.match(row, language === "en" ? /not necessarily zero/ : /不等于零/);
-      } else found++;
+      } else {
+        found++;
+        const displayed = subject.formatOutcomeValue(outcome, status).replace(/,/g, "").replace(" ppt", "").replace(" (calculated)", "").replace("（计算值）", "");
+        const expected = Number(status.maximum) * (outcome.key === "hi" ? 1 : 1000);
+        assert.ok(Math.abs(Number(displayed) - expected) < 1e-10, `Displayed ${outcome.key} must retain the official average for ${system.pwsid}`);
+      }
     }
   }
 }

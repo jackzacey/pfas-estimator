@@ -318,11 +318,11 @@ Return ONLY valid JSON in this exact structure:
 {"header":"two sentences","summaries":[{"compound":"compound code","text":"two or three sentences"}]}
 
 Header rules:
-- Sentence 1 states how many compounds were reported and whether any displayed value is at or above the supplied frozen comparison cutoff.
+- Sentence 1 states how many compounds were reported and whether any displayed value is at or above the supplied unrounded comparison cutoff; describe a positive flag as above the April 2024 comparison level after EPA rounding.
 - Sentence 2 states that the result does not determine current compliance, a household tap concentration, personal exposure, or health risk.
 
 Each compound summary must explain how to read the monitoring result.
-- Lead with whether the specific concentration is at or above the supplied frozen comparison cutoff, or clearly state that no individual federal level is supplied.
+- Lead with whether the specific concentration is at or above the supplied unrounded comparison cutoff; describe a positive flag as above the April 2024 comparison level after EPA rounding, or clearly state that no individual federal level is supplied.
 - Present health evidence only as general research context, not as an interpretation of the user's exposure or risk.
 - Do not recommend filters, next steps, doctors, or other actions; those appear elsewhere on the page.
 - Do not call a result safe, unsafe, dangerous, compliant, noncompliant, or a violation.
@@ -404,7 +404,7 @@ function deterministicBoundaryReply(payload) {
     if (asksMedical) return "这项供水系统监测结果本身不能确定某人是否需要医疗护理。如有个人医疗问题，合格的医疗专业人员需要个人病史和适当的暴露信息，而不能只依据这项系统结果。\n\n资料：EPA和ATSDR的PFAS健康指南。";
     if (asksNoResultMeaning) return "没有显示结果并不表示水中没有PFAS，也不表示水是安全或不安全的。请先确认供水机构，然后查看其最新消费者信心报告或联系供水机构；私人水井不在此数据集中。\n\n资料：EPA UCMR 5和消费者信心报告指南。";
     if (asksSamplingLocation) return "UCMR 5样本采自进入配水系统的位置，而不是某个家庭的水龙头。因此结果代表供水系统监测，不代表特定住宅内的水。\n\n资料：EPA UCMR 5采样指南。";
-    if (asksCurrentData) return "本网站保留截至2026年1月15日收到的研究快照。EPA已于2026年8月发布最终UCMR 5数据集；最新信息请查看EPA数据查找器、供水机构和消费者信心报告。\n\n资料：EPA UCMR 5数据查找器。";
+    if (asksCurrentData) return "本网站使用EPA于2026年8月发布的最终UCMR 5数据集；最新信息请查看EPA数据查找器、供水机构和消费者信心报告。\n\n资料：EPA UCMR 5数据查找器。";
     return null;
   }
 
@@ -415,7 +415,7 @@ function deterministicBoundaryReply(payload) {
   if (asksMedical) return "This water-system monitoring result alone cannot determine whether someone needs medical care. For a personal medical concern, a qualified healthcare professional would need individual history and appropriate exposure information, not this system result alone.\n\nSource: EPA and ATSDR PFAS health guidance.";
   if (asksNoResultMeaning) return "No displayed result does not mean that PFAS is absent or that the water is safe or unsafe. First confirm the utility, then check its current Consumer Confidence Report or contact it directly; private wells are outside this dataset.\n\nSource: EPA UCMR 5 and Consumer Confidence Report guidance.";
   if (asksSamplingLocation) return "UCMR 5 samples were collected at entry points to the distribution system, not at an individual household faucet. The results therefore describe water-system monitoring, not the water inside a particular home.\n\nSource: EPA UCMR 5 sampling guidance.";
-  if (asksCurrentData) return "This site preserves a research snapshot of EPA results received through January 15, 2026. EPA released the final UCMR 5 dataset in August 2026; use the EPA Data Finder, the utility, and its Consumer Confidence Report for current information.\n\nSource: EPA UCMR 5 Data Finder.";
+  if (asksCurrentData) return "This site uses EPA’s final UCMR 5 dataset, released August 2026. Use the EPA Data Finder to cross-check federal records, and the utility or its Consumer Confidence Report for more recent local information.\n\nSource: EPA UCMR 5 Data Finder.";
   return null;
 }
 

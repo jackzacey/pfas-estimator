@@ -32,7 +32,7 @@ Object.entries(frozenHashes).forEach(([relative, expected]) => {
 });
 
 const approvedStyleHashes = {
-  "styles.css": "76db1be1366bcf2886fde57ec0e0e53e17bceebe7d98caa3442d887f09f7ca9d",
+  "styles.css": "f5b5d3724d121af1d92cc63183848c458a84af6bb5a69738ecd0c8d52e049dba",
   "scientific-site-v2.css": "2d6a139e20ee7170ea3ed47c61aee6902691f88aaa06c167164f020fb0951174",
 };
 Object.entries(approvedStyleHashes).forEach(([relative, expected]) => {

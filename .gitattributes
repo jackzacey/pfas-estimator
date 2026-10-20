@@ -1,0 +1,2 @@
+# Preserve validated CSV bytes and recognize their standard CRLF line endings.
+analysis/exports/ucmr5_final_aug2026_v1/website_location_averages.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

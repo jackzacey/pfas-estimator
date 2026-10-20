@@ -29,15 +29,15 @@
     if (language === "zh") {
       const safety = askedSafety ? "本网站不会把任何供水系统归类为“安全”或“不安全”。" : "";
       const result = atOrAbove.length
-        ? `页面显示的${systems.length}个供水系统中，有${atOrAbove.length}个至少一项完整PFAS年度平均值达到或超过2026年1月冻结的EPA技术援助分类阈值：${names.join("；")}。`
+        ? `页面显示的${systems.length}个供水系统中，有${atOrAbove.length}个至少一项完整PFAS年度平均值达到或超过EPA最终UCMR 5技术比较阈值：${names.join("；")}。`
         : `页面显示的${systems.length}个供水系统中，可用的年度比较中未发现达到研究基准的结果。`;
       return `${safety}${result} ${below.length}个系统的六项研究比较在所有归档采样点均可用，且均低于基准；${unresolved.length}个系统未发现达到基准的结果，但比较覆盖不完整或未经核实。${gaps.length}个系统存在覆盖缺口或覆盖未经核实（可能包括已达到基准的系统）。缺失比较不等于低于基准。邮政编码关联不能确定哪一个系统为您家供水，请与水费账单上的名称核对并查看供水机构的最新信息。\n\n资料：本页显示的EPA UCMR 5冻结研究数据。`;
     }
 
     const safety = askedSafety ? "This site does not classify any water system as safe or unsafe. " : "";
     const result = atOrAbove.length
-      ? `${atOrAbove.length} of ${systems.length} listed water systems had at least one yearly average at or above an EPA-based study benchmark: ${names.join("; ")}. `
-      : `No available yearly comparison was at or above a study benchmark. `;
+      ? `${atOrAbove.length} of ${systems.length} listed water systems had at least one yearly average above an EPA comparison level: ${names.join("; ")}. `
+      : `No available yearly comparison was above an EPA comparison level. `;
     return `${safety}${result}${below.length} systems had all six study comparisons available at every archived location and all were below benchmark. ${unresolved.length} had no above-benchmark finding but incomplete or unverified comparison coverage. Coverage is incomplete or unverified for ${gaps.length} systems overall, including any with an above-benchmark finding. Unavailable comparisons are not below-benchmark results; below a benchmark does not mean no PFAS. Match the system name to your water bill, then check the utility's current information.\n\nSource: dated EPA UCMR 5 research data shown on this page.`;
   }
 
@@ -65,7 +65,7 @@
       if (asksBelowReportingMeaning) return "“低于EPA报告限值”表示实验室结果低于UCMR 5可以定量报告的最低浓度。EPA在年度平均值计算中将这类结果按零计，但这不等于测得浓度为零，也不能证明PFAS不存在。\n\n资料：EPA UCMR 5报告和年度平均值指南。";
       if (asksCompleteMonitoringMeaning) return "“完整监测”表示该供水系统至少一个采样点具有计算年度平均值所需的全部规定样本。它不表示所有家庭都经过检测，也不表示供水系统安全或合规。\n\n资料：EPA UCMR 5年度平均值指南。";
       if (asksSamplingLocation) return "UCMR 5样本采自进入配水系统的位置，而不是某个家庭的水龙头。因此结果代表供水系统监测，不代表特定住宅内的水。\n\n资料：EPA UCMR 5采样指南。";
-      if (asksCurrentData) return "本网站保留截至2026年1月15日收到的研究快照。EPA已于2026年8月发布最终UCMR 5数据集；最新信息请查看EPA数据查找器、供水机构和消费者信心报告。\n\n资料：EPA UCMR 5数据查找器。";
+      if (asksCurrentData) return "本网站使用EPA于2026年8月发布的最终UCMR 5数据集；最新信息请查看EPA数据查找器、供水机构和消费者信心报告。\n\n资料：EPA UCMR 5数据查找器。";
       return null;
     }
 
@@ -78,7 +78,7 @@
     if (asksBelowReportingMeaning) return "“Below EPA reporting level” means the laboratory result was lower than the minimum concentration UCMR 5 reports as a number for that compound. EPA counts that result as zero when calculating the yearly average, but it is not a measured zero and does not prove that PFAS was absent.\n\nSource: EPA UCMR 5 reporting and yearly-average guidance.";
     if (asksCompleteMonitoringMeaning) return "“Complete monitoring” means at least one sampling location for the water system had all required samples needed to calculate a yearly average. It does not mean that every home was tested or that the system is safe or compliant.\n\nSource: EPA UCMR 5 yearly-average guidance.";
     if (asksSamplingLocation) return "UCMR 5 samples were collected at entry points to the distribution system, not at an individual household faucet. The results therefore describe water-system monitoring, not the water inside a particular home.\n\nSource: EPA UCMR 5 sampling guidance.";
-    if (asksCurrentData) return `This site preserves a research snapshot of EPA results received through January 15, 2026${hasSystems ? " for the systems displayed" : ""}. EPA released the final UCMR 5 dataset in August 2026; use the EPA Data Finder, the utility, and its Consumer Confidence Report for current information.\n\nSource: EPA UCMR 5 Data Finder.`;
+    if (asksCurrentData) return `This site uses EPA’s final UCMR 5 dataset, released August 2026${hasSystems ? " for the systems displayed" : ""}. Use the EPA Data Finder to cross-check federal records, and the utility or its Consumer Confidence Report for more recent local information.\n\nSource: EPA UCMR 5 Data Finder.`;
     return null;
   }
 

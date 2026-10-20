@@ -18,7 +18,7 @@
   <meta property="og:image" content="{{BASE_URL}}/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta name="twitter:card" content="summary_large_image" />
   <script type="application/ld+json">{{STRUCTURED_DATA_JSON}}</script>
-  <link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" />
 </head>
 <body class="state-detail-body">
   <a class="skip-link" href="#state-detail-content">Skip to state monitoring results</a>
@@ -36,7 +36,7 @@
       <nav class="breadcrumb" aria-label="Breadcrumb"><a href="{{BASE_URL}}/">PFAS Estimator</a><span aria-hidden="true">/</span><a href="{{BASE_URL}}/states/">Explore by state</a><span aria-hidden="true">/</span><span>{{STATE_NAME}}</span></nav>
       <div class="state-detail-kicker">State system profile</div>
       <h1>PFAS in {{STATE_NAME}} drinking water</h1>
-      <p class="state-detail-lede">This page summarizes active community water systems with enough required EPA UCMR 5 samples to calculate a yearly average. It uses results received through January 15, 2026.</p>
+      <p class="state-detail-lede">This page summarizes active community water systems with enough required EPA UCMR 5 samples to calculate a yearly average. It uses EPA’s final dataset released August 2026.</p>
       <div class="state-detail-meta" aria-label="State data scope">
         <span><strong>Source</strong> EPA UCMR 5</span>
         <span><strong>Period</strong> 2023&ndash;2025</span>
@@ -48,10 +48,10 @@
     <main class="state-detail-content" id="state-detail-content">
       <section class="state-detail-overview" aria-label="State summary">
         <div class="headline-stat">
-          <span class="headline-stat-label">Systems with a yearly average at or above an EPA-based study benchmark</span>
+          <span class="headline-stat-label">Systems with a yearly average above an EPA comparison level</span>
           <div class="big"><strong>{{PCT_ABOVE}}%</strong><span>{{ABOVE_SYSTEMS}} of {{ELIGIBLE_SYSTEMS}} active community water systems</span></div>
-          <p>All {{ELIGIBLE_SYSTEMS}} systems met the sampling requirement for a yearly average. Of those systems, {{ABOVE_SYSTEMS}} had at least one yearly average at or above a study benchmark and {{BELOW_SYSTEMS}} did not.</p>
-          <p><strong>EPA-based study benchmark:</strong> a fixed, unrounded research cutoff used to reproduce EPA’s January 2026 technical-assistance classification based on the April 2024 federal levels. It is not a current federal or state standard. The label does not determine compliance, household exposure, or health risk.</p>
+          <p>All {{ELIGIBLE_SYSTEMS}} systems met the sampling requirement for a yearly average. Of those systems, {{ABOVE_SYSTEMS}} had at least one yearly average above an EPA comparison level and {{BELOW_SYSTEMS}} did not.</p>
+          <p><strong>EPA-based study benchmark:</strong> a fixed, unrounded research cutoff used to reproduce EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels. It is not a current federal or state standard. The label does not determine compliance, household exposure, or health risk.</p>
           <p><strong>State rules:</strong> {{STATE_CONTEXT_NOTE}} {{STATE_CONTEXT_LINK}}</p>
         </div>
         <div class="state-detail-actions">
@@ -63,11 +63,11 @@
       </section>
 
       <section class="state-detail-panel state-section">
-        <div class="state-detail-section-heading"><div><span class="state-detail-section-label">Compound summary</span><h2>System counts in {{STATE_NAME}}</h2></div><p>Each count shows how many included water systems had a yearly average at or above the named study benchmark.</p></div>
+        <div class="state-detail-section-heading"><div><span class="state-detail-section-label">Compound summary</span><h2>System counts in {{STATE_NAME}}</h2></div><p>Each count shows how many included water systems had a yearly average above the named EPA comparison level.</p></div>
         <div class="state-detail-table-wrap">
           <table class="state-table state-detail-table">
-            <caption>Community water systems with yearly averages at or above the EPA-based study benchmarks used in the January 2026 research release for {{STATE_NAME}}.</caption>
-            <thead><tr><th scope="col">Study benchmark</th><th scope="col">Systems at or above benchmark</th><th scope="col">Water systems included</th><th scope="col">Percent</th></tr></thead>
+            <caption>Community water systems with yearly averages above the EPA comparison levels used in the final August 2026 website release for {{STATE_NAME}}.</caption>
+            <thead><tr><th scope="col">EPA rounding cutoff</th><th scope="col">Systems above comparison level</th><th scope="col">Water systems included</th><th scope="col">Percent</th></tr></thead>
             <tbody>{{COMPOUND_TABLE_ROWS}}</tbody>
           </table>
         </div>
@@ -78,7 +78,7 @@
         <div class="zip-table-wrap">
           <table class="state-table state-detail-table state-system-table">
             <caption>Active community water systems with complete UCMR 5 monitoring in {{STATE_NAME}}.</caption>
-            <thead><tr><th scope="col">Public water system</th><th scope="col">PWSID</th><th scope="col">Population served</th><th scope="col">Primary source</th><th scope="col">Sampling locations</th><th scope="col">Study benchmark result</th></tr></thead>
+            <thead><tr><th scope="col">Public water system</th><th scope="col">PWSID</th><th scope="col">Population served</th><th scope="col">Primary source</th><th scope="col">Sampling locations</th><th scope="col">EPA comparison result</th></tr></thead>
             <tbody>{{SYSTEM_TABLE_ROWS}}</tbody>
           </table>
         </div>
@@ -89,7 +89,7 @@
         <div><span class="state-detail-section-label">Continue exploring</span><h2>Related links</h2><p class="state-detail-links"><a href="{{BASE_URL}}/">PFAS Estimator system lookup</a><a href="{{BASE_URL}}/state-table/">National state comparison table</a><a href="{{BASE_URL}}/methodology/">Full methodology and limitations</a><a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code (DOI)</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Current EPA UCMR 5 Data Finder</a></p></div>
       </section>
 
-      <footer class="state-detail-footer"><p>EPA UCMR 5 results received through January 15, 2026. Technical comparisons are not compliance determinations. Data release {{RELEASE_ID}}. Archived at <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.21968954</a>. Not medical advice.</p></footer>
+      <footer class="state-detail-footer"><p>EPA UCMR 5 final dataset released August 2026. Technical comparisons are not compliance determinations. Data release {{RELEASE_ID}}. January research archive (separate dataset): <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">doi:10.5281/zenodo.21968954</a>. Not medical advice.</p></footer>
     </main>
   </div>
 </body>

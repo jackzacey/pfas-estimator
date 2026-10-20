@@ -5,7 +5,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const tools = require("../assistant-result-tools.js");
 
-const releasePath = path.join(__dirname, "..", "analysis", "exports", "ucmr5_jan2026_v0_2", "website_lookup_compact.json");
+const releasePath = path.join(__dirname, "..", "analysis", "exports", "ucmr5_final_aug2026_v1", "website_lookup_compact.json");
 const release = JSON.parse(fs.readFileSync(releasePath, "utf8"));
 const systems = release.systems.map(values => Object.fromEntries(release.columns.map((column, index) => [column, values[index]])));
 const systemsById = new Map(systems.map(system => [String(system.pwsid), system]));
@@ -63,7 +63,7 @@ assert.match(
 );
 assert.match(
   tools.answerBoundaryQuestion("Where can I find current official results?", zipSystems, "en"),
-  /final UCMR 5 dataset in August 2026/i
+  /final UCMR 5 dataset, released August 2026/i
 );
 assert.equal(tools.answerBoundaryQuestion("What is PFOA?", zipSystems, "en"), null);
 

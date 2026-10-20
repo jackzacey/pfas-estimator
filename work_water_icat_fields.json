@@ -1,0 +1,412 @@
+{
+  "name": "PWS_Complete_Table_2026_01_16.csv",
+  "description": "",
+  "maxRecordCount": 2000,
+  "fields": [
+    {
+      "name": "OBJECTID",
+      "alias": "OBJECTID",
+      "type": "esriFieldTypeOID"
+    },
+    {
+      "name": "Field1",
+      "alias": "Field1",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "PWS_NAME",
+      "alias": "PWS_NAME",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PWSID",
+      "alias": "PWSID",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "REGISTRY_ID",
+      "alias": "REGISTRY_ID",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "EPA_REGION",
+      "alias": "EPA_REGION",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "ZIP_CODE_SERVED",
+      "alias": "ZIP_CODE_SERVED",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "CITY_SERVED",
+      "alias": "CITY_SERVED",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "COUNTY_SERVED",
+      "alias": "COUNTY_SERVED",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "TRIBE_SERVED",
+      "alias": "TRIBE_SERVED",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "BIA_TRIBE_CODE",
+      "alias": "BIA_TRIBE_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "ANSI_ENTITY_CODE",
+      "alias": "ANSI_ENTITY_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PRIMACY_TYPE",
+      "alias": "PRIMACY_TYPE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PRIMACY_AGENCY",
+      "alias": "PRIMACY_AGENCY",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PWS_TYPE",
+      "alias": "PWS_TYPE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "OWNER_TYPE",
+      "alias": "OWNER_TYPE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SCHOOL_OR_DAYCARE",
+      "alias": "SCHOOL_OR_DAYCARE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "WHOLESALER",
+      "alias": "WHOLESALER",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SOURCE_WATER_TYPE",
+      "alias": "SOURCE_WATER_TYPE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "POPULATION_SERVED_COUNT",
+      "alias": "POPULATION_SERVED_COUNT",
+      "type": "esriFieldTypeDouble"
+    },
+    {
+      "name": "POPULATION_CATEGORY_SERVED",
+      "alias": "POPULATION_CATEGORY_SERVED",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SERVICE_CONNECTIONS_COUNT",
+      "alias": "SERVICE_CONNECTIONS_COUNT",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "COMP_PERIOD_BEGIN_FYQTR",
+      "alias": "COMP_PERIOD_BEGIN_FYQTR",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "VIOLATIONS_NON_RTC_COUNT",
+      "alias": "VIOLATIONS_NON_RTC_COUNT",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "VIOLATIONS_NON_RTC_COUNT_RANGE",
+      "alias": "VIOLATIONS_NON_RTC_COUNT_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "HBV_NON_RTC_COUNT",
+      "alias": "HBV_NON_RTC_COUNT",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "HBV_NON_RTC_COUNT_RANGE",
+      "alias": "HBV_NON_RTC_COUNT_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "HB_RULES_VIOL_NONRTC",
+      "alias": "HB_RULES_VIOL_NONRTC",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "HBV_COUNT_QTRS_5YRS",
+      "alias": "HBV_COUNT_QTRS_5YRS",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "HBV_COUNT_QTRS_5YRS_RANGE",
+      "alias": "HBV_COUNT_QTRS_5YRS_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "HB_RULES_VIOLATED_5YRS",
+      "alias": "HB_RULES_VIOLATED_5YRS",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "LCR_VIOL_NONRTC_COUNT",
+      "alias": "LCR_VIOL_NONRTC_COUNT",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "LCR_VIOL_NONRTC_COUNT_RANGE",
+      "alias": "LCR_VIOL_NONRTC_COUNT_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "LCR_VIOL_COUNT_QTRS_5YRS",
+      "alias": "LCR_VIOL_COUNT_QTRS_5YRS",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "LCR_VIOL_COUNT_QTRS_5YRS_RANGE",
+      "alias": "LCR_VIOL_COUNT_QTRS_5YRS_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "MR_VIOL_COUNT_QTRS_5YRS",
+      "alias": "MR_VIOL_COUNT_QTRS_5YRS",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "MR_VIOL_COUNT_QTRS_5YRS_RANGE",
+      "alias": "MR_VIOL_COUNT_QTRS_5YRS_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "FEA_VIOL_NONRTC_COUNT",
+      "alias": "FEA_VIOL_NONRTC_COUNT",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "FEA_VIOL_NONRTC_COUNT_RANGE",
+      "alias": "FEA_VIOL_NONRTC_COUNT_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "LEAD_ALE_5YRS_YN",
+      "alias": "LEAD_ALE_5YRS_YN",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "LEAD_ALE_COUNT_5YRS",
+      "alias": "LEAD_ALE_COUNT_5YRS",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "LEAD_ALE_COUNT_5YRS_RANGE",
+      "alias": "LEAD_ALE_COUNT_5YRS_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "LEAD_SAMPLE_COUNT_5YRS",
+      "alias": "LEAD_SAMPLE_COUNT_5YRS",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "LEAD_SAMPLE_COUNT_5YRS_RANGE",
+      "alias": "LEAD_SAMPLE_COUNT_5YRS_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SL_RPT_STATUS",
+      "alias": "SL_RPT_STATUS",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "NUM_GALVANIZED_REQUIRING_REPLACEMENT_SL",
+      "alias": "NUM_GALVANIZED_REQUIRING_REPLACEMENT_SL",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "NUM_LEAD_SERVICE_LINES",
+      "alias": "NUM_LEAD_SERVICE_LINES",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "NUM_LEAD_STATUS_UNKNOWN_SL",
+      "alias": "NUM_LEAD_STATUS_UNKNOWN_SL",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "NUM_NONLEAD_SERVICE_LINES",
+      "alias": "NUM_NONLEAD_SERVICE_LINES",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "TOTAL_NUM_SERVICE_LINES_REPORTED",
+      "alias": "TOTAL_NUM_SERVICE_LINES_REPORTED",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "ENF_PRIORITY_SYS",
+      "alias": "ENF_PRIORITY_SYS",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_OUTSTAND_PERFORM",
+      "alias": "SS_OUTSTAND_PERFORM",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_OUTSTAND_PERFORM_BEGIN_DATE",
+      "alias": "SS_OUTSTAND_PERFORM_BEGIN_DATE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "TRMT_4LOG_OR_GREATER",
+      "alias": "TRMT_4LOG_OR_GREATER",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_DATE_MOST_RECENT",
+      "alias": "SS_DATE_MOST_RECENT",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_SURVEY_OVERDUE",
+      "alias": "SS_SURVEY_OVERDUE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_VISIT_TYPE",
+      "alias": "SS_VISIT_TYPE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_SIGD_OR_SAND_INFRA_YN",
+      "alias": "SS_SIGD_OR_SAND_INFRA_YN",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SS_SIGD_OR_SAND_CAP_YN",
+      "alias": "SS_SIGD_OR_SAND_CAP_YN",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "MANAGEMENT_OPS_EVAL_CODE",
+      "alias": "MANAGEMENT_OPS_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SOURCE_WATER_EVAL_CODE",
+      "alias": "SOURCE_WATER_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "SECURITY_EVAL_CODE",
+      "alias": "SECURITY_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PUMPS_EVAL_CODE",
+      "alias": "PUMPS_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "OTHER_EVAL_CODE",
+      "alias": "OTHER_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "COMPLIANCE_EVAL_CODE",
+      "alias": "COMPLIANCE_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "DATA_VERIFICATION_EVAL_CODE",
+      "alias": "DATA_VERIFICATION_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "TREATMENT_EVAL_CODE",
+      "alias": "TREATMENT_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "FINISHED_WATER_STOR_EVAL_CODE",
+      "alias": "FINISHED_WATER_STOR_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "DISTRIBUTION_EVAL_CODE",
+      "alias": "DISTRIBUTION_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "FINANCIAL_EVAL_CODE",
+      "alias": "FINANCIAL_EVAL_CODE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "STATE_DWSRF_DAC",
+      "alias": "STATE_DWSRF_DAC",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "DWSRF_AWARDS_10YRS_COUNT",
+      "alias": "DWSRF_AWARDS_10YRS_COUNT",
+      "type": "esriFieldTypeInteger"
+    },
+    {
+      "name": "DWSRF_AWARDS_10YRS_COUNT_RANGE",
+      "alias": "DWSRF_AWARDS_10YRS_COUNT_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PWS_MHI_WEIGHT",
+      "alias": "PWS_MHI_WEIGHT",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PCT_LOWINC",
+      "alias": "PCT_LOWINC",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PCT_RURAL",
+      "alias": "PCT_RURAL",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PCT_UNEMPLY",
+      "alias": "PCT_UNEMPLY",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PCT_LOWINC_RANGE",
+      "alias": "PCT_LOWINC_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PCT_RURAL_RANGE",
+      "alias": "PCT_RURAL_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "PCT_UNEMPLY_RANGE",
+      "alias": "PCT_UNEMPLY_RANGE",
+      "type": "esriFieldTypeString"
+    },
+    {
+      "name": "DFR_URL",
+      "alias": "DFR_URL",
+      "type": "esriFieldTypeString"
+    }
+  ]
+}

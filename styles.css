@@ -2706,8 +2706,14 @@ button,
 
 .states-content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.25rem;
   margin-top: 1.5rem;
+}
+
+/* Let the filter rail scroll inside its card instead of widening the page. */
+.states-content > * {
+  min-width: 0;
 }
 
 .states-hero h1 {
@@ -3590,8 +3596,13 @@ button,
 
 .state-detail-content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
   margin-top: 1.5rem;
+}
+
+.state-detail-content > * {
+  min-width: 0;
 }
 
 .state-detail-overview {

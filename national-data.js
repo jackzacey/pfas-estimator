@@ -4,7 +4,7 @@
   const view = document.body.dataset.nationalView;
   if (view !== "map" && view !== "table") return;
 
-  const RELEASE_PATH = "/analysis/exports/ucmr5_jan2026_v0_2";
+  const RELEASE_PATH = "/analysis/exports/ucmr5_final_aug2026_v1";
   const STATE_DATA_URL = `${RELEASE_PATH}/website_state_summary.json`;
   const METADATA_URL = `${RELEASE_PATH}/website_metadata.json`;
   const STATE_NAMES = Object.freeze({
@@ -60,8 +60,8 @@
     const columns = [
       ["name", "State or territory"],
       ["eligible", "Systems with enough samples for a yearly average"],
-      ["above", "Systems at or above any study benchmark"],
-      ["pctAbove", "Percent at or above a study benchmark"],
+      ["above", "Systems above any EPA comparison level"],
+      ["pctAbove", "Percent above an EPA comparison level"],
       ["pfoa", "PFOA"],
       ["pfos", "PFOS"],
       ["hazard_index", "Hazard Index"],
@@ -130,10 +130,10 @@
   }
 
   function metricDescription(row, metric) {
-    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of community water systems with enough required samples for a yearly average had a result at or above an EPA-based study benchmark`;
+    if (metric === "pctAbove") return `${row.pctAbove.toFixed(1)}% of community water systems with enough required samples for a yearly average had a result above an EPA comparison level`;
     if (metric === "eligible") return `${row.eligible.toLocaleString()} active community water systems with enough required samples for a yearly average`;
-    if (metric === "above") return `${row.above.toLocaleString()} water systems had at least one yearly average at or above an EPA-based study benchmark`;
-    return `${Number(row[metric] || 0).toLocaleString()} water systems had a yearly average at or above the ${COMPOUND_LABELS[metric]} study benchmark`;
+    if (metric === "above") return `${row.above.toLocaleString()} water systems had at least one yearly average above an EPA comparison level`;
+    return `${Number(row[metric] || 0).toLocaleString()} water systems had a yearly average above the ${COMPOUND_LABELS[metric]} EPA comparison level`;
   }
 
   async function renderMap() {
@@ -175,7 +175,7 @@
         const code = NAME_TO_ABBREV[feature.properties.name];
         const row = stateData[code];
         if (!row) { tooltip.hidden = true; return; }
-        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} systems with complete monitoring had a yearly average at or above a study benchmark</small>`;
+        tooltip.innerHTML = `<strong>${feature.properties.name} <span>${code}</span></strong><p>${metricDescription(row, metric)}</p><small>${row.above.toLocaleString()} of ${row.eligible.toLocaleString()} systems with complete monitoring had a yearly average above an EPA comparison level</small>`;
         const rect = container.getBoundingClientRect();
         let left = event.clientX - rect.left + 16;
         let top = event.clientY - rect.top - 12;

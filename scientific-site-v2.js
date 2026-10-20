@@ -1,19 +1,19 @@
 (() => {
   "use strict";
 
-  const RELEASE_PATH = "/analysis/exports/ucmr5_jan2026_v0_2";
+  const RELEASE_PATH = "/analysis/exports/ucmr5_final_aug2026_v1";
   const LOOKUP_URL = `${RELEASE_PATH}/website_lookup_compact.json`;
   const METADATA_URL = `${RELEASE_PATH}/website_metadata.json`;
   const MONITORING_PERIODS_URL = `${RELEASE_PATH}/website_monitoring_periods.json`;
   const ASSISTANT_URL = "https://pfas-groq-proxy.jackzacey.workers.dev";
   const REQUEST_TIMEOUT_MS = 20000;
   const OUTCOMES = [
-    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Study benchmark: 4.05 ppt", reportingLimit: 4, federalLevel: 4, comparisonCutoff: 4.05 },
-    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "Study benchmark: 4.05 ppt", reportingLimit: 4, federalLevel: 4, comparisonCutoff: 4.05 },
-    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Study benchmark: 15 ppt", reportingLimit: 3, federalLevel: 10, comparisonCutoff: 15 },
-    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Study benchmark: 15 ppt", reportingLimit: 4, federalLevel: 10, comparisonCutoff: 15 },
-    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "April 2024 federal level: 10 ppt", cutoff: "Study benchmark: 15 ppt", reportingLimit: 5, federalLevel: 10, comparisonCutoff: 15 },
-    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "April 2024 federal level: 1", cutoff: "Study benchmark: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
+    { key: "pfoa", label: "PFOA", fullName: "Perfluorooctanoic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "EPA rounding cutoff: 4.05 ppt", reportingLimit: 4, federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfos", label: "PFOS", fullName: "Perfluorooctane sulfonic acid", benchmark: "April 2024 federal level: 4 ppt", cutoff: "EPA rounding cutoff: 4.05 ppt", reportingLimit: 4, federalLevel: 4, comparisonCutoff: 4.05 },
+    { key: "pfhxs", label: "PFHxS", fullName: "Perfluorohexane sulfonic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "EPA rounding cutoff: 15 ppt", reportingLimit: 3, federalLevel: 10, comparisonCutoff: 15 },
+    { key: "pfna", label: "PFNA", fullName: "Perfluorononanoic acid", benchmark: "April 2024 federal level: 10 ppt", cutoff: "EPA rounding cutoff: 15 ppt", reportingLimit: 4, federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hfpo_da", label: "HFPO-DA", fullName: "GenX chemicals", benchmark: "April 2024 federal level: 10 ppt", cutoff: "EPA rounding cutoff: 15 ppt", reportingLimit: 5, federalLevel: 10, comparisonCutoff: 15 },
+    { key: "hi", label: "Hazard Index", labelZh: "危害指数", fullName: "PFAS mixture measure", benchmark: "April 2024 federal level: 1", cutoff: "EPA rounding cutoff: 1.5 with at least 2 detected components", federalLevel: 1, comparisonCutoff: 1.5 },
   ];
 
   const STATE_NAMES = Object.freeze({
@@ -153,12 +153,12 @@
       faqSamplingTitle: "Where EPA collected the samples",
       faqSamplingBody: "UCMR 5 samples were collected at points where treated water enters the distribution system, not at household faucets. The sampling period shown on each system card tells you when the displayed monitoring occurred.",
       faqCurrentTitle: "Where to find current official information",
-      faqCurrentBody: "The data here include results received by EPA through January 15, 2026. Newer results may be available in EPA’s Data Finder. Ask your water provider about recent PFAS tests and treatment, and check its annual water-quality report, called a Consumer Confidence Report.",
+      faqCurrentBody: "The data here include results in EPA’s final UCMR 5 dataset, released August 2026. State or utility reports may contain more recent monitoring. Ask your water provider about recent PFAS tests and treatment, and check its annual water-quality report, called a Consumer Confidence Report.",
       faqMore: "Read the full explanation →", faqCcrLink: "Find your water-quality report →", faqCurrentLink: "Check newer EPA results →",
       searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
       preparing: "Preparing EPA data.", findSystems: "Find results",
-      verifiedRelease: "Archived EPA dataset", monitoredSystems: "water systems", zipAssociations: "ZIP associations", resultsThrough: "EPA results through January 15, 2026",
+      verifiedRelease: "Final EPA UCMR 5 dataset", monitoredSystems: "water systems", zipAssociations: "ZIP associations", resultsThrough: "EPA final dataset released August 2026",
       loadFailure: "The verified data release could not be loaded. Please use EPA’s UCMR 5 Data Finder while this is resolved.",
       invalidZipTitle: "Enter a valid 5-digit ZIP code", invalidZipContext: "ZIP codes must contain exactly five numbers.",
       noAssociationTitle: zip => `We could not match a water system to ZIP ${zip}`,
@@ -170,11 +170,11 @@
         ? "Check that this provider’s name matches your water bill. A ZIP match alone cannot confirm who supplies your home."
         : "Find the provider named on your water bill below. These systems have separate results; a finding at one may not apply to your provider.",
       communitySystem: "Community water system", publicSystem: "Public water system", residentialNotUsed: "residential Census context is not used for this system",
-      completeUnavailable: "Not enough required samples for a yearly comparison", atLeastOne: "At or above an EPA-based study benchmark", detectedBelow: "Detected below all study benchmarks", belowReporting: "Below EPA reporting levels", noLocationMeets: "No yearly average was at or above a study benchmark",
+      completeUnavailable: "Not enough required samples for a yearly comparison", atLeastOne: "Above an EPA comparison level", detectedBelow: "Detected below all study benchmarks", belowReporting: "Below EPA reporting levels", noLocationMeets: "No yearly average was above an EPA comparison level",
       populationServed: "Population served", source: "Primary source", ownership: "Ownership", samplingLocations: "Sampling locations", monitoringPeriod: "Sampling period", serviceBoundary: "Service boundary", sdwisStatus: "SDWIS status",
       notReported: "Not reported", notAvailable: "Not available", unnamed: "Unnamed public water system",
       measure: "PFAS", highestAverage: "Highest yearly average", benchmarkHeading: "EPA-based study benchmark", comparisonHeading: "Result",
-      noCompleteAverage: "Not enough required samples", meets: "At or above study benchmark", detectedDoesNotMeet: "Detected below study benchmark", belowReportingLevel: "Below EPA reporting level", doesNotMeet: "Below study benchmark",
+      noCompleteAverage: "Not enough required samples", meets: "Above EPA comparison level", detectedDoesNotMeet: "Detected below study benchmark", belowReportingLevel: "Below EPA reporting level", doesNotMeet: "Below study benchmark",
       demographicSummary: "Service-area demographic context used in the research analysis", demographicNote: "Ecological estimates for the modeled service area; these do not describe any individual customer.",
       hispanic: "Hispanic", black: "non-Hispanic Black", aian: "non-Hispanic AIAN", poverty: "below poverty", rural: "rural",
       resultBoundaryTitle: "How to read the numbers",
@@ -183,7 +183,7 @@
       completeMonitoringTerm: "Complete monitoring",
       completeMonitoringDefinition: "For at least one sampling location, the water system had every required sample needed to calculate a yearly average. It does not mean every location or home was tested.",
       studyBenchmarkTerm: "EPA-based study benchmark",
-      studyBenchmarkDefinition: "This research uses an unrounded cutoff to reproduce EPA’s January 2026 technical-assistance classification based on the April 2024 federal levels. The benchmark is fixed for this study. It is not a current federal or state standard, and it does not show whether a water system complies with the law.",
+      studyBenchmarkDefinition: "This comparison follows EPA’s final UCMR 5 rounding rules for the April 2024 federal levels. For example, an unrounded PFOA or PFOS average of 4.05 ppt counts as above the 4 ppt comparison level. It is not a current federal or state standard, and it does not show whether a water system complies with the law.",
       reportingLevelTerm: "EPA reporting level",
       reportingLevelDefinition: "The lowest concentration that UCMR 5 reports as a number for that compound. A result below this level is not a measured zero and does not prove that the compound was absent.",
       welcome: "Ask about PFAS, a result you see, or where to find recent tests. You can also use the quick explanations below.",
@@ -215,12 +215,12 @@
       faqSamplingTitle: "EPA在哪里采样",
       faqSamplingBody: "UCMR 5样本采自处理后的水进入配水系统的位置，而不是家庭水龙头。每张系统卡上的采样期说明所显示监测的时间。",
       faqCurrentTitle: "在哪里查找最新官方信息",
-      faqCurrentBody: "本网站保留截至2026年1月15日收到的EPA结果。更新的联邦记录请使用EPA UCMR 5数据查找器。当前当地处理和合规信息请查看供水机构的消费者信心报告或联系供水机构。",
+      faqCurrentBody: "本网站使用EPA于2026年8月发布的最终UCMR 5数据。可在EPA数据查找器核对联邦记录。当前当地处理和合规信息请查看供水机构的消费者信心报告或联系供水机构。",
       faqMore: "查看完整说明 →", faqCcrLink: "查找消费者信心报告 →", faqCurrentLink: "打开EPA数据查找器 →",
       searchCounter: "次邮政编码查询",
       loadingRelease: "正在加载已验证版本…", releaseUnavailable: "版本不可用", dataUnavailable: "数据不可用", loadingData: "正在加载数据…",
       preparing: "正在准备冻结的科学数据版本。", findSystems: "查询我的地区",
-      verifiedRelease: "EPA归档数据", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "EPA结果截至2026年1月15日",
+      verifiedRelease: "EPA最终UCMR 5数据", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "EPA于2026年8月发布的最终数据",
       loadFailure: "无法加载已验证的数据版本。问题解决前，请使用EPA UCMR 5数据查找器。",
       invalidZipTitle: "请输入有效的5位邮政编码", invalidZipContext: "邮政编码必须恰好包含五位数字。",
       noAssociationTitle: zip => `未找到邮政编码 ${zip} 的供水系统`,
@@ -230,11 +230,11 @@
       associatedTitle: (count, zip) => `邮政编码 ${zip} 列出了 ${count} 个供水系统`,
       associatedContext: (aboveCount, totalCount) => totalCount === 1 ? "请将供水机构名称与水费账单核对。仅凭邮政编码不能确认谁为您家供水。" : "请在下方找到水费账单上的供水机构。每个系统的结果各不相同，其他系统的结果可能不适用于您的供水机构。",
       communitySystem: "社区供水系统", publicSystem: "公共供水系统", residentialNotUsed: "此系统不使用居民人口普查背景",
-      completeUnavailable: "规定样本不足，无法进行年度比较", atLeastOne: "达到或超过基于EPA的研究基准", detectedBelow: "已检出，但低于所有研究基准", belowReporting: "低于EPA报告限值", noLocationMeets: "没有年度平均值达到或超过研究基准",
+      completeUnavailable: "规定样本不足，无法进行年度比较", atLeastOne: "高于EPA比较水平", detectedBelow: "已检出，但低于所有研究基准", belowReporting: "低于EPA报告限值", noLocationMeets: "没有年度平均值高于EPA比较水平",
       populationServed: "服务人口", source: "主要水源", ownership: "所有权", samplingLocations: "采样点", monitoringPeriod: "采样期", serviceBoundary: "服务区边界", sdwisStatus: "SDWIS状态",
       notReported: "未报告", notAvailable: "不可用", unnamed: "未命名公共供水系统",
       measure: "指标", highestAverage: "最高年度平均值", benchmarkHeading: "基于EPA的研究基准", comparisonHeading: "结果",
-      noCompleteAverage: "规定样本不足", meets: "达到或超过研究基准", detectedDoesNotMeet: "已检出；低于研究基准", belowReportingLevel: "低于EPA报告限值", doesNotMeet: "低于研究基准",
+      noCompleteAverage: "规定样本不足", meets: "高于EPA比较水平", detectedDoesNotMeet: "已检出；低于研究基准", belowReportingLevel: "低于EPA报告限值", doesNotMeet: "低于研究基准",
       demographicSummary: "研究分析使用的服务区人口背景", demographicNote: "这是模型服务区的生态估计，不描述任何个人客户。",
       hispanic: "西班牙裔", black: "非西班牙裔黑人", aian: "非西班牙裔美洲印第安人/阿拉斯加原住民", poverty: "低于贫困线", rural: "农村",
       resultBoundaryTitle: "使用结果前请先阅读",
@@ -243,11 +243,11 @@
       completeMonitoringTerm: "完整监测",
       completeMonitoringDefinition: "该供水系统至少一个采样点具有计算年度平均值所需的全部规定样本。这不表示每个采样点或每个家庭都接受了检测。",
       studyBenchmarkTerm: "基于EPA的研究基准",
-      studyBenchmarkDefinition: "本研究使用未舍入阈值，以重现EPA于2026年1月基于2024年4月联邦水平作出的技术援助分类。该基准在本研究中保持固定。它不是现行的联邦或州标准，也不能说明供水系统是否符合法律要求。",
+      studyBenchmarkDefinition: "本研究使用未舍入阈值，以重现EPA基于2024年4月联邦水平作出的最终UCMR 5技术援助分类。该基准在本研究中保持固定。它不是现行的联邦或州标准，也不能说明供水系统是否符合法律要求。",
       reportingLevelTerm: "EPA报告限值",
       reportingLevelDefinition: "UCMR 5将该化合物作为数值报告的最低浓度。低于此值不等于测得为零，也不能证明该化合物不存在。",
       welcome: "您可以询问如何理解监测结果、确认供水系统、了解采样位置或查找最新官方信息。",
-      contextReadyAbove: "一项或多项年度平均值达到或超过基于EPA的研究基准。我可以解释这意味着什么、如何确认供水机构或在哪里查找最新信息。",
+      contextReadyAbove: "一项或多项年度平均值高于EPA比较水平。我可以解释这意味着什么、如何确认供水机构或在哪里查找最新信息。",
       contextReadyBelow: "结果已显示在上方。缺失的比较不能视为低于基准；我可以解释检测结果及其局限。",
       contextReadyNone: "没有找到该邮政编码的受监测系统关联。我可以解释这种缺失意味着什么以及不意味着什么。",
       thinking: "正在查看显示的供水系统背景…",
@@ -364,7 +364,14 @@
     if (value === null || value === undefined || value === "") return text("notAvailable");
     const numeric = Number(value);
     if (!Number.isFinite(numeric)) return text("notAvailable");
-    if (isHazardIndex) return numeric.toFixed(3);
+    if (isHazardIndex) {
+      // EPA publishes small nonzero indices too. A fixed three-decimal
+      // display can change 0.0008 into 0.001 or erase 0.0004 entirely.
+      if (numeric > 0 && numeric < 0.001) {
+        return numeric.toLocaleString(currentLang === "zh" ? "zh-CN" : "en-US", { useGrouping: false, maximumSignificantDigits: 15 });
+      }
+      return numeric.toFixed(3);
+    }
     return `${(numeric * 1000).toLocaleString(currentLang === "zh" ? "zh-CN" : "en-US", { maximumFractionDigits: 2 })} ppt`;
   }
 
@@ -489,16 +496,16 @@
     const isZh = currentLang === "zh";
     const value = formatAverage(status.maximum, false).replace("ppt", isZh ? "万亿分之一" : "parts per trillion");
     const statusCopy = status.className === "above"
-      ? (isZh ? "最高年度平均值达到或超过本研究的比较水平。" : "The highest yearly average reached or exceeded this study’s comparison level.")
+      ? (isZh ? "最高年度平均值高于EPA比较水平。" : "The highest yearly average was above the April 2024 EPA comparison level.")
       : status.className === "below"
-        ? (isZh ? "最高年度平均值低于本研究的比较水平。" : "The highest yearly average was below this study’s comparison level.")
+        ? (isZh ? "最高年度平均值未高于EPA比较水平。" : "The highest yearly average was not above the April 2024 EPA comparison level.")
         : (isZh ? "规定样本不足，暂时不能进行年度比较。" : "There are not enough required samples for a yearly comparison.");
     const comparisonRatio = (valuePpt / outcome.comparisonCutoff) * 100;
     const gaugeFillPct = Math.min(comparisonRatio, 150) / 150 * 100;
     const ratioLabel = isZh ? "年度平均值与研究比较水平" : "Yearly average compared with the study level";
     const benchmarkCopy = isZh
-      ? `研究比较水平：${outcome.comparisonCutoff} 万亿分之一`
-      : `Study comparison level: ${outcome.comparisonCutoff} parts per trillion`;
+      ? `EPA舍入截点：${outcome.comparisonCutoff} 万亿分之一`
+      : `EPA rounding cutoff: ${outcome.comparisonCutoff} parts per trillion`;
     const aboutHeading = isZh ? `${outcome.label}是什么` : `What ${outcome.label} is`;
     const healthHeading = isZh ? "健康研究发现" : "What health research says";
     const evidenceHeading = isZh ? "证据说明：" : "Evidence note:";
@@ -601,10 +608,10 @@
     const isZh = currentLang === "zh";
     return `<aside class="result-boundary" role="note">
       <h3>${isZh ? "怎样读懂这些数字" : "How to read the numbers"}</h3>
-      <p>${isZh ? "本页只包含EPA截至2026年1月15日收到的检测结果。新结果可能已经发布。" : "These data include results received by EPA through January 15, 2026. Newer tests may be available."}</p>
+      <p>${isZh ? "本页使用EPA于2026年8月发布的最终UCMR 5数据。当前州级或供水机构结果可能有所不同。" : "These data include results in EPA’s final UCMR 5 dataset, released August 2026. State or utility reports may contain more recent monitoring."}</p>
       <div class="result-glossary">
         <dl>
-          <div><dt>${isZh ? "年度平均值是什么？" : "What is the yearly average?"}</dt><dd>${isZh ? "我们使用EPA导出的各采样点年度平均值，再显示该系统中最高的平均值。低于报告限值的样本按零参与计算，但不代表实际浓度为零。" : "We use EPA’s exported yearly averages for each testing location, then show the highest of those averages for the system. Samples below the reporting limit count as zero in the calculation; they are not measured zeros."}</dd></div>
+          <div><dt>${isZh ? "年度平均值是什么？" : "What is the yearly average?"}</dt><dd>${isZh ? "我们从EPA最终样本记录重建各采样点年度平均值，再显示该系统中最高的平均值。低于报告限值的样本按零参与计算，但不代表实际浓度为零。" : "We use yearly averages reconstructed from EPA’s final sample records for each testing location, then show the highest of those averages for the system. Samples below the reporting limit count as zero in the calculation; they are not measured zeros."}</dd></div>
           <div><dt>${isZh ? "研究比较水平是什么？" : "What is the study comparison level?"}</dt><dd>${isZh ? "这是基于2024年4月EPA水平的固定研究基准，不是现行联邦或州标准。低于它不能证明水是安全的，达到或超过它也不能确定违法。" : "It is a fixed research benchmark based on April 2024 EPA levels, not a current federal or state standard. A lower result does not establish safety; reaching or exceeding it does not establish a legal violation."}</dd></div>
           <div><dt>${isZh ? "万亿分之一是什么？" : "What does parts per trillion mean?"}</dt><dd>${isZh ? "它表示水中化学物质的浓度，缩写为ppt，不是健康风险评分。" : "It describes the concentration of a chemical in water. The abbreviation is ppt. It is not a health-risk score."}</dd></div>
           <div><dt>${isZh ? "本页包含所有PFAS吗？" : "Does this show all PFAS?"}</dt><dd>${isZh ? "不是。本页显示五种PFAS及一个混合物指数，不是PFAS总浓度。PFBS参与混合物计算，但本存档未提供其单独的系统汇总值。不能把不同地点或年份的最高平均值相加来检验州级总量标准。" : "No. It shows five individual PFAS and a mixture index, not a total PFAS concentration. PFBS contributes to the mixture calculation, but this archive has no separate system summary for it. The highest averages may come from different locations or years; adding them cannot test a state's combined-PFAS standard."}</dd></div>
@@ -626,7 +633,7 @@
           ? `低于 ${outcome.reportingLimit} ppt 的报告限值；不等于零。低于限值的结果在平均值计算中按零计，但不是测得为零。`
           : `Below the ${outcome.reportingLimit} ppt reporting limit, not necessarily zero. Below-limit samples count as zero in the average, but are not measured zeros.`)
         : status.belowReporting && outcome.key === "hi"
-          ? (currentLang === "zh" ? "PFAS混合物计算指标 · 研究基准：1.5" : "Calculated PFAS-mixture measure · Study benchmark: 1.5")
+          ? (currentLang === "zh" ? "PFAS混合物计算指标 · 研究基准：1.5" : "Calculated PFAS-mixture measure · EPA rounding cutoff: 1.5")
           : `${outcome.benchmark} · ${outcome.cutoff}`;
       return `<div class="compound-result-row ${status.className}">
         <div><span class="compound-tag ${status.className === "above" ? "above" : ""}">${escapeHtml(label)}</span><strong>${escapeHtml(value)}</strong></div>
@@ -702,11 +709,11 @@
       return `<details class="evidence-outcome"><summary>${escapeHtml(o.key === "hi" ? (zh ? "混合物指数" : "Mixture index") : o.label)} — ${escapeHtml(formatOutcomeValue(o,status))}</summary><p>${escapeHtml(value)}</p><p>${zh ? "最高值对应采样点数" : "Locations sharing this maximum"}: ${matching.length}${matching.length > 5 ? (zh ? "（下列显示前5个）" : " (first 5 shown below)") : ""}</p><ul>${examples}</ul></details>`;
     }).join("");
     return `<details class="compound-results-details result-evidence"><summary>${zh ? "采样覆盖与数据来源" : "Sampling coverage and sources"}</summary><div class="coverage-note"><strong>${zh ? "可计算年度比较的采样点 / 归档采样点" : "Locations with a complete yearly comparison / archived locations"}</strong><p>${escapeHtml(summaries)}</p></div>
-      <p>${zh ? "采用EPA于2026年1月发布的采样点年度平均值；每种物质显示各点最高平均值。不同物质可能来自不同点，不能相加为总浓度。" : "We use EPA’s January 2026 sampling-location yearly averages and display the highest for each chemical. Different chemicals can come from different locations; these maxima cannot be added into a total concentration."}</p>
+      <p>${zh ? "从EPA最终UCMR 5样本记录重建采样点年度平均值；每种物质显示各点最高平均值。不同物质可能来自不同点，不能相加为总浓度。" : "We use sampling-location yearly averages reconstructed from EPA’s final UCMR 5 records and display the highest for each chemical. Different chemicals can come from different locations; these maxima cannot be added into a total concentration."}</p>
       <p>${zh ? "以下日期是该采样点该物质的源记录日期，不是EPA平均值所用记录的已核实清单。EPA汇总文件未列出确切纳入样本；替换记录和舍入可能影响重新计算。" : "Dates below describe source records at that location for that chemical, not a verified list of samples included in EPA’s average. The EPA summary does not identify the exact retained samples; replacement records and rounding can affect reconstruction."}</p>
       <p>${zh ? "低于报告限值的样本在平均值中按零计，但不是测得浓度为零。显示保留EPA导出值的精度，不推断额外有效位。" : "Below-reporting-level samples count as zero in the average but are not measured zeros. We retain the precision of EPA’s exported average rather than infer extra digits."}</p>${details}
-      <p><a href="/data/lookup-evidence.json" target="_blank" rel="noopener noreferrer">${zh ? "全部采样点、来源行与校验记录（JSON）" : "All locations, source rows and checksums (JSON)"}</a> · <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">${zh ? "归档研究资料" : "Archived research files"}</a></p>
-      <p>${zh ? "来源行对应归档文件" : "Source rows refer to the archived file"}: epa_ucmr5_average_pfas_locations.csv. ${zh ? "研究快照" : "Research snapshot"}: 2026-01-15.</p></details>`;
+      <p><a href="${RELEASE_PATH}/lookup-evidence.json" target="_blank" rel="noopener noreferrer">${zh ? "全部采样点、来源行与校验记录（JSON）" : "All locations, source rows and checksums (JSON)"}</a> · <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">${zh ? "归档研究资料" : "Archived research files"}</a></p>
+      <p>${zh ? "来源行对应归档文件" : "Source rows refer to the archived file"}: website_location_averages.csv. ${zh ? "研究快照" : "Website release"}: August 2026.</p></details>`;
   }
 
   function renderSystem(system) {
@@ -725,9 +732,9 @@
     const finding = !complete && !above && !detectedOutcomes.length
       ? (isZh ? "规定样本不足，无法进行年度比较。我们无法根据缺失的结果判断是否存在PFAS。" : "There are not enough required samples for a yearly comparison. Missing results cannot tell us whether PFAS were present.")
       : above
-      ? (isZh ? "至少一项化学物质或混合物的年度平均值达到或超过本研究的比较水平。下方可查看具体结果。" : "At least one chemical or mixture yearly average reached or exceeded this study’s comparison level. The results below show which ones.")
+      ? (isZh ? "至少一项化学物质或混合物的年度平均值高于EPA比较水平。下方可查看具体结果。" : "At least one chemical or mixture yearly average was above an April 2024 EPA comparison level. The results below show which ones.")
       : detectedOutcomes.length
-        ? (isZh ? "样本中检出了PFAS。在资料足够的年度比较中，没有达到或超过本研究比较水平的结果。" : "PFAS were found in the samples. Where enough samples were available, no yearly comparison reached or exceeded the study level.")
+        ? (isZh ? "样本中检出了PFAS。在资料足够的年度比较中，没有高于EPA比较水平的结果。" : "PFAS were found in the samples. Where enough samples were available, no yearly comparison was above an EPA comparison level.")
         : (isZh ? "在资料完整的结果中，本页五种PFAS均未达到EPA报告限值。更低浓度仍可能存在。" : "In the results with complete sampling, the five PFAS shown were not detected at or above EPA reporting limits. Smaller amounts may still have been present.");
     const featuredOutcomes = OUTCOMES
       .filter(outcome => outcome.key !== "hi")
@@ -740,14 +747,14 @@
     const compactRows = OUTCOMES.map(outcome => {
       const status = outcomeStatus(system, outcome);
       const label = outcome.key === "hi" ? (isZh ? "混合物指数（无单位）" : "Mixture index (unitless)") : outcome.label;
-      return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "达到研究基准" : "At or above study benchmark"}</small>` : ""}</div>`;
+      return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "高于EPA比较水平" : "Above EPA comparison level"}</small>` : ""}</div>`;
     }).join("");
     const shortFinding = above
-      ? (isZh ? "至少一项可用结果达到研究基准。" : "At least one available result reaches the study benchmark.")
+      ? (isZh ? "至少一项可用结果高于EPA比较水平。" : "At least one available yearly average is above an EPA comparison level.")
       : !complete
         ? (isZh ? "样本不足，无法进行年度比较。" : "Not enough samples for a yearly comparison.")
         : detectedOutcomes.length
-          ? (isZh ? "可用的年度比较均低于研究基准。" : "Available yearly comparisons are below the study benchmarks.")
+          ? (isZh ? "可用的年度平均值均未高于EPA比较水平。" : "No available yearly average is above the EPA comparison levels.")
           : (isZh ? "完整样本中未检出本页五种PFAS；不代表含量为零。" : "The five PFAS shown were not detected in complete samples; this does not mean zero.");
     const age = samplingAgeNotice(system);
     const shortAge = age.includes("over a year old") || age.includes("超过一年")
@@ -819,7 +826,7 @@
       `Water systems displayed: ${systems.length}.`
     ];
     const comparisonSystems = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1);
-    lines.push(`Water systems with at least one yearly average at or above an EPA-based study benchmark: ${comparisonSystems.length}. The benchmark is the unrounded cutoff used by this research to reproduce EPA's January 2026 technical-assistance classification around the April 2024 federal levels; it is not a current standard or compliance finding. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}. A zero count does not mean PFAS was not detected.`);
+    lines.push(`Water systems with at least one yearly average above an EPA comparison level: ${comparisonSystems.length}. The benchmark is the unrounded cutoff used by this research to reproduce EPA's final UCMR 5 technical-assistance classification around the April 2024 federal levels; it is not a current standard or compliance finding. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}. A zero count does not mean PFAS was not detected.`);
     lines.push("Missing or unverified location/chemical comparisons are not below-benchmark results. All counts are historical, not household safety findings.");
     selected.forEach(system => {
       const outcomes = OUTCOMES.map(outcome => {
@@ -968,12 +975,19 @@
     const context = $("resultContext");
     const body = $("resultBody");
     if (!/^\d{5}$/.test(zip)) {
+      // Invalid input must not leave the assistant or language toggle attached
+      // to the previous ZIP's otherwise invisible water-system results.
+      lastLookupZip = null;
+      currentSystems = [];
+      currentContext = "No valid ZIP lookup is selected. Ask for a five-digit ZIP and confirm the provider before interpreting system results.";
+      history.replaceState({}, "", window.location.pathname);
       result.className = "result not-found";
       title.textContent = text("invalidZipTitle");
       context.textContent = text("invalidZipContext");
       body.innerHTML = "";
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
+      resetChat(text("invalidZipContext"));
       return;
     }
 
@@ -1046,8 +1060,8 @@
         fetch(LOOKUP_URL, { cache: "no-cache" }),
         fetch(METADATA_URL, { cache: "no-cache" }),
         fetch(MONITORING_PERIODS_URL, { cache: "no-cache" }),
-        fetch("/config/zip-association-reviews.json", { cache: "no-cache" }),
-        fetch("/data/lookup-evidence.json", { cache: "no-cache" }),
+        fetch(`${RELEASE_PATH}/zip-association-reviews.json`, { cache: "no-cache" }),
+        fetch(`${RELEASE_PATH}/lookup-evidence.json`, { cache: "no-cache" }),
         fetch("/config/provider-links.json", { cache: "no-cache" })
       ]);
       if (!lookupResponse.ok || !metadataResponse.ok || !monitoringResponse.ok || !zipReviewsResponse.ok || !evidenceResponse.ok || !linksResponse.ok) throw new Error("Frozen analysis files unavailable");
@@ -1058,7 +1072,7 @@
       const evidenceText = await evidenceResponse.text();
       const evidenceDigest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(evidenceText));
       const evidenceHash = Array.from(new Uint8Array(evidenceDigest), v => v.toString(16).padStart(2, "0")).join("");
-      if (evidenceHash !== "3d6fb6adb13576472591823149738b212e7ee0423a90913efb708fe411a3f3cb") throw new Error("Evidence checksum does not match");
+      if (evidenceHash !== "8155dab0ba01fdac03ec2de5e0ca07e51f3b2673c91287ddeca8824958c324a6") throw new Error("Evidence checksum does not match");
       const evidence = PFASLookupEvidence.validate(JSON.parse(evidenceText), release, release.source_lookup_sha256);
       evidenceById = new Map(Object.entries(evidence.systems));
       providerLinks = (await linksResponse.json()).systems;

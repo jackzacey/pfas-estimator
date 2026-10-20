@@ -7,7 +7,7 @@ import json
 import tempfile
 from pathlib import Path
 
-RELEASE_SUBDIR = Path("analysis/exports/ucmr5_jan2026_v0_2")
+RELEASE_SUBDIR = Path("analysis/exports/ucmr5_final_aug2026_v1")
 STATE_REGIONS = {
     "CT":"Northeast","ME":"Northeast","MA":"Northeast","NH":"Northeast","RI":"Northeast","VT":"Northeast","NJ":"Northeast","NY":"Northeast","PA":"Northeast",
     "IL":"Midwest","IN":"Midwest","MI":"Midwest","OH":"Midwest","WI":"Midwest","IA":"Midwest","KS":"Midwest","MN":"Midwest","MO":"Midwest","NE":"Midwest","ND":"Midwest","SD":"Midwest",
@@ -17,12 +17,12 @@ STATE_REGIONS = {
 }
 REGION_ORDER = ("Northeast", "Midwest", "South", "West", "Territories")
 COMPARISONS = (
-    ("PFOA: 4.05 ppt study benchmark (reproduces EPA classification around 4 ppt)", "above_pfoa", "pfoa_system_above_mcl_comparison"),
-    ("PFOS: 4.05 ppt study benchmark (reproduces EPA classification around 4 ppt)", "above_pfos", "pfos_system_above_mcl_comparison"),
-    ("PFHxS: 15 ppt study benchmark (reproduces EPA classification around 10 ppt)", "above_pfhxs", "pfhxs_system_above_mcl_comparison"),
-    ("PFNA: 15 ppt study benchmark (reproduces EPA classification around 10 ppt)", "above_pfna", "pfna_system_above_mcl_comparison"),
-    ("HFPO-DA: 15 ppt study benchmark (reproduces EPA classification around 10 ppt)", "above_hfpo_da", "hfpo_da_system_above_mcl_comparison"),
-    ("Hazard Index: 1.5 study benchmark with at least two detected components (reproduces EPA classification around 1)", "above_hazard_index", "hi_system_above_mcl_comparison"),
+    ("PFOA: 4 ppt level; unrounded average ≥4.05 ppt after applying EPA rounding", "above_pfoa", "pfoa_system_above_mcl_comparison"),
+    ("PFOS: 4 ppt level; unrounded average ≥4.05 ppt after applying EPA rounding", "above_pfos", "pfos_system_above_mcl_comparison"),
+    ("PFHxS: 10 ppt level; unrounded average ≥15 ppt after applying EPA rounding", "above_pfhxs", "pfhxs_system_above_mcl_comparison"),
+    ("PFNA: 10 ppt level; unrounded average ≥15 ppt after applying EPA rounding", "above_pfna", "pfna_system_above_mcl_comparison"),
+    ("HFPO-DA: 10 ppt level; unrounded average ≥15 ppt after applying EPA rounding", "above_hfpo_da", "hfpo_da_system_above_mcl_comparison"),
+    ("Hazard Index: 1 level; unrounded index ≥1.5 and at least two detected components", "above_hazard_index", "hi_system_above_mcl_comparison"),
 )
 STATE_CONTEXT_LINKS = {
     "MI": (
@@ -99,7 +99,7 @@ def system_rows(rows):
     rendered = []
     for row in rows:
         above = int(row.get("any_system_above_mcl_comparison") or 0) == 1
-        status = '<span class="comparison-status above">At or above a study benchmark</span>' if above else '<span class="comparison-status below">Below all study benchmarks</span>'
+        status = '<span class="comparison-status above">Above an EPA comparison level</span>' if above else '<span class="comparison-status below">No available average above comparison levels</span>'
         rendered.append(
             "<tr>"
             f'<th scope="row">{html.escape(str(row.get("ucmr_pws_name") or "Unnamed system"))}</th>'
@@ -164,7 +164,7 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
             <a href="/states/{slugify(name)}/" aria-label="View PFAS water-system results for {html.escape(name)}">
               <div class="state-directory-card-top"><span class="state-abbreviation" aria-hidden="true">{code}</span><span class="state-card-region">{region}</span></div>
               <h3>{html.escape(name)}</h3>
-              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with enough required samples had a yearly average at or above a study benchmark</span></div>
+              <div class="state-card-stat"><strong>{pct:.1f}%</strong><span>of systems with enough required samples had a yearly average above an EPA comparison level</span></div>
               <div class="state-card-bar" aria-hidden="true"><span style="width:{min(pct, 100):.1f}%"></span></div>
               <div class="state-card-footer"><span>{above:,} of {denominator:,} systems</span><span class="state-card-link">View systems <span aria-hidden="true">&rarr;</span></span></div>
             </a>
@@ -176,7 +176,7 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
       </section>''')
     return f'''<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using community water systems with enough required samples for a yearly average." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20260910-cdphe-clarity2" /></head>
+<title>PFAS in Drinking Water by State | PFAS Estimator</title><meta name="description" content="Compare EPA UCMR 5 PFAS drinking-water results across U.S. states and territories using community water systems with enough required samples for a yearly average." /><link rel="canonical" href="{base_url}/states/" /><meta name="robots" content="index, follow" /><link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /></head>
 <body class="methodology-body states-body"><a class="skip-link" href="#states-content">Skip to state directory</a><div class="methodology-shell states-shell">
 <nav class="site-nav methodology-top-nav states-top-nav" aria-label="Primary"><a href="/">ZIP Lookup</a><a href="/map/">Map</a><a href="/state-table/">State Table</a><a href="/states/" aria-current="page">Explore by State</a><a href="/methodology/">How It Works</a><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a></nav>
 <header class="methodology-hero states-hero"><div class="methodology-kicker">Browse state water-system results</div><h1>Explore PFAS drinking-water results by state</h1><p class="methodology-lede">Browse active community water systems with enough required UCMR 5 samples to calculate a yearly average. Each system is counted once on its state page.</p><div class="methodology-meta"><span><strong>{len(rows)}</strong> jurisdictions</span><span><strong>Unit</strong> community water system</span><span><strong>Release</strong> {release_id}</span><span><strong>Updated</strong> {lastmod}</span></div></header>
@@ -184,12 +184,12 @@ def build_state_index(rows, state_names, base_url, release_id, lastmod):
 <section class="state-directory"><div class="state-directory-heading"><div><span class="states-card-kicker">Browse the release</span><h2>Find a state or territory</h2><p>Search by name or abbreviation, or narrow the directory by region.</p></div><span class="state-result-count" id="stateResultsCount" aria-live="polite">{len(rows)} jurisdictions</span></div>
 <div class="state-search-wrap"><label for="stateSearch">Search states and territories</label><div class="state-search-control"><input id="stateSearch" type="search" autocomplete="off" placeholder="Try California, New York, or PR" /><button id="stateSearchClear" class="state-search-clear" type="button" hidden>Clear</button></div></div>
 <div class="state-filters" role="group" aria-label="Filter by region"><button class="state-filter is-active" type="button" data-region-filter="all" aria-pressed="true">All</button>{''.join(f'<button class="state-filter" type="button" data-region-filter="{region.lower()}" aria-pressed="false">{region}</button>' for region in REGION_ORDER)}</div>
-<div class="state-threshold-note"><strong>Key terms</strong><span>“Complete monitoring” means at least one sampling location had every required sample needed to calculate a yearly average. It does not mean every location or home was tested. An “EPA-based study benchmark” is a fixed, unrounded research cutoff used to reproduce EPA’s January 2026 technical-assistance classification based on the April 2024 federal levels. It is not a current federal or state standard. These percentages do not determine compliance, household exposure, or health risk.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
-<footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 results received through January 15, 2026 · <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code</a> · Not a compliance or exposure determination.</p></footer></div>
+<div class="state-threshold-note"><strong>Key terms</strong><span>“Complete monitoring” means at least one sampling location had every required sample needed to calculate a yearly average. It does not mean every location or home was tested. An “EPA-based study benchmark” is a fixed, unrounded research cutoff used to reproduce EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels. It is not a current federal or state standard. These percentages do not determine compliance, household exposure, or health risk.</span></div><div class="state-regions" id="stateRegions">{''.join(sections)}</div><p class="state-directory-empty" id="stateDirectoryEmpty" hidden>No matching jurisdiction found.</p></section></main>
+<footer class="methodology-footer"><p>Release {release_id} · EPA UCMR 5 final dataset released August 2026 · <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">January research archive (separate dataset)</a> · Not a compliance or exposure determination.</p></footer></div>
 <script>(()=>{{const input=document.getElementById('stateSearch'),clear=document.getElementById('stateSearchClear'),cards=[...document.querySelectorAll('[data-state-card]')],filters=[...document.querySelectorAll('[data-region-filter]')],count=document.getElementById('stateResultsCount'),empty=document.getElementById('stateDirectoryEmpty');let region='all';function draw(){{const query=input.value.trim().toLowerCase();let shown=0;cards.forEach(card=>{{const visible=(region==='all'||card.dataset.region===region)&&card.dataset.stateSearch.includes(query);card.hidden=!visible;if(visible)shown++;}});document.querySelectorAll('[data-region-section]').forEach(section=>section.hidden=![...section.querySelectorAll('[data-state-card]')].some(card=>!card.hidden));count.textContent=`${{shown}} jurisdiction${{shown===1?'':'s'}}`;empty.hidden=shown!==0;clear.hidden=!query;}}input.addEventListener('input',draw);clear.addEventListener('click',()=>{{input.value='';draw();input.focus();}});filters.forEach(button=>button.addEventListener('click',()=>{{region=button.dataset.regionFilter;filters.forEach(item=>{{item.classList.toggle('is-active',item===button);item.setAttribute('aria-pressed',item===button?'true':'false');}});draw();}}));}})();</script></body></html>'''
 
 
-def validate(summary_rows, grouped, pages):
+def validate(summary_rows, grouped, pages, expected_totals):
     problems = []
     summary_by_state = {row["state"]: row for row in summary_rows}
     if set(summary_by_state) != set(grouped):
@@ -212,10 +212,10 @@ def validate(summary_rows, grouped, pages):
         for forbidden in ("14,071", "36% of", "detection-only dataset", "represented ZIPs"):
             if forbidden in page:
                 problems.append(f"{slug}: legacy text remains: {forbidden}")
-    if sum(len(rows) for rows in grouped.values()) != 8936:
-        problems.append("national eligible-system total is not 8,936")
-    if sum(int(row["above_any_april_2024_benchmark"]) for row in summary_rows) != 1030:
-        problems.append("national any-comparison total is not 1,030")
+    if sum(len(rows) for rows in grouped.values()) != expected_totals["eligible_cws"]:
+        problems.append("national eligible-system total disagrees with release metadata")
+    if sum(int(row["above_any_april_2024_benchmark"]) for row in summary_rows) != expected_totals["above_cws"]:
+        problems.append("national comparison total disagrees with release metadata")
     return problems
 
 
@@ -266,7 +266,7 @@ def main():
         above = int(summary["above_any_april_2024_benchmark"])
         below = denominator - above
         pct = above / denominator * 100 if denominator else 0
-        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} active community water systems with enough required samples for a yearly average had a result at or above an EPA-based study benchmark."
+        description = f"EPA UCMR 5 PFAS results for {name}: {above} of {denominator} active community water systems with enough required samples for a yearly average had a result above an EPA comparison level."
         context_note, context_link = state_context(code, name)
         pages[slug] = render_template(template, {
             "TITLE": f"PFAS in {name} Drinking Water | EPA UCMR 5 Results",
@@ -282,7 +282,7 @@ def main():
             "STATE_CONTEXT_NOTE": html.escape(context_note),
             "STATE_CONTEXT_LINK": context_link,
         })
-    problems = validate(summaries, grouped, pages)
+    problems = validate(summaries, grouped, pages, metadata["website_counts"])
     if problems:
         raise SystemExit("FATAL: state-page validation failed:\n- " + "\n- ".join(problems))
     index_html = build_state_index(summaries, state_names, site_meta["base_url"], metadata["release_id"], site_meta["states_index_lastmod"])
