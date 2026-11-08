@@ -11,6 +11,7 @@ Jack's standing instruction, November 7, 2026: preserve PFAS Estimator's clean U
 - Distinguish verified profiles, newsletter features, and resource listings from partnerships or endorsements.
 - Keep the homepage's introductory wording plain. On technical pages, give the full name followed by its abbreviation at first use, then use the abbreviation where it helps readability. Keep compact scientific result labels and units, with nearby definitions.
 - Use the site's existing muted blue for links, including otherwise unstyled links. Keep the language chooser compact and use a dropdown so additional languages can be added without redesigning the header.
+- The language dropdown should retain the original toggle's white background, soft border, and rounded pill shape. Avoid a tinted rectangular container.
 
 ## Existing work
 

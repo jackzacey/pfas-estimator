@@ -16,9 +16,9 @@
   max-width: 100%;
   min-height: 32px;
   padding: 3px 7px 3px 10px;
-  border: 1px solid var(--primary-tint-border);
-  border-radius: 7px;
-  background: var(--primary-tint);
+  border: 1px solid var(--border-soft);
+  border-radius: 20px;
+  background: #fff;
   color: #526b79;
   font-size: 11px;
   line-height: 1.5;
@@ -31,7 +31,7 @@
   min-height: 24px;
   padding: 2px 3px;
   border: 0;
-  border-radius: 3px;
+  border-radius: 12px;
   background-color: transparent;
   color: var(--primary);
   font: inherit;
