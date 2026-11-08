@@ -136,7 +136,8 @@
   const COPY = {
     en: {
       navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "How it works",
-      releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
+      releaseBadge: "National · Federal drinking-water data · Educational tool",
+      currentLanguageLabel: "Current Language:",
       heroTitle: "Check for PFAS in your water system",
       featuresSummary: "Features & resource listings",
       featureEwg: "EWG+HS profiles Jack Zhang’s work building PFAS Estimator. Find Jack’s profile in the student features on the EWG+HS page.",
@@ -144,45 +145,45 @@
       featurePha: "PFAS Estimator is included in Planetary Health Alliance’s resource library. Find the entry under “Chemical Pollution Resources” on its Chemical Pollution page.",
       featuresPermalink: "Link to this section",
       featureNewTab: " (opens in a new tab)",
-      heroSubtitle: "PFAS are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.",
+      heroSubtitle: "Per- and polyfluoroalkyl substances (PFAS) are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.",
       truthNote: '<strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Use a private well? Find testing guidance →</a>',
       printButton: "Print or save this water-system result",
-      chatTitle: "PFAS Results Assistant", chatSubtitle: "Optional AI help — not a water-safety assessment",
+      chatTitle: "PFAS Results Assistant", chatSubtitle: "Optional artificial intelligence (AI) help — not a water-safety assessment",
       expandChat: "Show full conversation", collapseChat: "Collapse conversation",
       suggestConcern: "What can this result tell me?", suggestUtility: "How do I confirm my utility?", suggestFilter: "Where were samples collected?", suggestHealth: "Where are current results?",
       askButton: "Ask", chatDisclaimer: "AI answers may be wrong. Verify them with official records; do not use them to decide whether water is safe or to make medical decisions. Do not share personal or medical information. The ZIP results do not use AI.", chatLearnMore: "How it works",
       quickExplanation: "Quick explanation", closeExplanation: "Close",
       faqResultTitle: "What this result can tell you",
-      faqResultBody: "It shows what EPA testing found in a public water system during the dates listed. Confirm the provider on your water bill first. These samples cannot tell us the PFAS level at your faucet, your personal exposure or health risk, or whether the water meets current drinking-water rules.",
+      faqResultBody: "It shows what federal monitoring found in a public water system during the dates listed. Confirm the provider on your water bill first. These samples cannot tell us the PFAS level at your faucet, your personal exposure or health risk, or whether the water meets current drinking-water rules.",
       faqUtilityTitle: "How to confirm your water utility",
       faqUtilityBody: "Match the complete water-system name on this page to the name on your water bill. If they do not match, contact your local water department or city. A ZIP code can contain several systems and is only used here to find possible matches.",
-      faqSamplingTitle: "Where EPA collected the samples",
-      faqSamplingBody: "UCMR 5 samples were collected at points where treated water enters the distribution system, not at household faucets. The sampling period shown on each system card tells you when the displayed monitoring occurred.",
+      faqSamplingTitle: "Where the samples were collected",
+      faqSamplingBody: "Federal monitoring samples were collected at points where treated water enters the distribution system, not at household faucets. The sampling period shown on each system card tells you when the displayed monitoring occurred.",
       faqCurrentTitle: "Where to find current official information",
-      faqCurrentBody: "The data here include results in EPA’s final UCMR 5 dataset, released August 2026. State or utility reports may contain more recent monitoring. Ask your water provider about recent PFAS tests and treatment, and check its annual water-quality report, called a Consumer Confidence Report.",
-      faqMore: "Read the full explanation →", faqCcrLink: "Find your water-quality report →", faqCurrentLink: "Check newer EPA results →",
+      faqCurrentBody: "The data here include results in the final federal monitoring dataset, released August 2026. State or utility reports may contain more recent monitoring. Ask your water provider about recent PFAS tests and treatment, and check its annual water-quality report, called a Consumer Confidence Report.",
+      faqMore: "Read the full explanation →", faqCcrLink: "Find your water-quality report →", faqCurrentLink: "Check federal monitoring records →",
       searchCounter: "ZIP searches",
       loadingRelease: "Loading verified release…", releaseUnavailable: "Release unavailable", dataUnavailable: "Data unavailable", loadingData: "Loading data…",
-      preparing: "Preparing EPA data.", findSystems: "Find results",
-      verifiedRelease: "Final EPA UCMR 5 dataset", monitoredSystems: "water systems", zipAssociations: "ZIP associations", resultsThrough: "EPA final dataset released August 2026",
-      loadFailure: "The verified data release could not be loaded. Please use EPA’s UCMR 5 Data Finder while this is resolved.",
+      preparing: "Preparing federal monitoring data.", findSystems: "Find results",
+      verifiedRelease: "Final federal monitoring dataset", monitoredSystems: "water systems", zipAssociations: "ZIP associations", resultsThrough: "Final federal dataset released August 2026",
+      loadFailure: "The verified data release could not be loaded. Please use the federal drinking-water Data Finder while this is resolved.",
       invalidZipTitle: "Enter a valid 5-digit ZIP code", invalidZipContext: "ZIP codes must contain exactly five numbers.",
       noAssociationTitle: zip => `We could not match a water system to ZIP ${zip}`,
       noAssociationContext: "A missing result does not mean your water is free of PFAS. Our data may not include your provider or its link to this ZIP code.",
-      noAssociationBody: "Find your provider’s name on your water bill, then ask it for recent PFAS results or search EPA’s Data Finder by name. If you use a private well, ask your state or local health or environmental agency about testing. Private wells are not included here.",
-      openDataFinder: "Open EPA’s UCMR 5 Data Finder →",
+      noAssociationBody: "Find your provider’s name on your water bill, then ask it for recent PFAS results or search the federal Data Finder by name. If you use a private well, ask your state or local health or environmental agency about testing. Private wells are not included here.",
+      openDataFinder: "Open the federal drinking-water Data Finder →",
       associatedTitle: (count, zip) => `${count} possible water system${count === 1 ? "" : "s"} for ZIP ${zip}`,
       associatedContext: (aboveCount, totalCount) => totalCount === 1
         ? "Check that this provider’s name matches your water bill. A ZIP match alone cannot confirm who supplies your home."
         : "Find the provider named on your water bill below. These systems have separate results; a finding at one may not apply to your provider.",
       communitySystem: "Community water system", publicSystem: "Public water system", residentialNotUsed: "residential Census context is not used for this system",
       completeUnavailable: "Not enough required samples for a yearly comparison", atLeastOne: "Above an EPA comparison level", detectedBelow: "Detected below all study benchmarks", belowReporting: "Below EPA reporting levels", noLocationMeets: "No yearly average was above an EPA comparison level",
-      populationServed: "Population served", source: "Primary source", ownership: "Ownership", samplingLocations: "Sampling locations", monitoringPeriod: "Sampling period", serviceBoundary: "Service boundary", sdwisStatus: "SDWIS status",
+      populationServed: "Population served", source: "Primary source", ownership: "Ownership", samplingLocations: "Sampling locations", monitoringPeriod: "Sampling period", serviceBoundary: "Service boundary", sdwisStatus: "Federal water-system record status",
       notReported: "Not reported", notAvailable: "Not available", unnamed: "Unnamed public water system",
       measure: "PFAS", highestAverage: "Highest yearly average", benchmarkHeading: "EPA-based study benchmark", comparisonHeading: "Result",
       noCompleteAverage: "Not enough required samples", meets: "Above EPA comparison level", detectedDoesNotMeet: "Detected below study benchmark", belowReportingLevel: "Below EPA reporting level", doesNotMeet: "Below study benchmark",
       demographicSummary: "Service-area demographic context used in the research analysis", demographicNote: "Ecological estimates for the modeled service area; these do not describe any individual customer.",
-      hispanic: "Hispanic", black: "non-Hispanic Black", aian: "non-Hispanic AIAN", poverty: "below poverty", rural: "rural",
+      hispanic: "Hispanic", black: "non-Hispanic Black", aian: "non-Hispanic American Indian or Alaska Native", poverty: "below poverty", rural: "rural",
       resultBoundaryTitle: "How to read the numbers",
       resultBoundaryBody: "The dates below show when EPA monitored each system. EPA sampled where treated water enters the distribution system, not at household faucets. If a result is below an EPA reporting level, it does not mean the concentration was zero or that the compound was absent. These results cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk.",
       keyTerms: "Key terms on this page",
@@ -204,7 +205,8 @@
     },
     zh: {
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
-      releaseBadge: "全美 · EPA UCMR 5 数据 · 教育工具",
+      releaseBadge: "全美 · 联邦饮用水监测数据 · 教育工具",
+      currentLanguageLabel: "当前语言：",
       heroTitle: "查查您的供水系统是否检出PFAS",
       featuresSummary: "专题介绍与资源收录",
       featureEwg: "EWG+HS 介绍了 Jack Zhang 开发 PFAS Estimator 的工作。请在 EWG+HS 页面的学生介绍中查找 Jack 的个人介绍。",
@@ -212,10 +214,10 @@
       featurePha: "PFAS Estimator 已收录于 Planetary Health Alliance 的资源库。请在 Chemical Pollution 页面的“Chemical Pollution Resources”部分查找本工具。",
       featuresPermalink: "本节链接",
       featureNewTab: "（在新标签页打开）",
-      heroSubtitle: "PFAS是一类化学污染物。输入邮政编码，查找您所在地区公共供水系统的检测结果。",
+      heroSubtitle: "全氟和多氟烷基物质（PFAS）是一类化学污染物。输入邮政编码，查找您所在地区公共供水系统的检测结果。",
       truthNote: '<strong>先确认供水机构。</strong>一个邮政编码可能列出多个系统。请与水费账单上的名称核对。这里不包括私人水井。<a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">使用私人水井？查找检测指导 →</a>',
       printButton: "打印或保存此供水系统结果",
-      chatTitle: "PFAS结果助手", chatSubtitle: "可选AI帮助——不是饮用水安全评估",
+      chatTitle: "PFAS结果助手", chatSubtitle: "可选人工智能帮助——不是饮用水安全评估",
       expandChat: "展开完整对话", collapseChat: "收起对话",
       suggestConcern: "这项结果能说明什么？", suggestUtility: "如何确认我的供水机构？", suggestFilter: "样本在哪里采集？", suggestHealth: "在哪里查看最新结果？",
       askButton: "提问", chatDisclaimer: "AI可能出错。请用官方记录核实回答，不要用它判断水质是否安全或作医疗决定。请勿分享个人或医疗信息。邮政编码结果不使用AI。", chatLearnMore: "工作原理",
@@ -224,21 +226,21 @@
       faqResultBody: "它显示所列公共供水系统的冻结EPA监测结果及采样时间。它不能确认该系统是否为您家供水，也不能确定当前合规情况、家庭水龙头浓度、个人暴露或健康风险。",
       faqUtilityTitle: "如何确认您的供水机构",
       faqUtilityBody: "请将本页完整的供水系统名称与水费账单上的名称核对。如果不一致，请联系当地供水部门或城市。一个邮政编码可能包含多个系统，此处仅用邮政编码查找可能的匹配。",
-      faqSamplingTitle: "EPA在哪里采样",
-      faqSamplingBody: "UCMR 5样本采自处理后的水进入配水系统的位置，而不是家庭水龙头。每张系统卡上的采样期说明所显示监测的时间。",
+      faqSamplingTitle: "样本在哪里采集",
+      faqSamplingBody: "联邦监测样本采自处理后的水进入配水系统的位置，而不是家庭水龙头。每张系统卡上的采样期说明所显示监测的时间。",
       faqCurrentTitle: "在哪里查找最新官方信息",
-      faqCurrentBody: "本网站使用EPA于2026年8月发布的最终UCMR 5数据。可在EPA数据查找器核对联邦记录。当前当地处理和合规信息请查看供水机构的消费者信心报告或联系供水机构。",
+      faqCurrentBody: "本网站使用2026年8月发布的最终联邦监测数据。州级或供水机构的报告可能包含更新的检测结果。请向供水机构询问近期检测及处理信息，并查看其年度水质报告。",
       faqMore: "查看完整说明 →", faqCcrLink: "查找消费者信心报告 →", faqCurrentLink: "打开EPA数据查找器 →",
       searchCounter: "次邮政编码查询",
       loadingRelease: "正在加载已验证版本…", releaseUnavailable: "版本不可用", dataUnavailable: "数据不可用", loadingData: "正在加载数据…",
       preparing: "正在准备冻结的科学数据版本。", findSystems: "查询我的地区",
-      verifiedRelease: "EPA最终UCMR 5数据", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "EPA于2026年8月发布的最终数据",
+      verifiedRelease: "最终联邦监测数据", monitoredSystems: "个供水系统", zipAssociations: "个邮政编码", resultsThrough: "2026年8月发布的最终联邦数据",
       loadFailure: "无法加载已验证的数据版本。问题解决前，请使用EPA UCMR 5数据查找器。",
       invalidZipTitle: "请输入有效的5位邮政编码", invalidZipContext: "邮政编码必须恰好包含五位数字。",
       noAssociationTitle: zip => `未找到邮政编码 ${zip} 的供水系统`,
       noAssociationContext: "这并不表示水中不含PFAS。该邮政编码可能由UCMR文件未关联的系统、私人水井或其他供水方服务。",
       noAssociationBody: "请使用水费账单或当地供水机构网站确认供水方，然后查看消费者信心报告或按系统名称搜索EPA数据。如果住宅使用私人水井，请向州或当地卫生或环境部门咨询检测指南；私人水井不在此数据集中。",
-      openDataFinder: "打开EPA UCMR 5数据查找器 →",
+      openDataFinder: "打开联邦饮用水数据查找器 →",
       associatedTitle: (count, zip) => `邮政编码 ${zip} 列出了 ${count} 个供水系统`,
       associatedContext: (aboveCount, totalCount) => totalCount === 1 ? "请将供水机构名称与水费账单核对。仅凭邮政编码不能确认谁为您家供水。" : "请在下方找到水费账单上的供水机构。每个系统的结果各不相同，其他系统的结果可能不适用于您的供水机构。",
       communitySystem: "社区供水系统", publicSystem: "公共供水系统", residentialNotUsed: "此系统不使用居民人口普查背景",
@@ -301,12 +303,7 @@
       const value = text(element.dataset.i18nHtml);
       if (typeof value === "string") element.innerHTML = value;
     });
-    if ($("langEn") && $("langZh")) {
-      $("langEn").style.background = currentLang === "en" ? "#175E97" : "#fff";
-      $("langEn").style.color = currentLang === "en" ? "#fff" : "#999";
-      $("langZh").style.background = currentLang === "zh" ? "#175E97" : "#fff";
-      $("langZh").style.color = currentLang === "zh" ? "#fff" : "#999";
-    }
+    if ($("languageSelect")) $("languageSelect").value = currentLang;
     if ($("zipInput")) $("zipInput").placeholder = currentLang === "zh" ? "输入5位邮政编码" : "Enter a 5-digit ZIP code";
     if ($("aiInput")) $("aiInput").placeholder = currentLang === "zh" ? "询问PFAS或显示的供水系统…" : "Ask about PFAS or the displayed systems…";
     if ($("faqDialogClose")) {
@@ -620,7 +617,7 @@
     const isZh = currentLang === "zh";
     return `<aside class="result-boundary" role="note">
       <h3>${isZh ? "怎样读懂这些数字" : "How to read the numbers"}</h3>
-      <p>${isZh ? "本页使用EPA于2026年8月发布的最终UCMR 5数据。当前州级或供水机构结果可能有所不同。" : "These data include results in EPA’s final UCMR 5 dataset, released August 2026. State or utility reports may contain more recent monitoring."}</p>
+      <p>${isZh ? "本页使用美国环境保护署（EPA）第五轮未受监管污染物监测规则（UCMR 5）的数据，最终数据于2026年8月发布。州级或供水机构报告可能包含更新的检测结果。" : "These data come from the U.S. Environmental Protection Agency (EPA), collected under the Fifth Unregulated Contaminant Monitoring Rule (UCMR 5), with the final dataset released August 2026. State or utility reports may contain more recent monitoring."}</p>
       <div class="result-glossary">
         <dl>
           <div><dt>${isZh ? "年度平均值是什么？" : "What is the yearly average?"}</dt><dd>${isZh ? "我们从EPA最终样本记录重建各采样点年度平均值，再显示该系统中最高的平均值。低于报告限值的样本按零参与计算，但不代表实际浓度为零。" : "We use yearly averages reconstructed from EPA’s final sample records for each testing location, then show the highest of those averages for the system. Samples below the reporting limit count as zero in the calculation; they are not measured zeros."}</dd></div>
@@ -777,16 +774,16 @@
     const compactRows = OUTCOMES.map(outcome => {
       const status = outcomeStatus(system, outcome);
       const label = outcome.key === "hi" ? (isZh ? "混合物指数（无单位）" : "Mixture index (unitless)") : outcome.label;
-      return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "高于EPA比较水平" : "Above EPA comparison level"}</small>` : ""}</div>`;
+      return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "高于联邦比较水平" : "Above federal comparison level"}</small>` : ""}</div>`;
     }).join("");
     const shortFinding = sampleDetections.length && !above
       ? (isZh ? "部分采样点检出了PFAS，但该物质的年度样本不足。请同时查看完整年度平均值和单次样本。" : "Some locations had PFAS detections but insufficient samples for that chemical's yearly average. Review both the complete annual averages and individual samples.")
       : above
-      ? (isZh ? "至少一项可用结果高于EPA比较水平。" : "At least one available yearly average is above an EPA comparison level.")
+      ? (isZh ? "至少一项可用结果高于联邦比较水平。" : "At least one available yearly average is above a federal comparison level.")
       : !complete
         ? (isZh ? "样本不足，无法进行年度比较。" : "Not enough samples for a yearly comparison.")
         : detectedOutcomes.length
-          ? (isZh ? "可用的年度平均值均未高于EPA比较水平。" : "No available yearly average is above the EPA comparison levels.")
+          ? (isZh ? "可用的年度平均值均未高于联邦比较水平。" : "No available yearly average is above the federal comparison levels.")
           : (isZh ? "完整样本中未检出本页五种PFAS；不代表含量为零。" : "The five PFAS shown were not detected in complete samples; this does not mean zero.");
     const age = samplingAgeNotice(system);
     const shortAge = age.includes("over a year old") || age.includes("超过一年")
@@ -799,14 +796,14 @@
       : `<a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${isZh ? "查找更新的官方结果 →" : "Check newer official results →"}</a>`;
     return `<article class="detail-box system-summary-card water-system-card compact-system ${above ? "has-comparison" : ""}">
       <header class="system-summary-head">
-        <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} · PWSID ${escapeHtml(system.pwsid)}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3></div>
+        <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} · ${isZh ? "供水系统编号" : "System ID"} ${escapeHtml(system.pwsid)}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3></div>
         <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
       </header>
       ${renderAssociationReview(system)}
       <p class="compact-dates">${isZh ? "采样" : "Sampled"}: ${escapeHtml(formatMonitoringPeriod(system))}. ${escapeHtml(shortAge)}</p>
       <p class="compact-finding">${shortFinding}</p>
       ${!allIndividualComplete ? `<p class="compact-warning">${isZh ? "部分比较缺失或未经核实。缺失比较不能视为低于基准。" : "Some comparisons are missing or unverified. Missing comparisons cannot be treated as below benchmark."}</p>` : ""}
-      <p class="compact-caption">${isZh ? "各采样点中的最高年度平均值 · 五种PFAS与混合物指数" : "Highest yearly averages across locations · five PFAS and a mixture index"}</p>
+      <p class="compact-caption">${isZh ? "各采样点中的最高年度平均值 · 化学物质浓度以万亿分之一（ppt）表示；混合物指数无单位。" : "Highest yearly averages across locations · Chemical levels are in parts per trillion (ppt); the mixture index is unitless."}</p>
       <div class="compact-outcomes">${compactRows}</div>
       <p class="compact-caption">${isZh ? "“低于”指低于报告限值，不代表含量为零。" : "“Below” means below the reporting limit, not zero."}</p>
       ${renderIncompleteSamples(system)}
@@ -1146,9 +1143,13 @@
   $("faqDialogClose").addEventListener("click", closeFaq);
   $("faqDialog").addEventListener("click", event => { if (event.target === $("faqDialog")) closeFaq(); });
   $("faqDialog").addEventListener("close", () => { activeFaqKey = null; });
-  function toggleLanguage() { currentLang = currentLang === "en" ? "zh" : "en"; applyLanguage(); trackEvent("language_switch", { language: currentLang }); }
-  $("languageToggle").addEventListener("click", toggleLanguage);
-  $("languageToggle").addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggleLanguage(); } });
+  $("languageSelect").addEventListener("change", event => {
+    const language = event.target.value;
+    if (!Object.hasOwn(COPY, language) || language === currentLang) return;
+    currentLang = language;
+    applyLanguage();
+    trackEvent("language_switch", { language: currentLang });
+  });
 
   function openLinkedFeatures() {
     if (!["#features", "#project-features"].includes(window.location.hash)) return;

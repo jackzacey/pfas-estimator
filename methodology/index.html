@@ -34,7 +34,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261107" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -57,7 +57,7 @@
     <header class="methodology-hero">
       <div class="methodology-kicker">PFAS Estimator · Research release v0.2</div>
       <h1>How the site and research work</h1>
-      <p class="methodology-lede">The first section explains how to read a ZIP result. The sections that follow provide the complete data sources, calculations, statistical methods, and limitations.</p>
+      <p class="methodology-lede">These results cover per- and polyfluoroalkyl substances (PFAS), using data from the U.S. Environmental Protection Agency (EPA) and its Fifth Unregulated Contaminant Monitoring Rule (UCMR 5). Start with how to read a ZIP result, then review the data sources, calculations, research methods, and limitations.</p>
 
       <div class="methodology-meta" aria-label="Methodology status">
         <span><strong>Website data</strong> EPA UCMR 5</span>
@@ -84,7 +84,7 @@
       </aside>
 
       <main class="methodology-content" id="methodology-content">
-        <aside class="result-boundary"><h2>Website data update — October 19, 2026</h2><p>The ZIP lookup, map, state table, and state pages now use the final EPA UCMR 5 dataset released in August 2026. We reconstruct complete sampling-location averages from the final sample records, apply EPA’s significant-digit rounding, and display the highest location average for each system and chemical. Samples below reporting limits count as zero only in those calculations.</p><p>All 28 system-count checks match EPA’s final July 2026 comparison table. A record-by-record comparison with the Data Finder export is documented in the <a href="/analysis/exports/ucmr5_final_aug2026_v1/validation_report.json">website validation report</a>. These data describe historical monitoring, not current household water quality or legal compliance. ZIP links remain candidate provider associations.</p><p>System attributes use the August 12, 2026 SDWIS snapshot. Any demographic or boundary context remains from the archived research. The scientific study and its results below remain on the separate January 2026 release; they have not been rerun with the final data.</p></aside>
+        <aside class="result-boundary"><h2>Website data update — October 19, 2026</h2><p>The ZIP lookup, map, state table, and state pages now use the final EPA UCMR 5 dataset released in August 2026. We reconstruct complete sampling-location averages from the final sample records, apply EPA’s significant-digit rounding, and display the highest location average for each system and chemical. Samples below reporting limits count as zero only in those calculations.</p><p>All 28 system-count checks match EPA’s final July 2026 comparison table. A record-by-record comparison with the Data Finder export is documented in the <a href="/analysis/exports/ucmr5_final_aug2026_v1/validation_report.json">website validation report</a>. These data describe historical monitoring, not current household water quality or legal compliance. ZIP links remain candidate provider associations.</p><p>System attributes use the August 12, 2026 Safe Drinking Water Information System (SDWIS) snapshot. Any demographic or boundary context remains from the archived research. The scientific study and its results below remain on the separate January 2026 release; they have not been rerun with the final data.</p></aside>
 <section class="methodology-section" id="overview">
           <div class="methodology-section-heading">
             <span class="methodology-section-number">01</span>
@@ -121,8 +121,8 @@
             <li><strong>Website monitoring:</strong> final EPA UCMR 5 occurrence files and the unfiltered Average PFAS Results table downloaded October 19, 2026. All 160,223 average-result rows match for presence, completeness, displayed averages, and technical-comparison flags.</li><li><strong>Archived research monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
             <li><strong>System characteristics:</strong> EPA SDWIS Federal Reporting Services.</li>
             <li><strong>Service areas:</strong> EPA Public Water System Service Areas version 3, including system-sourced and modeled boundaries.</li>
-            <li><strong>Demographics:</strong> 2020–2024 American Community Survey block-group estimates and Census Planning Database urban/rural fields.</li>
-            <li><strong>ZIP lookup only:</strong> EPA’s PWS-reported UCMR service-ZIP associations.</li>
+            <li><strong>Demographics:</strong> 2020–2024 American Community Survey (ACS) block-group estimates and Census Planning Database urban/rural fields.</li>
+            <li><strong>ZIP lookup only:</strong> EPA’s water-system-reported UCMR 5 service-ZIP associations.</li>
           </ul>
 
           <div class="methodology-note">
@@ -143,7 +143,7 @@
 
           <div class="methodology-metrics" aria-label="Cohort flow">
             <div class="methodology-metric"><span class="methodology-metric-value">10,289</span><span class="methodology-metric-label">systems in EPA’s average-results export</span></div>
-            <div class="methodology-metric"><span class="methodology-metric-value">8,936</span><span class="methodology-metric-label">active CWSs with enough required samples for a yearly average</span></div>
+            <div class="methodology-metric"><span class="methodology-metric-value">8,936</span><span class="methodology-metric-label">active community water systems (CWSs) with enough required samples for a yearly average</span></div>
             <div class="methodology-metric"><span class="methodology-metric-value">8,701</span><span class="methodology-metric-label">eligible demographic records</span></div>
             <div class="methodology-metric"><span class="methodology-metric-value">8,069</span><span class="methodology-metric-label">systems in the primary inferential cohort</span></div>
           </div>
@@ -172,6 +172,10 @@
             <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Classify the combined primary outcome</h3><p>A system enters the combined outcome when at least one complete-set location has a yearly average at or above an April 2024 individual-compound or qualifying-mixture technical cutoff.</p></div></li>
           </ol>
 
+          <div class="methodology-note">
+            <strong>Which chemicals are shown?</strong> The lookup shows perfluorooctanoic acid (PFOA), perfluorooctane sulfonic acid (PFOS), perfluorohexane sulfonic acid (PFHxS), perfluorononanoic acid (PFNA), and hexafluoropropylene oxide dimer acid (HFPO-DA, also called GenX), plus a mixture Hazard Index. The index combines PFHxS, PFNA, HFPO-DA and perfluorobutane sulfonic acid (PFBS) relative to their reference values; it is not a concentration or a probability of illness. PFBS is included in that calculation, but the frozen website archive does not provide a separate PFBS system summary. This is not a list of all PFAS or a total PFAS concentration. The highest averages for different chemicals may come from different sampling locations or years, so adding them cannot determine compliance with a state's combined-PFAS standard. Use the underlying samples and current official state guidance for that question.
+          </div>
+
           <div class="methodology-table-wrap">
             <table class="methodology-table">
               <thead><tr><th>Comparison</th><th>Unrounded classification cutoff</th><th>Reason</th></tr></thead>
@@ -184,10 +188,6 @@
           </div>
 
           <p>These cutoffs reconstruct a rounded federal comparison; they are not newly proposed toxicological thresholds. The manuscript and website use “benchmark” or “technical comparison,” never “violation” or “noncompliance.” Compound-specific outcomes are secondary. Sparse or nonconvergent adjusted models are reported descriptively rather than forced into unstable estimates.</p>
-
-          <div class="methodology-note">
-            <strong>Which chemicals are shown?</strong> The lookup shows PFOA, PFOS, PFHxS, PFNA and HFPO-DA (GenX), plus a mixture Hazard Index. The index combines PFHxS, PFNA, HFPO-DA and PFBS relative to their reference values; it is not a concentration or a probability of illness. PFBS is included in that calculation, but the frozen website archive does not provide a separate PFBS system summary. This is not a list of all PFAS or a total PFAS concentration. The highest averages for different chemicals may come from different sampling locations or years, so adding them cannot determine compliance with a state's combined-PFAS standard. Use the underlying samples and current official state guidance for that question.
-          </div>
 
           <div class="methodology-note">
             <strong>Policy timestamp.</strong> The April 2024 rule is the fixed scenario used in this release. EPA proposed in May 2026 to rescind provisions specific to PFHxS, PFNA, HFPO-DA, and mixture Hazard Index requirements. As checked October 19, 2026, EPA still describes this as a proposed rule. These historical comparisons are not current compliance findings.
@@ -262,7 +262,7 @@
 
           <p>The PFAS Results Assistant is optional. The ZIP lookup itself does not use AI. When someone asks a question, the question and a short summary of the displayed water-system results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
 
-          <p>The assistant can explain terms, general health research, sampling locations, utility follow-up, and optional filter guidance. It is limited to a compact evidence set based on EPA, ATSDR, and NSF guidance. Deterministic boundary responses prevent it from treating a system result as a safety, compliance, medical, personal-exposure, or exposure-percentage determination. It cannot change a number or comparison on the page. Its other answers may still contain mistakes. If it is unavailable, the ZIP lookup continues to work.</p>
+          <p>The assistant can explain terms, general health research, sampling locations, utility follow-up, and optional filter guidance. It is limited to a compact evidence set based on EPA, the Agency for Toxic Substances and Disease Registry (ATSDR), and NSF certification guidance. Deterministic boundary responses prevent it from treating a system result as a safety, compliance, medical, personal-exposure, or exposure-percentage determination. It cannot change a number or comparison on the page. Its other answers may still contain mistakes. If it is unavailable, the ZIP lookup continues to work.</p>
 
           <div class="truth-callout">
             <div class="truth-callout-label">Before buying a filter</div>

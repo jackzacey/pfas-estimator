@@ -1,0 +1,44 @@
+/* Give otherwise unstyled links the existing site color. Component styles win. */
+:where(a[href], a[href]:visited) {
+  color: var(--primary);
+  text-underline-offset: 0.18em;
+}
+:where(a[href]):focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.language-picker {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 4px;
+  max-width: 100%;
+  min-height: 32px;
+  padding: 3px 7px 3px 10px;
+  border: 1px solid var(--primary-tint-border);
+  border-radius: 7px;
+  background: var(--primary-tint);
+  color: #526b79;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.language-picker label { white-space: nowrap; }
+.language-picker select {
+  width: auto;
+  min-width: 72px;
+  max-width: 120px;
+  min-height: 24px;
+  padding: 2px 3px;
+  border: 0;
+  border-radius: 3px;
+  background-color: transparent;
+  color: var(--primary);
+  font: inherit;
+  cursor: pointer;
+}
+.language-picker select:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+@media print { .language-picker { display: none; } }

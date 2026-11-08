@@ -64,7 +64,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261107" />
   <link rel="stylesheet" href="/lookup-readability.css?v=20260927-concise-2" />
   <link rel="stylesheet" href="/project-features.css?v=20261107" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
@@ -77,7 +77,7 @@
   </script>
   <script defer src="/lookup-evidence.js?v=20261019-sample-context1"></script>
   <script defer src="/assistant-result-tools.js?v=20261019-final-audit2"></script>
-  <script defer src="/scientific-site-v2.js?v=20261107-features"></script>
+  <script defer src="/scientific-site-v2.js?v=20261107-clarity"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -94,14 +94,17 @@
     <main class="card home-card" id="lookup-content">
       <header class="home-hero">
         <div class="home-hero-top">
-          <span class="badge" data-i18n="releaseBadge">National · EPA UCMR 5 Data · Educational Tool</span>
-          <div id="languageToggle" class="language-toggle" role="button" tabindex="0" aria-label="Switch language between English and Simplified Chinese">
-            <span id="langEn" style="background:#175E97;color:#fff;">English</span>
-            <span id="langZh" style="background:#fff;color:#999;">中文</span>
+          <span class="badge" data-i18n="releaseBadge">National · Federal drinking-water data · Educational tool</span>
+          <div class="language-picker">
+            <label for="languageSelect" data-i18n="currentLanguageLabel">Current Language:</label>
+            <select id="languageSelect">
+              <option value="en" lang="en">English</option>
+              <option value="zh" lang="zh-Hans">简体中文</option>
+            </select>
           </div>
         </div>
         <h1 data-i18n="heroTitle">Check for PFAS in your water system</h1>
-        <p class="subtitle" data-i18n="heroSubtitle">PFAS are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.</p>
+        <p class="subtitle" data-i18n="heroSubtitle">Per- and polyfluoroalkyl substances (PFAS) are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.</p>
         <span class="visually-hidden" id="releaseStatus">Loading verified release…</span>
       </header>
 
@@ -116,7 +119,7 @@
               <input type="text" id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" aria-label="Enter U.S. ZIP code" placeholder="Enter U.S. zip code" maxlength="5" />
               <button type="button" id="lookupButton" disabled>Loading data…</button>
             </div>
-            <div class="visually-hidden" id="lookupDataNote">Preparing verified EPA data.</div>
+            <div class="visually-hidden" id="lookupDataNote">Preparing verified federal monitoring data.</div>
           </div>
 
 
@@ -146,7 +149,7 @@
                   <div class="chat-panel-dot" aria-hidden="true"></div>
                   <span class="chat-panel-title" data-i18n="chatTitle">PFAS Results Assistant</span>
                 </div>
-                <div class="chat-panel-sub" data-i18n="chatSubtitle">Optional AI help — not a water-safety assessment</div>
+                <div class="chat-panel-sub" data-i18n="chatSubtitle">Optional artificial intelligence (AI) help — not a water-safety assessment</div>
               </div>
             </div>
             <div id="aiMessages" class="ai-messages" role="log" aria-live="polite" aria-label="Conversation"></div>
@@ -169,7 +172,7 @@
       <section class="why-section" aria-labelledby="why-water-title">
         <span class="why-kicker">About the project</span>
         <h2 id="why-water-title">About this independent research</h2>
-        <p>PFAS Estimator helps people find and read EPA public-water monitoring data. It was built by Jack Zhang in Los Gatos, California. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
+        <p>PFAS Estimator helps people find and read public-water monitoring data from the U.S. Environmental Protection Agency. It was built by Jack Zhang in Los Gatos, California. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
         <details class="project-features" id="features">
           <summary><span data-i18n="featuresSummary">Features &amp; resource listings</span> <span class="project-features-count">(3)</span></summary>
           <ul class="project-features-list">
@@ -189,11 +192,11 @@
           <p class="project-features-share"><a href="/#features" data-i18n="featuresPermalink">Link to this section</a></p>
         </details>
         <p>The archived data and code are public, and automated internal checks are in place. The analysis has not yet been independently reproduced or peer reviewed.</p>
-        <p><a class="source-link" href="/methodology/">Read the methods and limitations →</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View archived data and code (DOI) →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com">Contact Jack</a></p>
+        <p><a class="source-link" href="/methodology/">Read the methods and limitations →</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View archived data and code →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com">Contact Jack</a></p>
       </section>
 
       <div class="disclaimer">
-        Independent research and education tool · <a class="source-link" href="/methodology/">Methods and limitations</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Current EPA data</a>
+        Independent research and education tool · <a class="source-link" href="/methodology/">Methods and limitations</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Official federal monitoring data</a>
       </div>
     </main>
   </div>
