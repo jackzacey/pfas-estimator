@@ -42,3 +42,22 @@
   outline-offset: 2px;
 }
 @media print { .language-picker { display: none; } }
+
+.methodology-source-details {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: #fff;
+}
+.methodology-source-details summary {
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.methodology-source-details[open] summary { margin-bottom: 0.9rem; }
+.methodology-source-details summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+}

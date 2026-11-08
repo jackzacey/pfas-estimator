@@ -1,0 +1,62 @@
+.map-view-switch { display:flex; gap:5px; width:fit-content; max-width:100%; padding:4px; border:1px solid var(--border-soft); border-radius:24px; background:#fff; margin:20px 0; }
+#systemView, #stateView > .national-panel { margin-top:0; }
+.map-view-switch button { border:0; border-radius:20px; background:transparent; color:#617580; padding:9px 18px; font:inherit; font-size:12px; box-shadow:none; height:auto; }
+.map-view-switch button[aria-pressed="true"] { background:var(--primary-tint,#edf5fa); color:var(--primary,#175e97); }
+.map-view-switch button:focus-visible, #systemView button:focus-visible, #systemView a:focus-visible { outline:2px solid #175e97; outline-offset:3px; }
+#systemView [hidden], #stateView[hidden], #systemView[hidden] { display:none !important; }
+.system-map-search-row, .system-map-metrics { display:flex; gap:16px; align-items:end; margin:18px 0 14px; }
+.system-map-search-row label:first-child { flex:1; }
+#systemView label { display:flex; flex-direction:column; gap:7px; font-size:11px; color:#5c707a; font-weight:500; }
+#systemView input, #systemView select { width:100%; min-width:0; height:39px; padding:8px 11px; border:1px solid var(--border-soft,#dce5e9); border-radius:7px; background:#fff; color:#304e60; font:inherit; font-size:12px; box-shadow:none; }
+.system-map-search-row label:last-child { width:210px; }
+.system-map-metrics label { min-width:235px; }
+.system-map-metrics label:last-child { max-width:450px; }
+.system-map-legend { display:flex; flex-wrap:wrap; gap:9px 20px; margin:16px 0 10px; font-size:10px; color:#506673; }
+.system-map-legend span { display:inline-flex; align-items:center; gap:7px; }
+.system-map-legend i { display:inline-block; width:10px; height:10px; border:1px solid #849da9; border-radius:50%; flex-shrink:0; }
+.system-map-note { color:#6a7b82; font-size:11px; line-height:1.65; margin:10px 0 14px; max-width:950px; }
+.system-map-frame { position:relative; border:1px solid var(--border-soft,#dce5e9); border-radius:9px; overflow:hidden; background:#edf3f6; }
+#systemMap { height:570px; background:#e9f1f5; font-family:var(--font-sans, sans-serif); z-index:0; }
+.system-map-tools { position:absolute; top:12px; right:12px; display:flex; gap:5px; z-index:500; }
+#systemView .system-map-tools button { height:auto; padding:7px 11px; background:#fff; color:#175e97; border:1px solid #d4e0e6; box-shadow:0 1px 4px #2e536214; border-radius:18px; font:inherit; font-size:10px; }
+#systemMap .leaflet-control-zoom { border:1px solid #d4e0e6; border-radius:8px; overflow:hidden; box-shadow:0 1px 4px #2e536214; }
+#systemMap .leaflet-control-zoom a { color:#175e97; background:#fff; }
+#systemMap .leaflet-tile-pane { filter:saturate(.4); }
+#systemMap .leaflet-control-attribution { font-size:9px; background:#ffffffed; }
+.system-map-dot-host { background:transparent; border:0; display:grid; place-items:center; }
+.system-map-dot { display:block; width:12px; height:12px; background:var(--dot-color); border:2px solid #fff; outline:1px solid #68889b; border-radius:50%; box-shadow:0 1px 4px #254d6633; }
+.system-map-dot-host:focus-visible { outline:2px solid #175e97; outline-offset:2px; border-radius:50%; }
+.system-map-dot-host.is-selected .system-map-dot { width:15px; height:15px; outline:2px solid #175e97; box-shadow:0 0 0 5px #ffffffb8; }
+.system-map-cluster { display:grid; place-items:center; border-radius:50%; background:#eaf4f9; border:1px solid #90b9cf; color:#175e97; box-shadow:0 0 0 4px #ffffffa8; font-size:11px; font-weight:600; font-variant-numeric:tabular-nums; }
+.system-map-cluster:focus-visible { outline:2px solid #175e97; outline-offset:4px; }
+#systemMap .leaflet-tooltip { width:260px; max-width:calc(100vw - 80px); white-space:normal; padding:10px 12px; border:1px solid #dce5e9; border-radius:7px; font-size:11px; line-height:1.6; color:#4a626f; box-shadow:0 3px 16px #23465c17; }
+#systemMap .leaflet-tooltip strong { color:#26485d; }
+.system-map-details { padding:18px 0 4px; border-top:1px solid #e1e9ed; color:#637780; font-size:12px; line-height:1.65; }
+.system-map-details.has-selection { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
+.system-map-details h3 { color:#26485d; font-size:18px; line-height:1.4; margin:8px 0; }
+.system-map-details p { margin:6px 0; }
+.system-map-finding { max-width:430px; }
+.system-map-detail-result > span, .system-map-detail-result > strong, .system-map-detail-result > small { display:block; }
+.system-map-detail-result > span { font-size:11px; }
+.system-map-detail-result > strong { color:#26485d; font-size:17px; font-weight:500; margin:5px 0; }
+.system-map-detail-result > p, .system-map-detail-result > small { font-size:11px; color:#6a7b82; }
+.system-map-result-link { display:inline-block; padding:8px 0; color:#175e97; font-weight:500; text-decoration:none; }
+.system-map-result-link:hover { text-decoration:underline; }
+.system-search-results { max-height:300px; overflow-y:auto; border:1px solid #dce5e9; border-radius:7px; margin:0 0 18px; background:#fff; }
+.system-search-results > p { padding:10px 12px; font-size:11px; color:#6a7b82; border-bottom:1px solid #eef2f5; }
+#systemView .system-search-results button { display:block; width:100%; min-width:0; height:auto; white-space:normal; overflow-wrap:anywhere; text-align:left; padding:11px 13px; border:0; border-bottom:1px solid #eef2f5; border-radius:0; color:#304e60; background:#fff; box-shadow:none; font:inherit; }
+#systemView .system-search-results button:hover { background:#f2f8fb; }
+.system-search-results button strong, .system-search-results button span { display:block; font-size:12px; }
+.system-search-results button strong { font-weight:500; }
+.system-search-results button span { font-size:10px; margin-top:4px; color:#6a7b82; }
+.system-map-frame:fullscreen #systemMap { height:100vh; }
+.system-map-expanded { position:fixed; inset:12px; z-index:2000; }
+.system-map-expanded #systemMap { height:100%; }
+@media(max-width:700px) {
+  .system-map-search-row, .system-map-metrics { flex-direction:column; align-items:stretch; gap:12px; }
+  .system-map-search-row label:last-child, .system-map-metrics label { width:100%; min-width:0; }
+  .system-map-details.has-selection { grid-template-columns:1fr; gap:15px; }
+  #systemMap { height:460px; }
+  .system-map-legend { gap:10px 14px; }
+  .system-map-tools { top:10px; right:9px; }
+}

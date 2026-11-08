@@ -136,7 +136,7 @@
   const COPY = {
     en: {
       navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "How it works",
-      releaseBadge: "National · Federal drinking-water data · Educational tool",
+      releaseBadge: "Public drinking-water results",
       currentLanguageLabel: "Current Language:",
       heroTitle: "Check for PFAS in your water system",
       featuresSummary: "Features & resource listings",
@@ -193,7 +193,7 @@
       studyBenchmarkDefinition: "This comparison follows EPA’s final UCMR 5 rounding rules for the April 2024 federal levels. For example, an unrounded PFOA or PFOS average of 4.05 ppt counts as above the 4 ppt comparison level. It is not a current federal or state standard, and it does not show whether a water system complies with the law.",
       reportingLevelTerm: "EPA reporting level",
       reportingLevelDefinition: "The lowest concentration that UCMR 5 reports as a number for that compound. A result below this level is not a measured zero and does not prove that the compound was absent.",
-      welcome: "Ask about PFAS, a result you see, or where to find recent tests. You can also use the quick explanations below.",
+      welcome: "Ask about PFAS, a result you see, or where to find recent tests.",
       contextReadyAbove: "Your results are shown above. Ask me to explain a chemical or comparison, or help you find recent tests. If several providers are listed, include your provider’s name.",
       contextReadyBelow: "Your results are shown above. Ask me what was found or what a missing or below-limit result means. If several providers are listed, include your provider’s name.",
       contextReadyNone: "I could not find a water system for that ZIP. Ask me how to confirm your utility or check a private well.",
@@ -205,7 +205,7 @@
     },
     zh: {
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
-      releaseBadge: "全美 · 联邦饮用水监测数据 · 教育工具",
+      releaseBadge: "公共饮用水检测结果",
       currentLanguageLabel: "当前语言：",
       heroTitle: "查查您的供水系统是否检出PFAS",
       featuresSummary: "专题介绍与资源收录",
@@ -283,6 +283,7 @@
   let currentSystems = [];
   let chatMessages = [];
   let lastLookupZip = null;
+  let lastSystemId = null;
   let activeFaqKey = null;
   let chatGeneration = 0;
 
@@ -312,7 +313,8 @@
     }
     if (activeFaqKey) populateFaq(activeFaqKey);
     if (release) updateReleaseLabels();
-    if (lastLookupZip && release) renderLookup(lastLookupZip, false);
+    if (lastSystemId && release) renderSelectedSystem(lastSystemId);
+    else if (lastLookupZip && release) renderLookup(lastLookupZip, false);
     else resetChat(text("welcome"));
   }
 
@@ -846,12 +848,14 @@
     </details></section>`;
   }
 
-  function buildAssistantContext(systems) {
+  function buildAssistantContext(systems, selection = "zip") {
     if (!systems.length) return "No water system was found for the searched ZIP in this EPA-linked file. This does not establish that the water is PFAS-free; the user should check a water bill, contact the local utility, or determine whether the home uses a private well.";
     const selected = systems.slice(0, 10);
     const lines = [
       `Release: ${release.release_id}.`,
-      "The ZIP link can list multiple water systems and does not confirm the utility for a specific home. The user should match the system name to a water bill.",
+      selection === "system"
+        ? "The user selected this water system directly by public water system ID, without a ZIP lookup. Selection does not establish that it serves their home. The user should match the provider to a water bill."
+        : "The ZIP link can list multiple water systems and does not confirm the utility for a specific home. The user should match the system name to a water bill.",
       "UCMR 5 samples were collected at entry points to the distribution system, not at a household faucet. The page identifies each system's sampling period. Each numeric PFAS value is the highest EPA-derived annual average among that water system's sampling locations. A below-reporting-level result is not proof that the concentration was zero. Comparison labels do not determine current compliance, household tap concentration, personal exposure, safety, or health risk.",
       `Water systems displayed: ${systems.length}.`
     ];
@@ -1002,6 +1006,7 @@
 
   function renderLookup(zip, incrementCounter = true) {
     if (!release) return;
+    lastSystemId = null;
     const result = $("result");
     const title = $("resultTitle");
     const context = $("resultContext");
@@ -1079,6 +1084,42 @@
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
   }
 
+  function renderSelectedSystem(id) {
+    if (!release) return;
+    lastLookupZip = null;
+    lastSystemId = id;
+    $("zipInput").value = "";
+    const system = systemsById.get(id);
+    currentSystems = system ? [system] : [];
+    const result = $("result");
+    history.replaceState({}, "", `${window.location.pathname}?system=${encodeURIComponent(id)}#result`);
+    if (!system) {
+      currentContext = "The requested system ID is not in the loaded release. No system is selected. Do not infer that this system lacks monitoring or that any water is safe.";
+      result.className = "result not-found";
+      $("resultTitle").textContent = currentLang === "zh" ? "未找到该供水系统" : "Water system not found in this release";
+      $("resultContext").textContent = currentLang === "zh" ? "请使用邮政编码查询或地图选择供水机构。此结果不能判断水质或是否进行了检测。" : "Try the ZIP lookup or map to select a provider. This does not establish water quality or whether monitoring occurred.";
+      $("resultBody").innerHTML = `<p><a href="/map/">${currentLang === "zh" ? "打开供水系统地图 →" : "Explore the water-system map →"}</a></p>`;
+      $("printBtn").hidden = true;
+      $("printBtn").classList.remove("visible");
+      resetChat($("resultContext").textContent);
+      return;
+    }
+    currentContext = buildAssistantContext([system], "system");
+    const above = Number(system.any_system_above_mcl_comparison) === 1;
+    result.className = above ? "result found-above" : "result found-below";
+    $("resultTitle").textContent = system.ucmr_pws_name;
+    $("resultContext").textContent = currentLang === "zh"
+      ? "直接按供水系统编号选择，未进行邮编关联。请核对水费账单上的供水机构。下方为历史检测结果，不能确定您家当前的自来水水质。"
+      : "Selected directly by water system ID, without a ZIP match. Confirm the provider on your water bill. These historical results do not establish current household tap-water quality.";
+    const hasDetection = OUTCOMES.filter(o => o.key !== "hi").some(o => (numericAverage(o,outcomeStatus(system,o)) || 0) > 0) || incompleteSampleDetections(system).length > 0;
+    $("resultBody").innerHTML = `${renderSystem(system)}${renderPrivateWellGuidance([system])}${hasDetection ? `<details class="compound-results-details optional-help"><summary>${currentLang === "zh" ? "考虑使用过滤器？" : "Considering a filter?"}</summary>${renderFilterGuide()}</details>` : ""}<details class="compound-results-details optional-help" id="lookup-number-guide"><summary>${currentLang === "zh" ? "数字说明与常见问题" : "What the numbers mean"}</summary>${renderResultBoundary([system])}</details>`;
+    $("printZip").textContent = `${currentLang === "zh" ? "供水系统编号" : "Water system ID"}: ${system.pwsid}`;
+    $("printDate").textContent = `${currentLang === "zh" ? "生成日期" : "Generated"}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : "en-US")}`;
+    $("printBtn").hidden = false;
+    $("printBtn").classList.add("visible");
+    resetChat(above ? text("contextReadyAbove") : text("contextReadyBelow"));
+  }
+
   function checkZip() { renderLookup($("zipInput").value.trim(), true); }
 
   async function initialize() {
@@ -1115,8 +1156,12 @@
       monitoringById = new Map(periods.map(period => [String(period.pwsid), period]));
       updateReleaseLabels();
       $("lookupButton").disabled = false;
-      const deepLink = new URLSearchParams(window.location.search).get("zip");
-      if (/^\d{5}$/.test(deepLink || "")) {
+      const params = new URLSearchParams(window.location.search);
+      const deepLink = params.get("zip");
+      if (params.has("system")) {
+        renderSelectedSystem(params.get("system"));
+        requestAnimationFrame(() => $("result").scrollIntoView({block:"start"}));
+      } else if (/^\d{5}$/.test(deepLink || "")) {
         $("zipInput").value = deepLink;
         renderLookup(deepLink, false);
       }

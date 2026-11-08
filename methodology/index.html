@@ -34,7 +34,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261107" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261108-cleanup" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -55,22 +55,19 @@
       </nav>
 
     <header class="methodology-hero">
-      <div class="methodology-kicker">PFAS Estimator · Research release v0.2</div>
+      <div class="methodology-kicker">Methods and sources</div>
       <h1>How the site and research work</h1>
       <p class="methodology-lede">These results cover per- and polyfluoroalkyl substances (PFAS), using data from the U.S. Environmental Protection Agency (EPA) and its Fifth Unregulated Contaminant Monitoring Rule (UCMR 5). Start with how to read a ZIP result, then review the data sources, calculations, research methods, and limitations.</p>
 
-      <div class="methodology-meta" aria-label="Methodology status">
-        <span><strong>Website data</strong> EPA UCMR 5</span>
-        <span><strong>Main unit</strong> Water system</span>
+      <div class="methodology-meta" aria-label="Website data version">
         <span><strong>Website data</strong> Final UCMR 5, August 2026</span>
-        <span><strong>Research status</strong> Preliminary</span>
       </div>
     </header>
 
     <div class="methodology-layout">
       <aside class="methodology-toc" aria-label="On this page">
         <div class="methodology-toc-title">On this page</div>
-        <a href="#overview">Use a ZIP result</a>
+        <a href="#overview">Read a system result</a>
         <a href="#sources">Data sources</a>
         <a href="#cohort">Systems included</a>
         <a href="#outcomes">PFAS comparisons</a>
@@ -84,12 +81,11 @@
       </aside>
 
       <main class="methodology-content" id="methodology-content">
-        <aside class="result-boundary"><h2>Website data update — October 19, 2026</h2><p>The ZIP lookup, map, state table, and state pages now use the final EPA UCMR 5 dataset released in August 2026. We reconstruct complete sampling-location averages from the final sample records, apply EPA’s significant-digit rounding, and display the highest location average for each system and chemical. Samples below reporting limits count as zero only in those calculations.</p><p>All 28 system-count checks match EPA’s final July 2026 comparison table. A record-by-record comparison with the Data Finder export is documented in the <a href="/analysis/exports/ucmr5_final_aug2026_v1/validation_report.json">website validation report</a>. These data describe historical monitoring, not current household water quality or legal compliance. ZIP links remain candidate provider associations.</p><p>System attributes use the August 12, 2026 Safe Drinking Water Information System (SDWIS) snapshot. Any demographic or boundary context remains from the archived research. The scientific study and its results below remain on the separate January 2026 release; they have not been rerun with the final data.</p></aside>
 <section class="methodology-section" id="overview">
           <div class="methodology-section-heading">
             <span class="methodology-section-number">01</span>
             <div>
-              <h2>How to use a ZIP result</h2>
+              <h2>How to read a system result</h2>
               <p>Confirm the water system first, then read its monitoring results.</p>
             </div>
           </div>
@@ -125,11 +121,16 @@
             <li><strong>ZIP lookup only:</strong> EPA’s water-system-reported UCMR 5 service-ZIP associations.</li>
           </ul>
 
+          <details class="methodology-source-details">
+            <summary>Data versions and validation</summary>
+            <p>EPA released the final UCMR 5 dataset in August 2026. The public lookup, map, and state views use that release. We reconstruct complete sampling-location averages from the final sample records, apply EPA’s significant-digit rounding, and display the highest location average for each system and chemical. Samples below reporting limits count as zero only in those calculations.</p><p>All 28 system-count checks match EPA’s final July 2026 comparison table. A record-by-record comparison with the Data Finder export is documented in the <a href="/analysis/exports/ucmr5_final_aug2026_v1/validation_report.json">website validation report</a>. These data describe historical monitoring, not current household water quality or legal compliance. ZIP links remain candidate provider associations.</p><p>System attributes use the August 12, 2026 Safe Drinking Water Information System (SDWIS) snapshot. Demographic context and research boundary analyses remain from the archived research. The scientific study and its results below remain on the separate January 2026 release; they have not been rerun with the final data.</p><p><strong>Water-system map — November 8, 2026:</strong> Approximate system markers use centers of EPA service-area boundaries retrieved separately from the historical sampling results, matched by public water system ID. Of 10,307 website systems, 9,817 have mapped locations; the others remain searchable. These dots are not wells, sampling sites, or exact service boundaries. Reported communities served use the August 2026 SDWIS snapshot. Blue summary markers require complete location and chemical comparisons; gray means incomplete comparisons. Concentration colors use the same highest yearly averages as the detailed lookup; below-reporting-limit results are not measured zeros. Numbered clusters count systems. See the <a href="/data/system-map-audit.json">map coverage audit</a> and <a href="https://www.epa.gov/ground-water-and-drinking-water/public-water-system-service-areas" target="_blank" rel="noopener noreferrer">EPA location source and limitations</a>.</p>
+          </details>
+
           <div class="methodology-note">
             <strong>Fixed release.</strong> Manuscript tables and archived research records come from release <code>ucmr5-2026-01-15-analysis-v0.2</code>. The browser does not recalculate them. Recorded hashes identify the exact inputs and outputs, so a later data refresh cannot silently change these results. <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View the archived data, code, and release record (DOI) →</a>
           </div>
 
-          <p>EPA described the January 2026 file as containing approximately 95% of expected UCMR 5 results. EPA released the final UCMR 5 dataset in August 2026. The submitted manuscript and the research analysis below still use the January snapshot; the public lookup and state summaries use the final dataset. The final federal data are available through EPA’s Data Finder, but they are not substituted into this fixed analysis.</p>
+          <p>EPA described the January 2026 file as containing approximately 95% of expected UCMR 5 results. The archived research remains fixed to that snapshot.</p>
         </section>
 
         <section class="methodology-section" id="cohort">
@@ -341,7 +342,7 @@
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Website explanation updated October 19, 2026 · Scientific release unchanged: <code>ucmr5-2026-01-15-analysis-v0.2</code></div>
+        <div class="methodology-bottom-note">Methods updated November 8, 2026</div>
       </main>
     </div>
   </div>

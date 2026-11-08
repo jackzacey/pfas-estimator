@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>National PFAS Monitoring Map | PFAS Estimator</title>
-  <meta name="description" content="Explore state-level patterns in EPA UCMR 5 PFAS monitoring results for community water systems." />
+  <meta name="description" content="Explore historical PFAS results on a zoomable water-system map, search providers, and open their detailed sampling results." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <link rel="canonical" href="https://pfasestimator.org/map/" />
   <meta name="author" content="Jack Zhang" />
@@ -17,14 +17,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PFAS Estimator" />
   <meta property="og:title" content="National PFAS Monitoring Map | PFAS Estimator" />
-  <meta property="og:description" content="Explore EPA UCMR 5 yearly-average and study-benchmark patterns across U.S. states." />
+  <meta property="og:description" content="Explore water systems on a zoomable map of historical EPA PFAS results, with direct links to provider records." />
   <meta property="og:url" content="https://pfasestimator.org/map/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta property="og:locale" content="en_US" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="National PFAS Drinking-Water Map | PFAS Estimator" />
-  <meta name="twitter:description" content="Explore represented EPA UCMR 5 PFAS monitoring patterns across U.S. states and territories." />
+  <meta name="twitter:description" content="Explore historical EPA PFAS results by water system, chemical, or state." />
   <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
 
   <script type="application/ld+json">
@@ -33,14 +33,17 @@
     "@type": "WebPage",
     "name": "National PFAS Monitoring Map | PFAS Estimator",
     "url": "https://pfasestimator.org/map/",
-    "description": "An interactive state-level map of community water systems with enough required UCMR 5 samples for a yearly average and EPA-based study-benchmark results.",
+    "description": "An interactive map of historical UCMR 5 results with approximate water-system locations, concentration and study-comparison colors, direct system results, and a state overview.",
     "isPartOf": {"@id": "https://pfasestimator.org/#website"},
     "about": {"@id": "https://pfasestimator.org/#dataset"},
     "dateModified": "2026-10-19"
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261107" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261108-cleanup" />
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="/vendor/markercluster/MarkerCluster.css" />
+  <link rel="stylesheet" href="/system-map.css?v=20261108-cleanup" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -63,20 +66,44 @@
     <header class="national-hero">
       <div class="national-kicker">Explore EPA water results</div>
       <h1>PFAS monitoring map</h1>
-      <p class="national-lede">Explore per- and polyfluoroalkyl substances (PFAS) results from the U.S. Environmental Protection Agency (EPA) and its Fifth Unregulated Contaminant Monitoring Rule (UCMR 5). Choose what the colors represent, then select a state to see the water systems included.</p>
+      <p class="national-lede">Explore historical per- and polyfluoroalkyl substances (PFAS) results from the U.S. Environmental Protection Agency (EPA) and its Fifth Unregulated Contaminant Monitoring Rule (UCMR 5).</p>
       <div class="national-meta" aria-label="Map scope">
         <span><strong>Source</strong> EPA UCMR 5</span>
         <span><strong>Period</strong> 2023–2025</span>
-        <span><strong>Scope</strong> Public water monitoring</span>
-        <span><strong>Release</strong> <span data-release-id>loading…</span></span>
       </div>
     </header>
 
     <main id="national-content">
+      <div class="map-view-switch" role="group" aria-label="Map view">
+        <button type="button" data-map-view="systems" aria-pressed="true" aria-controls="systemView">Water systems</button>
+        <button type="button" data-map-view="states" aria-pressed="false" aria-controls="stateView">State overview</button>
+      </div>
+      <section class="national-panel" id="systemView" aria-labelledby="system-map-title">
+        <div class="national-panel-heading"><div><h2 id="system-map-title">Explore water systems</h2></div><p>Zoom in or search, then select a system to view its results.</p></div>
+        <div class="system-map-search-row">
+          <label>Find a water system<input type="search" id="systemMapSearch" placeholder="System name, community, or system ID" autocomplete="off" aria-controls="systemSearchResults" disabled /></label>
+          <label>State or territory<select id="systemMapState" disabled><option value="">All states and territories</option></select></label>
+        </div>
+        <div class="system-search-results" id="systemSearchResults" aria-label="Matching water systems" hidden></div>
+        <div class="system-map-metrics">
+          <label>Color markers by<select id="systemMapMetric"><option value="summary">Study comparison summary</option><option value="concentration">Concentration of one chemical</option></select></label>
+          <label id="systemChemicalControl" hidden>Chemical<select id="systemMapChemical"></select></label>
+        </div>
+        <div class="system-map-legend" id="systemMapLegend" aria-label="Water system color legend"></div>
+        <p class="system-map-note" id="systemMapMetricNote"></p>
+        <p class="national-data-status" id="systemMapStatus" role="status">Loading water-system locations and verified results…</p>
+        <div id="systemMapFrame" class="system-map-frame">
+          <div class="system-map-tools"><button type="button" id="systemMapReset">Reset view</button><button type="button" id="systemMapFullscreen">Fullscreen</button></div>
+          <div id="systemMap" role="region" aria-label="Zoomable map of historical PFAS water-system results" tabindex="0"></div>
+        </div>
+        <p id="systemMapCoverage" class="system-map-note" role="status"></p>
+        <div class="system-map-details" id="systemMapDetails" aria-label="Selected water system">Select a water system to view its details.</div>
+        <p class="map-source-note">Dots mark approximate centers of EPA service areas, not wells, sampling sites, or exact service boundaries. Communities shown are reported communities served, when available. Confirm your provider using your water bill. <a href="https://www.epa.gov/ground-water-and-drinking-water/public-water-system-service-areas" target="_blank" rel="noopener noreferrer">Location source and limitations →</a></p>
+      </section>
+      <div id="stateView" hidden>
       <section class="national-panel" aria-labelledby="map-panel-title">
         <div class="national-panel-heading">
           <div>
-            <span class="national-section-label">Interactive map</span>
             <h2 id="map-panel-title">PFAS results by state</h2>
           </div>
           <p>Each state’s color summarizes community water systems with enough required samples to calculate a yearly average.</p>
@@ -106,14 +133,15 @@
         <p class="map-source-note">EPA UCMR 5 (2023–2025) · community water systems with enough required samples for a yearly average · final August 2026 website release</p>
       </section>
 
+      </div>
       <section class="national-notes" aria-label="Map interpretation">
         <div>
           <span>Interpretation</span>
-          <p><strong>Complete monitoring</strong> means that, for at least one sampling location, a system had every required sample needed to calculate a yearly average. It does not mean every location or home was tested. An <strong>EPA-based study benchmark</strong> is a fixed, unrounded research cutoff used to reproduce EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels. It is not a current federal or state standard. The map cannot identify a home’s utility or determine compliance, household tap-water levels, personal exposure, or health risk.</p>
+          <p>Study comparisons reproduce EPA’s technical classifications based on the April 2024 federal levels. They do not establish current compliance, household exposure, or health risk. State summaries require a complete yearly average at one or more sampling locations.</p>
         </div>
         <div>
           <span>Coverage</span>
-          <p>UCMR 5 did not comprehensively monitor every small system. Private wells are excluded, and unmonitored systems cannot be assumed negative.</p>
+          <p>UCMR 5 did not comprehensively monitor every small system. Private wells are excluded. Missing monitoring or map locations do not establish that PFAS are absent.</p>
         </div>
         <div>
           <span>Methods</span>
@@ -130,5 +158,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
   <script src="/national-data.js?v=20261019-final-audit2"></script>
+  <script src="/vendor/leaflet/leaflet.js"></script>
+  <script src="/vendor/markercluster/leaflet.markercluster.js"></script>
+  <script src="/lookup-evidence.js?v=20261019-sample-context1"></script>
+  <script src="/system-map-model.js?v=20261108"></script>
+  <script src="/system-map.js?v=20261108-cleanup"></script>
 </body>
 </html>
