@@ -1,0 +1,44 @@
+/* Two views within Explore by State, using the existing restrained controls. */
+.state-view-nav {
+  display: flex;
+  width: fit-content;
+  max-width: 100%;
+  gap: 3px;
+  margin: -0.4rem auto 1.4rem;
+  padding: 3px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: #f4f7f8;
+}
+.state-view-nav a {
+  padding: 8px 14px;
+  border-radius: 5px;
+  color: #5f7078;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+}
+.state-view-nav a:hover { color: var(--primary); }
+.state-view-nav a[aria-current="page"] {
+  background: #fff;
+  color: var(--primary);
+  box-shadow: 0 1px 3px rgb(23 94 151 / 8%);
+}
+.state-view-nav a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 620px) {
+  .site-nav { justify-content: center; }
+  .site-nav a { padding-inline: 8px; }
+}
+@media (max-width: 360px) {
+  .site-nav a { padding-inline: 5px; font-size: 10px; }
+}
+@media print {
+  .state-view-nav { display: none; }
+}

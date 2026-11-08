@@ -64,8 +64,9 @@
   }
   </script>
 
-  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" />
+  <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" />
   <link rel="stylesheet" href="/lookup-readability.css?v=20260927-concise-2" />
+  <link rel="stylesheet" href="/project-features.css?v=20261107" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -76,7 +77,7 @@
   </script>
   <script defer src="/lookup-evidence.js?v=20261019-sample-context1"></script>
   <script defer src="/assistant-result-tools.js?v=20261019-final-audit2"></script>
-  <script defer src="/scientific-site-v2.js?v=20261019-sample-context1"></script>
+  <script defer src="/scientific-site-v2.js?v=20261107-features"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
@@ -85,11 +86,9 @@
   <nav class="site-nav home-top-nav" aria-label="Primary">
     <a href="/" aria-current="page">ZIP Lookup</a>
     <a href="/map/">Map</a>
-    <a href="/state-table/">State Table</a>
     <a href="/states/">Explore by State</a>
     <a href="/methodology/">How It Works</a>
-    <a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">EPA Source</a>
-  </nav>
+    </nav>
 
   <div class="page-wrapper">
     <main class="card home-card" id="lookup-content">
@@ -171,6 +170,24 @@
         <span class="why-kicker">About the project</span>
         <h2 id="why-water-title">About this independent research</h2>
         <p>PFAS Estimator helps people find and read EPA public-water monitoring data. It was built by Jack Zhang in Los Gatos, California. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
+        <details class="project-features" id="features">
+          <summary><span data-i18n="featuresSummary">Features &amp; resource listings</span> <span class="project-features-count">(3)</span></summary>
+          <ul class="project-features-list">
+            <li>
+              <a href="https://www.ewg.org/ewghs#:~:text=Jack%20spotted%20a%20gap" target="_blank" rel="noopener noreferrer">Environmental Working Group<span aria-hidden="true"> ↗</span><span class="visually-hidden" data-i18n="featureNewTab"> (opens in a new tab)</span></a>
+              <p class="project-feature-context" data-i18n="featureEwg">EWG+HS profiles Jack Zhang’s work building PFAS Estimator. Find Jack’s profile in the student features on the EWG+HS page.</p>
+            </li>
+            <li>
+              <a href="https://mailchi.mp/a0dc511cc1fb/whats-new-with-pfas-oct26-14194376#:~:text=PFAS%20Estimator%20Tool" target="_blank" rel="noopener noreferrer">PFAS Project Lab<span aria-hidden="true"> ↗</span><span class="visually-hidden" data-i18n="featureNewTab"> (opens in a new tab)</span></a>
+              <p class="project-feature-context" data-i18n="featureNewsletter">PFAS Project Lab featured the tool in its October 2026 newsletter. Look for the “PFAS Estimator Tool” section.</p>
+            </li>
+            <li>
+              <a href="https://planetaryhealthalliance.org/themes/chemical-pollution/#:~:text=PFAS%20Estimator%3A%20A%20ZIP%20Code%E2%80%93Level" target="_blank" rel="noopener noreferrer">Planetary Health Alliance<span aria-hidden="true"> ↗</span><span class="visually-hidden" data-i18n="featureNewTab"> (opens in a new tab)</span></a>
+              <p class="project-feature-context" data-i18n="featurePha">PFAS Estimator is included in Planetary Health Alliance’s resource library. Find the entry under “Chemical Pollution Resources” on its Chemical Pollution page.</p>
+            </li>
+          </ul>
+          <p class="project-features-share"><a href="/#features" data-i18n="featuresPermalink">Link to this section</a></p>
+        </details>
         <p>The archived data and code are public, and automated internal checks are in place. The analysis has not yet been independently reproduced or peer reviewed.</p>
         <p><a class="source-link" href="/methodology/">Read the methods and limitations →</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View archived data and code (DOI) →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com">Contact Jack</a></p>
       </section>

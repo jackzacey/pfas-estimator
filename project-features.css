@@ -1,0 +1,41 @@
+.project-features {
+  margin: 1rem 0;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+  scroll-margin-top: 1rem;
+}
+
+.project-features > summary {
+  padding: 0.85rem 1rem;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.project-features > summary::marker { color: var(--primary); }
+.project-features-count { margin-left: 0.25rem; color: #526971; font-weight: 400; }
+.project-features[open] > summary { border-bottom: 1px solid #e3ebef; }
+
+.project-features-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 1rem;
+}
+
+.project-features-list > li {
+  padding: 0.85rem 0;
+  line-height: 1.5;
+}
+
+.project-features-list > li + li { border-top: 1px solid #e3ebef; }
+.project-features-list a { color: var(--primary); font-size: 13px; font-weight: 500; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.project-features-list a:hover { text-decoration-thickness: 2px; }
+.project-features > summary:focus-visible,
+.project-features-list a:focus-visible { outline: 2px solid #175e97; outline-offset: -3px; border-radius: 4px; }
+.home-shell .why-section .project-feature-context { margin: 0.3rem 0 0; color: #526971; font-size: 12px; line-height: 1.6; }
+.home-shell .why-section .project-features-share { margin: 0; padding: 0.65rem 1rem; border-top: 1px solid var(--border-soft); font-size: 12px; }
+.project-features-share a { color: var(--primary); text-underline-offset: 3px; }

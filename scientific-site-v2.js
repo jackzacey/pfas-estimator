@@ -138,6 +138,12 @@
       navLookup: "System lookup", navMap: "Map", navTable: "State table", navStates: "Explore by state", navResearch: "Research snapshot", navMethods: "How it works",
       releaseBadge: "National · EPA UCMR 5 Data · Educational Tool",
       heroTitle: "Check for PFAS in your water system",
+      featuresSummary: "Features & resource listings",
+      featureEwg: "EWG+HS profiles Jack Zhang’s work building PFAS Estimator. Find Jack’s profile in the student features on the EWG+HS page.",
+      featureNewsletter: "PFAS Project Lab featured the tool in its October 2026 newsletter. Look for the “PFAS Estimator Tool” section.",
+      featurePha: "PFAS Estimator is included in Planetary Health Alliance’s resource library. Find the entry under “Chemical Pollution Resources” on its Chemical Pollution page.",
+      featuresPermalink: "Link to this section",
+      featureNewTab: " (opens in a new tab)",
       heroSubtitle: "PFAS are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.",
       truthNote: '<strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Use a private well? Find testing guidance →</a>',
       printButton: "Print or save this water-system result",
@@ -200,6 +206,12 @@
       navLookup: "供水系统查询", navMap: "地图", navTable: "州级表格", navStates: "按州浏览", navResearch: "研究摘要", navMethods: "方法与局限",
       releaseBadge: "全美 · EPA UCMR 5 数据 · 教育工具",
       heroTitle: "查查您的供水系统是否检出PFAS",
+      featuresSummary: "专题介绍与资源收录",
+      featureEwg: "EWG+HS 介绍了 Jack Zhang 开发 PFAS Estimator 的工作。请在 EWG+HS 页面的学生介绍中查找 Jack 的个人介绍。",
+      featureNewsletter: "PFAS Project Lab 在2026年10月通讯中介绍了本工具。请查找“PFAS Estimator Tool”小节。",
+      featurePha: "PFAS Estimator 已收录于 Planetary Health Alliance 的资源库。请在 Chemical Pollution 页面的“Chemical Pollution Resources”部分查找本工具。",
+      featuresPermalink: "本节链接",
+      featureNewTab: "（在新标签页打开）",
       heroSubtitle: "PFAS是一类化学污染物。输入邮政编码，查找您所在地区公共供水系统的检测结果。",
       truthNote: '<strong>先确认供水机构。</strong>一个邮政编码可能列出多个系统。请与水费账单上的名称核对。这里不包括私人水井。<a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">使用私人水井？查找检测指导 →</a>',
       printButton: "打印或保存此供水系统结果",
@@ -1138,6 +1150,17 @@
   $("languageToggle").addEventListener("click", toggleLanguage);
   $("languageToggle").addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); toggleLanguage(); } });
 
+  function openLinkedFeatures() {
+    if (!["#features", "#project-features"].includes(window.location.hash)) return;
+    const features = $("features");
+    if (!features) return;
+    features.open = true;
+    features.scrollIntoView({ block: "start" });
+  }
+  window.addEventListener("hashchange", openLinkedFeatures);
+  window.addEventListener("load", () => requestAnimationFrame(openLinkedFeatures), { once: true });
+
   applyLanguage();
+  openLinkedFeatures();
   initialize();
 })();
