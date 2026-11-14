@@ -448,7 +448,18 @@
         throw new Error("Invalid pending ZIP association");
       }
     }
-    return { ...payload, zip_to_pwsids: links, corrected_zips: [...correctedZips], pending_associations: pending };
+    const roles = reviews.association_roles || {};
+    if (typeof roles !== "object" || Array.isArray(roles)) throw new Error("Invalid provider role inventory");
+    for (const [zip, entries] of Object.entries(roles)) {
+      if (!/^\d{5}$/.test(zip) || !entries || typeof entries !== "object" || Array.isArray(entries)) throw new Error("Invalid provider role ZIP");
+      for (const [id, entry] of Object.entries(entries)) {
+        if (!links[zip]?.includes(id) || pending[zip]?.includes(id) ||
+            !entry || !["wholesale", "mixed"].includes(entry.role) || !entry.sources?.length) {
+          throw new Error("Invalid provider role association");
+        }
+      }
+    }
+    return { ...payload, zip_to_pwsids: links, corrected_zips: [...correctedZips], pending_associations: pending, association_roles: roles };
   }
 
   function hydrateRows(payload) {
@@ -668,19 +679,41 @@
 
   function partitionZipSystems(payload, zip, byId) {
     const pending = new Set(payload.pending_associations?.[zip] || []);
+    const roles = payload.association_roles?.[zip] || {};
     const candidates = (payload.zip_to_pwsids[zip] || []).map(id => byId.get(String(id))).filter(Boolean);
     candidates.sort((a, b) => String(a.ucmr_pws_name).localeCompare(String(b.ucmr_pws_name)) || String(a.pwsid).localeCompare(String(b.pwsid)));
-    return { systems: candidates.filter(s => !pending.has(s.pwsid)), uncertain: candidates.filter(s => pending.has(s.pwsid)) };
+    return {
+      systems: candidates.filter(s => !pending.has(s.pwsid) && roles[s.pwsid]?.role !== "wholesale"),
+      uncertain: candidates.filter(s => pending.has(s.pwsid)),
+      wholesale: candidates.filter(s => !pending.has(s.pwsid) && roles[s.pwsid]?.role === "wholesale")
+    };
+  }
+
+  function renderWholesaleAssociations(systems) {
+    if (!systems.length) return "";
+    const zh = currentLang === "zh";
+    const heading = zh ? "可能的上游批发供水机构" : "Possible upstream wholesale suppliers";
+    const explanation = zh
+      ? "这些机构向当地供水机构批发供水；这不能确认您家的供水来源，也不表示它们直接向您收费。其检测结果不计入本邮编的结果摘要。请确认水费账单上的供水机构。"
+      : "These suppliers sell water to local utilities. This does not confirm who supplies or bills your home. Their results are not included in this ZIP's summary. Confirm the utility on your water bill.";
+    return `<details class="compound-results-details"><summary>${heading} (${systems.length})</summary><p>${explanation}</p><ul>${systems.map(s => `<li><a href="/?system=${encodeURIComponent(s.pwsid)}">${escapeHtml(s.ucmr_pws_name)}</a> — ${zh ? "系统编号" : "System ID"} ${escapeHtml(s.pwsid)}</li>`).join("")}</ul></details>`;
+  }
+
+  function renderProviderRole(system) {
+    if (release?.association_roles?.[lastLookupZip]?.[system.pwsid]?.role !== "mixed") return "";
+    return `<p class="water-system-match">${currentLang === "zh"
+      ? "此机构既直接向部分用户供水，也向其他供水机构批发供水。服务区与邮编重叠不能确认您家的供水机构。请核对水费账单，不要用上游供水机构的结果代替您当地供水机构的结果。"
+      : "This district serves some customers directly and sells water to other utilities. A service-area overlap does not confirm that it supplies your home directly. Match the provider on your water bill; upstream-supplier results do not replace your local utility's results."}</p>`;
   }
 
   function renderUncertainAssociations(systems) {
     if (!systems.length) return "";
     const isZh = currentLang === "zh";
-    const heading = isZh ? "需确认的其他供水机构关联" : "Other provider links needing confirmation";
+    const heading = isZh ? "需要确认的供水机构关联" : "Provider associations needing confirmation";
     const explanation = isZh
       ? "来源文件还列出了以下供水机构，但其服务范围与该邮编的关联需要核实。这不表示未做检测。请向账单上的供水机构确认，或按系统编号查看EPA记录。"
       : "The source file also lists these providers, but their connection to this ZIP needs review. This does not mean they have no testing data. Confirm your provider or search EPA records using the system ID.";
-    return `<details class="compound-results-details"><summary>${heading} (${systems.length})</summary><p>${explanation}</p><ul>${systems.map(s => `<li>${escapeHtml(s.ucmr_pws_name)} — ${escapeHtml(s.sdwis_state_code)} · PWSID ${escapeHtml(s.pwsid)}</li>`).join("")}</ul><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></details>`;
+    return `<details class="compound-results-details"><summary>${heading} (${systems.length})</summary><p>${explanation}</p><ul>${systems.map(s => `<li><a href="/?system=${encodeURIComponent(s.pwsid)}">${escapeHtml(s.ucmr_pws_name)}</a> — ${escapeHtml(s.sdwis_state_code)} · PWSID ${escapeHtml(s.pwsid)}</li>`).join("")}</ul><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></details>`;
   }
 
   async function readReviewedLookup(response, reviews) {
@@ -802,6 +835,7 @@
         <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
       </header>
       ${renderAssociationReview(system)}
+      ${renderProviderRole(system)}
       <p class="compact-dates">${isZh ? "采样" : "Sampled"}: ${escapeHtml(formatMonitoringPeriod(system))}. ${escapeHtml(shortAge)}</p>
       <p class="compact-finding">${shortFinding}</p>
       ${!allIndividualComplete ? `<p class="compact-warning">${isZh ? "部分比较缺失或未经核实。缺失比较不能视为低于基准。" : "Some comparisons are missing or unverified. Missing comparisons cannot be treated as below benchmark."}</p>` : ""}
@@ -863,6 +897,9 @@
     lines.push(`Water systems with at least one yearly average above an EPA comparison level: ${comparisonSystems.length}. The benchmark is the unrounded cutoff used by this research to reproduce EPA's final UCMR 5 technical-assistance classification around the April 2024 federal levels; it is not a current standard or compliance finding. Names: ${comparisonSystems.length ? comparisonSystems.map(system => system.ucmr_pws_name).join("; ") : "none"}. A zero count does not mean PFAS was not detected.`);
     lines.push("Missing or unverified location/chemical comparisons are not below-benchmark results. All counts are historical, not household safety findings.");
     selected.forEach(system => {
+      if (selection === "zip" && release.association_roles?.[lastLookupZip]?.[system.pwsid]?.role === "mixed") {
+        lines.push(`${system.ucmr_pws_name} has both retail and wholesale roles. Do not assume it directly supplies the user's home; ask them to confirm the billed utility. Its results do not replace another retail utility's results.`);
+      }
       const outcomes = OUTCOMES.map(outcome => {
         const status = outcomeStatus(system, outcome);
         return `${outcome.label}: ${formatOutcomeValue(outcome, status)}; ${status.label}`;
@@ -1029,14 +1066,17 @@
     }
 
     lastLookupZip = zip;
-    const { systems, uncertain } = partitionZipSystems(release, zip, systemsById);
+    const { systems, uncertain, wholesale } = partitionZipSystems(release, zip, systemsById);
     currentSystems = systems;
-    currentContext = systems.length ? buildAssistantContext(systems) : uncertain.length
-      ? "Only unresolved ZIP associations were found. Do not infer that testing is absent. Ask the user to confirm their provider; no concentrations are supplied for these unresolved associations."
+    currentContext = systems.length ? buildAssistantContext(systems) : uncertain.length || wholesale.length
+      ? "Only unresolved or wholesale supplier links were found. Do not infer that testing is absent. Ask the user to confirm their retail provider; no concentrations are supplied for these associations."
       : buildAssistantContext(systems);
     const pendingIds = release.pending_associations?.[zip] || [];
     if (pendingIds.length) {
       currentContext += `\nZIP associations needing review: ${pendingIds.join(", ")}. Do not claim these systems serve the searched ZIP or the user's home; ask the user to confirm the provider.`;
+    }
+    if (wholesale.length) {
+      currentContext += `\nPossible wholesale supplier links shown separately: ${wholesale.map(s => s.pwsid).join(", ")}. They are not selected retail providers; do not attribute their concentrations to this ZIP or household. Ask the user to confirm the utility on their bill.`;
     }
     $("printZip").textContent = `${currentLang === "zh" ? "邮政编码" : "ZIP code"}: ${zip}`;
     $("printDate").textContent = `${currentLang === "zh" ? "生成日期" : "Generated"}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : "en-US", { year: "numeric", month: "long", day: "numeric" })}`;
@@ -1048,13 +1088,13 @@
 
     if (!systems.length) {
       result.className = "result not-found";
-      title.textContent = uncertain.length
+      title.textContent = uncertain.length || wholesale.length
         ? (currentLang === "zh" ? "供水机构关联需要确认" : "Provider matches need confirmation")
         : text("noAssociationTitle")(zip);
-      context.textContent = uncertain.length
+      context.textContent = uncertain.length || wholesale.length
         ? (currentLang === "zh" ? "此邮编仅有待核实的关联，不能据此判断当地水质或是否做过检测。" : "Only unresolved provider links were found for this ZIP. They cannot establish local water quality or whether testing occurred.")
         : text("noAssociationContext");
-      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p>${renderPrivateWellGuidance()}</div>${renderUncertainAssociations(uncertain)}`;
+      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p>${renderPrivateWellGuidance()}</div>${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
       resetChat(uncertain.length
@@ -1078,7 +1118,7 @@
         ? " 此邮编的部分错误关联已移除；供水机构列表仍可能不完整。"
         : " Incorrect associations have been removed for this ZIP; the provider list may still be incomplete.";
     }
-    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? `<details class="compound-results-details optional-help"><summary>${currentLang === "zh" ? "考虑使用过滤器？" : "Considering a filter?"}</summary>${renderFilterGuide()}</details>` : ""}<details class="compound-results-details optional-help" id="lookup-number-guide"><summary>${currentLang === "zh" ? "数字说明与常见问题" : "What the numbers mean"}</summary>${renderResultBoundary(systems)}</details>`;
+    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? `<details class="compound-results-details optional-help"><summary>${currentLang === "zh" ? "考虑使用过滤器？" : "Considering a filter?"}</summary>${renderFilterGuide()}</details>` : ""}<details class="compound-results-details optional-help" id="lookup-number-guide"><summary>${currentLang === "zh" ? "数字说明与常见问题" : "What the numbers mean"}</summary>${renderResultBoundary(systems)}</details>`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
