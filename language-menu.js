@@ -1,7 +1,7 @@
 /* Shared keyboard-accessible language picker. Local UI; no external services. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.SiteLanguageMenu=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
   'use strict';
-  const languages=[['en','English','English'],['zh','简体中文','Simplified Chinese'],['es','Español','Spanish'],['hi','हिन्दी','Hindi'],['ar','العربية','Arabic']];
+  const languages=[['en','English','English'],['zh','简体中文','Simplified Chinese'],['es','Español','Spanish'],['hi','हिन्दी','Hindi'],['ar','العربية','Arabic'],['fr','Français','French'],['bn','বাংলা','Bengali'],['ru','Русский','Russian']];
   function mount(root,selected,onChange){
     if(!root)return null;
     root.classList.add('site-language-menu');
@@ -40,9 +40,9 @@
     window.addEventListener('resize',()=>{if(!panel.hidden)position();});
     function set(code){
       selected=languages.some(l=>l[0]===code)?code:'en';
-      label.textContent=selected==='zh'?'当前语言：':selected==='es'?'Idioma actual:':selected==='hi'?'वर्तमान भाषा:':selected==='ar'?'اللغة الحالية:':'Current Language:';
+      label.textContent=selected==='zh'?'当前语言：':selected==='es'?'Idioma actual:':selected==='hi'?'वर्तमान भाषा:':selected==='ar'?'اللغة الحالية:':selected==='fr'?'Langue actuelle :':selected==='bn'?'বর্তমান ভাষা:':selected==='ru'?'Текущий язык:':'Current Language:';
       value.textContent=languages.find(l=>l[0]===selected)[1];
-      panel.setAttribute('aria-label',selected==='hi'?'भाषा चुनें':selected==='ar'?'اختر اللغة':selected==='zh'?'选择语言':selected==='es'?'Elegir idioma':'Choose language');
+      panel.setAttribute('aria-label',selected==='hi'?'भाषा चुनें':selected==='ar'?'اختر اللغة':selected==='zh'?'选择语言':selected==='es'?'Elegir idioma':selected==='fr'?'Choisir la langue':selected==='bn'?'ভাষা বেছে নিন':selected==='ru'?'Выберите язык':'Choose language');
       options.forEach(option=>option.setAttribute('aria-selected',String(option.dataset.language===selected)));
     }
     set(selected);return {set,close:()=>close(false)};

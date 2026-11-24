@@ -13,7 +13,7 @@
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const x=(lang,en,zh,es)=>lang==='zh'?zh:lang==='es'?es:typeof SiteLanguages!=='undefined'?SiteLanguages.translate(en,lang):en;
   const number=(v,digits=2)=>Number(v).toLocaleString('en-US',{maximumFractionDigits:digits});
-  const language=v=>['en','zh','es','hi','ar'].includes(v)?v:'en';
+  const language=v=>['en','zh','es','hi','ar','fr','bn','ru'].includes(v)?v:'en';
   const validId=v=>typeof v==='string'&&/^[A-Z0-9]{1,20}$/.test(v);
   function providerUrl(id,lang='en',view='pfas'){
     if(!validId(id))throw new Error('Invalid water-system ID');
@@ -73,7 +73,7 @@
     if(!data.lithium)return emptySection(title,lang,data.failed[1]);
     const rows=data.lithium.lithium,summary=DrinkingWaterRecords.lithiumSummary(rows),dates=rows.map(r=>r[0]).sort();
     const value=summary.value===null?x(lang,'Below varying reporting limits','低于不同报告限值','Por debajo de límites de reporte distintos'):
-      !summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':(summary.detected?'':x(lang,'Below ','低于 ','Menos de '))+number(summary.value,8)+' µg/L';
+      summary.detected?number(summary.value,8)+' µg/L':lang==='zh'?'低于 '+number(summary.value,8)+' µg/L':lang==='es'?'Menos de '+number(summary.value,8)+' µg/L':typeof SiteLanguages!=='undefined'?SiteLanguages.translate('Below '+number(summary.value,8)+' µg/L',lang):'Below '+number(summary.value,8)+' µg/L';
     return `<section class="report-section"><h3>${title}</h3>${table([x(lang,'Measure','指标','Medida'),x(lang,'Result','结果','Resultado'),x(lang,'Sample dates','采样日期','Fechas de muestras')],[[
       esc(summary.detected?x(lang,'Highest individual sample','最高单次样本','Muestra individual más alta'):x(lang,'All samples below reporting limits','所有样本低于报告限值','Todas las muestras por debajo del límite de reporte')),
       `<strong dir="auto">${esc(value)}</strong>`,`<bdi dir="ltr">${esc(dates[0]+' – '+dates.at(-1))}</bdi>`]])}

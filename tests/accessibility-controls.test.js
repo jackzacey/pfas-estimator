@@ -38,9 +38,9 @@ const api=context.subject;
  assert.equal((html.match(/name="lookup-search-mode"/g)||[]).length,3);
  assert.equal((html.match(/id="zipInput"/g)||[]).length,1,'One shared search field');
  assert.equal(languages.normalizeDigits('٠١٢٣٤٥٦٧٨٩ ۰۱۲۳۴۵۶۷۸۹ ०१२३४५६७८९'),'0123456789 0123456789 0123456789');
- assert.deepEqual(languages.supported,['en','zh','es','hi','ar']);
- for(const lang of ['hi','ar'])for(const [key,value] of Object.entries(api.COPY.en)){
-   if(typeof value==='string'&&value!=='PFAS')assert.notEqual(api.COPY[lang][key],value,lang+' copy '+key);
+ assert.deepEqual(languages.supported,['en','zh','es','hi','ar','fr','bn','ru']);
+ for(const lang of ['hi','ar','fr','bn','ru'])for(const [key,value] of Object.entries(api.COPY.en)){
+   if(typeof value==='string'&&value!=='PFAS'&&!(lang==='fr'&&key==='rural'))assert.notEqual(api.COPY[lang][key],value,lang+' copy '+key);
  }
  api.configure('provider');await api.run('Raleigh');
  assert.match(elements.get('waterProviderMatches').innerHTML,/RALEIGH, CITY OF/);
@@ -62,7 +62,7 @@ const api=context.subject;
  for(const row of lookup.systems){
    const system=Object.fromEntries(lookup.columns.map((k,i)=>[k,row[i]]));system._comparisonCoverage=evidence.coverage(system,evidenceRows[system.pwsid]);
    api.language('en');const en=api.renderSystem(system),expected=numbers(en);assert.equal(expected.length,6);
-   for(const lang of ['hi','ar']){
+   for(const lang of ['hi','ar','fr','bn','ru']){
      api.language(lang);const rendered=api.renderSystem(system);assert.deepEqual(numbers(rendered),expected,system.pwsid+' '+lang+' values');
      assert.doesNotMatch(rendered,/undefined|NaN|Invalid Date|Terms and symbols|Test dates|Create clinic report|Above study reference|Not enough required samples/);
      assert(rendered.includes(encodeURIComponent(system.pwsid)));assert(rendered.includes('lang='+lang));
@@ -74,7 +74,7 @@ const api=context.subject;
  const data=await report.load('CA4310011');
  const values=html=>[...html.matchAll(/<strong(?: dir="auto")?>([^<]*)<\/strong>/g)].map(m=>m[1].replace(/[^0-9.,]/g,''));
  const expected=values(report.render(data,'en'));assert(expected.length>=8);
- for(const lang of ['hi','ar']){
+ for(const lang of ['hi','ar','fr','bn','ru']){
    const rendered=report.render(data,lang);assert.deepEqual(values(rendered),expected);assert.match(rendered,/CA4310011/);
    assert.doesNotMatch(rendered,/Water-system report|A summary to share|Sample dates|Historical system records|No complete average|Not available|No matching usable records|Sources: U.S./);
    assert.equal(new URL(report.providerUrl('010106001',lang)).searchParams.get('lang'),lang);
@@ -83,5 +83,5 @@ const api=context.subject;
  const lcr={lcr:{lead:[['2025-01-01','2025-06-30',0,'']],copper:[]},failed:[false,false,false]};
  assert.match(report.lcrSection(lcr,'hi'),/शून्य/);assert.match(report.lcrSection(lcr,'ar'),/الصفر/);
  assert.match(source,/clinic-report-link home-method-link/);assert.doesNotMatch(read('clinic-report.css'),/\.home-shell \.clinic-report-link[^\n]*padding/);
- console.log('Accessibility checks passed: three search modes, exact IDs and native digits, stale-response rejection, all 10,307 PFAS values unchanged in Hindi/Arabic, report values, nondetects, missing data, translated copy and clean controls.');
+ console.log('Accessibility checks passed: three search modes, exact IDs and native digits, stale-response rejection, all 10,307 PFAS values unchanged in Hindi, Arabic, French, Bengali and Russian, report values, nondetects, missing data, translated copy and clean controls.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

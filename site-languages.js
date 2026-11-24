@@ -1,7 +1,9 @@
 /* Hindi and Arabic interface copy. Source names, chemical symbols and values stay unchanged. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.SiteLanguages=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
   'use strict';
-  const supported=['en','zh','es','hi','ar'];
+  const supported=['en','zh','es','hi','ar','fr','bn','ru'];
+  const languageIndexes={hi:0,ar:1,fr:2,bn:3,ru:4};
+  const additionalPacks=typeof PFASLanguagePacks!=='undefined'?PFASLanguagePacks:typeof require==='function'?require('./language-packs'):null;
   const keys={
     navLookup:['अपना जल प्रदाता खोजें','ابحث عن مزوّد المياه'],navMap:['मानचित्र (अंग्रेज़ी)','الخريطة (بالإنجليزية)'],navTable:['राज्य तालिका (अंग्रेज़ी)','جدول الولايات (بالإنجليزية)'],navStates:['राज्य के अनुसार देखें (अंग्रेज़ी)','استكشف حسب الولاية (بالإنجليزية)'],navResearch:['शोध का सारांश','ملخص البحث'],navMethods:['विधि और सीमाएँ (अंग्रेज़ी)','المنهجية والقيود (بالإنجليزية)'],
     releaseBadge:['सार्वजनिक पेयजल के नतीजे','نتائج مياه الشرب العامة'],currentLanguageLabel:['वर्तमान भाषा:','اللغة الحالية:'],heroTitle:['अपने पानी में PFAS और अन्य रसायनों के नतीजे खोजें','ابحث عن نتائج PFAS ومواد كيميائية أخرى في مياهك'],heroSubtitle:['पेयजल की पुरानी जाँच के नतीजे देखने के लिए ZIP कोड या प्रदाता से खोजें।','ابحث بالرمز البريدي أو بالمزوّد للاطّلاع على نتائج فحوص مياه الشرب السابقة.'],
@@ -31,9 +33,10 @@
     skipLookup:['सीधे खोज पर जाएँ','انتقل إلى البحث'],zipLabel:['अमेरिकी ZIP कोड','الرمز البريدي الأمريكي'],askLabel:['PFAS के बारे में प्रश्न पूछें','اسأل عن PFAS'],printTitle:['जल प्रणाली के PFAS नतीजे','نتائج PFAS لنظام المياه'],printSource:['EPA UCMR 5 नमूने (2023–2025)','عينات EPA UCMR 5 (2023–2025)'],printNote:['सार्वजनिक जल प्रणाली के पुराने नतीजे। बिल से प्रदाता की पुष्टि करें। रिपोर्टिंग सीमा से नीचे का अर्थ शून्य नहीं है।','نتائج سابقة لنظام مياه عام. تأكّد من المزوّد عبر الفاتورة. النتيجة دون حدّ الإبلاغ لا تعني صفرًا.'],printFooter:['EPA UCMR 5 का अंतिम डेटासेट, अगस्त 2026। ये नतीजे वर्तमान अनुपालन, घर के नल के स्तर, व्यक्तिगत संपर्क या स्वास्थ्य जोखिम का निर्धारण नहीं करते। विधि: pfasestimator.org/methodology/','مجموعة EPA UCMR 5 النهائية، أغسطس 2026. لا تحدّد النتائج الالتزام الحالي أو مستويات صنبور المنزل أو التعرّض الشخصي أو المخاطر الصحية. المنهجية: pfasestimator.org/methodology/'],
     aboutTitle:['PFAS Estimator के बारे में','عن PFAS Estimator'],aboutBody:['Jack Zhang ने सार्वजनिक पेयजल के नतीजे खोजना और समझना आसान बनाने के लिए यह उपकरण बनाया। Joshua Tamayo-Sarver, MD, PhD ने शुरुआती क्लिनिकल प्रस्तुति और सीमाओं पर सुझाव दिए।','أنشأ Jack Zhang هذه الأداة لتسهيل العثور على نتائج مياه الشرب العامة وفهمها. وقدّم Joshua Tamayo-Sarver، الحاصل على MD وPhD، ملاحظات مبكرة حول العرض السريري والقيود.'],reviewStatus:['डेटा और कोड सार्वजनिक हैं; आंतरिक जाँच पूरी है। स्वतंत्र पुनरुत्पादन और सहकर्मी समीक्षा अभी पूरी नहीं हुई है।','البيانات والشيفرة متاحتان للعامة؛ اكتملت الفحوص الداخلية. ولم تكتمل بعد إعادة الإنتاج المستقلة ومراجعة الأقران.'],methodsLink:['विधि और सीमाएँ (अंग्रेज़ी) →','المنهجية والقيود (بالإنجليزية) ←'],archiveLink:['संग्रहित शोध डेटा और कोड (अंग्रेज़ी) →','بيانات البحث والشيفرة المؤرشفة (بالإنجليزية) ←'],contactLink:['Jack से संपर्क करें','تواصل مع Jack'],footerNote:['स्वतंत्र शैक्षिक उपकरण। पुराने नतीजे आपके घर के पानी की जाँच नहीं हैं।','أداة تعليمية مستقلة. النتائج السابقة ليست فحصًا لمياه منزلك.']
   };
+  if(additionalPacks)for(const [key,values] of Object.entries(additionalPacks.copy))if(keys[key])keys[key]=[...keys[key],...values];
   const phrases=new Map();
   let spanishTranslator=null;
-  function add(en,hi,ar){phrases.set(en,[hi,ar]);}
+  function add(en,...values){if(values.length===2)values.push(...(additionalPacks?.phrases[en]||[en,en,en]));phrases.set(en,values);}
   // Additional result and report phrases are registered below.
   const rows=[
     ['Search by','खोज का तरीका','طريقة البحث'],['ZIP code','ZIP कोड','الرمز البريدي'],['Provider name','प्रदाता का नाम','اسم المزوّد'],['System ID','प्रणाली ID','معرّف النظام'],
@@ -98,11 +101,16 @@
     ['Source row numbers include the header as row 1. Calculations reproduce the pinned final-release averages; these checks do not constitute an independent review or compliance determination.','स्रोत की पंक्ति संख्या में शीर्षक पहली पंक्ति है। गणना निश्चित अंतिम संस्करण के औसत दोहराती है; ये जाँच स्वतंत्र समीक्षा या कानूनी अनुपालन का निर्णय नहीं हैं।','تُحتسب ترويسة الملف كصفّ رقم 1. تعيد الحسابات إنتاج متوسطات الإصدار النهائي المحدَّد؛ ولا تمثّل هذه الفحوص مراجعة مستقلة أو حكمًا على الالتزام القانوني.']
   ].forEach(row=>add(...row));
   function translate(value,lang){
-    const raw=String(value??'');if(lang==='es'&&spanishTranslator)return spanishTranslator(raw);if(!['hi','ar'].includes(lang))return raw;
-    const index=lang==='hi'?0:1,trim=raw.trim();
+    const raw=String(value??'');if(lang==='es'&&spanishTranslator)return spanishTranslator(raw);if(!Object.hasOwn(languageIndexes,lang))return raw;
+    const index=languageIndexes[lang],trim=raw.trim();
     if(phrases.has(trim))return raw.replace(trim,phrases.get(trim)[index]);
     let m;
-    if((m=trim.match(/^Below ([\d.,]+) ppt$/)))return lang==='hi'?`${m[1]} ppt से नीचे`:`أقل من ${m[1]} ppt`;
+    if(index>1){
+      const dynamic=additionalPacks?.dynamic(trim,lang);if(dynamic!==null&&dynamic!==undefined)return dynamic;
+      if((m=trim.match(/^([A-Za-z][^:\n]{0,85}):\s*(.*)$/))&&phrases.has(m[1]))return phrases.get(m[1])[index]+': '+m[2];
+      return raw;
+    }
+    if((m=trim.match(/^Below ([\d.,]+) (ppt|µg\/L)$/)))return lang==='hi'?`${m[1]} ${m[2]} से नीचे`:`أقل من ${m[1]} ${m[2]}`;
     if((m=trim.match(/^(\d+) possible water systems? for ZIP (\d{5})$/)))return lang==='hi'?`ZIP कोड ${m[2]} के लिए ${m[1]} संभावित जल प्रणालियाँ`:`${m[1]} نظام مياه محتمل للرمز البريدي ${m[2]}`;
     if((m=trim.match(/^(?:\s*)?([A-Za-z][^:\n]{0,85}):\s*(.*)$/))&&phrases.has(m[1]))return phrases.get(m[1])[index]+': '+m[2];
     if((m=trim.match(/^This sample is (above|equal to|below) the 10 µg\/L screening reference\.$/)))return lang==='hi'?`यह नमूना 10 µg/L जाँच संदर्भ ${m[1]==='above'?'से ऊपर है।':m[1]==='below'?'से नीचे है।':'के बराबर है।'}`:`هذه العينة ${m[1]==='above'?'أعلى من':m[1]==='below'?'أقل من':'مساوية لـ'} المرجع الاسترشادي 10 µg/L.`;
@@ -110,9 +118,16 @@
     return raw;
   }
   function copy(lang,base){
-    const index=lang==='hi'?0:1;
+    const index=languageIndexes[lang];
     for(const [key,value] of Object.entries(base))if(typeof value==='string'&&keys[key])add(value,...keys[key]);
     const out=Object.fromEntries(Object.entries(base).map(([key,value])=>[key,keys[key]?.[index]??(typeof value==='string'?translate(value,lang):value)]));
+    if(['fr','bn','ru'].includes(lang)){
+      const i={fr:0,bn:1,ru:2}[lang];
+      out.noAssociationTitle=zip=>[`Aucun fournisseur trouvé pour le code postal ${zip}`,`ZIP কোড ${zip}-এ সরবরাহকারী পাওয়া যায়নি`,`Поставщик для индекса ${zip} не найден`][i];
+      out.associatedTitle=(count,zip)=>[`Fournisseurs possibles pour ${zip} : ${count}`,`ZIP কোড ${zip}-এর সম্ভাব্য সরবরাহকারী: ${count}`,`Возможных поставщиков для ${zip}: ${count}`][i];
+      out.associatedContext=()=>[`Choisissez le fournisseur indiqué sur votre facture. Les résultats d’un autre réseau peuvent ne pas vous concerner.`,`পানির বিলে থাকা সরবরাহকারী বেছে নিন। অন্য ব্যবস্থার ফল আপনার জন্য প্রযোজ্য না-ও হতে পারে।`,`Выберите поставщика из счёта за воду. Результаты другой системы могут к вам не относиться.`][i];
+      return out;
+    }
     out.noAssociationTitle=zip=>lang==='hi'?`ZIP कोड ${zip} के लिए प्रदाता नहीं मिला`:`لم نعثر على مزوّد للرمز البريدي ${zip}`;
     out.associatedTitle=(count,zip)=>lang==='hi'?`ZIP कोड ${zip} के लिए ${count} संभावित प्रदाता`:`${count} مزوّد محتمل للرمز البريدي ${zip}`;
     out.associatedContext=()=>lang==='hi'?'पानी के बिल पर दिए प्रदाता का नाम चुनें। दूसरे प्रदाता के नतीजे आपके लिए लागू नहीं हो सकते।':'اختر المزوّد المذكور في فاتورة المياه. قد لا تنطبق نتائج نظام آخر على منزلك.';
@@ -129,9 +144,9 @@
     }
   }
   function html(markup,lang){return String(markup).replace(/>([^<>]+)</g,(_all,value)=>'>'+translate(value,lang)+'<');}
-  function normalizeDigits(value){return String(value??'').replace(/[٠-٩۰-۹०-९]/g,c=>String(c.charCodeAt(0)-(c>='०'?'०'.charCodeAt(0):c>='۰'?'۰'.charCodeAt(0):'٠'.charCodeAt(0))));}
+  function normalizeDigits(value){return String(value??'').replace(/[٠-٩۰-۹०-९০-৯]/g,c=>{const n=c.charCodeAt(0);return String(n-[0x660,0x6f0,0x966,0x9e6].find(base=>n>=base&&n<=base+9));});}
   function initialLanguage(search){const requested=new URLSearchParams(search||'').get('lang');if(supported.includes(requested))return requested;try{const saved=localStorage.getItem('pfas-language');if(supported.includes(saved))return saved;}catch{}return 'en';}
   function remember(lang){try{localStorage.setItem('pfas-language',lang);}catch{}}
-  const locale=lang=>({en:'en-US',zh:'zh-CN',es:'es-US',hi:'hi-IN-u-nu-latn',ar:'ar-u-nu-latn'}[lang]||'en-US');
-  return {supported,keys,copy,translate,dom,html,normalizeDigits,initialLanguage,remember,locale,has:value=>phrases.has(value),setSpanishTranslator:fn=>{spanishTranslator=fn;}};
+  const locale=lang=>({en:'en-US',zh:'zh-CN',es:'es-US',hi:'hi-IN-u-nu-latn',ar:'ar-u-nu-latn',fr:'fr-FR',bn:'bn-BD-u-nu-latn',ru:'ru-RU'}[lang]||'en-US');
+  return {supported,keys,copy,translate,dom,html,normalizeDigits,initialLanguage,remember,locale,has:value=>phrases.has(value),missing:lang=>[...phrases].filter(([en,v])=>v[languageIndexes[lang]]===en).map(([en])=>en),setSpanishTranslator:fn=>{spanishTranslator=fn;}};
 });

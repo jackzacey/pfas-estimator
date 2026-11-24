@@ -309,7 +309,7 @@
 
   const siteLanguages = typeof SiteLanguages === "undefined" ? null : SiteLanguages;
   siteLanguages?.setSpanishTranslator(homeLanguage?.translate);
-  if(siteLanguages)for(const lang of ["hi","ar"])COPY[lang]=siteLanguages.copy(lang,COPY.en);
+  if(siteLanguages)for(const lang of ["hi","ar","fr","bn","ru"])COPY[lang]=siteLanguages.copy(lang,COPY.en);
   let languageMenu = null;
   let searchMode = "zip";
   const searchValues = {zip:"",provider:"",id:""};
@@ -358,7 +358,7 @@
       const value = text(element.dataset.i18nHtml);
       if (typeof value === "string") element.innerHTML = value;
     });
-    if(typeof document.querySelector === "function"){const composer=document.querySelector(".ai-input-row");if(composer)composer.hidden=["hi","ar"].includes(currentLang);}
+    if(typeof document.querySelector === "function"){const composer=document.querySelector(".ai-input-row");if(composer)composer.hidden=["hi","ar","fr","bn","ru"].includes(currentLang);}
     if ($("zipInput")) { $("zipInput").placeholder = choose("Enter a 5-digit ZIP code","输入5位邮政编码","Código postal de 5 dígitos"); $("zipInput").setAttribute('aria-label',$("zipInput").placeholder); }
     if ($("aiInput")) { $("aiInput").placeholder = choose("Ask about PFAS or the displayed systems…","询问PFAS或显示的供水系统…","Pregunte sobre PFAS o los resultados…"); $("aiInput").setAttribute('aria-label',$("aiInput").placeholder); }
     if ($("faqDialogClose")) {
@@ -1001,7 +1001,7 @@
   }
 
   async function sendChat() {
-    if(["hi","ar"].includes(currentLang)){openFaq("result");return;}
+    if(["hi","ar","fr","bn","ru"].includes(currentLang)){openFaq("result");return;}
     const input = $("aiInput");
     const button = $("aiSendBtn");
     const question = input.value.trim();
@@ -1208,7 +1208,7 @@
     const input=$("zipInput");
     if(!input)return;
     const placeholder=searchMode==='zip'?choose("Enter a 5-digit ZIP code","输入5位邮政编码","Código postal de 5 dígitos"):searchMode==='provider'?choose("Enter a provider name","输入供水机构名称","Introduzca el nombre del proveedor"):choose("Enter a water system ID","输入供水系统编号","Introduzca el número del sistema");
-    input.placeholder=placeholder;if($("lookupInputLabel"))$("lookupInputLabel").textContent=placeholder;input.setAttribute('aria-label',placeholder);input.setAttribute('inputmode',searchMode==='zip'?'numeric':'text');input.setAttribute('maxlength',searchMode==='zip'?'5':searchMode==='id'?'20':'100');input.setAttribute('autocomplete',searchMode==='zip'?'postal-code':'off');input.setAttribute('type',searchMode==='zip'?'text':'search');input.setAttribute('dir',searchMode==='provider'?'auto':'ltr');
+    input.placeholder=placeholder;if($("lookupInputLabel"))$("lookupInputLabel").textContent=placeholder;input.setAttribute('aria-label',placeholder);input.setAttribute('inputmode',searchMode==='zip'?'numeric':'text');input.setAttribute('maxlength',searchMode==='zip'?'5':searchMode==='id'?'20':'100');input.setAttribute('autocomplete',searchMode==='zip'?'postal-code':'off');input.setAttribute('type','text');input.setAttribute('dir',searchMode==='provider'?'auto':'ltr');
     document.querySelectorAll('[name="lookup-search-mode"]').forEach(radio=>{radio.checked=radio.value===searchMode;});
     if($("lookupSearchHint")){
       $("lookupSearchHint").hidden=searchMode==='zip';

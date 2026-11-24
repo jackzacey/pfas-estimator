@@ -47,3 +47,7 @@ html[dir="rtl"] .water-record-modes legend { float:right; margin-inline:0 12px; 
   .report-toolbar .site-language-menu { margin-inline-start:0; }
 }
 @media print { .site-language-menu,.lookup-search-modes { display:none!important; } }
+
+/* The same full-width field and button label are used in every search mode. */
+.home-shell .home-interaction-grid .input-row #zipInput { flex:1 1 0; width:0; min-width:0; }
+html[lang="bn"] body { font-family:system-ui,-apple-system,"Bangla Sangam MN","Noto Sans Bengali","Vrinda",sans-serif; }
