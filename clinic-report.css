@@ -1,0 +1,79 @@
+.clinic-report-page { margin:0; background:#f5f9fc; color:#243e50; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+.report-shell { width:min(850px,calc(100% - 32px)); margin:28px auto 48px; }
+.report-toolbar { display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-bottom:14px; font-size:14px; }
+.report-toolbar a,.clinic-report a { color:#4386ae; text-underline-offset:3px; }
+.report-language { display:flex; align-items:center; gap:6px; margin-left:auto; background:#fff; border:1px solid #dce6ed; border-radius:24px; padding:7px 11px; }
+.report-language select { width:auto; border:0; padding:2px; background:transparent; color:#365269; font:inherit; }
+.report-toolbar button { border:1px solid #d3e4ee; border-radius:22px; background:#fff; color:#347aa5; padding:10px 15px; cursor:pointer; font:inherit; font-weight:600; }
+.report-toolbar button:disabled { opacity:.5; cursor:wait; }
+.report-toolbar :focus-visible,.clinic-report a:focus-visible { outline:3px solid #86bada; outline-offset:3px; }
+.report-status { color:#5d7485; font-size:14px; }
+.report-status:empty { display:none; }
+.clinic-report { background:#fff; padding:32px 38px; border:1px solid #e0eaf1; border-radius:22px; box-shadow:0 8px 30px #345b7710; line-height:1.45; font-size:14px; }
+.clinic-report [hidden] { display:none!important; }
+.report-brand { color:#5483a0; font-weight:600; font-size:13px; letter-spacing:.025em; margin:0 0 5px; }
+.clinic-report h1 { color:#294d65; font-size:27px; line-height:1.2; letter-spacing:-.02em; margin:0 0 5px; }
+.report-purpose { color:#647c8c; margin:0 0 17px; }
+.report-provider { padding-bottom:13px; border-bottom:1px solid #dce8ef; margin-bottom:15px; }
+.clinic-report h2 { font-size:18px; line-height:1.3; margin:0 0 4px; overflow-wrap:anywhere; }
+.report-meta { color:#627786; font-size:12px; margin:0; }
+.report-caution { font-size:12px; color:#536c7c; margin:8px 0 0; }
+.report-section { margin:14px 0 0; break-inside:avoid; }
+.clinic-report h3 { font-size:15px; color:#355b72; margin:0 0 3px; }
+.report-section p { font-size:12px; color:#587183; margin:3px 0 6px; }
+.report-table { width:100%; border-collapse:collapse; table-layout:fixed; margin:5px 0; }
+.report-table th,.report-table td { border-bottom:1px solid #e8eff4; padding:5px 8px; vertical-align:top; text-align:left; overflow-wrap:anywhere; font-size:12px; }
+.report-table th { font-weight:600; color:#4c6c82; background:#f5f9fc; }
+.report-table th:first-child { width:27%; }
+.report-table td strong { font-weight:600; color:#294d65; }
+.report-table td small { display:block; font-size:11px; line-height:1.35; color:#667d8c; margin-top:2px; }
+.report-table th:last-child:not(:nth-child(2)) { width:32%; }
+.report-foot { display:grid; grid-template-columns:minmax(0,1fr) 108px; gap:20px; margin-top:16px; padding-top:13px; border-top:1px solid #dce8ef; break-inside:avoid; }
+.report-foot h3 { font-size:13px; }
+.report-foot p,.report-foot li { font-size:11px; color:#577082; margin:5px 0; }
+.report-foot ul { margin:4px 0 7px; padding-left:17px; }
+.report-qr { text-align:center; }
+.report-qr svg { display:block; width:108px; height:108px; background:white; }
+.report-qr p { font-size:10px; line-height:1.3; margin:4px 0; }
+.report-source { font-size:10px; color:#667d8c; margin:12px 0 0; overflow-wrap:anywhere; }
+.report-source a { color:inherit; }
+.report-link-text { display:block; overflow-wrap:anywhere; font-size:10px; }
+.report-intro { max-width:590px; margin:auto; }
+.report-intro p,.report-intro li { color:#577082; }
+.report-start { display:inline-block; border:1px solid #d3e4ee; border-radius:22px; padding:9px 15px; margin-top:8px; }
+.report-notice { padding:8px 10px; background:#f5f9fc; border-radius:8px; }
+.home-shell .clinic-report-link { display:inline-block; margin-top:12px; padding:8px 13px; border:1px solid #dbe7ef; border-radius:22px; background:#fff; color:#4386ae; font-size:.85rem; text-decoration:none; }
+.home-shell .clinic-report-link:hover { background:#f6faff; border-color:#bcd7e8; }
+.home-shell .clinic-report-link:focus-visible { outline:3px solid #86bada; outline-offset:3px; }
+@media(max-width:560px) {
+  .report-shell { width:calc(100% - 20px); margin-top:14px; }
+  .report-toolbar { gap:10px; }
+  .report-language { margin-left:0; }
+  .clinic-report { padding:23px 18px; border-radius:17px; }
+  .clinic-report h1 { font-size:24px; }
+  .report-table th,.report-table td { padding:5px 4px; font-size:11px; }
+  .report-table th:first-child { width:25%; }
+  .report-foot { gap:12px; grid-template-columns:minmax(0,1fr) 100px; }
+  .report-qr svg { width:100px; height:100px; }
+}
+@media print {
+  @page { size:auto; margin:11mm 12mm; }
+  html,.clinic-report-page { background:white!important; }
+  .report-shell { width:auto; margin:0; }
+  .report-toolbar,.report-status,.clinic-report-link { display:none!important; }
+  .clinic-report { padding:0; border:0; border-radius:0; box-shadow:none; font-size:11px; line-height:1.32; }
+  .clinic-report h1 { font-size:22px; }
+  .clinic-report h2 { font-size:16px; }
+  .clinic-report h3 { font-size:13px; }
+  .report-brand { font-size:11px; }
+  .report-purpose { font-size:11px; margin-bottom:10px; }
+  .report-provider { padding-bottom:8px; margin-bottom:9px; }
+  .report-section { margin-top:9px; }
+  .report-table th,.report-table td { padding:3px 6px; font-size:10px; }
+  .report-table td small { font-size:9px; }
+  .report-section p,.report-caution,.report-meta { font-size:10px; }
+  .report-foot { margin-top:10px; padding-top:8px; gap:18px; }
+  .report-foot p,.report-foot li { font-size:9px; }
+  .report-source,.report-link-text { font-size:8px; }
+  a { text-decoration:none; }
+}
