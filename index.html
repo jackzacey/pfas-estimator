@@ -68,7 +68,7 @@
   <link rel="stylesheet" href="/lookup-readability.css?v=20261108-cleanup" />
   <link rel="stylesheet" href="/project-features.css?v=20261107" />
   <link rel="stylesheet" href="/drinking-water-records.css?v=20261123-clarity" />
-  <link rel="stylesheet" href="/clinic-report.css?v=20261124" />
+  <link rel="stylesheet" href="/clinic-report.css?v=20261124-accessible" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -77,12 +77,15 @@
     gtag('config','G-FZQTEJ4LLY');
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
+  <link rel="stylesheet" href="/accessible-controls.css?v=20261124" />
+  <script defer src="/site-languages.js?v=20261124"></script>
+  <script defer src="/language-menu.js?v=20261124"></script>
   <script defer src="/homepage-language.js?v=20261123"></script>
   <script defer src="/lookup-evidence.js?v=20261019-sample-context1"></script>
   <script defer src="/assistant-result-tools.js?v=20261124-definitions"></script>
-  <script defer src="/drinking-water-records.js?v=20261124-clinic"></script>
-  <script defer src="/pfas-sample-trace.js?v=20261123-clarity"></script>
-  <script defer src="/scientific-site-v2.js?v=20261124-clinic"></script>
+  <script defer src="/drinking-water-records.js?v=20261124-accessible"></script>
+  <script defer src="/pfas-sample-trace.js?v=20261124-accessible"></script>
+  <script defer src="/scientific-site-v2.js?v=20261124-accessible"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content" data-i18n="skipLookup">Skip to lookup</a>
@@ -100,14 +103,7 @@
       <header class="home-hero">
         <div class="home-hero-top">
           <span class="badge" data-i18n="releaseBadge">Public drinking-water results</span>
-          <div class="language-picker">
-            <label for="languageSelect" data-i18n="currentLanguageLabel">Current Language:</label>
-            <select id="languageSelect">
-              <option value="en" lang="en">English</option>
-              <option value="zh" lang="zh-Hans">简体中文</option>
-              <option value="es" lang="es">Español</option>
-            </select>
-          </div>
+          <div id="languageMenu" class="site-language-menu"></div>
         </div>
         <h1 data-i18n="heroTitle">Find PFAS and other chemicals in your water</h1>
         <p class="subtitle" data-i18n="heroSubtitle">Search by ZIP code or provider to explore historical drinking-water test results.</p>
@@ -120,11 +116,19 @@
             <div class="context-note" data-i18n-html="truthNote">
               <strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Use a private well? Find testing guidance →</a>
             </div>
+            <fieldset class="lookup-search-modes" id="lookupSearchModes">
+              <legend class="visually-hidden" id="lookupSearchLegend">Search by</legend>
+              <label><input type="radio" name="lookup-search-mode" value="zip" checked /><span id="zipSearchLabel">ZIP code</span></label>
+              <label><input type="radio" name="lookup-search-mode" value="provider" /><span id="providerSearchLabel">Provider name</span></label>
+              <label><input type="radio" name="lookup-search-mode" value="id" /><span id="idSearchLabel">System ID</span></label>
+            </fieldset>
             <div class="input-row">
-              <label for="zipInput" class="visually-hidden" data-i18n="zipLabel">U.S. ZIP code</label>
+              <label for="zipInput" class="visually-hidden" id="lookupInputLabel">U.S. ZIP code</label>
               <input type="text" id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" aria-label="Enter U.S. ZIP code" placeholder="Enter U.S. zip code" maxlength="5" />
               <button type="button" id="lookupButton" disabled>Loading data…</button>
             </div>
+            <p id="lookupSearchHint" class="water-mode-note" hidden></p>
+            <div id="waterProviderMatches" aria-live="polite"></div>
             <div class="visually-hidden" id="lookupDataNote">Preparing verified federal monitoring data.</div>
             <fieldset class="water-record-modes" id="waterRecordModes">
               <legend id="waterRecordLegend">Results</legend>
@@ -133,14 +137,6 @@
               <label><input type="radio" name="water-result-mode" value="lcr" /><span id="lcrModeLabel">Lead &amp; copper</span></label>
             </fieldset>
             <p class="water-mode-note" id="waterModeNote">Map and state summaries show PFAS.</p>
-            <details class="water-provider-search" id="waterProviderSearch">
-              <summary id="waterProviderSearchTitle">Find a provider by name or system ID</summary>
-              <form id="waterProviderSearchForm">
-                <label for="waterProviderInput" id="waterProviderInputLabel">Provider name or system ID (at least 3 characters)</label>
-                <div class="input-row"><input id="waterProviderInput" type="search" minlength="3" maxlength="100" placeholder="e.g. Raleigh or NC0392010" /><button type="submit" id="waterProviderSearchButton">Search providers</button></div>
-              </form>
-              <div id="waterProviderMatches" aria-live="polite"></div>
-            </details>
           </div>
 
 
@@ -161,7 +157,6 @@
             <div class="print-footer" data-i18n="printFooter">EPA UCMR 5 final dataset, released August 2026. These system results do not determine current compliance, household tap-water levels, personal exposure, or health risk. Methods: pfasestimator.org/methodology/</div>
           </div>
 
-          <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save this water-system result</button>
         </div>
           <details class="home-chat-disclosure" id="chatDisclosure"><summary data-i18n="chatDisclosure">Questions about PFAS?</summary>
           <aside class="chat-panel visible" id="chatPanel" aria-label="PFAS monitoring question and answer assistant">

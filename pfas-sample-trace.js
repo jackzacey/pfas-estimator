@@ -10,7 +10,7 @@
   const CHEMICALS = ['PFOA','PFOS','PFHxS','PFNA','HFPO-DA','PFBS'];
   const KEYS = ['pfoa','pfos','pfhxs','pfna','hfpo_da'];
   const cache = new Map();
-  const t = (lang, en, zh) => lang === 'zh' ? zh : lang === 'es' && typeof PFASHomeLanguage !== 'undefined' ? PFASHomeLanguage.translate(en) : en;
+  const t = (lang, en, zh) => lang === 'zh' ? zh : lang === 'es' && typeof PFASHomeLanguage !== 'undefined' ? PFASHomeLanguage.translate(en) : typeof SiteLanguages!=='undefined'?SiteLanguages.translate(en,lang):en;
   const esc = v => String(v ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const n = v => Number(v).toLocaleString('en-US',{maximumSignificantDigits:10});
   function bucket(id) { let v=0; for(const c of id) v=(v*31+c.charCodeAt(0))%128; return v.toString(16).padStart(2,'0'); }
@@ -67,15 +67,15 @@
       const missing=loc.expected_events.filter(e=>!samples.some(r=>r[2]===e));
       explanation=`<p>${t(lang,'No complete location average. Missing required events','无完整采样点平均值。缺少必需事件')}: ${missing.map(esc).join(', ')}. ${t(lang,'Missing samples are not assigned zero or included as a complete yearly average.','缺失样本不会按零计或纳入完整年度平均值。')}</p>`;
     }
-    const rows=samples.map(r=>`<tr><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td>${r[3]==='<'?'&lt; ':''}${n(r[4])}</td><td>${n(r[5])}${r[3]==='<'?' '+t(lang,'(calculation only)','（仅计算）'):''}</td><td>${esc(r[6])}</td><td>${r[7]}</td></tr>`).join('');
+    const rows=samples.map(r=>`<tr><td><bdi dir="ltr">${esc(r[1])}</bdi></td><td>${esc(r[2])}</td><td>${r[3]==='<'?'&lt; ':''}${n(r[4])}</td><td>${n(r[5])}${r[3]==='<'?' '+t(lang,'(calculation only)','（仅计算）'):''}</td><td>${esc(r[6])}</td><td>${r[7]}</td></tr>`).join('');
     return `<details class="pfas-trace-chemical"><summary>${CHEMICALS[i]} · ${full?t(lang,'complete set','完整样本组'):t(lang,'incomplete set','样本不完整')}${highest?' · '+t(lang,'displayed maximum','显示的最高值'):''}</summary>${dates.length?`<p>${t(lang,'Required-set collection dates','必需样本组采集日期')}: ${esc(dates[0])} – ${esc(dates.at(-1))}.</p>`:''}${explanation}${samples.length?`<div class="water-record-table" role="region" tabindex="0" aria-label="${CHEMICALS[i]} source samples"><table><thead><tr>${[t(lang,'Date','日期'),t(lang,'Event','事件'),t(lang,'Reported result (ppt)','报告结果（ppt）'),t(lang,'Input to average (ppt)','平均值输入（ppt）'),t(lang,'Sample ID','样本编号'),t(lang,'Source row','源文件行号')].map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`:`<p>${t(lang,'No source samples for this chemical at this location.','此采样点无此物质的原始样本。')}</p>`}</details>`;
   }
   function render(locations, system, lang, options = {}) {
     if (options.calculations === false) {
-      const x=(en,zh,es)=>lang==='zh'?zh:lang==='es'?es:en;
+      const x=(en,zh,es)=>lang==='zh'?zh:lang==='es'?es:typeof SiteLanguages!=='undefined'?SiteLanguages.translate(en,lang):en;
       return `<p>${x('“<” means below the reporting limit, not zero. Dates are when samples were collected.','“<”表示低于报告限值，并非为零。日期是样本采集日期。','«<» significa por debajo del límite de reporte, no cero. Las fechas indican cuándo se tomaron las muestras.')}</p>
         ${locations.map(loc=>`<details class="pfas-trace-location"><summary>${esc(loc.name)} · ${esc(loc.facility)} / ${esc(loc.point)}</summary>
-        <div class="water-record-table" role="region" tabindex="0" aria-label="${x('Individual PFAS samples','单次PFAS样本','Muestras individuales de PFAS')}"><table><thead><tr>${[x('Date','日期','Fecha'),x('Chemical','化学物质','Sustancia'),x('Result (ppt)','结果（ppt）','Resultado (ppt)')].map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${loc.samples.map(r=>`<tr><td>${esc(r[1])}</td><td>${CHEMICALS[r[0]]}</td><td>${r[3]==='<'?'&lt; ':''}${n(r[4])}</td></tr>`).join('')}</tbody></table></div>
+        <div class="water-record-table" role="region" tabindex="0" aria-label="${x('Individual PFAS samples','单次PFAS样本','Muestras individuales de PFAS')}"><table><thead><tr>${[x('Date','日期','Fecha'),x('Chemical','化学物质','Sustancia'),x('Result (ppt)','结果（ppt）','Resultado (ppt)')].map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${loc.samples.map(r=>`<tr><td><bdi dir="ltr">${esc(r[1])}</bdi></td><td>${CHEMICALS[r[0]]}</td><td>${r[3]==='<'?'&lt; ':''}${n(r[4])}</td></tr>`).join('')}</tbody></table></div>
         <p class="compact-caption">${x('PFBS contributes to the mixture index; it has no separate summary card.','PFBS参与混合物指数计算，无单独汇总卡。','PFBS contribuye al índice de mezcla; no tiene una tarjeta de resumen independiente.')}</p></details>`).join('')}
         <p><a href="/methodology/?system=${encodeURIComponent(system.pwsid)}#sample-trace">${x('See sample IDs, source rows and average calculations','查看样本编号、来源行与平均值计算','Ver números de muestra, filas de origen y cálculos')} →</a></p>`;
     }

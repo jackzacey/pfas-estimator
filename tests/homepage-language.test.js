@@ -28,7 +28,7 @@ const base='analysis/exports/ucmr5_final_aug2026_v1/';
 const systems=hydrate(JSON.parse(read(base+'website_lookup_compact.json')));
 const evidence=JSON.parse(read(base+'lookup-evidence.json')).systems;
 subject.setup(hydrate(JSON.parse(read(base+'website_monitoring_periods.json'))),evidence);
-const values=html=>[...html.matchAll(/<div class="compact-outcome [^>]+><span>[^<]*<\/span><strong>([^<]+)<\/strong>/g)].map(m=>m[1].replace(/[^\d.,]/g,''));
+const values=html=>[...html.matchAll(/<div class="compact-outcome [^>]+><span>[^<]*<\/span><strong(?: dir="auto")?>([^<]+)<\/strong>/g)].map(m=>m[1].replace(/[^\d.,]/g,''));
 for(const system of systems) {
  system._comparisonCoverage=evidenceTools.coverage(system,evidence[system.pwsid]);
  subject.setLanguage('en');const en=subject.renderSystem(system);

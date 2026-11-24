@@ -36,7 +36,7 @@ function environment(corrupt=''){
     assert.match(html,/viewBox="0 0 /);
     assert.doesNotMatch(html,/undefined|NaN|Invalid Date/);
     assert(html.includes(`lang=${lang}`));
-    const values=[...html.matchAll(/<strong>([^<]+)<\/strong>/g)].map(m=>m[1].replace(/[^0-9.,]/g,''));
+    const values=[...html.matchAll(/<strong(?: dir="auto")?>([^<]+)<\/strong>/g)].map(m=>m[1].replace(/[^0-9.,]/g,''));
     if(lang==='en')context.expectedValues=values;
     else assert.deepEqual(values,context.expectedValues,'All report values preserved across languages');
   }

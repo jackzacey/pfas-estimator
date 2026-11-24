@@ -35,7 +35,7 @@ assert.match(elements.get('resultContext').textContent,/未进行邮编关联/);
 ctx.subject.language('en');
 ctx.subject.system('<unknown>');
 assert.equal(ctx.subject.state().ids.length,0);
-assert.equal(elements.get('printBtn').hidden,true);
+assert.doesNotMatch(fs.readFileSync(path.join(root,'index.html'),'utf8'),/id="printBtn"/);
 assert.doesNotMatch(elements.get('resultBody').innerHTML,/compound-result-row|Mashantucket|<unknown>/);
 ctx.subject.zip('95032');
 assert.equal(ctx.subject.state().system,null);

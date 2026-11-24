@@ -11,9 +11,9 @@
   const LABELS=['PFOA','PFOS','PFHxS','PFNA','HFPO-DA'];
   const LIMITS=[4,4,3,4,5];
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const x=(lang,en,zh,es)=>lang==='zh'?zh:lang==='es'?es:en;
+  const x=(lang,en,zh,es)=>lang==='zh'?zh:lang==='es'?es:typeof SiteLanguages!=='undefined'?SiteLanguages.translate(en,lang):en;
   const number=(v,digits=2)=>Number(v).toLocaleString('en-US',{maximumFractionDigits:digits});
-  const language=v=>['en','zh','es'].includes(v)?v:'en';
+  const language=v=>['en','zh','es','hi','ar'].includes(v)?v:'en';
   const validId=v=>typeof v==='string'&&/^[A-Z0-9]{1,20}$/.test(v);
   function providerUrl(id,lang='en',view='pfas'){
     if(!validId(id))throw new Error('Invalid water-system ID');
@@ -58,10 +58,10 @@
         value===0?x(lang,`Below ${LIMITS[i]} ppt`,`低于 ${LIMITS[i]} ppt`,`Menos de ${LIMITS[i]} ppt`):number(value*1000)+' ppt';
       const incomplete=i<5?locations.flatMap(l=>l.samples.filter(s=>s[0]===i&&s[3]==='='&&l.outcomes[i][1]!==1)):[];
       const note=incomplete.length?`<small>${esc(x(lang,'Incomplete-set detection up to','不完整样本组的检出值最高为','Detección en muestras incompletas de hasta'))} ${number(Math.max(...incomplete.map(s=>s[4])))} ppt</small>`:'';
-      return [esc(i===5?x(lang,'Mixture index','混合物指数','Índice de mezcla'):LABELS[i]),`<strong>${esc(display)}</strong>${note}`];
+      return [esc(i===5?x(lang,'Mixture index','混合物指数','Índice de mezcla'):LABELS[i]),`<strong dir="auto">${esc(display)}</strong>${note}`];
     });
     return `<section class="report-section"><h3>${title}</h3><p>${esc(x(lang,'Per- and polyfluoroalkyl substances. Highest available location averages from a required monitoring set; chemicals may have different locations.','全氟和多氟烷基物质。各物质必需监测组的可用采样点平均值中的最高值；不同物质可能来自不同采样点。','Sustancias perfluoroalquiladas y polifluoroalquiladas. Promedios disponibles más altos de los puntos de muestreo; las sustancias pueden corresponder a puntos distintos.'))}</p>
-      <p>${esc(x(lang,'Sample dates','采样日期','Fechas de muestras'))}: ${esc(dates[0]||'—')} – ${esc(dates.at(-1)||'—')}</p>
+      <p>${esc(x(lang,'Sample dates','采样日期','Fechas de muestras'))}: <bdi dir="ltr">${esc(dates[0]||'—')} – ${esc(dates.at(-1)||'—')}</bdi></p>
       ${table([x(lang,'Chemical / measure','物质／指标','Sustancia / medida'),x(lang,'Result','结果','Resultado')],rows)}
       <p>${esc(x(lang,'ppt = parts per trillion. “Below” means below a reporting limit, not zero. Missing averages do not mean no PFAS. The mixture index has no units and is not a personal health score.','ppt为万亿分之一。“低于”指低于报告限值，并非为零。平均值缺失不代表无PFAS。混合物指数无单位，也不是个人健康评分。','ppt = partes por billón (10¹²). «Menos de» indica un límite de reporte, no cero. La falta de un promedio no significa ausencia de PFAS. El índice de mezcla no tiene unidades y no es una puntuación de salud personal.'))}</p></section>`;
   }
@@ -73,10 +73,10 @@
     if(!data.lithium)return emptySection(title,lang,data.failed[1]);
     const rows=data.lithium.lithium,summary=DrinkingWaterRecords.lithiumSummary(rows),dates=rows.map(r=>r[0]).sort();
     const value=summary.value===null?x(lang,'Below varying reporting limits','低于不同报告限值','Por debajo de límites de reporte distintos'):
-      (summary.detected?'':x(lang,'Below ','低于 ','Menos de '))+number(summary.value,8)+' µg/L';
+      !summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':!summary.detected&&lang==='hi'?number(summary.value,8)+' µg/L से नीचे':(summary.detected?'':x(lang,'Below ','低于 ','Menos de '))+number(summary.value,8)+' µg/L';
     return `<section class="report-section"><h3>${title}</h3>${table([x(lang,'Measure','指标','Medida'),x(lang,'Result','结果','Resultado'),x(lang,'Sample dates','采样日期','Fechas de muestras')],[[
       esc(summary.detected?x(lang,'Highest individual sample','最高单次样本','Muestra individual más alta'):x(lang,'All samples below reporting limits','所有样本低于报告限值','Todas las muestras por debajo del límite de reporte')),
-      `<strong>${esc(value)}</strong>`,esc(dates[0]+' – '+dates.at(-1))]])}
+      `<strong dir="auto">${esc(value)}</strong>`,`<bdi dir="ltr">${esc(dates[0]+' – '+dates.at(-1))}</bdi>`]])}
       <p>${esc(x(lang,'Individual samples, not yearly averages. µg/L = micrograms per liter (about parts per billion).','单次样本，并非年度平均值。µg/L为微克/升（约十亿分之一）。','Muestras individuales, no promedios anuales. µg/L = microgramos por litro (aproximadamente partes por mil millones).'))}</p></section>`;
   }
   function lcrSection(data,lang){
@@ -90,7 +90,7 @@
       const value=unique.length===1?unique[0]+' µg/L':unique.map(v=>v+' µg/L').join('; ');
       const note=latest.some(r=>!r[3])?x(lang,'Source does not specify a detection symbol.','原始资料未注明检出符号。','La fuente no especifica un símbolo de detección.'):'';
       const zero=latest.some(r=>r[2]===0)?x(lang,'A reported zero does not mean zero at your faucet.','报告值为零不代表您家水龙头的值为零。','Un cero reportado no significa cero en su grifo.'):'';
-      return [name,`<strong>${esc(value)}</strong>${note||zero?`<small>${esc([note,zero].filter(Boolean).join(' '))}</small>`:''}`,esc(latest.map(r=>(r[0]||'—')+' – '+r[1]).filter((v,i,a)=>a.indexOf(v)===i).join('; '))];
+      return [name,`<strong dir="auto">${esc(value)}</strong>${note||zero?`<small>${esc([note,zero].filter(Boolean).join(' '))}</small>`:''}`,`<bdi dir="ltr">${esc(latest.map(r=>(r[0]||'—')+' – '+r[1]).filter((v,i,a)=>a.indexOf(v)===i).join('; '))}</bdi>`];
     });
     return `<section class="report-section"><h3>${title}</h3><p>${esc(x(lang,'Latest reported 90th percentiles: the upper end of results from selected taps, not a system average or your home’s result. Dates may differ by chemical.','最新报告的第90百分位：所选水龙头样本结果的较高端，并非系统平均值或您家的结果。不同物质的日期可能不同。','Últimos percentiles 90 reportados: la parte alta de resultados de grifos seleccionados, no un promedio del sistema ni el resultado de su hogar. Las fechas pueden variar según la sustancia.'))}</p>
       ${table([x(lang,'Chemical','物质','Sustancia'),x(lang,'Reported result','报告结果','Resultado reportado'),x(lang,'Monitoring period','监测期','Período de pruebas')],rows)}
@@ -109,9 +109,9 @@
     const warnings=[metadata?.active&&metadata.active!=='A'?x(lang,'Not listed as active; historical records only.','未列为活跃系统，仅为历史记录。','No figura como activo; solo registros históricos.'):null,
       metadata?.wholesale==='Y'?x(lang,'Wholesale supplier: confirm your household provider.','批发供水机构：请确认家庭供水机构。','Proveedor mayorista: confirme el proveedor de su hogar.'):null,
       metadata?.type&&metadata.type!=='CWS'?x(lang,'May serve a school or workplace rather than homes.','可能为学校或工作场所供水，而非住宅。','Puede abastecer una escuela o lugar de trabajo en vez de viviendas.'):null].filter(Boolean);
-    const date=now.toLocaleDateString(lang==='zh'?'zh-CN':lang==='es'?'es-US':'en-US',{year:'numeric',month:'short',day:'numeric'});
+    const date=now.toLocaleDateString(typeof SiteLanguages!=='undefined'?SiteLanguages.locale(lang):lang==='zh'?'zh-CN':lang==='es'?'es-US':'en-US',{year:'numeric',month:'short',day:'numeric'});
     return `<header><p class="report-brand">PFAS Estimator · pfasestimator.org</p><h1>${x(lang,'Water-system report','供水系统报告','Informe del sistema de agua')}</h1><p class="report-purpose">${x(lang,'A summary to share at a clinic visit','可在就诊时分享的摘要','Un resumen para compartir en una consulta')}</p></header>
-      <section class="report-provider"><h2>${esc(data.name)}</h2><p class="report-meta">${esc(data.state)} · ${x(lang,'Water system ID','供水系统编号','Número del sistema')}: ${esc(data.id)} · ${x(lang,'Prepared','生成日期','Preparado')}: ${esc(date)}</p>
+      <section class="report-provider"><h2 dir="auto" data-preserve-language>${esc(data.name)}</h2><p class="report-meta"><bdi dir="ltr">${esc(data.state)}</bdi> · ${x(lang,'Water system ID','供水系统编号','Número del sistema')}: <bdi dir="ltr">${esc(data.id)}</bdi> · ${x(lang,'Prepared','生成日期','Preparado')}: ${esc(date)}</p>
       <p class="report-caution">${x(lang,'Confirm this provider on your water bill. Historical system records do not establish current tap-water quality, personal exposure, health risk or regulatory compliance.','请核对水费账单上的供水机构。历史系统记录不能确定当前家庭自来水水质、个人暴露、健康风险或是否符合法规。','Confirme el proveedor en su factura de agua. Los registros históricos del sistema no determinan la calidad actual del agua de su hogar, la exposición personal, el riesgo para la salud ni el cumplimiento normativo.')}</p>
       ${warnings.length?`<p class="report-caution">${esc(warnings.join(' '))}</p>`:''}</section>
       ${pfasSection(data,lang)}${lithiumSection(data,lang)}${lcrSection(data,lang)}
@@ -123,13 +123,12 @@
   function intro(lang){return `<div class="report-intro"><p class="report-brand">PFAS Estimator</p><h1>${x(lang,'Bring your water results to a clinic visit','就诊时带上供水检测结果','Lleve sus resultados de agua a una consulta')}</h1><p>${x(lang,'Create a printable summary for one public water provider, with available PFAS, lithium, lead and copper results, sampling dates, and a QR code back to the provider.','为一家公共供水机构生成可打印摘要，包含可用的PFAS、锂、铅和铜结果、采样日期，以及返回供水机构结果的二维码。','Cree un resumen imprimible de un proveedor público de agua, con los resultados disponibles de PFAS, litio, plomo y cobre, fechas de muestras y un código QR para volver a los resultados.')}</p><ol><li>${x(lang,'Search by ZIP code or provider name.','按邮政编码或供水机构名称搜索。','Busque por código postal o nombre del proveedor.')}</li><li>${x(lang,'Match the provider to your water bill.','核对水费账单上的供水机构。','Compare el proveedor con su factura de agua.')}</li><li>${x(lang,'Select “Create clinic report” under that provider, then print or save as PDF.','在该供水机构下选择“生成就诊报告”，然后打印或保存为PDF。','Seleccione «Crear informe para consulta» debajo del proveedor; luego imprima o guarde como PDF.')}</li></ol><a class="report-start" href="/?lang=${lang}">${x(lang,'Find your provider →','查找供水机构 →','Buscar su proveedor →')}</a><p class="report-caution">${x(lang,'Private wells are not included. No patient information is needed or collected for this report.','不包括私人水井。此报告无需也不收集患者信息。','No se incluyen pozos privados. Este informe no solicita ni recopila información de pacientes.')}</p></div>`;}
   async function start(){
     const params=new URLSearchParams(location.search),id=(params.get('system')||'').trim().toUpperCase();
-    let lang=language(params.get('lang')),generation=0,data=null;
+    let lang=typeof SiteLanguages!=='undefined'?SiteLanguages.initialLanguage(location.search):language(params.get('lang')),generation=0,data=null,menu=null;
     const el=id=>document.getElementById(id);
     const updateLabels=()=>{
       document.documentElement.lang=lang==='zh'?'zh-Hans':lang;
-      el('reportLanguage').value=lang;
-      el('reportLanguageLabel').textContent=x(lang,'Language:','语言：','Idioma:');
-      el('reportLanguage').setAttribute('aria-label',x(lang,'Report language','报告语言','Idioma del informe'));
+      document.documentElement.dir=lang==='ar'?'rtl':'ltr';
+      menu?.set(lang);
       el('reportBack').textContent=x(lang,'← Back to lookup','← 返回查询','← Volver a la búsqueda');
       el('reportBack').href=data?.name?providerUrl(id,lang,data.pfas?'pfas':data.lithium?'lithium':'lcr'):'/?lang='+lang;
       el('reportPrint').textContent=x(lang,'Print / save PDF','打印／保存PDF','Imprimir / guardar PDF');
@@ -144,7 +143,7 @@
         el('reportStatus').textContent=data.failed.some(Boolean)?x(lang,'Some records could not be verified; those sections are marked in the report.','部分记录无法核实，报告中已注明。','No se pudieron verificar algunos registros; esas secciones están indicadas en el informe.'):x(lang,'Use Print / save PDF, then select “Save as PDF” in your browser.','选择“打印／保存PDF”，然后在浏览器中选择“保存为PDF”。','Use Imprimir / guardar PDF y seleccione «Guardar como PDF» en su navegador.');
       }
     };
-    el('reportLanguage').addEventListener('change',()=>{lang=language(el('reportLanguage').value);const p=new URLSearchParams(location.search);p.set('lang',lang);history.replaceState(null,'',location.pathname+'?'+p);if(data||!id)show();else updateLabels();});
+    if(typeof SiteLanguageMenu!=='undefined')menu=SiteLanguageMenu.mount(el('reportLanguageMenu'),lang,selected=>{lang=language(selected);if(typeof SiteLanguages!=='undefined')SiteLanguages.remember(lang);const p=new URLSearchParams(location.search);p.set('lang',lang);history.replaceState(null,'',location.pathname+'?'+p);if(data||!id)show();else updateLabels();});
     el('reportPrint').addEventListener('click',()=>{if(data?.name)window.print();});
     updateLabels();if(!id){show();return;}
     if(!validId(id)){el('reportStatus').textContent=x(lang,'The water-system ID is invalid. Return to lookup to select a provider.','供水系统编号无效。请返回查询选择供水机构。','El número del sistema no es válido. Vuelva a la búsqueda para elegir un proveedor.');return;}

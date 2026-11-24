@@ -29,14 +29,14 @@ vm.runInContext(source.slice(0, source.indexOf(boundary)) + `
  assert.equal(view.ids.length,0,'Invalid input must clear the previous provider selection');
  assert.match(view.context,/No valid ZIP lookup/);
  assert.equal(elements.get('resultBody').innerHTML,'');
- assert.equal(elements.get('printBtn').hidden,true);
+assert.doesNotMatch(fs.readFileSync(path.join(root,'index.html'),'utf8'),/id="printBtn"/);
  view=ctx.subject.render('42223');
  assert.equal(view.ids.length,0,'Unresolved associations cannot feed concentration summaries');
  assert.match(elements.get('resultTitle').textContent,/need confirmation/);
  assert.match(elements.get('resultBody').innerHTML,/FORT CAMPBELL/);
  assert.doesNotMatch(elements.get('resultBody').innerHTML,/Highest yearly average|compound-result-row/);
  assert.doesNotMatch(view.context,/PFOS:|PFOA:/);
- assert.equal(elements.get('printBtn').hidden,true);
+assert.doesNotMatch(fs.readFileSync(path.join(root,'index.html'),'utf8'),/id="printBtn"/);
  view=ctx.subject.render('42223','zh');
  assert.match(elements.get('resultTitle').textContent,/需要确认/);
  view=ctx.subject.render('00000');

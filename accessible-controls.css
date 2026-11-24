@@ -1,0 +1,47 @@
+.site-language-menu { position:relative; display:inline-flex; max-width:100%; font-size:11px; flex:0 0 auto; z-index:20; }
+.home-shell .home-hero { overflow:visible; }
+.home-shell .home-hero-top { position:relative; z-index:30; }
+.language-menu-trigger { display:flex; align-items:center; justify-content:center; gap:6px; width:auto; min-height:32px; padding:5px 11px; border:1px solid #dce7ef; border-radius:22px; background:#fff; color:#526b79; font:inherit; line-height:1.5; cursor:pointer; }
+.language-menu-trigger bdi { color:#4386ae; }
+.language-menu-panel { position:absolute; inset-block-start:calc(100% + 7px); inset-inline-end:0; width:245px; max-width:calc(100vw - 38px); max-height:260px; overflow-y:auto; overscroll-behavior:contain; padding:6px; border:1px solid #dce7ef; border-radius:16px; background:#fff; box-shadow:0 8px 24px #284f6a15; }
+.language-menu-panel[hidden] { display:none!important; }
+.language-menu-option { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; border:0; border-radius:10px; background:white; padding:10px 11px; color:#38566b; font:inherit; font-size:13px; text-align:start; cursor:pointer; }
+.language-menu-option[aria-selected="true"] { color:#175e97; background:#f1f7fb; }
+.language-menu-option:hover { background:#f6f9fc; }
+.language-menu-hint { color:#718694; font-size:11px; }
+.language-menu-trigger:focus-visible,.language-menu-option:focus-visible { outline:2px solid #6fa4c8; outline-offset:2px; }
+.lookup-search-modes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; border:0; padding:0; margin:16px 0 10px; min-width:0; }
+.lookup-search-modes label { position:relative; cursor:pointer; min-width:0; }
+.lookup-search-modes input { position:absolute; opacity:0; width:1px; height:1px; }
+.lookup-search-modes span { display:flex; align-items:center; justify-content:center; height:100%; min-height:39px; padding:8px 9px; border:1px solid #dce7ef; border-radius:12px; background:#fff; color:#526879; font-size:.9rem; text-align:center; }
+.lookup-search-modes input:checked + span { color:#175e97; border-color:#8ab4d2; background:#f4f9fd; }
+.lookup-search-modes input:focus-visible + span { outline:2px solid #6fa4c8; outline-offset:3px; }
+.home-shell #waterProviderMatches:empty { display:none; }
+.home-shell #waterProviderMatches { font-size:.9rem; color:#526879; }
+.water-provider-options { padding-inline-start:0; list-style:none; max-height:300px; overflow:auto; }
+.water-provider-options button { display:block; width:100%; text-align:start; padding:10px 12px; border:1px solid #e1eaf1; background:#fff; border-radius:10px; margin-block:6px; text-decoration:none; }
+.water-provider-options button:hover { background:#f6faff; }
+.home-shell .clinic-report-link.home-method-link { margin-inline-end:4px; }
+html[dir="rtl"] body { font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif; }
+html[lang="hi"] body { font-family:system-ui,-apple-system,"Noto Sans Devanagari","Kohinoor Devanagari","Mangal",sans-serif; }
+html[dir="rtl"] .home-shell { text-align:start; }
+html[dir="rtl"] .home-shell .input-row { direction:rtl; }
+html[dir="rtl"] .home-shell .input-row input { text-align:start; }
+html[dir="rtl"] .home-shell .system-summary-head,html[dir="rtl"] .home-shell .compact-outcome { text-align:start; }
+html[dir="rtl"] .home-shell .water-record-table table,html[dir="rtl"] .report-table th,html[dir="rtl"] .report-table td { text-align:start; }
+html[dir="rtl"] [data-preserve-language],html[dir="rtl"] .compact-outcome strong,html[dir="rtl"] .water-record-value strong { unicode-bidi:isolate; }
+html[dir="rtl"] .home-shell .home-term-list dd { margin-inline-start:0; }
+html[dir="rtl"] .water-record-modes legend { float:right; margin-inline:0 12px; }
+.report-toolbar .site-language-menu { margin-inline-start:auto; }
+.report-toolbar .language-menu-trigger { font-size:12px; }
+.report-link-text { direction:ltr; unicode-bidi:isolate; text-align:start; }
+.report-provider h2 { unicode-bidi:plaintext; }
+.report-qr svg { direction:ltr; }
+@media(max-width:520px) {
+  .lookup-search-modes { gap:6px; }
+  .lookup-search-modes span { font-size:.8rem; padding:8px 5px; }
+  .site-language-menu { font-size:10px; }
+  .language-menu-trigger { padding:5px 9px; gap:5px; }
+  .report-toolbar .site-language-menu { margin-inline-start:0; }
+}
+@media print { .site-language-menu,.lookup-search-modes { display:none!important; } }

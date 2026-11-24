@@ -9,19 +9,20 @@
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" />
   <link rel="stylesheet" href="/site-navigation.css?v=20261107" />
-  <link rel="stylesheet" href="/clinic-report.css?v=20261124" />
+  <link rel="stylesheet" href="/clinic-report.css?v=20261124-accessible" />
+  <link rel="stylesheet" href="/accessible-controls.css?v=20261124" />
+  <script defer src="/site-languages.js?v=20261124"></script>
+  <script defer src="/language-menu.js?v=20261124"></script>
   <script defer src="/vendor/qrcodegen.js?v=20261124"></script>
-  <script defer src="/drinking-water-records.js?v=20261124-clinic"></script>
-  <script defer src="/pfas-sample-trace.js?v=20261123-clarity"></script>
-  <script defer src="/clinic-report.js?v=20261124"></script>
+  <script defer src="/drinking-water-records.js?v=20261124-accessible"></script>
+  <script defer src="/pfas-sample-trace.js?v=20261124-accessible"></script>
+  <script defer src="/clinic-report.js?v=20261124-accessible"></script>
 </head>
 <body class="clinic-report-page">
   <div class="report-shell">
     <div class="report-toolbar">
       <a id="reportBack" href="/">← Back to lookup</a>
-      <label class="report-language"><span id="reportLanguageLabel">Language:</span>
-        <select id="reportLanguage" aria-label="Report language"><option value="en">English</option><option value="zh">简体中文</option><option value="es">Español</option></select>
-      </label>
+      <div id="reportLanguageMenu" class="site-language-menu"></div>
       <button id="reportPrint" type="button" disabled>Print / save PDF</button>
     </div>
     <p id="reportStatus" class="report-status" role="status">Preparing your report…</p>

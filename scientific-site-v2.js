@@ -307,6 +307,12 @@
   COPY.es = {...COPY.en, ...(homeLanguage?.copy || {})};
   Object.assign(COPY.es, {aboutTitle:"Acerca de PFAS Estimator",aboutBody:"Jack Zhang creó esta herramienta para facilitar la búsqueda y comprensión de resultados de agua potable. Joshua Tamayo-Sarver, MD, PhD, aportó comentarios iniciales sobre el enfoque clínico y sus limitaciones.",reviewStatus:"Datos y código públicos; verificaciones internas completas. La reproducción independiente y la revisión por pares aún no están completas.",methodsLink:"Métodos y limitaciones →",archiveLink:"Datos y código de investigación archivados →",contactLink:"Contactar a Jack",footerNote:"Herramienta educativa independiente. Resultados históricos, no una prueba del agua de su hogar.",chatDisclosure:"¿Tiene preguntas sobre PFAS?"});
 
+  const siteLanguages = typeof SiteLanguages === "undefined" ? null : SiteLanguages;
+  siteLanguages?.setSpanishTranslator(homeLanguage?.translate);
+  if(siteLanguages)for(const lang of ["hi","ar"])COPY[lang]=siteLanguages.copy(lang,COPY.en);
+  let languageMenu = null;
+  let searchMode = "zip";
+  const searchValues = {zip:"",provider:"",id:""};
   let currentLang = "en";
   let release = null;
   let metadata = null;
@@ -327,9 +333,9 @@
 
   const $ = id => document.getElementById(id);
   const text = key => COPY[currentLang][key];
-  const choose = (en,zh,es) => currentLang === "zh" ? zh : currentLang === "es" ? es : en;
-  const localizeMarkup = html => currentLang === "es" && homeLanguage ? homeLanguage.html(html) : html;
-  function localizeHomeDocument() { if (currentLang === "es" && typeof document !== "undefined") homeLanguage?.dom(document.body); }
+  const choose = (en,zh,es) => currentLang === "zh" ? zh : currentLang === "es" ? es : siteLanguages?.translate(en,currentLang) || en;
+  const localizeMarkup = html => currentLang === "es" && homeLanguage ? homeLanguage.html(html) : siteLanguages?.html(html,currentLang) || html;
+  function localizeHomeDocument() { if(typeof document === "undefined")return;if(siteLanguages)siteLanguages.dom(document.body,currentLang);else if(currentLang === "es")homeLanguage?.dom(document.body); }
   function replaceLookupUrl(url) {
     const parts = url.split('#');
     if (currentLang !== 'en') parts[0] += `${parts[0].includes('?')?'&':'?'}lang=${currentLang}`;
@@ -342,6 +348,8 @@
 
   function applyLanguage() {
     document.documentElement.lang = currentLang === "zh" ? "zh-Hans" : currentLang;
+    document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+    languageMenu?.set(currentLang);
     document.querySelectorAll("[data-i18n]").forEach(element => {
       const value = text(element.dataset.i18n);
       if (typeof value === "string") element.textContent = value;
@@ -350,10 +358,9 @@
       const value = text(element.dataset.i18nHtml);
       if (typeof value === "string") element.innerHTML = value;
     });
-    if ($("languageSelect")) $("languageSelect").value = currentLang;
+    if(typeof document.querySelector === "function"){const composer=document.querySelector(".ai-input-row");if(composer)composer.hidden=["hi","ar"].includes(currentLang);}
     if ($("zipInput")) { $("zipInput").placeholder = choose("Enter a 5-digit ZIP code","输入5位邮政编码","Código postal de 5 dígitos"); $("zipInput").setAttribute('aria-label',$("zipInput").placeholder); }
     if ($("aiInput")) { $("aiInput").placeholder = choose("Ask about PFAS or the displayed systems…","询问PFAS或显示的供水系统…","Pregunte sobre PFAS o los resultados…"); $("aiInput").setAttribute('aria-label',$("aiInput").placeholder); }
-    if ($("waterProviderInput")) $("waterProviderInput").placeholder = choose("Provider name or system ID","供水机构名称或系统编号","Nombre o número de sistema");
     if ($("faqDialogClose")) {
       $("faqDialogClose").textContent = text("closeExplanation");
       $("faqDialogClose").setAttribute("aria-label", text("closeExplanation"));
@@ -374,6 +381,8 @@
     if (lastSystemId && release) renderSelectedSystem(lastSystemId);
     else if (lastLookupZip && release) renderLookup(lastLookupZip, false);
     else resetChat(text("welcome"));
+    if(searchMode==="id"&&lastSystemId)$("zipInput").value=lastSystemId;
+    else if(searchMode==="provider")$("zipInput").value=searchValues.provider;
     localizeHomeDocument();
   }
 
@@ -459,7 +468,7 @@
   function formatMonitoringPeriod(system) {
     const period = monitoringById.get(String(system.pwsid));
     if (!period) return text("notReported");
-    const locale = currentLang === "zh" ? "zh-CN" : currentLang === "es" ? "es-US" : "en-US";
+    const locale = siteLanguages?.locale(currentLang) || (currentLang === "zh" ? "zh-CN" : currentLang === "es" ? "es-US" : "en-US");
     const start = new Date(`${period.monitoring_start}T00:00:00Z`);
     const end = new Date(`${period.monitoring_end}T00:00:00Z`);
     if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime())) return period.monitoring_years || text("notReported");
@@ -469,11 +478,11 @@
     if (start.getUTCFullYear() === end.getUTCFullYear()) {
       const startText = start.toLocaleDateString(locale, { month: "short", day: "numeric", timeZone: "UTC" });
       const endText = end.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
-      return currentLang === "zh" ? `${startText}至${endText}` : `${startText}${currentLang === "es"?" a ":" to "}${endText}`;
+      return currentLang === "zh" ? `${startText}至${endText}` : `${startText}${currentLang === "es"?" a ":currentLang === "hi"?" से ":currentLang === "ar"?" إلى ":" to "}${endText}`;
     }
     const startText = start.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
     const endText = end.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
-    return currentLang === "zh" ? `${startText}至${endText}` : `${startText}${currentLang === "es"?" a ":" to "}${endText}`;
+    return currentLang === "zh" ? `${startText}至${endText}` : `${startText}${currentLang === "es"?" a ":currentLang === "hi"?" से ":currentLang === "ar"?" إلى ":" to "}${endText}`;
   }
 
   // Apply only explicit, source-backed exclusions. State mismatch alone is not
@@ -530,7 +539,7 @@
   function updateReleaseLabels() {
     $("releaseStatus").textContent = `${text("verifiedRelease")} · ${release.release_id}`;
     $("lookupDataNote").textContent = `${release.systems.length.toLocaleString()} ${text("monitoredSystems")} · ${Object.keys(release.zip_to_pwsids).length.toLocaleString()} ${text("zipAssociations")} · ${text("resultsThrough")}`;
-    $("lookupButton").textContent = text("findSystems");
+    updateSearchControls();
   }
 
   function setLoadFailure() {
@@ -843,14 +852,14 @@
     const methodsUrl = `/methodology/?system=${encodeURIComponent(system.pwsid)}#sample-trace`;
     const rows = OUTCOMES.map(o => {
       const status = outcomeStatus(system,o);
-      return `<div class="compact-outcome ${status.className}"><span>${o.key === 'hi' ? choose('Mixture index','混合物指数','Índice de mezcla') : o.label}</span><strong>${escapeHtml(formatOutcomeValue(o,status))}</strong>${status.above ? `<small>${choose('Above study reference','高于研究参考值','Por encima de la referencia')}</small>` : ''}</div>`;
+      return `<div class="compact-outcome ${status.className}"><span>${o.key === 'hi' ? choose('Mixture index','混合物指数','Índice de mezcla') : o.label}</span><strong dir="auto">${escapeHtml(formatOutcomeValue(o,status))}</strong>${status.above ? `<small>${choose('Above study reference','高于研究参考值','Por encima de la referencia')}</small>` : ''}</div>`;
     }).join('');
     const direct = providerLinks[String(system.pwsid)];
     const nextUrl = direct?.report_url || 'https://www.epa.gov/ccr';
     const nextLabel = direct ? `${escapeHtml(direct.name)} — ${direct.report_year} ${choose('water-quality report','水质报告','informe de calidad del agua')}` : choose('Find your provider’s latest water-quality report','查找供水机构的最新水质报告','Busque el informe de calidad del agua de su proveedor');
     const names = [['PFAS','Per- and polyfluoroalkyl substances','全氟和多氟烷基物质','Sustancias perfluoroalquiladas y polifluoroalquiladas'],['PFOA','Perfluorooctanoic acid','全氟辛酸','Ácido perfluorooctanoico'],['PFOS','Perfluorooctane sulfonic acid','全氟辛烷磺酸','Ácido perfluorooctanosulfónico'],['PFHxS','Perfluorohexane sulfonic acid','全氟己烷磺酸','Ácido perfluorohexanosulfónico'],['PFNA','Perfluorononanoic acid','全氟壬酸','Ácido perfluorononanoico'],['HFPO-DA','Hexafluoropropylene oxide dimer acid (a GenX chemical)','六氟环氧丙烷二聚酸（GenX化学物质之一）','Ácido dímero de óxido de hexafluoropropileno (una sustancia GenX)'],['PFBS','Perfluorobutane sulfonic acid (a mixture-index component)','全氟丁烷磺酸（混合物指数的一种组分）','Ácido perfluorobutanosulfónico (componente del índice de mezcla)']];
     return `<article class="detail-box system-summary-card water-system-card compact-system ${above?'has-comparison':''}">
-      <header class="system-summary-head"><div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || 'US')}</span><h3 data-preserve-language>${escapeHtml(system.ucmr_pws_name || text('unnamed'))}</h3></div><span class="system-summary-status ${above?'above':all?'below':'incomplete'}">${headline}</span></header>
+      <header class="system-summary-head"><div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || 'US')}</span><h3 dir="auto" data-preserve-language>${escapeHtml(system.ucmr_pws_name || text('unnamed'))}</h3></div><span class="system-summary-status ${above?'above':all?'below':'incomplete'}">${headline}</span></header>
       ${localizeMarkup(renderAssociationReview(system))}${localizeMarkup(renderProviderRole(system))}
       <p class="compact-dates">${choose('Test dates','检测日期','Fechas de pruebas')}: ${escapeHtml(formatMonitoringPeriod(system))}.</p>
       <p class="compact-finding">${finding}</p>
@@ -870,7 +879,7 @@
       </dl><a href="https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas" target="_blank" rel="noopener noreferrer">${choose('EPA: PFAS and health','EPA：PFAS与健康','EPA: PFAS y salud')} →</a></details>
       <details class="compound-results-details pfas-source-samples" data-pfas-samples="${escapeHtml(system.pwsid)}"><summary>${choose('Samples and test dates','样本与检测日期','Muestras y fechas de pruebas')}</summary><div class="pfas-sample-content">${choose('Open to view individual sample results.','打开以查看单次样本结果。','Abra para ver los resultados individuales.')}</div></details>
       <details class="compound-results-details"><summary>${choose('Provider details and official links','供水机构详情与官方链接','Información del proveedor y enlaces oficiales')}</summary><p>PWSID (${choose('public water system ID','公共供水系统编号','número del sistema público de agua')}): ${escapeHtml(system.pwsid)}</p><p>${choose('Population served','服务人口','Población abastecida')}: ${formatInteger(system.population_served_count)}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${choose('EPA source records','EPA原始记录','Registros originales de la EPA')} →</a> · <a href="${escapeHtml((STATE_PROGRAMS[system.sdwis_state_code]||DEFAULT_STATE_PROGRAM).url)}" target="_blank" rel="noopener noreferrer">${choose('Official state drinking-water information','官方州饮用水信息','Información oficial del estado sobre agua potable')} →</a></p>${/purchased/i.test(system.primary_source_desc||'')?`<p>${choose('Purchased water: ask your provider which upstream supplier and report apply to your home.','购入水：请向供水机构确认上游供应商及适用于您家的报告。','Agua comprada: pregunte a su proveedor qué suministrador e informe corresponden a su hogar.')}</p>`:''}</details>
-      <a class="clinic-report-link" href="/report/?system=${encodeURIComponent(system.pwsid)}&amp;lang=${currentLang}" target="_blank" rel="noopener">${choose("Create clinic report","生成就诊报告","Crear informe para consulta")} ↗</a>
+      <a class="clinic-report-link home-method-link" href="/report/?system=${encodeURIComponent(system.pwsid)}&amp;lang=${currentLang}" target="_blank" rel="noopener">${choose("Create clinic report","生成就诊报告","Crear informe para consulta")} ↗</a>
       <a class="home-method-link" href="${methodsUrl}">${choose('Methods, calculations & limitations','方法、计算与局限','Métodos, cálculos y limitaciones (en inglés)')} →</a>
     </article>`;
   }
@@ -992,6 +1001,7 @@
   }
 
   async function sendChat() {
+    if(["hi","ar"].includes(currentLang)){openFaq("result");return;}
     const input = $("aiInput");
     const button = $("aiSendBtn");
     const question = input.value.trim();
@@ -1083,8 +1093,6 @@
       title.textContent = text("invalidZipTitle");
       context.textContent = text("invalidZipContext");
       body.innerHTML = "";
-      $("printBtn").hidden = true;
-      $("printBtn").classList.remove("visible");
       resetChat(text("invalidZipContext"));
       return;
     }
@@ -1119,10 +1127,7 @@
         ? (currentLang === "zh" ? "此邮编仅有待核实的关联，不能据此判断当地水质或是否做过检测。" : "Only unresolved provider links were found for this ZIP. They cannot establish local water quality or whether testing occurred.")
         : text("noAssociationContext");
       body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p></div>${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
-      if ($("waterProviderSearch")) $("waterProviderSearch").open = true;
       if ($("waterProviderMatches")) $("waterProviderMatches").textContent = currentLang === "zh" ? "请在上方按账单上的供水机构名称或系统编号搜索。即使邮编关联缺失，监测记录仍可能存在。" : "Search above using the provider name or system ID on your bill. Monitoring records can exist even when the ZIP association is missing.";
-      $("printBtn").hidden = true;
-      $("printBtn").classList.remove("visible");
       resetChat(uncertain.length
         ? (currentLang === "zh" ? "请先确认账单上的供水机构；这里的邮编关联尚待核实。" : "Please confirm the provider on your bill; the ZIP associations here are still under review.")
         : text("contextReadyNone"));
@@ -1145,8 +1150,6 @@
         : " Incorrect associations have been removed for this ZIP; the provider list may still be incomplete.";
     }
     body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
-    $("printBtn").hidden = false;
-    $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
   }
 
@@ -1173,8 +1176,6 @@
       $("resultTitle").textContent = currentLang === "zh" ? "未找到该供水系统" : "Water system not found in this release";
       $("resultContext").textContent = currentLang === "zh" ? "请使用邮政编码查询或地图选择供水机构。此结果不能判断水质或是否进行了检测。" : "Try the ZIP lookup or map to select a provider. This does not establish water quality or whether monitoring occurred.";
       $("resultBody").innerHTML = `<p><a href="/map/">${currentLang === "zh" ? "打开供水系统地图 →" : "Explore the water-system map →"}</a></p>`;
-      $("printBtn").hidden = true;
-      $("printBtn").classList.remove("visible");
       resetChat($("resultContext").textContent);
       return;
     }
@@ -1189,26 +1190,68 @@
     $("resultBody").innerHTML = renderSystem(system);
     $("printZip").textContent = `${choose("Water system ID","供水系统编号","Número de sistema")}: ${system.pwsid}`;
     $("printDate").textContent = `${choose("Generated","生成日期","Generado")}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : currentLang === "es" ? "es-US" : "en-US")}`;
-    $("printBtn").hidden = false;
-    $("printBtn").classList.add("visible");
     resetChat(above ? text("contextReadyAbove") : text("contextReadyBelow"));
   }
 
-  function checkZip() { renderLookup($("zipInput").value.trim(), true); }
+  function checkZip() { return performLookup(); }
 
   function updateWaterModeLabels() {
     const zh = currentLang === "zh";
-    const labels = {waterRecordLegend: zh ? "结果" : "Results", lithiumModeLabel: zh ? "锂" : "Lithium", lcrModeLabel: zh ? "铅和铜" : "Lead & copper",
-      waterModeNote: zh ? "地图及各州汇总显示PFAS。" : "Map and state summaries show PFAS.",
-      waterProviderSearchTitle: zh ? "按供水机构名称或系统编号查找" : "Find a provider by name or system ID",
-      waterProviderInputLabel: zh ? "机构名称或系统编号（至少3个字符）" : "Provider name or system ID (at least 3 characters)",
-      waterProviderSearchButton: zh ? "查找供水机构" : "Search providers"};
-    for (const [id, value] of Object.entries(labels)) if ($(id)) $(id).textContent = value;
-    if ($("waterProviderSearch")) $("waterProviderSearch").hidden = false;
-    document.querySelectorAll('[name="water-result-mode"]').forEach(input => { input.checked = input.value === waterMode; });
-    if ($("chatDisclosure")) $("chatDisclosure").hidden = waterMode !== "pfas";
-    if (currentLang === "es" && homeLanguage) Object.entries(labels).forEach(([id,value])=>{ if($(id)) $(id).textContent=homeLanguage.translate(value); });
+    const labels={waterRecordLegend:choose("Results","结果","Resultados"),lithiumModeLabel:choose("Lithium","锂","Litio"),lcrModeLabel:choose("Lead & copper","铅和铜","Plomo y cobre"),waterModeNote:choose("Map and state summaries show PFAS.","地图及各州汇总显示PFAS。","El mapa y los resúmenes por estado muestran PFAS.")};
+    for(const [id,value] of Object.entries(labels))if($(id))$(id).textContent=value;
+    document.querySelectorAll('[name="water-result-mode"]').forEach(input=>{input.checked=input.value===waterMode;});
+    if($("chatDisclosure"))$("chatDisclosure").hidden=waterMode!=="pfas";
+    updateSearchControls();
   }
+
+  function updateSearchControls() {
+    const labels={lookupSearchLegend:choose("Search by","搜索方式","Buscar por"),zipSearchLabel:choose("ZIP code","邮政编码","Código postal"),providerSearchLabel:choose("Provider name","供水机构名称","Nombre del proveedor"),idSearchLabel:choose("System ID","系统编号","Número de sistema")};
+    for(const [id,value] of Object.entries(labels))if($(id))$(id).textContent=value;
+    const input=$("zipInput");
+    if(!input)return;
+    const placeholder=searchMode==='zip'?choose("Enter a 5-digit ZIP code","输入5位邮政编码","Código postal de 5 dígitos"):searchMode==='provider'?choose("Enter a provider name","输入供水机构名称","Introduzca el nombre del proveedor"):choose("Enter a water system ID","输入供水系统编号","Introduzca el número del sistema");
+    input.placeholder=placeholder;if($("lookupInputLabel"))$("lookupInputLabel").textContent=placeholder;input.setAttribute('aria-label',placeholder);input.setAttribute('inputmode',searchMode==='zip'?'numeric':'text');input.setAttribute('maxlength',searchMode==='zip'?'5':searchMode==='id'?'20':'100');input.setAttribute('autocomplete',searchMode==='zip'?'postal-code':'off');input.setAttribute('type',searchMode==='zip'?'text':'search');input.setAttribute('dir',searchMode==='provider'?'auto':'ltr');
+    document.querySelectorAll('[name="lookup-search-mode"]').forEach(radio=>{radio.checked=radio.value===searchMode;});
+    if($("lookupSearchHint")){
+      $("lookupSearchHint").hidden=searchMode==='zip';
+      $("lookupSearchHint").textContent=searchMode==='provider'?choose("Use the official provider name on your water bill (at least 3 characters).","请使用水费账单上的供水机构正式名称（至少3个字符）。","Use el nombre oficial de su factura (al menos 3 caracteres)."):searchMode==='id'?choose("Enter the exact water system ID, including any letters and leading zeros.","请输入完整系统编号，包括字母和开头的零。","Introduzca el número exacto, incluidas las letras y los ceros iniciales."):'';
+    }
+    if($("lookupButton"))$("lookupButton").textContent=!release?text('loadingData'):searchMode==='provider'?choose("Search providers","查找供水机构","Buscar proveedores"):searchMode==='id'?choose("Find this system","查找此系统","Buscar este sistema"):text('findSystems');
+  }
+
+  function setSearchMode(mode,focus=false) {
+    if(!['zip','provider','id'].includes(mode))return;
+    searchValues[searchMode]=$("zipInput").value||'';searchMode=mode;providerSearchGeneration++;
+    $("waterProviderMatches").innerHTML='';$("zipInput").value=searchValues[mode];updateSearchControls();
+    if(focus)$("zipInput").focus();
+  }
+
+  function clearDisplayedLookup() {
+    waterGeneration++;lastLookupZip=null;lastSystemId=null;currentSystems=[];currentContext="No provider selected.";
+    $("result").className="result";$("resultBody").innerHTML='';$("resultTitle").textContent='';$("resultContext").textContent='';
+    resetChat(text('welcome'));replaceLookupUrl(window.location.pathname+(waterMode==='pfas'?'':'?view='+waterMode));
+  }
+
+  async function performLookup() {
+    const raw=$("zipInput").value.trim(),value=siteLanguages?siteLanguages.normalizeDigits(raw):raw;
+    searchValues[searchMode]=raw;
+    if(searchMode==='zip'){providerSearchGeneration++;$("waterProviderMatches").innerHTML='';renderLookup(value,true);return;}
+    const generation=++providerSearchGeneration,target=$("waterProviderMatches"),mode=waterMode;
+    if(searchMode==='id'){
+      const id=value.toUpperCase();
+      if(!/^[A-Z0-9]{1,20}$/.test(id)){clearDisplayedLookup();target.textContent=choose("Enter a valid water system ID.","请输入有效的供水系统编号。","Introduzca un número de sistema válido.");return;}
+      target.innerHTML='';await renderSelectedSystem(id);if(generation===providerSearchGeneration&&searchMode==='id')$("zipInput").value=id;return;
+    }
+    clearDisplayedLookup();
+    if(value.length<3){target.textContent=choose("Enter at least 3 characters.","请输入至少3个字符。","Introduzca al menos 3 caracteres.");return;}
+    target.textContent=choose("Searching…","正在查找…","Buscando…");
+    try{
+      const rows=mode==='pfas'?searchPfasProviders(value,'name'):await window.DrinkingWaterRecords.search(value,mode,'name');
+      if(generation!==providerSearchGeneration||mode!==waterMode||searchMode!=='provider')return;
+      target.innerHTML=rows.length?`<ul class="water-provider-options">${rows.map(r=>`<li><button type="button" data-water-system="${escapeHtml(r[0])}"><bdi data-preserve-language>${escapeHtml(r[1])}</bdi> · <bdi dir="ltr" data-preserve-language>${escapeHtml(r[2])} · ${escapeHtml(r[0])}</bdi></button></li>`).join('')}</ul><p>${choose("Up to 20 matches shown. Confirm the provider name before selecting.","最多显示20个匹配，请核对供水机构名称。","Se muestran hasta 20 coincidencias. Confirme el proveedor antes de elegir.")}</p>`:choose("No matching records in this snapshot. Check with your provider.","此快照中未找到匹配记录，请向供水机构查询。","No hay registros coincidentes. Consulte a su proveedor.");localizeHomeDocument();
+    }catch(error){if(generation===providerSearchGeneration)target.textContent=choose("Provider search could not load. Please retry.","无法载入搜索，请重试。","No se pudo cargar la búsqueda. Inténtelo de nuevo.");}
+  }
+
 
   async function renderAdditionalWater(query) {
     const generation = ++waterGeneration;
@@ -1220,8 +1263,6 @@
     resetChat(); // Invalidate an in-flight PFAS explanation before hiding the assistant.
     $("chatPanel").hidden = true;
     if ($("chatDisclosure")) $("chatDisclosure").hidden = true;
-    $("printBtn").hidden = true;
-    $("printBtn").classList.remove("visible");
     $("result").className = "result additional-records found-below";
     $("resultBody").innerHTML = "";
     $("resultContext").textContent = "";
@@ -1257,18 +1298,19 @@
     }
   }
 
-  function searchPfasProviders(value) {
+  function searchPfasProviders(value,field="all") {
     const query = value.trim().toLowerCase();
     if (query.length < 3) return [];
     const rank = row => row[0].toLowerCase() === query ? 0 : row[1].toLowerCase() === query ? 1 : row[1].toLowerCase().startsWith(query) ? 2 : 3;
     return [...systemsById.values()].map(s => [String(s.pwsid), s.ucmr_pws_name || "", s.sdwis_state_code || ""])
-      .filter(r => r[0].toLowerCase().includes(query) || r[1].toLowerCase().includes(query))
+      .filter(r => r[1].toLowerCase().includes(query) || field !== "name" && r[0].toLowerCase().includes(query))
       .sort((a,b) => rank(a) - rank(b) || a[1].length - b[1].length || a[1].localeCompare(b[1])).slice(0,20);
   }
 
   async function initialize() {
     const requestedLanguage = new URLSearchParams(window.location.search).get("lang");
-    if (["en","zh","es"].includes(requestedLanguage)) currentLang = requestedLanguage;
+    if (Object.hasOwn(COPY,requestedLanguage)) currentLang=requestedLanguage;
+    else if(siteLanguages)currentLang=siteLanguages.initialLanguage(window.location.search);
     applyLanguage();
     $("releaseStatus").textContent = text("loadingRelease");
     $("lookupButton").textContent = text("loadingData");
@@ -1308,7 +1350,8 @@
       updateWaterModeLabels();
       const deepLink = params.get("zip");
       if (params.has("system")) {
-        renderSelectedSystem(params.get("system"));
+        searchMode="id";searchValues.id=params.get("system");updateSearchControls();
+        renderSelectedSystem(params.get("system"));$("zipInput").value=params.get("system");
         requestAnimationFrame(() => $("result").scrollIntoView({block:"start"}));
       } else if (/^\d{5}$/.test(deepLink || "")) {
         $("zipInput").value = deepLink;
@@ -1358,31 +1401,18 @@
       replaceLookupUrl(mode === "pfas" ? window.location.pathname : `${window.location.pathname}?view=${mode}`);
     }
   });
-  $("waterProviderSearchForm")?.addEventListener("submit", async event => {
-    event.preventDefault();
-    const value = $("waterProviderInput").value.trim();
-    const generation = ++providerSearchGeneration;
-    const target = $("waterProviderMatches");
-    if (value.length < 3) { target.textContent = choose("Enter at least 3 characters.","请输入至少3个字符。","Introduzca al menos 3 caracteres."); return; }
-    target.textContent = choose("Searching…","正在查找…","Buscando…");
-    try {
-      const rows = waterMode === "pfas" ? searchPfasProviders(value) : await window.DrinkingWaterRecords.search(value, waterMode);
-      if (generation !== providerSearchGeneration) return;
-      target.innerHTML = rows.length ? `<ul class="water-provider-options">${rows.map(r => `<li><button type="button" data-water-system="${escapeHtml(r[0])}">${escapeHtml(r[1])} · ${escapeHtml(r[2])} · ${escapeHtml(r[0])}</button></li>`).join("")}</ul><p>${currentLang === "zh" ? "最多显示20个匹配。请核对供水机构名称。" : "Up to 20 matches shown. Confirm the provider name before selecting."}</p>` : (currentLang === "zh" ? "此快照中未找到匹配记录。请向供水机构查询。" : "No matching records in this snapshot. Check with your provider.");
-      localizeHomeDocument();
-    } catch (error) { if (generation === providerSearchGeneration) target.textContent = choose("Provider search could not load. Please retry.","无法载入搜索，请重试。","No se pudo cargar la búsqueda. Inténtelo de nuevo."); }
-  });
+  $("lookupSearchModes")?.addEventListener("change",event=>{if(event.target.name==='lookup-search-mode')setSearchMode(event.target.value);});
+  $("zipInput").addEventListener("input",()=>{providerSearchGeneration++;$("waterProviderMatches").innerHTML='';});
   $("waterProviderMatches")?.addEventListener("click", event => {
     const button = event.target.closest("[data-water-system]");
     if (button) {
       renderSelectedSystem(button.dataset.waterSystem);
       $("waterProviderMatches").innerHTML = "";
-      $("waterProviderSearch").open = false;
+      if(searchMode==='provider')$("zipInput").value=searchValues.provider;
       $("result").scrollIntoView({block:"start"});
     }
   });
   $("zipInput").addEventListener("keydown", event => { if (event.key === "Enter") checkZip(); });
-  $("printBtn").addEventListener("click", () => { trackEvent("print_system_summary"); window.print(); });
   $("aiSendBtn").addEventListener("click", sendChat);
   $("chatExpandBtn").addEventListener("click", () => {
     $("chatPanel").classList.toggle("chat-expanded");
@@ -1397,12 +1427,11 @@
   $("faqDialogClose").addEventListener("click", closeFaq);
   $("faqDialog").addEventListener("click", event => { if (event.target === $("faqDialog")) closeFaq(); });
   $("faqDialog").addEventListener("close", () => { activeFaqKey = null; });
-  $("languageSelect").addEventListener("change", event => {
-    const language = event.target.value;
-    if (!Object.hasOwn(COPY, language) || language === currentLang) return;
-    currentLang = language;
-    applyLanguage();
-    trackEvent("language_switch", { language: currentLang });
+  if(typeof SiteLanguageMenu!=="undefined")languageMenu=SiteLanguageMenu.mount($("languageMenu"),currentLang,language=>{
+    if(!Object.hasOwn(COPY,language)||language===currentLang)return;
+    currentLang=language;siteLanguages?.remember(language);applyLanguage();
+    if(!lastSystemId&&!lastLookupZip)replaceLookupUrl(window.location.pathname+(waterMode==='pfas'?'':'?view='+waterMode));
+    trackEvent("language_switch",{language:currentLang});
   });
 
   function openLinkedFeatures() {

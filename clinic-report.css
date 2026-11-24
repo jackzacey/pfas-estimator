@@ -4,7 +4,7 @@
 .report-toolbar a,.clinic-report a { color:#4386ae; text-underline-offset:3px; }
 .report-language { display:flex; align-items:center; gap:6px; margin-left:auto; background:#fff; border:1px solid #dce6ed; border-radius:24px; padding:7px 11px; }
 .report-language select { width:auto; border:0; padding:2px; background:transparent; color:#365269; font:inherit; }
-.report-toolbar button { border:1px solid #d3e4ee; border-radius:22px; background:#fff; color:#347aa5; padding:10px 15px; cursor:pointer; font:inherit; font-weight:600; }
+.report-toolbar #reportPrint { border:1px solid #d3e4ee; border-radius:22px; background:#fff; color:#347aa5; padding:10px 15px; cursor:pointer; font:inherit; font-weight:600; }
 .report-toolbar button:disabled { opacity:.5; cursor:wait; }
 .report-toolbar :focus-visible,.clinic-report a:focus-visible { outline:3px solid #86bada; outline-offset:3px; }
 .report-status { color:#5d7485; font-size:14px; }
@@ -42,9 +42,6 @@
 .report-intro p,.report-intro li { color:#577082; }
 .report-start { display:inline-block; border:1px solid #d3e4ee; border-radius:22px; padding:9px 15px; margin-top:8px; }
 .report-notice { padding:8px 10px; background:#f5f9fc; border-radius:8px; }
-.home-shell .clinic-report-link { display:inline-block; margin-top:12px; padding:8px 13px; border:1px solid #dbe7ef; border-radius:22px; background:#fff; color:#4386ae; font-size:.85rem; text-decoration:none; }
-.home-shell .clinic-report-link:hover { background:#f6faff; border-color:#bcd7e8; }
-.home-shell .clinic-report-link:focus-visible { outline:3px solid #86bada; outline-offset:3px; }
 @media(max-width:560px) {
   .report-shell { width:calc(100% - 20px); margin-top:14px; }
   .report-toolbar { gap:10px; }
