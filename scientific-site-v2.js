@@ -276,6 +276,37 @@
     }
   };
 
+  const homeLanguage = typeof PFASHomeLanguage === "undefined" ? null : PFASHomeLanguage;
+  Object.assign(COPY.en, {
+    skipLookup:"Skip to lookup",zipLabel:"U.S. ZIP code",askLabel:"Ask a PFAS question",
+    printTitle:"PFAS water-system results",printSource:"EPA UCMR 5 samples (2023–2025)",
+    printNote:'Historical public-water-system results. Confirm the provider on your water bill. “Below” a reporting limit does not mean zero.',
+    printFooter:"EPA UCMR 5 final dataset, released August 2026. These system results do not determine current compliance, household tap-water levels, personal exposure, or health risk. Methods: pfasestimator.org/methodology/",
+    navLookup:"Find your provider",navMethods:"Methods & limitations",
+    heroTitle:"Find PFAS and other chemicals in your water",
+    heroSubtitle:"Search by ZIP code or provider to explore historical drinking-water test results.",
+    truthNote:'<strong>Confirm your provider.</strong> Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Private-well guidance →</a>',
+    aboutTitle:"About PFAS Estimator",aboutBody:"Built by Jack Zhang to make public drinking-water results easier to find and understand. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.",
+    reviewStatus:"Public data and code; internal checks completed. Independent reproduction and peer review are not yet complete.",
+    methodsLink:"Methods and limitations →",archiveLink:"Archived research data and code →",contactLink:"Contact Jack",
+    footerNote:"Independent education tool. Historical results, not a test of your home’s water.",
+    chatDisclosure:"Questions about PFAS?",chatSubtitle:"Optional help with artificial intelligence",chatDisclaimer:"AI can make mistakes. Verify answers with official sources. Do not share personal or medical information.",
+    noAssociationBody:"Search above by provider name or system ID, or ask your provider for recent results."
+  });
+  Object.assign(COPY.zh, {
+    skipLookup:"跳至查询",zipLabel:"美国邮政编码",askLabel:"询问PFAS相关问题",
+    printTitle:"PFAS供水系统结果",printSource:"EPA UCMR 5样本（2023–2025）",
+    printNote:"历史公共供水系统结果。请与水费账单核对供水机构。低于报告限值不代表为零。",
+    printFooter:"EPA UCMR 5最终数据集，2026年8月发布。系统结果不能确定当前合规性、家庭水龙头浓度、个人暴露或健康风险。方法：pfasestimator.org/methodology/",
+    noAssociationBody:"请在上方按供水机构名称或系统编号搜索，或向供水机构查询最新结果。",
+    heroTitle:"查找饮用水中的PFAS及其他化学物质",heroSubtitle:"按邮编或供水机构查询历史饮用水检测结果。",
+    aboutTitle:"关于PFAS Estimator",aboutBody:"Jack Zhang创建本工具，帮助公众查找并理解饮用水检测结果。Joshua Tamayo-Sarver医学博士、哲学博士提供了早期临床表述与局限方面的建议。",
+    reviewStatus:"数据和代码公开；已完成内部检查，尚未完成独立复现或同行评审。",
+    methodsLink:"方法与局限 →",archiveLink:"归档研究数据和代码 →",contactLink:"联系Jack",footerNote:"独立教育工具。历史结果并非您家的水质检测。",chatDisclosure:"有PFAS相关问题？",chatSubtitle:"可选人工智能帮助",chatDisclaimer:"人工智能可能出错。请用官方来源核实，不要分享个人或医疗信息。"
+  });
+  COPY.es = {...COPY.en, ...(homeLanguage?.copy || {})};
+  Object.assign(COPY.es, {aboutTitle:"Acerca de PFAS Estimator",aboutBody:"Jack Zhang creó esta herramienta para facilitar la búsqueda y comprensión de resultados de agua potable. Joshua Tamayo-Sarver, MD, PhD, aportó comentarios iniciales sobre el enfoque clínico y sus limitaciones.",reviewStatus:"Datos y código públicos; verificaciones internas completas. La reproducción independiente y la revisión por pares aún no están completas.",methodsLink:"Métodos y limitaciones →",archiveLink:"Datos y código de investigación archivados →",contactLink:"Contactar a Jack",footerNote:"Herramienta educativa independiente. Resultados históricos, no una prueba del agua de su hogar.",chatDisclosure:"¿Tiene preguntas sobre PFAS?"});
+
   let currentLang = "en";
   let release = null;
   let metadata = null;
@@ -290,16 +321,27 @@
   let lastSystemId = null;
   let activeFaqKey = null;
   let chatGeneration = 0;
+  let waterMode = "pfas";
+  let waterGeneration = 0;
+  let providerSearchGeneration = 0;
 
   const $ = id => document.getElementById(id);
   const text = key => COPY[currentLang][key];
+  const choose = (en,zh,es) => currentLang === "zh" ? zh : currentLang === "es" ? es : en;
+  const localizeMarkup = html => currentLang === "es" && homeLanguage ? homeLanguage.html(html) : html;
+  function localizeHomeDocument() { if (currentLang === "es" && typeof document !== "undefined") homeLanguage?.dom(document.body); }
+  function replaceLookupUrl(url) {
+    const parts = url.split('#');
+    if (currentLang !== 'en') parts[0] += `${parts[0].includes('?')?'&':'?'}lang=${currentLang}`;
+    history.replaceState({}, "", parts.join('#'));
+  }
 
   function escapeHtml(value) {
     return String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   }
 
   function applyLanguage() {
-    document.documentElement.lang = currentLang === "zh" ? "zh-Hans" : "en";
+    document.documentElement.lang = currentLang === "zh" ? "zh-Hans" : currentLang;
     document.querySelectorAll("[data-i18n]").forEach(element => {
       const value = text(element.dataset.i18n);
       if (typeof value === "string") element.textContent = value;
@@ -309,17 +351,30 @@
       if (typeof value === "string") element.innerHTML = value;
     });
     if ($("languageSelect")) $("languageSelect").value = currentLang;
-    if ($("zipInput")) $("zipInput").placeholder = currentLang === "zh" ? "输入5位邮政编码" : "Enter a 5-digit ZIP code";
-    if ($("aiInput")) $("aiInput").placeholder = currentLang === "zh" ? "询问PFAS或显示的供水系统…" : "Ask about PFAS or the displayed systems…";
+    if ($("zipInput")) { $("zipInput").placeholder = choose("Enter a 5-digit ZIP code","输入5位邮政编码","Código postal de 5 dígitos"); $("zipInput").setAttribute('aria-label',$("zipInput").placeholder); }
+    if ($("aiInput")) { $("aiInput").placeholder = choose("Ask about PFAS or the displayed systems…","询问PFAS或显示的供水系统…","Pregunte sobre PFAS o los resultados…"); $("aiInput").setAttribute('aria-label',$("aiInput").placeholder); }
+    if ($("waterProviderInput")) $("waterProviderInput").placeholder = choose("Provider name or system ID","供水机构名称或系统编号","Nombre o número de sistema");
     if ($("faqDialogClose")) {
       $("faqDialogClose").textContent = text("closeExplanation");
       $("faqDialogClose").setAttribute("aria-label", text("closeExplanation"));
     }
+    if (typeof document.querySelector === 'function') {
+      document.querySelector('.home-top-nav')?.setAttribute('aria-label',choose('Main navigation','主导航','Navegación principal'));
+      document.querySelector('.home-lookup-panel')?.setAttribute('aria-label',choose('Drinking-water lookup','饮用水查询','Búsqueda de agua potable'));
+    }
+    if ($('aiMessages')) $('aiMessages').setAttribute('aria-label',choose('Conversation','对话','Conversación'));
+    if ($('chatPanel')) $('chatPanel').setAttribute('aria-label',choose('PFAS questions','PFAS相关问题','Preguntas sobre PFAS'));
+    if ($('aiSuggestions')) $('aiSuggestions').setAttribute('aria-label',choose('Quick explanations','简短说明','Explicaciones breves'));
+    if ($('pfasModeLabel')) $('pfasModeLabel').title=choose('Per- and polyfluoroalkyl substances','全氟和多氟烷基物质','Sustancias perfluoroalquiladas y polifluoroalquiladas');
+    providerSearchGeneration++;
+    if ($('waterProviderMatches')) $('waterProviderMatches').innerHTML='';
     if (activeFaqKey) populateFaq(activeFaqKey);
     if (release) updateReleaseLabels();
+    updateWaterModeLabels();
     if (lastSystemId && release) renderSelectedSystem(lastSystemId);
     else if (lastLookupZip && release) renderLookup(lastLookupZip, false);
     else resetChat(text("welcome"));
+    localizeHomeDocument();
   }
 
   function formatInteger(value) {
@@ -393,12 +448,10 @@
   function formatOutcomeValue(outcome, status) {
     if (!status.full) return text("notAvailable");
     if (status.belowReporting && outcome.key !== "hi") {
-      return currentLang === "zh"
-        ? `低于 ${outcome.reportingLimit} ppt`
-        : `Below ${outcome.reportingLimit} ppt`;
+      return choose(`Below ${outcome.reportingLimit} ppt`,`低于 ${outcome.reportingLimit} ppt`,`Menos de ${outcome.reportingLimit} ppt`);
     }
     if (status.belowReporting && outcome.key === "hi") {
-      return currentLang === "zh" ? "0.000（计算值）" : "0.000 (calculated)";
+      return choose("0.000 (calculated)","0.000（计算值）","0.000 (calculado)");
     }
     return formatAverage(status.maximum, outcome.key === "hi");
   }
@@ -406,7 +459,7 @@
   function formatMonitoringPeriod(system) {
     const period = monitoringById.get(String(system.pwsid));
     if (!period) return text("notReported");
-    const locale = currentLang === "zh" ? "zh-CN" : "en-US";
+    const locale = currentLang === "zh" ? "zh-CN" : currentLang === "es" ? "es-US" : "en-US";
     const start = new Date(`${period.monitoring_start}T00:00:00Z`);
     const end = new Date(`${period.monitoring_end}T00:00:00Z`);
     if (!Number.isFinite(start.getTime()) || !Number.isFinite(end.getTime())) return period.monitoring_years || text("notReported");
@@ -416,11 +469,11 @@
     if (start.getUTCFullYear() === end.getUTCFullYear()) {
       const startText = start.toLocaleDateString(locale, { month: "short", day: "numeric", timeZone: "UTC" });
       const endText = end.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
-      return currentLang === "zh" ? `${startText}至${endText}` : `${startText} to ${endText}`;
+      return currentLang === "zh" ? `${startText}至${endText}` : `${startText}${currentLang === "es"?" a ":" to "}${endText}`;
     }
     const startText = start.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
     const endText = end.toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
-    return currentLang === "zh" ? `${startText}至${endText}` : `${startText} to ${endText}`;
+    return currentLang === "zh" ? `${startText}至${endText}` : `${startText}${currentLang === "es"?" a ":" to "}${endText}`;
   }
 
   // Apply only explicit, source-backed exclusions. State mismatch alone is not
@@ -758,10 +811,11 @@
     }).join("");
     return `<details class="compound-results-details result-evidence"><summary>${zh ? "采样覆盖与数据来源" : "Sampling coverage and sources"}</summary><div class="coverage-note"><strong>${zh ? "可计算年度比较的采样点 / 归档采样点" : "Locations with a complete yearly comparison / archived locations"}</strong><p>${escapeHtml(summaries)}</p></div>
       <p>${zh ? "从EPA最终UCMR 5样本记录重建采样点年度平均值；每种物质显示各点最高平均值。不同物质可能来自不同点，不能相加为总浓度。" : "We use sampling-location yearly averages reconstructed from EPA’s final UCMR 5 records and display the highest for each chemical. Different chemicals can come from different locations; these maxima cannot be added into a total concentration."}</p>
-      <p>${zh ? "以下日期是该采样点该物质的源记录日期，不是EPA平均值所用记录的已核实清单。EPA汇总文件未列出确切纳入样本；替换记录和舍入可能影响重新计算。" : "Dates below describe source records at that location for that chemical, not a verified list of samples included in EPA’s average. The EPA summary does not identify the exact retained samples; replacement records and rounding can affect reconstruction."}</p>
+      <p>${zh ? "日期表示该采样点的监测期。一组必需采样事件可能跨日历年；并非将2023–2025年所有样本合并。下方“单次样本与平均值计算”展示重建输入，并已与固定版本的平均值逐项核对。" : "Dates describe monitoring at each location. A required sampling set can cross a calendar year; this is not a pooled 2023–2025 average. “Individual samples and average calculations” below exposes the reconstruction inputs, checked against the frozen averages."}</p>
       <p>${zh ? "低于报告限值的样本在平均值中按零计，但不是测得浓度为零。显示保留EPA导出值的精度，不推断额外有效位。" : "Below-reporting-level samples count as zero in the average but are not measured zeros. We retain the precision of EPA’s exported average rather than infer extra digits."}</p>${details}
       <p><a href="${RELEASE_PATH}/lookup-evidence.json" target="_blank" rel="noopener noreferrer">${zh ? "全部采样点、来源行与校验记录（JSON）" : "All locations, source rows and checksums (JSON)"}</a> · <a href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">${zh ? "归档研究资料" : "Archived research files"}</a></p>
-      <p>${zh ? "来源行对应归档文件" : "Source rows refer to the archived file"}: website_location_averages.csv. ${zh ? "研究快照" : "Website release"}: August 2026.</p></details>`;
+      <p>${zh ? "来源行对应归档文件" : "Source rows refer to the archived file"}: website_location_averages.csv. ${zh ? "研究快照" : "Website release"}: August 2026.</p></details>
+      <details class="compound-results-details pfas-source-samples" data-pfas-samples="${escapeHtml(system.pwsid)}"><summary>${zh ? "单次样本与平均值计算" : "Individual samples and average calculations"}</summary><div class="pfas-sample-content">${zh ? "打开以载入检测值、未检出结果、日期及平均值计算输入。" : "Open to load detects, nondetects, dates, and the inputs behind each location average."}</div></details>`;
   }
 
   function incompleteSampleDetections(system) {
@@ -782,84 +836,41 @@
   function renderSystem(system) {
     const above = Number(system.any_system_above_mcl_comparison) === 1;
     const complete = Number(system.any_system_full_set) === 1;
-    const detectedOutcomes = OUTCOMES
-      .filter(outcome => outcome.key !== "hi")
-      .filter(outcome => (numericAverage(outcome, outcomeStatus(system, outcome)) || 0) > 0);
-    const sampleDetections = incompleteSampleDetections(system);
-    const isZh = currentLang === "zh";
-    const allIndividualComplete = system._comparisonCoverage?.all === true;
-    const headline = above || detectedOutcomes.length || sampleDetections.length
-      ? (isZh ? "检出了PFAS" : "PFAS were found")
-      : !allIndividualComplete
-        ? (isZh ? "检测数据不完整" : "Testing data are incomplete")
-        : (isZh ? "完整样本中未检出" : "No detections in complete samples");
-    const finding = sampleDetections.length && !above
-      ? (isZh ? "年度比较不完整的采样点存在PFAS检出结果；单次样本与下方完整年度结果分开显示。" : "PFAS were detected at locations without complete yearly comparisons; individual samples are shown separately from the complete annual results.")
-      : !complete && !above && !detectedOutcomes.length
-      ? (isZh ? "规定样本不足，无法进行年度比较。我们无法根据缺失的结果判断是否存在PFAS。" : "There are not enough required samples for a yearly comparison. Missing results cannot tell us whether PFAS were present.")
-      : above
-      ? (isZh ? "至少一项化学物质或混合物的年度平均值高于EPA比较水平。下方可查看具体结果。" : "At least one chemical or mixture yearly average was above an April 2024 EPA comparison level. The results below show which ones.")
-      : detectedOutcomes.length
-        ? (isZh ? "样本中检出了PFAS。在资料足够的年度比较中，没有高于EPA比较水平的结果。" : "PFAS were found in the samples. Where enough samples were available, no yearly comparison was above an EPA comparison level.")
-        : (isZh ? "在资料完整的结果中，本页五种PFAS均未达到EPA报告限值。更低浓度仍可能存在。" : "In the results with complete sampling, the five PFAS shown were not detected at or above EPA reporting limits. Smaller amounts may still have been present.");
-    const featuredOutcomes = OUTCOMES
-      .filter(outcome => outcome.key !== "hi")
-      .map(outcome => ({ outcome, status: outcomeStatus(system, outcome) }))
-      .filter(item => (numericAverage(item.outcome, item.status) || 0) > 0)
-      .sort((a, b) => Number(b.status.className === "above") - Number(a.status.className === "above") || ((numericAverage(b.outcome, b.status) || 0) / b.outcome.comparisonCutoff) - ((numericAverage(a.outcome, a.status) || 0) / a.outcome.comparisonCutoff));
-    const featuredMarkup = featuredOutcomes.length
-      ? `<div class="compound-education-list">${featuredOutcomes.map(item => renderCompoundEducationCard(system, item.outcome)).join("")}</div>`
-      : "";
-    const compactRows = OUTCOMES.map(outcome => {
-      const status = outcomeStatus(system, outcome);
-      const label = outcome.key === "hi" ? (isZh ? "混合物指数（无单位）" : "Mixture index (unitless)") : outcome.label;
-      return `<div class="compact-outcome ${status.className}"><span>${escapeHtml(label)}</span><strong>${escapeHtml(formatOutcomeValue(outcome,status))}</strong>${status.above ? `<small>${isZh ? "高于联邦比较水平" : "Above federal comparison level"}</small>` : ""}</div>`;
-    }).join("");
-    const shortFinding = sampleDetections.length && !above
-      ? (isZh ? "部分采样点检出了PFAS，但该物质的年度样本不足。请同时查看完整年度平均值和单次样本。" : "Some locations had PFAS detections but insufficient samples for that chemical's yearly average. Review both the complete annual averages and individual samples.")
-      : above
-      ? (isZh ? "至少一项可用结果高于联邦比较水平。" : "At least one available yearly average is above a federal comparison level.")
-      : !complete
-        ? (isZh ? "样本不足，无法进行年度比较。" : "Not enough samples for a yearly comparison.")
-        : detectedOutcomes.length
-          ? (isZh ? "可用的年度平均值均未高于联邦比较水平。" : "No available yearly average is above the federal comparison levels.")
-          : (isZh ? "完整样本中未检出本页五种PFAS；不代表含量为零。" : "The five PFAS shown were not detected in complete samples; this does not mean zero.");
-    const age = samplingAgeNotice(system);
-    const shortAge = age.includes("over a year old") || age.includes("超过一年")
-      ? (isZh ? "最新样本已超过一年。" : "Newest sample is over a year old.")
-      : age.includes("historical results") || age.includes("所列日期")
-        ? (isZh ? "历史检测，不代表今天的水质。" : "Historical tests, not today's water.") : age;
+    const found = OUTCOMES.some(o => o.key !== 'hi' && (numericAverage(o,outcomeStatus(system,o)) || 0) > 0) || incompleteSampleDetections(system).length > 0;
+    const all = system._comparisonCoverage?.all === true;
+    const headline = found ? choose('PFAS were found','检出了PFAS','Se detectaron PFAS') : !all ? choose('Testing data are incomplete','检测数据不完整','Los datos de pruebas están incompletos') : choose('No detections in complete samples','完整样本中未检出','Sin detecciones en las muestras completas');
+    const finding = above ? choose('At least one available yearly average is above a study reference.','至少一项可用年度平均值高于研究参考值。','Al menos un promedio disponible supera una referencia de estudio.') : !complete ? choose('Not enough samples for a yearly comparison.','样本不足，无法进行年度比较。','No hay suficientes muestras para calcular un promedio.') : choose('No available yearly average is above the study references.','可用年度平均值均未高于研究参考值。','Ningún promedio disponible supera las referencias del estudio.');
+    const methodsUrl = `/methodology/?system=${encodeURIComponent(system.pwsid)}#sample-trace`;
+    const rows = OUTCOMES.map(o => {
+      const status = outcomeStatus(system,o);
+      return `<div class="compact-outcome ${status.className}"><span>${o.key === 'hi' ? choose('Mixture index','混合物指数','Índice de mezcla') : o.label}</span><strong>${escapeHtml(formatOutcomeValue(o,status))}</strong>${status.above ? `<small>${choose('Above study reference','高于研究参考值','Por encima de la referencia')}</small>` : ''}</div>`;
+    }).join('');
     const direct = providerLinks[String(system.pwsid)];
-    const nextLink = direct
-      ? `<a href="${escapeHtml(direct.report_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(direct.name)} — ${direct.report_year} ${isZh ? "水质报告" : "water-quality report"} →</a>`
-      : `<a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${isZh ? "查找更新的官方结果 →" : "Check newer official results →"}</a>`;
-    return `<article class="detail-box system-summary-card water-system-card compact-system ${above ? "has-comparison" : ""}">
-      <header class="system-summary-head">
-        <div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || "US")} · ${isZh ? "供水系统编号" : "System ID"} ${escapeHtml(system.pwsid)}</span><h3>${escapeHtml(system.ucmr_pws_name || text("unnamed"))}</h3></div>
-        <span class="system-summary-status ${above ? "above" : complete ? "below" : "incomplete"}">${escapeHtml(headline)}</span>
-      </header>
-      ${renderAssociationReview(system)}
-      ${renderProviderRole(system)}
-      <p class="compact-dates">${isZh ? "采样" : "Sampled"}: ${escapeHtml(formatMonitoringPeriod(system))}. ${escapeHtml(shortAge)}</p>
-      <p class="compact-finding">${shortFinding}</p>
-      ${!allIndividualComplete ? `<p class="compact-warning">${isZh ? "部分比较缺失或未经核实。缺失比较不能视为低于基准。" : "Some comparisons are missing or unverified. Missing comparisons cannot be treated as below benchmark."}</p>` : ""}
-      <p class="compact-caption">${isZh ? "各采样点中的最高年度平均值 · 化学物质浓度以万亿分之一（ppt）表示；混合物指数无单位。" : "Highest yearly averages across locations · Chemical levels are in parts per trillion (ppt); the mixture index is unitless."}</p>
-      <div class="compact-outcomes">${compactRows}</div>
-      <p class="compact-caption">${isZh ? "“低于”指低于报告限值，不代表含量为零。" : "“Below” means below the reporting limit, not zero."}</p>
-      ${renderIncompleteSamples(system)}
-      <p class="compact-limit">${isZh ? "历史供水系统记录，不代表您家水龙头的检测，也不能判定安全或合规。" : "Historical system records—not a home tap test or a safety/compliance verdict."}</p>
-      <p class="compact-next">${nextLink}</p>
-      <details class="compound-results-details result-chemistry"><summary>${isZh ? "比较水平与化学物质说明" : "Benchmarks and chemical details"}</summary>
-        <p>${isZh ? "基准是基于2024年4月EPA水平的固定研究比较，不是现行标准。" : "Benchmarks are fixed research comparisons based on April 2024 EPA levels, not current standards."}</p>
-        <p>${finding}</p>${featuredMarkup}${renderHazardIndexEducation(system)}
-        <div class="compound-result-list">${renderOutcomeList(system, featuredOutcomes.map(item => item.outcome.key))}</div>
-        <p><a href="/methodology/#outcomes">${isZh ? "包含哪些化学物质及其局限 →" : "Chemical coverage and limitations →"}</a></p>
-      </details>
-      ${renderEvidence(system)}
-      <details class="compound-results-details"><summary>${isZh ? "供水机构详情与官方链接" : "Provider details and official links"}</summary>${renderProviderHelp(system)}${renderOfficialRecords(system)}${renderResultNextStep()}
-        <p>${escapeHtml(age)}</p>
-        <div class="system-fact-strip"><span><strong>${text("populationServed")}</strong>${formatInteger(system.population_served_count)}</span><span><strong>${text("source")}</strong>${escapeHtml(system.primary_source_desc || text("notReported"))}</span><span><strong>${text("samplingLocations")}</strong>${formatInteger(system.sampling_location_count)}</span></div>
-      </details>
+    const nextUrl = direct?.report_url || 'https://www.epa.gov/ccr';
+    const nextLabel = direct ? `${escapeHtml(direct.name)} — ${direct.report_year} ${choose('water-quality report','水质报告','informe de calidad del agua')}` : choose('Find your provider’s latest water-quality report','查找供水机构的最新水质报告','Busque el informe de calidad del agua de su proveedor');
+    const names = [['PFAS','Per- and polyfluoroalkyl substances','全氟和多氟烷基物质','Sustancias perfluoroalquiladas y polifluoroalquiladas'],['PFOA','Perfluorooctanoic acid','全氟辛酸','Ácido perfluorooctanoico'],['PFOS','Perfluorooctane sulfonic acid','全氟辛烷磺酸','Ácido perfluorooctanosulfónico'],['PFHxS','Perfluorohexane sulfonic acid','全氟己烷磺酸','Ácido perfluorohexanosulfónico'],['PFNA','Perfluorononanoic acid','全氟壬酸','Ácido perfluorononanoico'],['HFPO-DA','Hexafluoropropylene oxide dimer acid (a GenX chemical)','六氟环氧丙烷二聚酸（GenX化学物质之一）','Ácido dímero de óxido de hexafluoropropileno (una sustancia GenX)'],['PFBS','Perfluorobutane sulfonic acid (a mixture-index component)','全氟丁烷磺酸（混合物指数的一种组分）','Ácido perfluorobutanosulfónico (componente del índice de mezcla)']];
+    return `<article class="detail-box system-summary-card water-system-card compact-system ${above?'has-comparison':''}">
+      <header class="system-summary-head"><div><span class="system-state-label">${escapeHtml(system.sdwis_state_code || 'US')}</span><h3 data-preserve-language>${escapeHtml(system.ucmr_pws_name || text('unnamed'))}</h3></div><span class="system-summary-status ${above?'above':all?'below':'incomplete'}">${headline}</span></header>
+      ${localizeMarkup(renderAssociationReview(system))}${localizeMarkup(renderProviderRole(system))}
+      <p class="compact-dates">${choose('Test dates','检测日期','Fechas de pruebas')}: ${escapeHtml(formatMonitoringPeriod(system))}.</p>
+      <p class="compact-finding">${finding}</p>
+      ${incompleteSampleDetections(system).length?`<p class="compact-warning">${choose('Some PFAS detections have incomplete sampling sets. See individual samples below.','部分PFAS检出结果的样本组不完整。请查看下方单次样本。','Algunas detecciones de PFAS tienen muestras incompletas. Consulte las muestras individuales.')}</p>`:''}
+      ${!all?`<p class="compact-warning">${choose('Some comparisons are missing or unverified. Missing comparisons cannot be treated as below benchmark.','部分比较缺失或未经核实。缺失比较不能视为低于基准。','Faltan algunas comparaciones o no están verificadas; no deben interpretarse como resultados por debajo de la referencia.')}</p>`:''}
+      <p class="compact-caption">${choose('Highest location averages · ppt = parts per trillion.','各采样点中的最高平均值 · ppt表示万亿分之一。','Promedios más altos por punto · ppt = partes por billón (10¹²).')}</p>
+      <div class="compact-outcomes">${rows}</div>
+      <p class="compact-caption">${choose('“Below” means below the reporting limit, not zero. The mixture index has no units.','“低于”指低于报告限值，并非为零。混合物指数没有单位。','«Menos de» significa por debajo del límite de reporte, no cero. El índice de mezcla no tiene unidades.')}</p>
+      <p class="compact-limit">${choose('Historical system results, not a home tap test or personal health assessment. Ask your provider for recent results.','历史系统结果，并非家庭水龙头检测或个人健康评估。请向供水机构查询最新结果。','Resultados históricos del sistema, no una prueba del grifo ni una evaluación de salud personal. Pida resultados recientes a su proveedor.')}</p>
+      <p class="compact-next"><a href="${escapeHtml(nextUrl)}" target="_blank" rel="noopener noreferrer">${nextLabel} →</a></p>
+      <details class="compound-results-details"><summary>${choose('Terms and symbols','术语与符号','Términos y símbolos')}</summary><dl class="home-term-list">
+        <div><dt>${choose('Study reference','研究参考值','Referencia de estudio')}</dt><dd>${choose('A fixed comparison based on EPA’s April 2024 levels. It does not decide current compliance or whether your home’s water is safe.','基于EPA于2024年4月水平的固定比较值，不能判定当前合规性或您家水质是否安全。','Una comparación fija basada en los niveles de la EPA de abril de 2024. No determina el cumplimiento actual ni si el agua de su hogar es segura.')}</dd></div>
+        <div><dt>${choose('Mixture index','混合物指数','Índice de mezcla')}</dt><dd>${choose('A combined measure for four PFAS. Not a concentration or a probability of illness.','四种PFAS的综合指标，不是浓度或患病概率。','Una medida combinada de cuatro PFAS. No es una concentración ni la probabilidad de enfermar.')}</dd></div>
+        <div><dt>${choose('Not available','不可用','No disponible')}</dt><dd>${choose('Required samples are missing; it does not mean no PFAS.','缺少必需样本，并不表示没有PFAS。','Faltan muestras necesarias; no significa que no haya PFAS.')}</dd></div>
+        ${names.map(([short,en,zh,es])=>`<div><dt>${short}</dt><dd>${choose(en,zh,es)}</dd></div>`).join('')}
+        <div><dt>EPA</dt><dd>${choose('U.S. Environmental Protection Agency','美国环境保护署','Agencia de Protección Ambiental de Estados Unidos')}</dd></div>
+      </dl><a href="https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas" target="_blank" rel="noopener noreferrer">${choose('EPA: PFAS and health','EPA：PFAS与健康','EPA: PFAS y salud')} →</a></details>
+      <details class="compound-results-details pfas-source-samples" data-pfas-samples="${escapeHtml(system.pwsid)}"><summary>${choose('Samples and test dates','样本与检测日期','Muestras y fechas de pruebas')}</summary><div class="pfas-sample-content">${choose('Open to view individual sample results.','打开以查看单次样本结果。','Abra para ver los resultados individuales.')}</div></details>
+      <details class="compound-results-details"><summary>${choose('Provider details and official links','供水机构详情与官方链接','Información del proveedor y enlaces oficiales')}</summary><p>PWSID (${choose('public water system ID','公共供水系统编号','número del sistema público de agua')}): ${escapeHtml(system.pwsid)}</p><p>${choose('Population served','服务人口','Población abastecida')}: ${formatInteger(system.population_served_count)}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${choose('EPA source records','EPA原始记录','Registros originales de la EPA')} →</a> · <a href="${escapeHtml((STATE_PROGRAMS[system.sdwis_state_code]||DEFAULT_STATE_PROGRAM).url)}" target="_blank" rel="noopener noreferrer">${choose('Official state drinking-water information','官方州饮用水信息','Información oficial del estado sobre agua potable')} →</a></p>${/purchased/i.test(system.primary_source_desc||'')?`<p>${choose('Purchased water: ask your provider which upstream supplier and report apply to your home.','购入水：请向供水机构确认上游供应商及适用于您家的报告。','Agua comprada: pregunte a su proveedor qué suministrador e informe corresponden a su hogar.')}</p>`:''}</details>
+      <a class="home-method-link" href="${methodsUrl}">${choose('Methods, calculations & limitations','方法、计算与局限','Métodos, cálculos y limitaciones (en inglés)')} →</a>
     </article>`;
   }
 
@@ -1046,6 +1057,14 @@
   }
 
   function renderLookup(zip, incrementCounter = true) {
+    renderLookupImpl(zip, incrementCounter);
+    localizeHomeDocument();
+  }
+
+  function renderLookupImpl(zip, incrementCounter = true) {
+    waterGeneration++;
+    if (waterMode !== "pfas") { renderAdditionalWater({zip}); return; }
+    if ($("chatPanel")) $("chatPanel").hidden = false;
     if (!release) return;
     lastSystemId = null;
     const result = $("result");
@@ -1058,7 +1077,7 @@
       lastLookupZip = null;
       currentSystems = [];
       currentContext = "No valid ZIP lookup is selected. Ask for a five-digit ZIP and confirm the provider before interpreting system results.";
-      history.replaceState({}, "", window.location.pathname);
+      replaceLookupUrl(window.location.pathname);
       result.className = "result not-found";
       title.textContent = text("invalidZipTitle");
       context.textContent = text("invalidZipContext");
@@ -1082,9 +1101,9 @@
     if (wholesale.length) {
       currentContext += `\nPossible wholesale supplier links shown separately: ${wholesale.map(s => s.pwsid).join(", ")}. They are not selected retail providers; do not attribute their concentrations to this ZIP or household. Ask the user to confirm the utility on their bill.`;
     }
-    $("printZip").textContent = `${currentLang === "zh" ? "邮政编码" : "ZIP code"}: ${zip}`;
-    $("printDate").textContent = `${currentLang === "zh" ? "生成日期" : "Generated"}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : "en-US", { year: "numeric", month: "long", day: "numeric" })}`;
-    history.replaceState({}, "", `${window.location.pathname}?zip=${encodeURIComponent(zip)}`);
+    $("printZip").textContent = `${choose("ZIP code","邮政编码","Código postal")}: ${zip}`;
+    $("printDate").textContent = `${choose("Generated","生成日期","Generado")}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : currentLang === "es" ? "es-US" : "en-US", { year: "numeric", month: "long", day: "numeric" })}`;
+    replaceLookupUrl(`${window.location.pathname}?zip=${encodeURIComponent(zip)}`);
     if (incrementCounter) {
       incrementSearchCounter();
       trackEvent("scientific_zip_lookup", { zip_has_association: systems.length > 0, associated_systems: systems.length });
@@ -1098,7 +1117,9 @@
       context.textContent = uncertain.length || wholesale.length
         ? (currentLang === "zh" ? "此邮编仅有待核实的关联，不能据此判断当地水质或是否做过检测。" : "Only unresolved provider links were found for this ZIP. They cannot establish local water quality or whether testing occurred.")
         : text("noAssociationContext");
-      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p>${renderPrivateWellGuidance()}</div>${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
+      body.innerHTML = `<div class="lookup-empty-guidance"><p>${text("noAssociationBody")}</p><p><a href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">${text("openDataFinder")}</a></p></div>${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
+      if ($("waterProviderSearch")) $("waterProviderSearch").open = true;
+      if ($("waterProviderMatches")) $("waterProviderMatches").textContent = currentLang === "zh" ? "请在上方按账单上的供水机构名称或系统编号搜索。即使邮编关联缺失，监测记录仍可能存在。" : "Search above using the provider name or system ID on your bill. Monitoring records can exist even when the ZIP association is missing.";
       $("printBtn").hidden = true;
       $("printBtn").classList.remove("visible");
       resetChat(uncertain.length
@@ -1122,13 +1143,21 @@
         ? " 此邮编的部分错误关联已移除；供水机构列表仍可能不完整。"
         : " Incorrect associations have been removed for this ZIP; the provider list may still be incomplete.";
     }
-    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}${renderPrivateWellGuidance(systems)}${hasAnyDisplayedDetection ? `<details class="compound-results-details optional-help"><summary>${currentLang === "zh" ? "考虑使用过滤器？" : "Considering a filter?"}</summary>${renderFilterGuide()}</details>` : ""}<details class="compound-results-details optional-help" id="lookup-number-guide"><summary>${currentLang === "zh" ? "数字说明与常见问题" : "What the numbers mean"}</summary>${renderResultBoundary(systems)}</details>`;
+    body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));
   }
 
   function renderSelectedSystem(id) {
+    renderSelectedSystemImpl(id);
+    localizeHomeDocument();
+  }
+
+  function renderSelectedSystemImpl(id) {
+    waterGeneration++;
+    if (waterMode !== "pfas") { renderAdditionalWater({id}); return; }
+    if ($("chatPanel")) $("chatPanel").hidden = false;
     if (!release) return;
     lastLookupZip = null;
     lastSystemId = id;
@@ -1136,7 +1165,7 @@
     const system = systemsById.get(id);
     currentSystems = system ? [system] : [];
     const result = $("result");
-    history.replaceState({}, "", `${window.location.pathname}?system=${encodeURIComponent(id)}#result`);
+    replaceLookupUrl(`${window.location.pathname}?system=${encodeURIComponent(id)}#result`);
     if (!system) {
       currentContext = "The requested system ID is not in the loaded release. No system is selected. Do not infer that this system lacks monitoring or that any water is safe.";
       result.className = "result not-found";
@@ -1151,14 +1180,14 @@
     currentContext = buildAssistantContext([system], "system");
     const above = Number(system.any_system_above_mcl_comparison) === 1;
     result.className = above ? "result found-above" : "result found-below";
-    $("resultTitle").textContent = system.ucmr_pws_name;
+    $("resultTitle").textContent = choose("Water-system results","供水系统结果","Resultados del proveedor");
     $("resultContext").textContent = currentLang === "zh"
       ? "直接按供水系统编号选择，未进行邮编关联。请核对水费账单上的供水机构。下方为历史检测结果，不能确定您家当前的自来水水质。"
       : "Selected directly by water system ID, without a ZIP match. Confirm the provider on your water bill. These historical results do not establish current household tap-water quality.";
     const hasDetection = OUTCOMES.filter(o => o.key !== "hi").some(o => (numericAverage(o,outcomeStatus(system,o)) || 0) > 0) || incompleteSampleDetections(system).length > 0;
-    $("resultBody").innerHTML = `${renderSystem(system)}${renderPrivateWellGuidance([system])}${hasDetection ? `<details class="compound-results-details optional-help"><summary>${currentLang === "zh" ? "考虑使用过滤器？" : "Considering a filter?"}</summary>${renderFilterGuide()}</details>` : ""}<details class="compound-results-details optional-help" id="lookup-number-guide"><summary>${currentLang === "zh" ? "数字说明与常见问题" : "What the numbers mean"}</summary>${renderResultBoundary([system])}</details>`;
-    $("printZip").textContent = `${currentLang === "zh" ? "供水系统编号" : "Water system ID"}: ${system.pwsid}`;
-    $("printDate").textContent = `${currentLang === "zh" ? "生成日期" : "Generated"}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : "en-US")}`;
+    $("resultBody").innerHTML = renderSystem(system);
+    $("printZip").textContent = `${choose("Water system ID","供水系统编号","Número de sistema")}: ${system.pwsid}`;
+    $("printDate").textContent = `${choose("Generated","生成日期","Generado")}: ${new Date().toLocaleDateString(currentLang === "zh" ? "zh-CN" : currentLang === "es" ? "es-US" : "en-US")}`;
     $("printBtn").hidden = false;
     $("printBtn").classList.add("visible");
     resetChat(above ? text("contextReadyAbove") : text("contextReadyBelow"));
@@ -1166,7 +1195,80 @@
 
   function checkZip() { renderLookup($("zipInput").value.trim(), true); }
 
+  function updateWaterModeLabels() {
+    const zh = currentLang === "zh";
+    const labels = {waterRecordLegend: zh ? "结果" : "Results", lithiumModeLabel: zh ? "锂" : "Lithium", lcrModeLabel: zh ? "铅和铜" : "Lead & copper",
+      waterModeNote: zh ? "地图及各州汇总显示PFAS。" : "Map and state summaries show PFAS.",
+      waterProviderSearchTitle: zh ? "按供水机构名称或系统编号查找" : "Find a provider by name or system ID",
+      waterProviderInputLabel: zh ? "机构名称或系统编号（至少3个字符）" : "Provider name or system ID (at least 3 characters)",
+      waterProviderSearchButton: zh ? "查找供水机构" : "Search providers"};
+    for (const [id, value] of Object.entries(labels)) if ($(id)) $(id).textContent = value;
+    if ($("waterProviderSearch")) $("waterProviderSearch").hidden = false;
+    document.querySelectorAll('[name="water-result-mode"]').forEach(input => { input.checked = input.value === waterMode; });
+    if ($("chatDisclosure")) $("chatDisclosure").hidden = waterMode !== "pfas";
+    if (currentLang === "es" && homeLanguage) Object.entries(labels).forEach(([id,value])=>{ if($(id)) $(id).textContent=homeLanguage.translate(value); });
+  }
+
+  async function renderAdditionalWater(query) {
+    const generation = ++waterGeneration;
+    const mode = waterMode;
+    const lang = currentLang;
+    const zh = lang === "zh";
+    currentSystems = [];
+    currentContext = "Supplemental chemical records selected. No PFAS result context is selected.";
+    resetChat(); // Invalidate an in-flight PFAS explanation before hiding the assistant.
+    $("chatPanel").hidden = true;
+    if ($("chatDisclosure")) $("chatDisclosure").hidden = true;
+    $("printBtn").hidden = true;
+    $("printBtn").classList.remove("visible");
+    $("result").className = "result additional-records found-below";
+    $("resultBody").innerHTML = "";
+    $("resultContext").textContent = "";
+    if (query.zip && !/^\d{5}$/.test(query.zip)) {
+      lastLookupZip = null; lastSystemId = null;
+      $("resultTitle").textContent = text("invalidZipTitle");
+      $("resultContext").textContent = text("invalidZipContext");
+      replaceLookupUrl(`${window.location.pathname}?view=${mode}`);
+      localizeHomeDocument();
+      return;
+    }
+    lastLookupZip = query.zip || null;
+    lastSystemId = query.id || null;
+    if (query.id) $("zipInput").value = "";
+    const params = new URLSearchParams({view: mode, ...(query.zip ? {zip: query.zip} : {system: query.id})});
+    replaceLookupUrl(`${window.location.pathname}?${params}#result`);
+    $("resultTitle").textContent = zh ? "正在载入监测记录…" : "Loading monitoring records…";
+    localizeHomeDocument();
+    try {
+      const data = await window.DrinkingWaterRecords.query({...query, mode});
+      if (generation !== waterGeneration) return;
+      $("resultTitle").textContent = query.zip ? (zh ? `邮编 ${query.zip}：${data.systems.length}个可能匹配的供水系统` : `${data.systems.length} possible water system${data.systems.length === 1 ? '' : 's'} for ZIP ${query.zip}`) : data.systems.length ? choose('Water-system results','供水系统结果','Resultados del proveedor') : choose('No records found in this snapshot','此快照中未找到记录','No se encontraron registros en esta versión');
+      $("resultContext").textContent = query.zip ? (zh ? "报告的邮编关联可能不完整，并非确认家庭供水。请核对水费账单。" : "Reported ZIP associations may be incomplete and do not confirm household service. Match the provider to your water bill.") : (zh ? "按系统编号直接选择；未使用邮编关联。请确认供水机构。" : "Selected by system ID without a ZIP match. Confirm your provider.");
+      $("resultBody").innerHTML = window.DrinkingWaterRecords.render(data, mode, lang);
+      localizeHomeDocument();
+    } catch (error) {
+      if (generation !== waterGeneration) return;
+      $("resultTitle").textContent = zh ? "暂时无法载入这些记录" : "These records could not be loaded";
+      $("resultContext").textContent = zh ? "下载失败并不代表没有检测。请重试或查询EPA原始资料。" : "A download failure does not mean no testing. Please retry or check the original EPA records.";
+      $("resultBody").innerHTML = '<p><a href="/methodology/#additional-chemicals">' + (zh ? "数据来源与局限" : "Data sources and limitations") + '</a></p>';
+      localizeHomeDocument();
+      console.error(error);
+    }
+  }
+
+  function searchPfasProviders(value) {
+    const query = value.trim().toLowerCase();
+    if (query.length < 3) return [];
+    const rank = row => row[0].toLowerCase() === query ? 0 : row[1].toLowerCase() === query ? 1 : row[1].toLowerCase().startsWith(query) ? 2 : 3;
+    return [...systemsById.values()].map(s => [String(s.pwsid), s.ucmr_pws_name || "", s.sdwis_state_code || ""])
+      .filter(r => r[0].toLowerCase().includes(query) || r[1].toLowerCase().includes(query))
+      .sort((a,b) => rank(a) - rank(b) || a[1].length - b[1].length || a[1].localeCompare(b[1])).slice(0,20);
+  }
+
   async function initialize() {
+    const requestedLanguage = new URLSearchParams(window.location.search).get("lang");
+    if (["en","zh","es"].includes(requestedLanguage)) currentLang = requestedLanguage;
+    applyLanguage();
     $("releaseStatus").textContent = text("loadingRelease");
     $("lookupButton").textContent = text("loadingData");
     $("lookupDataNote").textContent = text("preparing");
@@ -1201,6 +1303,8 @@
       updateReleaseLabels();
       $("lookupButton").disabled = false;
       const params = new URLSearchParams(window.location.search);
+      if (["lithium", "lcr"].includes(params.get("view"))) waterMode = params.get("view");
+      updateWaterModeLabels();
       const deepLink = params.get("zip");
       if (params.has("system")) {
         renderSelectedSystem(params.get("system"));
@@ -1213,9 +1317,69 @@
       setLoadFailure();
       console.error(error);
     }
+    localizeHomeDocument();
   }
 
   $("lookupButton").addEventListener("click", checkZip);
+  $("resultBody").addEventListener("toggle", async event => {
+    const details = event.target;
+    const id = details.dataset?.pfasSamples;
+    if (!id || !details.open || details.dataset.loading || details.dataset.loaded) return;
+    const target = details.querySelector(".pfas-sample-content");
+    const system = systemsById.get(id);
+    if (!target || !system) return;
+    const lang = currentLang;
+    details.dataset.loading = "true";
+    target.textContent = choose("Loading and verifying source samples…","正在载入并核对样本…","Cargando y verificando muestras…");
+    try {
+      const locations = await window.PFASSampleTrace.query(system);
+      if (!details.isConnected || lang !== currentLang) return;
+      target.innerHTML = window.PFASSampleTrace.render(locations, system, lang, {calculations:false});
+      details.dataset.loaded = "true";
+    } catch (error) {
+      if (details.isConnected) target.textContent = choose("Sample records could not be loaded or verified. Close and reopen to retry. This does not mean no testing.","无法载入或核对样本。关闭后重新打开以重试。此错误不代表没有检测。","No se pudieron cargar o verificar las muestras. Cierre y vuelva a abrir para reintentar. No significa que no se hayan realizado pruebas.");
+      console.error(error);
+    } finally { delete details.dataset.loading; }
+  }, true);
+  $("waterRecordModes")?.addEventListener("change", event => {
+    const mode = event.target.value;
+    if (!["pfas", "lithium", "lcr"].includes(mode) || mode === waterMode) return;
+    waterMode = mode;
+    waterGeneration++; providerSearchGeneration++;
+    $("waterProviderMatches").innerHTML = "";
+    $("chatPanel").hidden = mode !== "pfas";
+    applyLanguage();
+    if (!lastSystemId && !lastLookupZip) {
+      $("resultBody").innerHTML = "";
+      $("resultTitle").textContent = "";
+      $("resultContext").textContent = "";
+      $("result").className = "result";
+      replaceLookupUrl(mode === "pfas" ? window.location.pathname : `${window.location.pathname}?view=${mode}`);
+    }
+  });
+  $("waterProviderSearchForm")?.addEventListener("submit", async event => {
+    event.preventDefault();
+    const value = $("waterProviderInput").value.trim();
+    const generation = ++providerSearchGeneration;
+    const target = $("waterProviderMatches");
+    if (value.length < 3) { target.textContent = choose("Enter at least 3 characters.","请输入至少3个字符。","Introduzca al menos 3 caracteres."); return; }
+    target.textContent = choose("Searching…","正在查找…","Buscando…");
+    try {
+      const rows = waterMode === "pfas" ? searchPfasProviders(value) : await window.DrinkingWaterRecords.search(value, waterMode);
+      if (generation !== providerSearchGeneration) return;
+      target.innerHTML = rows.length ? `<ul class="water-provider-options">${rows.map(r => `<li><button type="button" data-water-system="${escapeHtml(r[0])}">${escapeHtml(r[1])} · ${escapeHtml(r[2])} · ${escapeHtml(r[0])}</button></li>`).join("")}</ul><p>${currentLang === "zh" ? "最多显示20个匹配。请核对供水机构名称。" : "Up to 20 matches shown. Confirm the provider name before selecting."}</p>` : (currentLang === "zh" ? "此快照中未找到匹配记录。请向供水机构查询。" : "No matching records in this snapshot. Check with your provider.");
+      localizeHomeDocument();
+    } catch (error) { if (generation === providerSearchGeneration) target.textContent = choose("Provider search could not load. Please retry.","无法载入搜索，请重试。","No se pudo cargar la búsqueda. Inténtelo de nuevo."); }
+  });
+  $("waterProviderMatches")?.addEventListener("click", event => {
+    const button = event.target.closest("[data-water-system]");
+    if (button) {
+      renderSelectedSystem(button.dataset.waterSystem);
+      $("waterProviderMatches").innerHTML = "";
+      $("waterProviderSearch").open = false;
+      $("result").scrollIntoView({block:"start"});
+    }
+  });
   $("zipInput").addEventListener("keydown", event => { if (event.key === "Enter") checkZip(); });
   $("printBtn").addEventListener("click", () => { trackEvent("print_system_summary"); window.print(); });
   $("aiSendBtn").addEventListener("click", sendChat);

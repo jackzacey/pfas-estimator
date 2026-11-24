@@ -29,7 +29,7 @@
     "url": "https://pfasestimator.org/methodology/",
     "name": "How PFAS Estimator Works | Methods & Limitations",
     "description": "Plain-language website guidance and full methods for the PFAS Estimator UCMR 5 January 2026 system-level analysis release.",
-    "dateModified": "2026-10-19",
+    "dateModified": "2026-11-24",
     "author": {"@type": "Person", "name": "Jack Zhang"}
   }
   </script>
@@ -42,25 +42,30 @@
     gtag('js', new Date());
     gtag('config', 'G-FZQTEJ4LLY');
   </script>
+  <link rel="stylesheet" href="/drinking-water-records.css?v=20261123-clarity" />
+  <script defer src="/pfas-sample-trace.js?v=20261123-clarity"></script>
+  <script defer src="/drinking-water-records.js?v=20261123-clarity"></script>
+  <script defer src="/pfas-methods-view.js?v=20261123"></script>
 </head>
 <body class="methodology-body">
   <a class="skip-link" href="#methodology-content">Skip to methods</a>
 
   <div class="methodology-shell">
     <nav class="site-nav methodology-top-nav" aria-label="Primary">
-      <a href="/">ZIP Lookup</a>
+      <a href="/">Find your provider</a>
       <a href="/map/">Map</a>
       <a href="/states/">Explore by State</a>
-      <a href="/methodology/" aria-current="page">How It Works</a>
+      <a href="/methodology/" aria-current="page">Methods &amp; limitations</a>
       </nav>
 
     <header class="methodology-hero">
       <div class="methodology-kicker">Methods and sources</div>
       <h1>How the site and research work</h1>
-      <p class="methodology-lede">These results cover per- and polyfluoroalkyl substances (PFAS), using data from the U.S. Environmental Protection Agency (EPA) and its Fifth Unregulated Contaminant Monitoring Rule (UCMR 5). Start with how to read a ZIP result, then review the data sources, calculations, research methods, and limitations.</p>
+      <p class="methodology-lede">The lookup covers per- and polyfluoroalkyl substances (PFAS), lithium, lead, and copper using U.S. Environmental Protection Agency (EPA) records. PFAS and lithium come from the Fifth Unregulated Contaminant Monitoring Rule (UCMR 5); lead and copper use reported tap-sampling summaries. Review the calculation details below, followed by the separate PFAS research methods.</p>
 
-      <div class="methodology-meta" aria-label="Website data version">
-        <span><strong>Website data</strong> Final UCMR 5, August 2026</span>
+      <div class="methodology-meta" aria-label="Website data versions">
+        <span><strong>PFAS &amp; lithium</strong> Final UCMR 5, August 2026</span>
+        <span><strong>Lead &amp; copper</strong> Safe Drinking Water Information System (SDWIS), 2026 Q3</span>
       </div>
     </header>
 
@@ -69,6 +74,9 @@
         <div class="methodology-toc-title">On this page</div>
         <a href="#overview">Read a system result</a>
         <a href="#sources">Data sources</a>
+        <a href="#sample-trace">PFAS samples and calculations</a>
+        <a href="#additional-chemicals">Lithium, lead, and copper</a>
+        <a href="#filters">Filter guidance</a>
         <a href="#cohort">Systems included</a>
         <a href="#outcomes">PFAS comparisons</a>
         <a href="#geography">Community information</a>
@@ -92,13 +100,13 @@
 
           <ol class="pipeline-list consumer-method-steps">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the sampling period and results</h3><p>Each water-system card shows when EPA monitored that system. For each PFAS, the card reports the highest yearly average among the system’s EPA sampling locations. These are system monitoring results, not measurements from household faucets.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read the EPA comparison</h3><p>This label follows EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels and EPA rounding rules. It is not a current federal or state standard, and the label is not a compliance finding.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the dates and selected chemical</h3><p>PFAS cards show the highest yearly average among a system’s sampling locations. Lithium shows individual samples. Lead and copper show reported 90th percentiles from selected taps. These different statistics are explained <a href="#additional-chemicals">below</a>; none is a test of your home’s water.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read comparisons in context</h3><p>PFAS study references follow EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels and rounding rules. Lithium has a separate screening reference. The website does not classify lead/copper compliance. None of these results determines current legal compliance or household safety.</p></div></li>
           </ol>
 
           <div class="interpretation-grid consumer-answer-grid">
-            <div class="interpretation-card can"><h3>What the lookup can help with</h3><ul><li>Find possible water systems for a ZIP code</li><li>Review EPA PFAS yearly averages</li><li>Compare results with fixed study benchmarks based on the April 2024 federal levels</li><li>Prepare questions for a utility</li></ul></div>
-            <div class="interpretation-card cannot"><h3>What it cannot decide</h3><ul><li>Which system serves a specific home</li><li>PFAS levels at a household faucet</li><li>Personal exposure or health risk</li><li>Current federal or state legal compliance</li></ul></div>
+            <div class="interpretation-card can"><h3>What the lookup can help with</h3><ul><li>Find possible water systems by ZIP, name, or system ID</li><li>Review PFAS yearly averages and individual lithium samples</li><li>View reported lead and copper tap-sampling summaries</li><li>Prepare questions for a utility</li></ul></div>
+            <div class="interpretation-card cannot"><h3>What it cannot decide</h3><ul><li>Which system serves a specific home</li><li>Chemical levels at your household faucet</li><li>Personal exposure or health risk</li><li>Current federal or state legal compliance</li></ul></div>
           </div>
 
           <p>The research paper asks a separate national question. It tests whether PFAS results across community water systems vary with the racial, ethnic, economic, and rural composition of their service areas after accounting for system size, water source, ownership, and region. The analysis is ecological and cross-sectional. It does not assign exposure or health outcomes to individuals.</p>
@@ -114,7 +122,7 @@
           </div>
 
           <ul class="source-list">
-            <li><strong>Website monitoring:</strong> final EPA UCMR 5 occurrence files and the unfiltered Average PFAS Results table downloaded October 19, 2026. All 160,223 average-result rows match for presence, completeness, displayed averages, and technical-comparison flags.</li><li><strong>Archived research monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
+            <li><strong>Website PFAS monitoring:</strong> final EPA UCMR 5 occurrence files and the unfiltered Average PFAS Results table downloaded October 19, 2026. All 160,223 average-result rows match for presence, completeness, displayed averages, and technical-comparison flags.</li><li><strong>Other website chemicals:</strong> lithium uses individual samples from the final UCMR 5 occurrence file; lead and copper use reported tap-sampling summaries in the SDWIS 2026 Q3 snapshot. See <a href="#additional-chemicals">selection rules and limitations</a>.</li><li><strong>Archived PFAS research monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
             <li><strong>System characteristics:</strong> EPA SDWIS Federal Reporting Services.</li>
             <li><strong>Service areas:</strong> EPA Public Water System Service Areas version 3, including system-sourced and modeled boundaries.</li>
             <li><strong>Demographics:</strong> 2020–2024 American Community Survey (ACS) block-group estimates and Census Planning Database urban/rural fields.</li>
@@ -131,6 +139,34 @@
           </div>
 
           <p>EPA described the January 2026 file as containing approximately 95% of expected UCMR 5 results. The archived research remains fixed to that snapshot.</p>
+        </section>
+
+        <section class="methodology-section" id="sample-trace">
+          <p><a href="/">← Return to the provider lookup</a></p>
+          <h2>Samples behind PFAS averages</h2>
+          <div id="providerCalculation" hidden></div>
+          <p>Provider cards offer a short “Samples and test dates” list. Their “Methods, calculations &amp; limitations” link opens this section with that provider selected. The detailed view shows all six source-chemical records at each monitoring location, including dates, sample IDs, event codes, reported values or reporting-limit bounds, and original rows in <code>UCMR5_All.txt</code>. The source file is the pinned final August 2026 release. Records are loaded only when requested.</p>
+          <p><strong>Meaning of yearly average:</strong> the calculation uses the location’s required UCMR monitoring set identified by sampling-event codes, rather than grouping by calendar year or pooling all national 2023–2025 records. Groundwater requires SE1 and SE2; surface water, mixed sources, and groundwater under the direct influence of surface water require SE1–SE4. The actual collection-date range is displayed for each location and chemical. A set may cross a calendar-year boundary. Nondetects retain their reported “less than” limit in the sample list and use zero only as an averaging input. Missing events remain missing and do not produce a complete average.</p>
+          <p>Each complete location calculation displays its unrounded result and EPA-compatible rounded average. Locations sharing the displayed system maximum are identified separately for each chemical. Mixture-index components come from the same location; maxima from different locations are not combined. These calculations were checked against every location/outcome slot in the frozen website release, including the one absent outcome. They do not constitute independent certification or determine regulatory compliance. See the <a href="/data/pfas-sample-trace/manifest.json">sample-trace manifest and validation counts</a> and <a href="/analysis/scripts/22_build_pfas_sample_trace.py">reconstruction script</a>.</p>
+          <p><strong>Missing ZIP associations:</strong> provider-name and exact-system-ID search can reach records without a ZIP match. For example, Raleigh’s system NC0392010 is present in the final UCMR files, while 27601 is absent from those files’ ZIP-to-system associations. The website does not infer a replacement association from proximity or a neighboring ZIP. Confirm the provider on the water bill before interpreting results.</p>
+        </section>
+
+        <section class="methodology-section" id="additional-chemicals">
+          <h2>Lithium, lead, and copper records</h2>
+          <div id="additionalCalculation" hidden aria-live="polite"></div>
+          <p>The homepage keeps the result, collection dates, units, and practical next step visible. The details below explain how results are selected and what the calculations cannot establish. Spanish is available for the homepage and result views; this detailed methods page is in English.</p>
+          <p>The ZIP lookup also offers separate lithium and lead/copper views. These records use different statistics from the PFAS annual averages. Map and state summaries remain PFAS-only. The optional PFAS assistant and PFAS print report are not used for these separate views.</p>
+          <p><strong>Lithium:</strong> individual samples from the same final August 2026 UCMR 5 occurrence file used for the website. The headline is the highest quantified individual sample, not an annual average. The homepage sample list shows the date, reported result, and monitoring point. Its Methods link opens this page with the provider selected and the full source records, including facility, sampling point, sample ID, event code, and original file row (header is row 1). Below-reporting-limit results retain the &lt; sign and reporting limit; they are not replaced with zero. Values are in micrograms per liter (µg/L, approximately parts per billion), not PFAS parts per trillion. EPA’s 10 µg/L health reference level is a screening reference, not an enforceable drinking-water limit or an individual risk score. <a href="https://www.epa.gov/system/files/documents/2023-11/ucmr5-technical-fact-sheet-lithium-in-drinking-water.pdf" target="_blank" rel="noopener noreferrer">EPA lithium fact sheet ↗</a></p>
+          <p><strong>Lead and copper:</strong> reported 90th-percentile records from <code>SDWA_LCR_SAMPLES.csv</code> in the EPA SDWIS 2026Q3 download. These are summaries from selected tap-sampling sites, not system-wide means or measurements at a visitor’s home. The website does not recalculate percentiles. It converts original mg/L values to µg/L by multiplying by 1,000 and retains reported less-than signs. Blank analytical signs are identified as unspecified, not confirmed detections. The latest result is selected by monitoring-period end date, not database reporting date. Up to five most recent dated periods are retained per system and chemical, including all source rows within each retained period. Differing results for the same period are shown rather than silently averaged or discarded. Undated, invalid, and unmatched records are counted in the build audit. No lead/copper action-level or compliance classification is inferred.</p>
+          <p><strong>Provider matching:</strong> lithium uses reported UCMR 5 service-ZIP associations; lead/copper uses SDWIS <code>ZIP_CODE_SERVED</code> associations. Mailing-address ZIPs are not used. Known excluded or pending UCMR associations are withheld. Other associations have not been independently verified. Wholesale, non-community, and inactive systems are labeled. A provider-name or exact-ID search is available if ZIP associations are missing. A missing result does not mean no contamination or no testing. These sources do not cover private wells.</p>
+          <p><strong>Reproducibility:</strong> the <a href="/data/drinking-water/manifest.json">additional-records manifest</a> contains source SHA-256 fingerprints, counts, file checksums, field definitions, and selection rules. The builder is <a href="/analysis/scripts/21_build_drinking_water_records.py">21_build_drinking_water_records.py</a>. Data are loaded in small, checksum-verified files when requested. Database snapshot dates are shown separately from actual monitoring dates. Original downloads: <a href="https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule" target="_blank" rel="noopener noreferrer">UCMR occurrence data ↗</a> and <a href="https://echo.epa.gov/tools/data-downloads#drinkingwater" target="_blank" rel="noopener noreferrer">SDWIS drinking-water records ↗</a>. <a href="https://echo.epa.gov/tools/data-downloads/sdwis-download-summary" target="_blank" rel="noopener noreferrer">SDWIS field dictionary ↗</a></p>
+        </section>
+
+        <section class="methodology-section" id="filters">
+          <h2>Filters, certification, and next steps</h2>
+          <p>Historical system results cannot determine whether a particular home needs a filter. First confirm the provider and ask about its current results and treatment. If considering a filter, verify the exact model’s specific PFAS-reduction certification and replacement schedule rather than relying on a general claim.</p>
+          <p>NSF/ANSI 53 and NSF/ANSI 58 are standards used in water-treatment certification; ANSI means American National Standards Institute. Standard 58 covers reverse-osmosis systems. Certification to a standard does not mean a product reduces every contaminant. Check the named model and PFAS-reduction claim. EPA notes that existing PFAS certifications do not necessarily demonstrate reduction to every 2024 federal PFAS limit. PFAS Estimator does not sell or endorse products.</p>
+          <p><a href="https://www.epa.gov/cleanups/reducing-pfas-your-drinking-water-home-filter" target="_blank" rel="noopener noreferrer">EPA home-filter guidance →</a> · <a href="https://www.nsf.org/consumer-resources/articles/standards-water-treatment-systems" target="_blank" rel="noopener noreferrer">NSF’s explanation of certification standards →</a></p>
         </section>
 
         <section class="methodology-section" id="cohort">
@@ -259,9 +295,9 @@
             </div>
           </div>
 
-          <p>The ZIP lookup reads the separately versioned final August 2026 website release. It finds candidate systems using the final EPA ZIP association file, identifies monitoring dates from the final occurrence records, and displays reconstructed location averages matched against EPA’s Data Finder table. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
+          <p>The provider lookup uses dated EPA records for the selected chemical. The PFAS view reads the final August 2026 website release: reported ZIP associations identify possible providers, and reconstructed location averages match EPA’s Data Finder table. Lithium and lead/copper use the separate selection rules described above. The website does not recalculate the paper’s results, fill in missing values, or create a health-risk score.</p>
 
-          <p>The PFAS Results Assistant is optional. The ZIP lookup itself does not use AI. When someone asks a question, the question and a short summary of the displayed water-system results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
+          <p>The PFAS Results Assistant is optional and appears only in the PFAS view. None of the chemical lookups uses AI to select or calculate results. When someone asks the assistant a question, the question and a short summary of the displayed PFAS results are sent through the site’s Cloudflare worker to Groq, a third-party AI provider. Visitors should not enter names, medical records, or other private information.</p>
 
           <p>The assistant can explain terms, general health research, sampling locations, utility follow-up, and optional filter guidance. It is limited to a compact evidence set based on EPA, the Agency for Toxic Substances and Disease Registry (ATSDR), and NSF certification guidance. Deterministic boundary responses prevent it from treating a system result as a safety, compliance, medical, personal-exposure, or exposure-percentage determination. It cannot change a number or comparison on the page. Its other answers may still contain mistakes. If it is unavailable, the ZIP lookup continues to work.</p>
 
@@ -342,7 +378,7 @@
           </ol>
         </section>
 
-        <div class="methodology-bottom-note">Methods updated November 8, 2026</div>
+        <div class="methodology-bottom-note">Methods updated November 23, 2026</div>
       </main>
     </div>
   </div>

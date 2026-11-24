@@ -111,7 +111,7 @@ assert.ok(
   "EPA released the final UCMR 5 dataset in August 2026",
   "does not mean PFAS was not detected",
   "Below EPA reporting level",
-  "Smaller amounts may still have been present",
+  "not zero",
   "Sampling period",
   "cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk",
   "It does not mean every location or home was tested",
@@ -130,15 +130,13 @@ assert.ok(resultSource.includes("Current Michigan drinking-water standards") || 
 assert.ok(homeSource.includes('href="https://doi.org/10.5281/zenodo.21968954"'), "The homepage should visibly link to the archived data and code");
 assert.ok(readText("methodology/index.html").includes("this release has not yet been independently reproduced"), "Independent reproduction status should be stated plainly");
 
-assert.ok(resultSource.includes("not a home tap test or a safety/compliance verdict"),
+assert.ok(resultSource.includes("not a home tap test or personal health assessment"),
   "Every system must keep the household and health interpretation boundary visible");
-assert.ok(resultSource.indexOf('class="compact-next"') < resultSource.indexOf("${featuredMarkup}"),
-  "The next step should appear before the detailed chemical cards");
-assert.ok(resultSource.indexOf("${systems.map(renderSystem).join(\"\")}") < resultSource.indexOf("${renderResultBoundary(systems)}"),
-  "The full glossary should follow the results in the approved readability flow");
-assert.ok(
-  resultSource.indexOf("${systems.map(renderSystem).join(\"\")}") < resultSource.lastIndexOf("renderFilterGuide()"),
-  "Optional filter guidance must appear after the water-system cards",
-);
+assert.ok(resultSource.indexOf('class="compact-next"') < resultSource.indexOf('class="home-term-list"'),
+  "The next step should appear before the optional glossary");
+assert.ok(!resultSource.includes("${renderResultBoundary(systems)}"),
+  "The repeated full methodological glossary should not be appended to homepage results");
+assert.ok(!resultSource.includes("${renderFilterGuide()}"), "Long filter explanations have moved off the homepage");
+assert.ok(readText('methodology/index.html').includes('id="filters"'), "Filter guidance remains available in Methods");
 
 console.log("Frozen-release and reviewer-feedback regression tests passed.");

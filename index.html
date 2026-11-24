@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PFAS Estimator | Public Water PFAS Monitoring by ZIP Code</title>
-  <meta name="description" content="Find EPA UCMR 5 PFAS monitoring results for public water systems associated with a ZIP code and learn how to verify the system and current official information." />
+  <title>PFAS Estimator | Drinking-Water Results</title>
+  <meta name="description" content="Find historical PFAS, lithium, lead and copper results for your water provider. Search by ZIP code or provider name." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://pfasestimator.org/" />
   <meta name="author" content="Jack Zhang" />
@@ -15,14 +15,14 @@
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PFAS Estimator" />
-  <meta property="og:title" content="PFAS Estimator | Public Water PFAS Monitoring by ZIP Code" />
-  <meta property="og:description" content="Find the final August 2026 EPA UCMR 5 PFAS monitoring results for public water systems and verify current information with official sources." />
+  <meta property="og:title" content="PFAS Estimator | Drinking-Water Results" />
+  <meta property="og:description" content="Find historical PFAS, lithium, lead and copper results for your water provider. Search by ZIP code or provider name." />
   <meta property="og:url" content="https://pfasestimator.org/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PFAS Estimator | Public Water PFAS Monitoring by ZIP Code" />
-  <meta name="twitter:description" content="Find EPA PFAS monitoring results for public water systems associated with a ZIP code and learn how to verify current information." />
+  <meta name="twitter:title" content="PFAS Estimator | Drinking-Water Results" />
+  <meta name="twitter:description" content="Find historical PFAS, lithium, lead and copper results for your water provider. Search by ZIP code or provider name." />
   <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
 
   <script type="application/ld+json">
@@ -34,7 +34,7 @@
         "@id": "https://pfasestimator.org/#website",
         "url": "https://pfasestimator.org/",
         "name": "PFAS Estimator",
-        "description": "A public lookup for EPA UCMR 5 public-water-system monitoring results."
+        "description": "A public lookup for historical EPA drinking-water records covering PFAS, lithium, lead, and copper."
       },
       {
         "@type": "Dataset",
@@ -67,6 +67,7 @@
   <link rel="stylesheet" href="/styles.css?v=20261019-final-audit" /><link rel="stylesheet" href="/site-navigation.css?v=20261107" /><link rel="stylesheet" href="/reader-clarity.css?v=20261108-cleanup" />
   <link rel="stylesheet" href="/lookup-readability.css?v=20261108-cleanup" />
   <link rel="stylesheet" href="/project-features.css?v=20261107" />
+  <link rel="stylesheet" href="/drinking-water-records.css?v=20261123-clarity" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-FZQTEJ4LLY"></script>
   <script>
     window.dataLayer=window.dataLayer||[];
@@ -75,19 +76,22 @@
     gtag('config','G-FZQTEJ4LLY');
     function trackEvent(name,params={}){try{gtag('event',name,params);}catch(error){}}
   </script>
+  <script defer src="/homepage-language.js?v=20261123"></script>
   <script defer src="/lookup-evidence.js?v=20261019-sample-context1"></script>
-  <script defer src="/assistant-result-tools.js?v=20261019-final-audit2"></script>
-  <script defer src="/scientific-site-v2.js?v=20261114-listings"></script>
+  <script defer src="/assistant-result-tools.js?v=20261123-spanish"></script>
+  <script defer src="/drinking-water-records.js?v=20261123-clarity"></script>
+  <script defer src="/pfas-sample-trace.js?v=20261123-clarity"></script>
+  <script defer src="/scientific-site-v2.js?v=20261123-clarity"></script>
 </head>
 <body class="home-body">
-<a class="skip-link" href="#lookup-content">Skip to ZIP lookup</a>
+<a class="skip-link" href="#lookup-content" data-i18n="skipLookup">Skip to lookup</a>
 
 <div class="home-shell">
   <nav class="site-nav home-top-nav" aria-label="Primary">
-    <a href="/" aria-current="page">ZIP Lookup</a>
-    <a href="/map/">Map</a>
-    <a href="/states/">Explore by State</a>
-    <a href="/methodology/">How It Works</a>
+    <a href="/" aria-current="page" data-i18n="navLookup">Find your provider</a>
+    <a href="/map/" data-i18n="navMap">Map</a>
+    <a href="/states/" data-i18n="navStates">Explore by State</a>
+    <a href="/methodology/" data-i18n="navMethods">Methods &amp; limitations</a>
     </nav>
 
   <div class="page-wrapper">
@@ -100,11 +104,12 @@
             <select id="languageSelect">
               <option value="en" lang="en">English</option>
               <option value="zh" lang="zh-Hans">简体中文</option>
+              <option value="es" lang="es">Español</option>
             </select>
           </div>
         </div>
-        <h1 data-i18n="heroTitle">Check for PFAS in your water system</h1>
-        <p class="subtitle" data-i18n="heroSubtitle">Per- and polyfluoroalkyl substances (PFAS) are chemical pollutants. Enter your ZIP code to find available test results for public water systems in your area.</p>
+        <h1 data-i18n="heroTitle">Find PFAS and other chemicals in your water</h1>
+        <p class="subtitle" data-i18n="heroSubtitle">Search by ZIP code or provider to explore historical drinking-water test results.</p>
         <span class="visually-hidden" id="releaseStatus">Loading verified release…</span>
       </header>
 
@@ -115,11 +120,26 @@
               <strong>Find your water provider.</strong> A ZIP code may list several systems. Match the name to your water bill. Private wells are not included. <a href="https://www.epa.gov/privatewells/private-drinking-water-well-programs-your-state" target="_blank" rel="noopener noreferrer">Use a private well? Find testing guidance →</a>
             </div>
             <div class="input-row">
-              <label for="zipInput" class="visually-hidden">U.S. ZIP code</label>
+              <label for="zipInput" class="visually-hidden" data-i18n="zipLabel">U.S. ZIP code</label>
               <input type="text" id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" aria-label="Enter U.S. ZIP code" placeholder="Enter U.S. zip code" maxlength="5" />
               <button type="button" id="lookupButton" disabled>Loading data…</button>
             </div>
             <div class="visually-hidden" id="lookupDataNote">Preparing verified federal monitoring data.</div>
+            <fieldset class="water-record-modes" id="waterRecordModes">
+              <legend id="waterRecordLegend">Results</legend>
+              <label><input type="radio" name="water-result-mode" value="pfas" checked /><span><abbr id="pfasModeLabel" title="Per- and polyfluoroalkyl substances">PFAS</abbr></span></label>
+              <label><input type="radio" name="water-result-mode" value="lithium" /><span id="lithiumModeLabel">Lithium</span></label>
+              <label><input type="radio" name="water-result-mode" value="lcr" /><span id="lcrModeLabel">Lead &amp; copper</span></label>
+            </fieldset>
+            <p class="water-mode-note" id="waterModeNote">Map and state summaries show PFAS.</p>
+            <details class="water-provider-search" id="waterProviderSearch">
+              <summary id="waterProviderSearchTitle">Find a provider by name or system ID</summary>
+              <form id="waterProviderSearchForm">
+                <label for="waterProviderInput" id="waterProviderInputLabel">Provider name or system ID (at least 3 characters)</label>
+                <div class="input-row"><input id="waterProviderInput" type="search" minlength="3" maxlength="100" placeholder="e.g. Raleigh or NC0392010" /><button type="submit" id="waterProviderSearchButton">Search providers</button></div>
+              </form>
+              <div id="waterProviderMatches" aria-live="polite"></div>
+            </details>
           </div>
 
 
@@ -129,19 +149,20 @@
           <div class="result" id="result">
             <div class="print-header" id="printHeader">
               <div class="print-header-top">
-                <div><h2>PFAS Public Water Monitoring Report</h2><div class="print-zip" id="printZip"></div></div>
-                <div class="print-meta"><div>pfasestimator.org</div><div id="printDate"></div><div>EPA UCMR 5 Data (2023–2025)</div></div>
+                <div><h2 data-i18n="printTitle">PFAS water-system results</h2><div class="print-zip" id="printZip"></div></div>
+                <div class="print-meta"><div>pfasestimator.org</div><div id="printDate"></div><div data-i18n="printSource">EPA UCMR 5 samples (2023–2025)</div></div>
               </div>
-              <div class="print-note">This report lists public water systems linked to the entered ZIP. It summarizes a website snapshot of EPA’s final dataset released August 2026. Each system card shows when EPA collected its samples. A result below an EPA reporting level does not mean the concentration was zero or that the compound was absent.</div>
+              <div class="print-note" data-i18n="printNote">Historical public-water-system results. Confirm the provider on your water bill. “Below” a reporting limit does not mean zero.</div>
             </div>
             <div class="result-title" id="resultTitle"></div>
             <div class="result-context" id="resultContext"></div>
             <div id="resultBody"></div>
-            <div class="print-footer">Fixed EPA UCMR 5 final dataset, released August 2026. Match the system name to your water bill. A result below an EPA reporting level does not mean the concentration was zero or that the compound was absent. This report cannot identify the water system for a specific home or determine current legal compliance, household tap-water levels, personal exposure, or health risk.</div>
+            <div class="print-footer" data-i18n="printFooter">EPA UCMR 5 final dataset, released August 2026. These system results do not determine current compliance, household tap-water levels, personal exposure, or health risk. Methods: pfasestimator.org/methodology/</div>
           </div>
 
           <button class="print-btn" id="printBtn" type="button" hidden data-i18n="printButton">Print or save this water-system result</button>
         </div>
+          <details class="home-chat-disclosure" id="chatDisclosure"><summary data-i18n="chatDisclosure">Questions about PFAS?</summary>
           <aside class="chat-panel visible" id="chatPanel" aria-label="PFAS monitoring question and answer assistant">
             <div class="chat-panel-header">
               <div>
@@ -161,17 +182,18 @@
               <button class="ai-suggestion" type="button" data-faq-key="current" data-i18n="suggestHealth">Where are current results?</button>
             </div>
             <div class="ai-input-row">
-              <label for="aiInput" class="visually-hidden">Ask a PFAS monitoring question</label>
+              <label for="aiInput" class="visually-hidden" data-i18n="askLabel">Ask a PFAS question</label>
               <input type="text" id="aiInput" placeholder="Ask about PFAS or your results..." maxlength="700" />
               <button id="aiSendBtn" type="button" data-i18n="askButton">Ask</button>
             </div>
             <div class="ai-disclaimer"><span data-i18n="chatDisclaimer">AI answers may be wrong. Verify them with official records; do not use them to decide whether water is safe or to make medical decisions. Do not share personal or medical information. The ZIP results do not use AI.</span> <a href="/methodology/#website" data-i18n="chatLearnMore">How it works</a></div>
           </aside>
+          </details>
       </section>
 
       <section class="why-section" aria-labelledby="why-water-title">
-        <h2 id="why-water-title">About PFAS Estimator</h2>
-        <p>PFAS Estimator helps people find and read public-water monitoring data from the U.S. Environmental Protection Agency. It was built by Jack Zhang in Los Gatos, California. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
+        <h2 id="why-water-title" data-i18n="aboutTitle">About PFAS Estimator</h2>
+        <p data-i18n="aboutBody">Built by Jack Zhang to make public drinking-water results easier to find and understand. Joshua Tamayo-Sarver, MD, PhD, provided early feedback on clinical framing and limitations.</p>
         <p data-i18n="justinCredit">Justin Ting supported marketing and outreach for PFAS Estimator.</p>
         <details class="project-features" id="features">
           <summary><span data-i18n="featuresSummary">Features &amp; resource listings</span> <span class="project-features-count">(4)</span></summary>
@@ -195,12 +217,12 @@
           </ul>
           <p class="project-features-share"><a href="/#features" data-i18n="featuresPermalink">Link to this section</a></p>
         </details>
-        <p>The archived data and code are public, and automated internal checks are in place. The analysis has not yet been independently reproduced or peer reviewed.</p>
-        <p><a class="source-link" href="/methodology/">Read the methods and limitations →</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">View archived data and code →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com">Contact Jack</a></p>
+        <p data-i18n="reviewStatus">Public data and code; internal checks completed. Independent reproduction and peer review are not yet complete.</p>
+        <p><a class="source-link" href="/methodology/" data-i18n="methodsLink">Methods and limitations →</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer" data-i18n="archiveLink">Archived research data and code →</a> · <a class="source-link" href="mailto:jackzacey@gmail.com" data-i18n="contactLink">Contact Jack</a></p>
       </section>
 
       <div class="disclaimer">
-        Independent research and education tool · <a class="source-link" href="/methodology/">Methods and limitations</a> · <a class="source-link" href="https://doi.org/10.5281/zenodo.21968954" target="_blank" rel="noopener noreferrer">Archived data and code</a> · <a class="source-link" href="https://www.epa.gov/dwucmr/fifth-unregulated-contaminant-monitoring-rule-data-finder" target="_blank" rel="noopener noreferrer">Official federal monitoring data</a>
+        <span data-i18n="footerNote">Independent education tool. Historical results, not a test of your home’s water.</span>
       </div>
     </main>
   </div>

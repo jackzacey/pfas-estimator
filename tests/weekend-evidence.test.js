@@ -45,14 +45,18 @@ for(const lang of ['en','zh']) {
   if(!s._comparisonCoverage.all) assert.match(html,lang==='en'?/Missing comparisons cannot/:/缺失比较不能/);
  }
  const html=ctx.subject.renderSystem(mixed);
- assert.match(html,lang==='en'?/archived locations/:/归档采样点/);
+ assert.match(ctx.subject.renderEvidence(mixed),lang==='en'?/archived locations/:/归档采样点/);
 }
 ctx.subject.language('en');
 const sj=systems.find(s=>s.pwsid==='CA4310011');
 const html=ctx.subject.renderSystem(sj);
+const detailedEvidence=ctx.subject.renderEvidence(sj);
 assert.match(html,/2024 water-quality report/);
-assert.match(html,/not a verified list of samples/);
-assert.match(html,/0.004 µg\/L × 1,000 = 4 ppt/);
+assert.match(detailedEvidence,/reconstruction inputs, checked against the frozen averages/);
+assert.match(html,/Samples and test dates/);
+assert.match(html,/Methods, calculations & limitations/);
+assert.doesNotMatch(html,/0.004 µg\/L × 1,000/,'Unit-conversion mechanics stay off the homepage');
+assert.match(detailedEvidence,/0.004 µg\/L × 1,000 = 4 ppt/);
 for(const id of Object.keys(read('config/provider-links.json').systems)) assert.ok(systems.some(s=>s.pwsid===id),id);
 const page=fs.readFileSync(path.join(root,'index.html'),'utf8');
 assert.ok(page.indexOf('id="resultBody"')<page.indexOf('id="chatPanel"'));
@@ -74,9 +78,9 @@ for(const s of systems) {
  for(const lang of ['en','zh']) {
   ctx.subject.language(lang);
   const html=ctx.subject.renderSystem(s);
-  assert.match(html,lang==='en'?/PFAS detected at locations without a complete yearly comparison/:/年度比较不完整的采样点检出了PFAS/);
-  assert.match(html,lang==='en'?/historical individual samples, not yearly averages/:/历史单次样本，不是年度平均值/);
-  if(s.any_system_above_mcl_comparison) assert.match(html,lang==='en'?/At least one available yearly average is above/:/至少一项可用结果高于/);
+  assert.match(html,lang==='en'?/Some PFAS detections have incomplete sampling sets/:/部分PFAS检出结果的样本组不完整/);
+  assert.match(html,lang==='en'?/Historical system results/:/历史系统结果/);
+  if(s.any_system_above_mcl_comparison) assert.match(html,lang==='en'?/At least one available yearly average is above/:/至少一项可用年度平均值高于/);
   assert.doesNotMatch(html,/No detections in complete samples|The five PFAS shown were not detected in complete samples/);
  }
 }
@@ -90,8 +94,9 @@ assert.deepEqual(samples.map(d=>[helper.keys[d.chemicalIndex],d.valuePpt,d.date,
 assert.equal(utah.pfos_max_location_average,0);
 assert.equal(utah.any_system_above_mcl_comparison,0);
 const utahHTML=ctx.subject.renderSystem(utah);
-assert.match(utahHTML,/PFOS: 7\.1 ppt/);
-assert.match(utahHTML,/PFHxS: 18\.2 ppt/);
+assert.match(utahHTML,/Some PFAS detections have incomplete sampling sets/);
+assert.equal(helper.incompleteDetections(evidence.systems[utah.pwsid]).find(d=>d.chemicalIndex===1).valuePpt,7.1);
+assert.equal(helper.incompleteDetections(evidence.systems[utah.pwsid]).find(d=>d.chemicalIndex===2).valuePpt,18.2);
 assert.match(utahHTML,/PFAS were found/);
 assert.match(utahHTML,/Below 4 ppt/);
 for(const mutate of [

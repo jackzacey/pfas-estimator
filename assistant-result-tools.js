@@ -9,6 +9,23 @@
     return String(system?.ucmr_pws_name || "Unnamed public water system").trim();
   }
 
+  function answerSpanishBoundary(question) {
+    const q=String(question||'').toLowerCase();
+    if (/segur|peligros|\bsafe\b|unsafe/.test(q)) return 'Estos registros históricos no permiten decidir si el agua de su hogar es segura. Confirme su proveedor y consulte sus pruebas más recientes.\n\nFuente: EPA UCMR 5.';
+    if (/exposici[oó]n|dosis|mi riesgo|personal exposure|dose/.test(q)) return 'Un resultado del sistema de agua no determina su exposición, dosis ni riesgo personal. Para conocer el agua de su hogar se necesita un muestreo apropiado.\n\nFuente: EPA y ATSDR.';
+    if (/m[eé]dic|doctor|enfermar/.test(q)) return 'Estos resultados no permiten decidir si necesita atención médica. Consulte a un profesional para una preocupación personal, con su historial y la información de exposición apropiada.\n\nFuente: EPA y ATSDR.';
+    if (/cumpl|infracci|ilegal|compliance|violation/.test(q)) return 'Los resultados de UCMR 5 no determinan por sí solos el cumplimiento legal. Consulte la información actual de su proveedor y de la agencia estatal de agua potable.\n\nFuente: EPA UCMR 5.';
+    if (/cero|no detect|debajo|menos de|\bzero\b|nondetect/.test(q)) return '«Menos de» o «<» significa que el resultado está por debajo del límite de reporte; no significa que sea cero. En los promedios de PFAS, estos resultados cuentan como cero solo para el cálculo.\n\nFuente: EPA UCMR 5.';
+    if (/sin resultados|no hay resultados|no result|falta.*dato/.test(q)) return 'Un resultado faltante no significa que no haya PFAS o que nunca se hayan realizado pruebas. Busque por el nombre de su proveedor o pregúntele directamente; los pozos privados no están incluidos.\n\nFuente: EPA UCMR 5.';
+    if (/d[oó]nde.*muestra|where.*sampl/.test(q)) return 'Las muestras de UCMR 5 se tomaron donde el agua tratada entra al sistema de distribución, no en los grifos de viviendas particulares.\n\nFuente: EPA UCMR 5.';
+    if (/reciente|actual|latest|current/.test(q)) return 'Consulte el informe anual de calidad del agua y pregunte a su proveedor por pruebas recientes de PFAS. Los registros de PFAS de esta página proceden de la publicación final de UCMR 5 de agosto de 2026.\n\nFuente: EPA UCMR 5.';
+    if (/proveedor|c[oó]digo postal|utility/.test(q)) return 'Compare el nombre completo con su factura de agua. Un código postal puede estar asociado con varios sistemas y no confirma quién abastece su hogar.\n\nFuente: registros de la EPA mostrados en esta página.';
+    if (/muestras completas|monitoreo completo|complete monitoring/.test(q)) return 'Significa que al menos un punto de monitoreo tiene todas las muestras requeridas para calcular un promedio. No significa que se hayan probado todas las viviendas o todos los puntos.\n\nFuente: EPA UCMR 5.';
+    if (/ppt|partes por bill[oó]n/.test(q)) return 'ppt significa partes por billón (10¹²): una unidad de concentración, no una puntuación de riesgo. El litio, plomo y cobre se muestran en microgramos por litro (µg/L), una escala distinta.\n\nFuente: unidades de los registros de la EPA.';
+    if (/[ií]ndice|mixture/.test(q)) return 'El índice de mezcla combina cuatro PFAS respecto a sus valores de referencia. No tiene unidades y no es la probabilidad de enfermar.\n\nFuente: EPA UCMR 5.';
+    return null;
+  }
+
   function asksForComparisonSystems(question) {
     const value = String(question || "").toLowerCase();
     const mentionsSystem = /\b(?:water\s+)?systems?\b|\butilit(?:y|ies)\b|供水系统|供水机构/.test(value);
@@ -18,6 +35,12 @@
   }
 
   function answerComparisonSystems(question, systems, language = "en") {
+    if (language === 'es' && /cu[aá]nt|cu[aá]l|which|how many/.test(String(question).toLowerCase()) && /referencia|encima|super|above/.test(String(question).toLowerCase())) {
+      if (!systems?.length) return 'No hay un sistema seleccionado. Confirme su proveedor antes de interpretar resultados.';
+      const flagged=systems.filter(s=>Number(s.any_system_above_mcl_comparison)===1);
+      const gaps=systems.filter(s=>s._comparisonCoverage?.all!==true).length;
+      return `${flagged.length} de ${systems.length} sistemas tienen al menos un promedio por encima de la referencia del estudio${flagged.length?': '+flagged.map(systemName).join('; '):''}. ${gaps} tienen comparaciones incompletas o no verificadas. Un dato faltante no equivale a estar por debajo de la referencia. Confirme su proveedor y consulte información reciente.\n\nFuente: registros de la EPA mostrados en esta página.`;
+    }
     if (!asksForComparisonSystems(question) || !Array.isArray(systems) || !systems.length) return null;
     const atOrAbove = systems.filter(system => Number(system.any_system_above_mcl_comparison) === 1);
     const names = atOrAbove.map(systemName);
@@ -42,6 +65,7 @@
   }
 
   function answerBoundaryQuestion(question, systems, language = "en") {
+    if (language === 'es') return answerSpanishBoundary(question);
     const value = String(question || "").toLowerCase();
     const hasSystems = Array.isArray(systems) && systems.length > 0;
     const asksExposureShare = /(?:percent|percentage|how much|what share|20\s*%)\b.*\b(?:exposure|pfas).*\b(?:water|drinking)|\b(?:exposure|pfas).*\b(?:percent|percentage|what share|20\s*%)/.test(value);

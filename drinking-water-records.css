@@ -1,0 +1,63 @@
+/* Supplemental lookup controls inherit the existing quiet blue and white UI. */
+.water-record-modes { display:flex; flex-wrap:wrap; gap:8px; padding:0; margin:18px 0 0; border:0; }
+.water-record-modes legend { float:left; margin-right:12px; padding:8px 0; color:#526879; font-size:.88rem; }
+.water-record-modes label { position:relative; cursor:pointer; }
+.water-record-modes abbr { text-decoration:none; }
+.water-record-modes input { position:absolute; opacity:0; width:1px; height:1px; }
+.water-record-modes span { display:block; background:#fff; color:#526879; border:1px solid #dce7ef; border-radius:22px; padding:8px 14px; font-size:.9rem; }
+.water-record-modes input:checked + span { color:#175e97; border-color:#8ab4d2; background:#f4f9fd; }
+.water-record-modes input:focus-visible + span { outline:2px solid #175e97; outline-offset:3px; }
+.water-mode-note { font-size:.82rem; color:#607689; margin:8px 0 0; }
+.water-provider-search { margin-top:16px; color:#526879; font-size:.92rem; }
+.water-provider-search summary { cursor:pointer; color:#175e97; }
+.water-provider-search form { margin-top:12px; }
+.water-provider-search label { display:block; margin-bottom:8px; }
+.water-provider-search .input-row input { min-width:0; }
+.water-provider-search button { white-space:normal; }
+.water-provider-options { padding-left:22px; max-height:300px; overflow:auto; }
+.water-provider-options button { background:transparent; color:#175e97; text-align:left; border:0; padding:8px 4px; font:inherit; text-decoration:underline; cursor:pointer; }
+.water-provider-options button:focus-visible { outline:2px solid #175e97; }
+.water-record-value { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px 20px; padding:14px 0; border-block:1px solid #e7eef4; }
+.water-record-value span { color:#526879; font-size:.95rem; }
+.water-record-value strong { font-size:1.35rem; color:#175e97; font-weight:600; }
+.water-record-chemical { margin-block:20px; }
+.water-record-chemical h4 { font-size:1.08rem; margin:0 0 10px; }
+.water-record-table { overflow:auto; max-height:420px; border:1px solid #e0e9f1; border-radius:8px; margin:14px 0; }
+.water-record-table table { width:100%; border-collapse:collapse; font-size:.88rem; text-align:left; }
+.water-record-table th,.water-record-table td { padding:10px 12px; border-bottom:1px solid #e7eef4; vertical-align:top; }
+.water-record-table th { position:sticky; top:0; background:#f4f9fd; color:#34566e; font-weight:600; }
+.water-record-table:focus-visible { outline:2px solid #175e97; }
+.water-record-card p { overflow-wrap:anywhere; }
+.pfas-trace-location { margin:12px 0; border-top:1px solid #e0e9f1; padding-top:12px; }
+.pfas-trace-chemical { margin:10px 0 10px 8px; }
+.pfas-trace-location > summary,.pfas-trace-chemical > summary { cursor:pointer; color:#175e97; line-height:1.6; }
+.pfas-source-samples .pfas-sample-content { padding:0 14px 14px; }
+.pfas-source-samples .water-record-table td:first-child { white-space:nowrap; }
+.home-term-list { margin:12px 0; }
+.home-term-list > div { padding:10px 0; border-bottom:1px solid #e7eef4; }
+.home-term-list dt { font-weight:600; color:#34566e; }
+.home-term-list dd { margin:4px 0 0; line-height:1.65; }
+.home-method-link { display:inline-block; margin-top:16px; padding:9px 14px; border:1px solid #dce7ef; border-radius:20px; text-decoration:none; color:#175e97; background:#fff; font-size:.9rem; }
+.home-method-link:hover { background:#f4f9fd; }
+.home-chat-disclosure { margin-top:20px; border:1px solid #dce7ef; border-radius:12px; background:#fff; }
+.home-chat-disclosure > summary { cursor:pointer; padding:15px 18px; color:#175e97; font-weight:600; }
+.home-chat-disclosure .chat-panel { margin:0; border-top:1px solid #e7eef4; box-shadow:none; }
+.home-shell .compact-caption,.home-shell .compact-limit,.home-shell .compact-dates { font-size:.94rem; line-height:1.65; }
+.home-shell .compound-results-details { margin-block:10px; }
+.home-shell .compact-system .home-term-list { padding:0 14px; }
+.home-shell .water-record-card .compact-limit { margin-top:18px; }
+.home-shell .water-record-card .water-record-chemical + .water-record-chemical { border-top:1px solid #e7eef4; padding-top:16px; }
+@media print {
+  .home-shell .home-hero,
+  .home-shell .home-interaction-grid,
+  .home-shell .home-chat-disclosure { display:none !important; }
+  .result.additional-records .print-header,
+  .result.additional-records .print-footer { display:none !important; }
+}
+@media(max-width:520px) {
+  .water-record-modes { gap:6px; }
+  .water-record-modes legend { margin-right:4px; }
+  .water-record-modes span { padding:8px 10px; font-size:.85rem; }
+  .water-record-value { flex-direction:column; }
+  .water-provider-search .input-row { flex-wrap:wrap; }
+}

@@ -54,6 +54,9 @@ export default {
     } catch (error) {
       return jsonResponse({ error: "Invalid JSON." }, 400, cors);
     }
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return jsonResponse({ error: "A JSON object is required." }, 400, cors);
+    }
 
     try {
       if (body.action === "counter") {
@@ -207,7 +210,7 @@ function sanitizeSummaryRequest(body) {
   if (!/^\d{5}$/.test(String(body.zip || ""))) {
     throw clientError("A valid ZIP code is required.");
   }
-  const language = body.language === "zh" ? "zh" : "en";
+  const language = ["en","zh","es"].includes(body.language) ? body.language : "en";
   if (!Array.isArray(body.compounds) || body.compounds.length < 1 || body.compounds.length > 12) {
     throw clientError("Invalid compound results.");
   }
@@ -231,7 +234,7 @@ function sanitizeSummaryRequest(body) {
 }
 
 function sanitizeChatRequest(body) {
-  const language = body.language === "zh" ? "zh" : "en";
+  const language = ["en","zh","es"].includes(body.language) ? body.language : "en";
   const zipContext = cleanString(body.zip_context, 14000);
   if (!Array.isArray(body.messages) || body.messages.length < 1) {
     throw clientError("A chat message is required.");
@@ -303,7 +306,7 @@ async function createSummary(env, payload) {
   const isZh = payload.language === "zh";
   const languageRule = isZh
     ? "Write every value entirely in Simplified Chinese (简体中文)."
-    : "Write every value in plain, caring English.";
+    : payload.language === "es" ? "Escribe todos los valores completamente en español claro y sencillo." : "Write every value in plain, caring English.";
   const results = payload.compounds.map((item, index) => {
     const limitMeaning = item.epa_limit
       ? `${((item.level / item.epa_limit) * 100).toFixed(0)}% of the EPA limit (${item.level >= item.epa_limit ? "ABOVE" : "below"})`
@@ -346,14 +349,14 @@ async function createChatReply(env, payload) {
     ? (hasZipContext
       ? "这超出了我能回答的范围，但我可以解释页面上显示的公共供水系统结果、PFAS研究以及可核实的后续步骤。"
       : "这超出了我能回答的范围，但我很乐意回答有关PFAS、水质和环境健康的问题。")
-    : (hasZipContext
+    : payload.language === 'es' ? 'Puedo ayudar con PFAS, los resultados del sistema de agua y dónde encontrar información verificable.' : (hasZipContext
       ? "That is outside what I can help with here, but I can explain the public-water-system results displayed on the page, PFAS research, and verifiable next steps."
       : "That is outside what I can help with here, but I'm happy to answer questions about PFAS, water quality, and environmental health.");
 
   const boundaryReply = deterministicBoundaryReply(payload);
   if (boundaryReply) return boundaryReply;
 
-  const systemPrompt = `${isZh ? "Respond entirely in Simplified Chinese (简体中文). " : ""}You are the optional explanatory assistant for PFAS Estimator, a community water-information resource. The ZIP lookup and all numerical classifications are fixed and do not use AI. Explain the supplied results without changing, recomputing, or extending them.
+  const systemPrompt = `${isZh ? "Respond entirely in Simplified Chinese (简体中文). " : payload.language === "es" ? "Responde completamente en español con frases breves y claras. " : ""}You are the optional explanatory assistant for PFAS Estimator, a community water-information resource. The ZIP lookup and all numerical classifications are fixed and do not use AI. Explain the supplied results without changing, recomputing, or extending them.
 
 ${contextBlock}
 
@@ -384,7 +387,25 @@ Guidelines:
   return normalizeChatReply(content, payload);
 }
 
+  function answerSpanishBoundary(question) {
+    const q=String(question||'').toLowerCase();
+    if (/segur|peligros|\bsafe\b|unsafe/.test(q)) return 'Estos registros históricos no permiten decidir si el agua de su hogar es segura. Confirme su proveedor y consulte sus pruebas más recientes.\n\nFuente: EPA UCMR 5.';
+    if (/exposici[oó]n|dosis|mi riesgo|personal exposure|dose/.test(q)) return 'Un resultado del sistema de agua no determina su exposición, dosis ni riesgo personal. Para conocer el agua de su hogar se necesita un muestreo apropiado.\n\nFuente: EPA y ATSDR.';
+    if (/m[eé]dic|doctor|enfermar/.test(q)) return 'Estos resultados no permiten decidir si necesita atención médica. Consulte a un profesional para una preocupación personal, con su historial y la información de exposición apropiada.\n\nFuente: EPA y ATSDR.';
+    if (/cumpl|infracci|ilegal|compliance|violation/.test(q)) return 'Los resultados de UCMR 5 no determinan por sí solos el cumplimiento legal. Consulte la información actual de su proveedor y de la agencia estatal de agua potable.\n\nFuente: EPA UCMR 5.';
+    if (/cero|no detect|debajo|menos de|\bzero\b|nondetect/.test(q)) return '«Menos de» o «<» significa que el resultado está por debajo del límite de reporte; no significa que sea cero. En los promedios de PFAS, estos resultados cuentan como cero solo para el cálculo.\n\nFuente: EPA UCMR 5.';
+    if (/sin resultados|no hay resultados|no result|falta.*dato/.test(q)) return 'Un resultado faltante no significa que no haya PFAS o que nunca se hayan realizado pruebas. Busque por el nombre de su proveedor o pregúntele directamente; los pozos privados no están incluidos.\n\nFuente: EPA UCMR 5.';
+    if (/d[oó]nde.*muestra|where.*sampl/.test(q)) return 'Las muestras de UCMR 5 se tomaron donde el agua tratada entra al sistema de distribución, no en los grifos de viviendas particulares.\n\nFuente: EPA UCMR 5.';
+    if (/reciente|actual|latest|current/.test(q)) return 'Consulte el informe anual de calidad del agua y pregunte a su proveedor por pruebas recientes de PFAS. Los registros de PFAS de esta página proceden de la publicación final de UCMR 5 de agosto de 2026.\n\nFuente: EPA UCMR 5.';
+    if (/proveedor|c[oó]digo postal|utility/.test(q)) return 'Compare el nombre completo con su factura de agua. Un código postal puede estar asociado con varios sistemas y no confirma quién abastece su hogar.\n\nFuente: registros de la EPA mostrados en esta página.';
+    if (/muestras completas|monitoreo completo|complete monitoring/.test(q)) return 'Significa que al menos un punto de monitoreo tiene todas las muestras requeridas para calcular un promedio. No significa que se hayan probado todas las viviendas o todos los puntos.\n\nFuente: EPA UCMR 5.';
+    if (/ppt|partes por bill[oó]n/.test(q)) return 'ppt significa partes por billón (10¹²): una unidad de concentración, no una puntuación de riesgo. El litio, plomo y cobre se muestran en microgramos por litro (µg/L), una escala distinta.\n\nFuente: unidades de los registros de la EPA.';
+    if (/[ií]ndice|mixture/.test(q)) return 'El índice de mezcla combina cuatro PFAS respecto a sus valores de referencia. No tiene unidades y no es la probabilidad de enfermar.\n\nFuente: EPA UCMR 5.';
+    return null;
+  }
+
 function deterministicBoundaryReply(payload) {
+  if (payload.language === "es") return answerSpanishBoundary(payload.messages.at(-1)?.content);
   const isZh = payload.language === "zh";
   const question = payload.messages.at(-1)?.content?.toLowerCase() || "";
   const asksExposureShare = /(?:percent|percentage|how much|what share|20\s*%)\b.*\b(?:exposure|pfas).*\b(?:water|drinking)|\b(?:exposure|pfas).*\b(?:percent|percentage|what share|20\s*%)/.test(question);
@@ -432,17 +453,18 @@ function normalizeChatReply(content, payload) {
 
   const question = payload.messages.at(-1)?.content?.toLowerCase() || "";
   let source = "";
-  if (/filter|reverse osmosis|charcoal|carbon|ion exchange|nsf|过滤|滤芯|反渗透/.test(question)) {
-    source = isZh ? "资料：EPA家用过滤器指南和NSF认证指南。" : "Source: EPA home-filter guidance and NSF certification guidance.";
-  } else if (/health|cancer|pregnan|child|baby|immune|thyroid|liver|cholesterol|doctor|medical|健康|癌|孕|儿童|婴儿|免疫|甲状腺|肝|胆固醇|医生|医疗/.test(question)) {
-    source = isZh ? "资料：EPA和ATSDR的PFAS健康指南。" : "Source: EPA and ATSDR PFAS health guidance.";
-  } else if (/pfas|water|utility|system|result|level|comparison|epa|供水|水质|结果|数值|比较/.test(question)) {
+  if (/filter|reverse osmosis|charcoal|carbon|ion exchange|nsf|filtro|[oó]smosis|carb[oó]n|过滤|滤芯|反渗透/.test(question)) {
+    source = isZh ? "资料：EPA家用过滤器指南和NSF认证指南。" : payload.language === 'es' ? 'Fuente: orientación de la EPA sobre filtros y certificación NSF.' : "Source: EPA home-filter guidance and NSF certification guidance.";
+  } else if (/health|cancer|pregnan|child|baby|immune|thyroid|liver|cholesterol|doctor|medical|salud|c[aá]ncer|embaraz|ni[nñ]|beb[eé]|inmun|tiroid|h[ií]gado|colesterol|m[eé]dic|健康|癌|孕|儿童|婴儿|免疫|甲状腺|肝|胆固醇|医生|医疗/.test(question)) {
+    source = isZh ? "资料：EPA和ATSDR的PFAS健康指南。" : payload.language === 'es' ? 'Fuente: orientación de la EPA y ATSDR sobre PFAS y salud.' : "Source: EPA and ATSDR PFAS health guidance.";
+  } else if (/pfas|water|utility|system|result|level|comparison|epa|agua|proveedor|sistema|resultado|nivel|referencia|供水|水质|结果|数值|比较/.test(question)) {
     source = payload.zip_context
       ? (isZh ? "资料：本页显示的EPA UCMR 5数据。" : "Source: EPA UCMR 5 data shown on this page.")
       : (isZh ? "资料：EPA PFAS指南。" : "Source: EPA PFAS guidance.");
   }
 
-  if (source && !/\bsource\s*:/i.test(reply) && !/资料[:：]/.test(reply)) reply = `${reply}\n\n${source}`;
+  if (payload.language === "es" && /^Source:/.test(source)) source = payload.zip_context ? 'Fuente: registros UCMR 5 de la EPA mostrados en esta página.' : 'Fuente: orientación de la EPA sobre PFAS.';
+  if (source && !/\bsource\s*:/i.test(reply) && !/资料[:：]|fuente\s*:/i.test(reply)) reply = `${reply}\n\n${source}`;
   return reply;
 }
 

@@ -73,10 +73,10 @@ for (const language of ["en", "zh"]) {
   for (const system of systems) {
     const html = subject.renderSystem(system);
     assert.doesNotMatch(html, /undefined|NaN|Invalid Date/);
-    assert.equal((html.match(/class="compound-pollutant-name"/g) || []).length +
-      (html.match(/class="compound-result-row /g) || []).length, 6);
+    assert.equal((html.match(/class="compact-outcome /g) || []).length, 6);
     assert.match(html, /PWSID/);
-    assert.match(html, /\/methodology\/#outcomes/);
+    assert.match(html, /\/methodology\/\?system=.*#sample-trace/);
+    assert.doesNotMatch(html,/EPA rounding cutoff|source-record dates|before display rounding/);
     assert.doesNotMatch(html, /PFBS<\/span><strong>/);
     for (const outcome of subject.OUTCOMES) {
       const status = subject.outcomeStatus(system, outcome);
