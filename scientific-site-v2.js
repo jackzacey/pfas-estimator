@@ -1145,9 +1145,7 @@
     title.textContent = text("associatedTitle")(systems.length, zip);
     context.textContent = text("associatedContext")(aboveCount, systems.length, detectedSystemCount);
     if (release.corrected_zips?.includes(zip)) {
-      context.textContent += currentLang === "zh"
-        ? " 此邮编的部分错误关联已移除；供水机构列表仍可能不完整。"
-        : " Incorrect associations have been removed for this ZIP; the provider list may still be incomplete.";
+      context.textContent += choose(" Incorrect associations have been removed for this ZIP; the provider list may still be incomplete."," 此邮编的部分错误关联已移除；供水机构列表仍可能不完整。"," Se eliminaron asociaciones incorrectas para este código postal; la lista de proveedores aún puede estar incompleta.");
     }
     body.innerHTML = `${systems.map(renderSystem).join("")}${renderUncertainAssociations(uncertain)}${renderWholesaleAssociations(wholesale)}`;
     resetChat(aboveCount ? text("contextReadyAbove") : text("contextReadyBelow"));

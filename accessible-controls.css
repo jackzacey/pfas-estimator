@@ -1,11 +1,13 @@
 .site-language-menu { position:relative; display:inline-flex; max-width:100%; font-size:11px; flex:0 0 auto; z-index:20; }
 .home-shell .home-hero { overflow:visible; }
 .home-shell .home-hero-top { position:relative; z-index:30; }
-.language-menu-trigger { display:flex; align-items:center; justify-content:center; gap:6px; width:auto; min-height:32px; padding:5px 11px; border:1px solid #dce7ef; border-radius:22px; background:#fff; color:#526b79; font:inherit; line-height:1.5; cursor:pointer; }
+.language-menu-trigger { display:flex; align-items:center; justify-content:center; gap:6px; width:auto; height:auto; min-height:32px; padding:5px 11px; border:1px solid #dce7ef; border-radius:22px; background:#fff; color:#526b79; font:inherit; line-height:1.5; box-shadow:none; cursor:pointer; }
+.language-menu-trigger:hover,.language-menu-trigger:active,.language-menu-trigger:focus { background:#fff; color:#526b79; transform:none; }
 .language-menu-trigger bdi { color:#4386ae; }
 .language-menu-panel { position:absolute; inset-block-start:calc(100% + 7px); inset-inline-end:0; width:245px; max-width:calc(100vw - 38px); max-height:260px; overflow-y:auto; overscroll-behavior:contain; padding:6px; border:1px solid #dce7ef; border-radius:16px; background:#fff; box-shadow:0 8px 24px #284f6a15; }
 .language-menu-panel[hidden] { display:none!important; }
-.language-menu-option { width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px; border:0; border-radius:10px; background:white; padding:10px 11px; color:#38566b; font:inherit; font-size:13px; text-align:start; cursor:pointer; }
+.language-menu-option { width:100%; height:auto; min-height:36px; display:flex; align-items:center; justify-content:space-between; gap:12px; border:0; border-radius:10px; background:white; padding:10px 11px; color:#38566b; font:inherit; font-size:13px; box-shadow:none; text-align:start; cursor:pointer; }
+.language-menu-option:active { transform:none; }
 .language-menu-option[aria-selected="true"] { color:#175e97; background:#f1f7fb; }
 .language-menu-option:hover { background:#f6f9fc; }
 .language-menu-hint { color:#718694; font-size:11px; }
