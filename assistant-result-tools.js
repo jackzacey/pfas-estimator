@@ -65,6 +65,15 @@
   }
 
   function answerBoundaryQuestion(question, systems, language = "en") {
+    const definitionQuestion = String(question || '').trim().replace(/^[¿¡]\s*/, '').replace(/[?？.!。]+$/, '').trim();
+    const asksDefinition = /^(?:what\s+(?:are|is)(?:\s+the)?\s+pfas(?:\s+chemicals)?|(?:briefly\s+)?(?:explain|define)\s+pfas(?:\s+briefly)?)$/i.test(definitionQuestion)
+      || /^(?:qu[eé]\s+(?:son|es)\s+(?:los\s+)?pfas|(?:explique|explica|defina|define)(?:\s+brevemente)?\s+(?:qu[eé]\s+(?:son|es)\s+)?(?:los\s+)?pfas)(?:\s+en\s+(?:dos|2)\s+frases)?$/i.test(definitionQuestion)
+      || /^(?:什么是\s*PFAS|PFAS\s*是什么|(?:简要)?(?:解释|介绍)(?:一下)?\s*PFAS)$/i.test(definitionQuestion);
+    if (asksDefinition) {
+      if (language === 'es') return 'PFAS significa sustancias perfluoroalquiladas y polifluoroalquiladas: un grupo amplio de sustancias químicas fabricadas. Muchas se degradan lentamente y pueden permanecer en el medio ambiente.\n\nFuente: orientación de la EPA sobre PFAS.';
+      if (language === 'zh') return 'PFAS指全氟和多氟烷基物质，是一大类人造化学物质。其中许多物质分解缓慢，可长期残留在环境中。\n\n资料：EPA的PFAS指南。';
+      return 'PFAS stands for per- and polyfluoroalkyl substances, a large group of manufactured chemicals. Many break down slowly and can persist in the environment.\n\nSource: EPA PFAS guidance.';
+    }
     if (language === 'es') return answerSpanishBoundary(question);
     const value = String(question || "").toLowerCase();
     const hasSystems = Array.isArray(systems) && systems.length > 0;

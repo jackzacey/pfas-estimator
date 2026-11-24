@@ -67,4 +67,13 @@ assert.match(
 );
 assert.equal(tools.answerBoundaryQuestion("What is PFOA?", zipSystems, "en"), null);
 
+assert.match(tools.answerBoundaryQuestion('What are PFAS chemicals?', [], 'en'), /per- and polyfluoroalkyl substances/);
+for (const question of ['Explique brevemente qué son los PFAS.', '¿Qué son los PFAS?', 'Explique qué son los PFAS en dos frases.']) {
+  const reply = tools.answerBoundaryQuestion(question, [], 'es');
+  assert.match(reply, /sustancias perfluoroalquiladas y polifluoroalquiladas/);
+  assert.doesNotMatch(reply, /cáncer|per.y.fluoroalquiladas/);
+}
+assert.match(tools.answerBoundaryQuestion('什么是PFAS？', [], 'zh'), /全氟和多氟烷基物质/);
+assert.equal(tools.answerBoundaryQuestion('What are PFAS levels in these results?', [], 'en'), null, 'Definition shortcut must not replace a request for measurements');
+
 console.log("Assistant deterministic-result and boundary tests passed for ZIP 01720.");
