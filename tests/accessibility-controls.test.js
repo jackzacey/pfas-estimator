@@ -42,6 +42,11 @@ const api=context.subject;
  for(const lang of ['hi','ar','fr','bn','ru'])for(const [key,value] of Object.entries(api.COPY.en)){
    if(typeof value==='string'&&value!=='PFAS'&&!(lang==='fr'&&key==='rural'))assert.notEqual(api.COPY[lang][key],value,lang+' copy '+key);
  }
+ for(const lang of ['en','zh','es','hi','ar','fr','bn','ru']){
+   api.configure('zip','pfas',lang);const labels=[];
+   for(const mode of ['zip','provider','id']){api.setSearchMode(mode);labels.push(elements.get('lookupButton').textContent);}
+   assert.equal(new Set(labels).size,1,lang+' uses the same action label so field width cannot change with the search mode');
+ }
  api.configure('provider');await api.run('Raleigh');
  assert.match(elements.get('waterProviderMatches').innerHTML,/RALEIGH, CITY OF/);
  api.configure('provider');await api.run('NC0392010');

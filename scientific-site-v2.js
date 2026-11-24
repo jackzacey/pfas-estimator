@@ -1214,7 +1214,7 @@
       $("lookupSearchHint").hidden=searchMode==='zip';
       $("lookupSearchHint").textContent=searchMode==='provider'?choose("Use the official provider name on your water bill (at least 3 characters).","请使用水费账单上的供水机构正式名称（至少3个字符）。","Use el nombre oficial de su factura (al menos 3 caracteres)."):searchMode==='id'?choose("Enter the exact water system ID, including any letters and leading zeros.","请输入完整系统编号，包括字母和开头的零。","Introduzca el número exacto, incluidas las letras y los ceros iniciales."):'';
     }
-    if($("lookupButton"))$("lookupButton").textContent=!release?text('loadingData'):searchMode==='provider'?choose("Search providers","查找供水机构","Buscar proveedores"):searchMode==='id'?choose("Find this system","查找此系统","Buscar este sistema"):text('findSystems');
+    if($("lookupButton"))$("lookupButton").textContent=!release?text('loadingData'):text('findSystems');
   }
 
   function setSearchMode(mode,focus=false) {
