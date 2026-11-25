@@ -28,6 +28,12 @@ const copy={
       "Research on long-term exposure at drinking-water levels is limited. Much of the evidence for thyroid and kidney effects comes from higher medication doses; it cannot directly predict risk from this water sample.",
       "This is an individual historical sample, not your personal dose or a yearly average. The 10 µg/L screening reference helps flag results for further review; it is not a safe/unsafe cutoff.",
       "Ask your provider for newer lithium results and local public-health guidance. Bring the dated report to a health professional if you have exposure questions. Do not change prescribed medicine based on a water-system result."
+    ],
+    "pfas": [
+      "PFAS means per- and polyfluoroalkyl substances: a large family of manufactured chemicals used in products that resist water, oil, and heat. Many persist in the environment, and some build up in the body.",
+      "Research links exposure to some PFAS with changes in immune response, cholesterol, development, and certain cancers. PFOA and PFOS are better studied than many other PFAS. Effects differ by chemical, exposure level, and duration; a water-system number cannot predict illness.",
+      "These historical samples describe a water system, not your tap or personal exposure. A result below the reporting limit is not proof of zero PFAS. A below-benchmark average does not establish safety, and missing comparisons leave uncertainty.",
+      "Confirm your provider and ask for recent PFAS results and any treatment changes. If considering a filter, check the exact model’s certified PFAS-reduction claim. You can bring the dated provider report to a health professional to discuss exposure questions."
     ]
   },
   "zh": {
@@ -56,6 +62,12 @@ const copy={
       "有关长期接触饮用水中较低浓度锂的研究有限。甲状腺和肾脏影响的证据多来自较高药物剂量，不能直接用来预测这一水样的风险。",
       "这是历史单次样本，并非您的个人摄入量或年度平均值。10 µg/L筛查参考值用于提示进一步评估，不是安全与不安全的分界线。",
       "请向供水机构查询更新的锂检测结果及当地公共卫生建议。如对暴露有疑问，可携带标有日期的报告咨询医疗专业人员。不要根据供水系统结果更改处方药物。"
+    ],
+    "pfas": [
+      "PFAS指全氟和多氟烷基物质，是一大类用于防水、防油和耐热产品的人造化学物质。许多PFAS在环境中长期存在，有些会在体内积累。",
+      "研究将某些PFAS暴露与免疫反应、胆固醇、发育方面的变化以及某些癌症联系起来。PFOA和PFOS比许多其他PFAS研究得更多。影响因物质、暴露水平和时间而异，供水系统的数值不能预测疾病。",
+      "这些历史样本描述供水系统，并非您家水龙头或个人暴露。低于报告限值不证明PFAS为零。平均值低于基准不代表安全，缺失比较仍有不确定性。",
+      "请确认供水机构，查询最新PFAS结果及处理措施变化。若考虑滤水器，请核实具体型号获认证的PFAS去除声明。可携带标有日期的供水报告向医疗专业人员咨询暴露问题。"
     ]
   },
   "es": {
@@ -84,6 +96,12 @@ const copy={
       "La investigación sobre exposición prolongada a niveles del agua potable es limitada. Gran parte de la evidencia sobre tiroides y riñones procede de dosis medicinales más altas y no predice directamente el riesgo de esta muestra.",
       "Es una muestra histórica individual, no su dosis personal ni un promedio anual. La referencia de 10 µg/L orienta una revisión adicional; no separa agua segura de insegura.",
       "Solicite resultados más recientes y orientación de salud pública local. Lleve el informe fechado a un profesional sanitario si tiene dudas. No cambie medicamentos recetados por un resultado del sistema de agua."
+    ],
+    "pfas": [
+      "PFAS significa sustancias perfluoroalquiladas y polifluoroalquiladas: una gran familia de químicos fabricados para productos resistentes al agua, aceite y calor. Muchos persisten en el ambiente y algunos se acumulan en el cuerpo.",
+      "La investigación relaciona la exposición a ciertos PFAS con cambios inmunitarios, colesterol, desarrollo y algunos cánceres. PFOA y PFOS están mejor estudiados que muchos otros PFAS. Los efectos dependen de la sustancia, nivel y duración; un número del sistema no predice enfermedad.",
+      "Estas muestras históricas describen un sistema, no su grifo ni su exposición personal. Estar por debajo del límite de reporte no prueba ausencia de PFAS. Un promedio bajo la referencia no establece seguridad, y las comparaciones faltantes dejan incertidumbre.",
+      "Confirme su proveedor y pida resultados recientes y cambios en el tratamiento. Si considera un filtro, verifique la certificación de reducción de PFAS del modelo exacto. Puede llevar el informe fechado a un profesional sanitario para hablar de sus dudas."
     ]
   },
   "fr": {
@@ -112,6 +130,12 @@ const copy={
       "Les recherches sur une exposition durable aux niveaux de l’eau potable sont limitées. Les données sur les effets thyroïdiens et rénaux viennent surtout de doses médicamenteuses plus élevées ; elles ne prédisent pas directement le risque de cet échantillon.",
       "Il s’agit d’un échantillon historique individuel, pas de votre dose ni d’une moyenne annuelle. Le repère de 10 µg/L aide à orienter un examen ; ce n’est pas une frontière entre sûr et dangereux.",
       "Demandez des résultats plus récents et les conseils sanitaires locaux. Présentez le rapport daté à un professionnel de santé en cas de questions. Ne modifiez pas un traitement prescrit à partir d’un résultat du réseau."
+    ],
+    "pfas": [
+      "PFAS désigne les substances perfluoroalkylées et polyfluoroalkylées : une grande famille de produits chimiques fabriqués pour résister à l’eau, aux huiles et à la chaleur. Beaucoup persistent dans l’environnement et certains s’accumulent dans l’organisme.",
+      "La recherche associe l’exposition à certains PFAS à des effets sur l’immunité, le cholestérol, le développement et certains cancers. Le PFOA et le PFOS sont mieux étudiés que beaucoup d’autres PFAS. Les effets dépendent du composé, du niveau et de la durée ; un résultat du réseau ne prédit pas une maladie.",
+      "Ces anciens échantillons décrivent un réseau, pas votre robinet ni votre exposition. Un résultat sous la limite de déclaration ne prouve pas une absence de PFAS. Une moyenne sous le repère ne garantit pas la sécurité ; les comparaisons manquantes laissent une incertitude.",
+      "Confirmez le fournisseur et demandez des résultats récents et les changements de traitement. Pour un filtre, vérifiez la réduction des PFAS certifiée du modèle exact. Vous pouvez présenter le rapport daté à un professionnel de santé pour discuter de vos questions."
     ]
   },
   "hi": {
@@ -140,6 +164,12 @@ const copy={
       "पीने के पानी के स्तरों पर लंबे संपर्क का शोध सीमित है। थायरॉइड और गुर्दों पर प्रभाव के अधिकतर प्रमाण दवाओं की ऊँची खुराक से हैं; उनसे इस नमूने का जोखिम सीधे नहीं बताया जा सकता।",
       "यह एक पुराना व्यक्तिगत नमूना है, आपकी निजी खुराक या वार्षिक औसत नहीं। 10 µg/L संदर्भ आगे समीक्षा में मदद करता है; यह सुरक्षित और असुरक्षित की सीमा नहीं है।",
       "प्रदाता से नई लिथियम जाँच और स्थानीय सार्वजनिक स्वास्थ्य सलाह माँगें। संपर्क के प्रश्न हों तो तारीख वाला रिपोर्ट स्वास्थ्य पेशेवर को दिखाएँ। पानी की प्रणाली के परिणाम के आधार पर लिखी हुई दवा न बदलें।"
+    ],
+    "pfas": [
+      "PFAS का मतलब पर- और पॉलीफ्लुओरोऐल्किल पदार्थ है: पानी, तेल और गर्मी का प्रतिरोध करने वाले उत्पादों में प्रयुक्त मानव-निर्मित रसायनों का बड़ा समूह। कई पर्यावरण में लंबे समय तक रहते हैं और कुछ शरीर में जमा होते हैं।",
+      "शोध कुछ PFAS के संपर्क को प्रतिरक्षा, कोलेस्ट्रॉल, विकास और कुछ कैंसर से जोड़ता है। PFOA और PFOS का अध्ययन कई अन्य PFAS से अधिक हुआ है। प्रभाव रसायन, संपर्क की मात्रा और अवधि पर निर्भर हैं; प्रणाली का आँकड़ा बीमारी की भविष्यवाणी नहीं करता।",
+      "ये पुराने नमूने जल प्रणाली का वर्णन करते हैं, आपके नल या निजी संपर्क का नहीं। रिपोर्टिंग सीमा से नीचे होना PFAS शून्य होने का प्रमाण नहीं। संदर्भ से कम औसत सुरक्षा साबित नहीं करता; अनुपलब्ध तुलनाओं में अनिश्चितता बनी रहती है।",
+      "प्रदाता की पुष्टि करें और हाल के PFAS परिणाम व उपचार में बदलाव पूछें। फ़िल्टर लें तो ठीक उसी मॉडल का PFAS घटाने का प्रमाणित दावा जाँचें। संपर्क संबंधी प्रश्नों के लिए तारीख वाला रिपोर्ट स्वास्थ्य पेशेवर को दिखा सकते हैं।"
     ]
   },
   "ar": {
@@ -168,6 +198,12 @@ const copy={
       "الأبحاث عن التعرض الطويل بمستويات مياه الشرب محدودة. تأتي معظم أدلة آثار الغدة الدرقية والكلى من جرعات دوائية أعلى؛ ولا تتنبأ مباشرة بخطر هذه العينة.",
       "هذه عينة تاريخية منفردة، وليست جرعتك الشخصية أو متوسطًا سنويًا. يساعد مرجع 10 µg/L على توجيه المراجعة؛ وليس حدًا يفصل الآمن عن غير الآمن.",
       "اطلب نتائج أحدث وإرشادات الصحة العامة المحلية. اعرض التقرير المؤرخ على مختص صحي إذا كانت لديك أسئلة عن التعرض. لا تغير دواءً موصوفًا بناءً على نتيجة نظام المياه."
+    ],
+    "pfas": [
+      "PFAS هي المواد البيرفلورو ألكيلية والبولي فلورو ألكيلية: عائلة كبيرة من مواد مصنّعة تُستخدم في منتجات مقاومة للماء والزيوت والحرارة. يستمر كثير منها في البيئة وقد يتراكم بعضها في الجسم.",
+      "تربط الأبحاث التعرض لبعض PFAS بتغيرات في المناعة والكوليسترول والنمو وبعض السرطانات. دُرس PFOA وPFOS أكثر من كثير من الأنواع الأخرى. تختلف الآثار حسب المادة والمستوى والمدة؛ ولا تتنبأ نتيجة نظام المياه بمرض فردي.",
+      "تصف هذه العينات التاريخية نظام المياه، لا صنبورك أو تعرضك الشخصي. النتيجة دون حد الإبلاغ لا تثبت انعدام PFAS. والمتوسط دون المرجع لا يثبت الأمان؛ وتبقى المقارنات المفقودة مصدرًا لعدم اليقين.",
+      "أكد مزود المياه واطلب نتائج حديثة وأي تغييرات في المعالجة. عند اختيار مرشح، تحقق من ادعاء خفض PFAS المعتمد للطراز المحدد. يمكنك عرض التقرير المؤرخ على مختص صحي لمناقشة أسئلة التعرض."
     ]
   },
   "bn": {
@@ -196,6 +232,12 @@ const copy={
       "পানীয় জলের মাত্রায় দীর্ঘদিন সংস্পর্শের গবেষণা সীমিত। থাইরয়েড ও কিডনির প্রভাবের বেশির ভাগ প্রমাণ ওষুধের বেশি মাত্রা থেকে আসে; তা দিয়ে এই নমুনার ঝুঁকি সরাসরি বলা যায় না।",
       "এটি একটি ঐতিহাসিক পৃথক নমুনা, আপনার ব্যক্তিগত মাত্রা বা বার্ষিক গড় নয়। 10 µg/L নির্দেশক পরবর্তী মূল্যায়নে সাহায্য করে; এটি নিরাপদ ও অনিরাপদের সীমা নয়।",
       "নতুন লিথিয়াম পরীক্ষার ফল ও স্থানীয় জনস্বাস্থ্য পরামর্শ চান। প্রশ্ন থাকলে তারিখসহ রিপোর্ট স্বাস্থ্য পেশাজীবীকে দেখান। জলব্যবস্থার ফলের ভিত্তিতে নির্ধারিত ওষুধ বদলাবেন না।"
+    ],
+    "pfas": [
+      "PFAS অর্থ পার- ও পলিফ্লুরোঅ্যালকাইল পদার্থ: জল, তেল ও তাপ প্রতিরোধী পণ্যে ব্যবহৃত মানবসৃষ্ট রাসায়নিকের বড় পরিবার। অনেকগুলি পরিবেশে দীর্ঘদিন থাকে এবং কিছু শরীরে জমে।",
+      "গবেষণায় কিছু PFAS-এর সংস্পর্শের সঙ্গে রোগপ্রতিরোধ, কোলেস্টেরল, বিকাশের পরিবর্তন এবং কিছু ক্যানসারের যোগ পাওয়া গেছে। PFOA ও PFOS অনেক অন্য PFAS-এর চেয়ে বেশি গবেষিত। প্রভাব পদার্থ, মাত্রা ও সময়ভেদে বদলায়; ব্যবস্থার সংখ্যা দিয়ে ব্যক্তির রোগ বলা যায় না।",
+      "এই ঐতিহাসিক নমুনা জলব্যবস্থা সম্পর্কে, আপনার কল বা ব্যক্তিগত সংস্পর্শ সম্পর্কে নয়। রিপোর্টিং সীমার নিচে মানে PFAS শূন্য প্রমাণ নয়। নির্দেশকের নিচে গড় নিরাপত্তা প্রমাণ করে না; অনুপস্থিত তুলনায় অনিশ্চয়তা থাকে।",
+      "প্রদানকারী নিশ্চিত করে নতুন PFAS ফল ও শোধনের পরিবর্তন জিজ্ঞাসা করুন। ফিল্টার নিলে নির্দিষ্ট মডেলের সনদপ্রাপ্ত PFAS কমানোর দাবি যাচাই করুন। সংস্পর্শের প্রশ্ন নিয়ে তারিখসহ রিপোর্ট স্বাস্থ্য পেশাজীবীকে দেখাতে পারেন।"
     ]
   },
   "ru": {
@@ -224,10 +266,16 @@ const copy={
       "Исследования длительного воздействия на уровнях питьевой воды ограничены. Большинство данных о щитовидной железе и почках получено при более высоких лекарственных дозах; они не предсказывают напрямую риск этой пробы.",
       "Это отдельная историческая проба, а не ваша личная доза или годовое среднее. Ориентир 10 µg/L помогает определить необходимость изучения; это не граница между безопасным и опасным.",
       "Попросите новые результаты и местные рекомендации здравоохранения. При вопросах покажите датированный отчёт медицинскому специалисту. Не меняйте назначенные лекарства по результату системы водоснабжения."
+    ],
+    "pfas": [
+      "PFAS — пер- и полифторалкильные вещества: большая группа искусственных химикатов для изделий, устойчивых к воде, маслам и нагреву. Многие долго сохраняются в среде, а некоторые накапливаются в организме.",
+      "Исследования связывают воздействие некоторых PFAS с изменениями иммунитета, холестерина, развития и некоторыми видами рака. PFOA и PFOS изучены лучше многих других PFAS. Эффекты зависят от вещества, уровня и длительности; число для системы не предсказывает заболевание.",
+      "Исторические пробы описывают систему, а не ваш кран или личное воздействие. Результат ниже предела отчётности не доказывает отсутствие PFAS. Среднее ниже ориентира не гарантирует безопасность; пропущенные сравнения оставляют неопределённость.",
+      "Уточните поставщика, запросите свежие результаты PFAS и сведения об изменениях очистки. Выбирая фильтр, проверяйте сертифицированное снижение PFAS для точной модели. Датированный отчёт можно обсудить с медицинским специалистом."
     ]
   }
 };
-const sources={lead:[['EPA','https://www.epa.gov/ground-water-and-drinking-water/basic-information-about-lead-drinking-water'],['CDC','https://www.cdc.gov/lead-prevention/prevention/drinking-water.html']],copper:[['ATSDR','https://www.atsdr.cdc.gov/toxprofiles/tp132-c1.pdf'],['Health Canada','https://www.canada.ca/en/health-canada/services/publications/healthy-living/water-talk-copper.html']],lithium:[['EPA','https://www.epa.gov/system/files/documents/2023-11/ucmr5-technical-fact-sheet-lithium-in-drinking-water.pdf']]};
+const sources={pfas:[['EPA','https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas'],['ATSDR','https://www.atsdr.cdc.gov/pfas/about/index.html']],lead:[['EPA','https://www.epa.gov/ground-water-and-drinking-water/basic-information-about-lead-drinking-water'],['CDC','https://www.cdc.gov/lead-prevention/prevention/drinking-water.html']],copper:[['ATSDR','https://www.atsdr.cdc.gov/toxprofiles/tp132-c1.pdf'],['Health Canada','https://www.canada.ca/en/health-canada/services/publications/healthy-living/water-talk-copper.html']],lithium:[['EPA','https://www.epa.gov/system/files/documents/2023-11/ucmr5-technical-fact-sheet-lithium-in-drinking-water.pdf']]};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function render(key,lang='en',{report=false,available=true}={}){
  if(!sources[key])return '';

@@ -869,6 +869,7 @@
       <div class="compact-outcomes">${rows}</div>
       <p class="compact-caption">${choose('“Below” means below the reporting limit, not zero. The mixture index has no units.','“低于”指低于报告限值，并非为零。混合物指数没有单位。','«Menos de» significa por debajo del límite de reporte, no cero. El índice de mezcla no tiene unidades.')}</p>
       <p class="compact-limit">${choose('Historical system results, not a home tap test or personal health assessment. Ask your provider for recent results.','历史系统结果，并非家庭水龙头检测或个人健康评估。请向供水机构查询最新结果。','Resultados históricos del sistema, no una prueba del grifo ni una evaluación de salud personal. Pida resultados recientes a su proveedor.')}</p>
+      ${typeof ChemicalContext !== 'undefined' ? ChemicalContext.render('pfas',currentLang) : ''}
       <p class="compact-next"><a href="${escapeHtml(nextUrl)}" target="_blank" rel="noopener noreferrer">${nextLabel} →</a></p>
       <details class="compound-results-details"><summary>${choose('Terms and symbols','术语与符号','Términos y símbolos')}</summary><dl class="home-term-list">
         <div><dt>${choose('Study reference','研究参考值','Referencia de estudio')}</dt><dd>${choose('A fixed comparison based on EPA’s April 2024 levels. It does not decide current compliance or whether your home’s water is safe.','基于EPA于2024年4月水平的固定比较值，不能判定当前合规性或您家水质是否安全。','Una comparación fija basada en los niveles de la EPA de abril de 2024. No determina el cumplimiento actual ni si el agua de su hogar es segura.')}</dd></div>
