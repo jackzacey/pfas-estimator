@@ -1,0 +1,8 @@
+.chemical-context { margin-block:18px; padding-top:14px; border-top:1px solid #e0e9f1; }
+.chemical-context h4,.chemical-context h5 { margin:12px 0 5px; color:#34566e; font:inherit; font-weight:600; }
+.chemical-context p { margin:5px 0 12px; line-height:1.65; overflow-wrap:anywhere; }
+.chemical-context summary { color:#175e97; cursor:pointer; line-height:1.6; }
+.chemical-context-detail { padding:0 14px 4px; }
+.chemical-context a { color:#175e97; }
+.chemical-sources { font-size:.88em; }
+@media print { .chemical-context { break-inside:auto; } .chemical-context a { color:inherit; } }

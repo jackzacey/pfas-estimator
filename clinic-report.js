@@ -5,6 +5,7 @@
   else {root.PFASClinicReport=api;api.start();}
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   'use strict';
+  const health=typeof ChemicalContext!=='undefined'?ChemicalContext:typeof module==='object'&&module.exports&&typeof require==='function'?require('./chemical-context'):null;
   const BASE='/analysis/exports/ucmr5_final_aug2026_v1/';
   const LOOKUP_SHA='d550e4671692540111f41da3f050ca866b9b4a7a5e8afac5f424ee36c29ef314';
   const KEYS=['pfoa','pfos','pfhxs','pfna','hfpo_da','hi'];
@@ -77,7 +78,7 @@
     return `<section class="report-section"><h3>${title}</h3>${table([x(lang,'Measure','指标','Medida'),x(lang,'Result','结果','Resultado'),x(lang,'Sample dates','采样日期','Fechas de muestras')],[[
       esc(summary.detected?x(lang,'Highest individual sample','最高单次样本','Muestra individual más alta'):x(lang,'All samples below reporting limits','所有样本低于报告限值','Todas las muestras por debajo del límite de reporte')),
       `<strong dir="auto">${esc(value)}</strong>`,`<bdi dir="ltr">${esc(dates[0]+' – '+dates.at(-1))}</bdi>`]])}
-      <p>${esc(x(lang,'Individual samples, not yearly averages. µg/L = micrograms per liter (about parts per billion).','单次样本，并非年度平均值。µg/L为微克/升（约十亿分之一）。','Muestras individuales, no promedios anuales. µg/L = microgramos por litro (aproximadamente partes por mil millones).'))}</p></section>`;
+      <p>${esc(x(lang,'Individual samples, not yearly averages. µg/L = micrograms per liter (about parts per billion).','单次样本，并非年度平均值。µg/L为微克/升（约十亿分之一）。','Muestras individuales, no promedios anuales. µg/L = microgramos por litro (aproximadamente partes por mil millones).'))}</p>${health ? health.render('lithium',lang,{report:true}) : ''}</section>`;
   }
   function lcrSection(data,lang){
     const title=x(lang,'Lead & copper','铅和铜','Plomo y cobre');
@@ -94,7 +95,7 @@
     });
     return `<section class="report-section"><h3>${title}</h3><p>${esc(x(lang,'Latest reported 90th percentiles: the upper end of results from selected taps, not a system average or your home’s result. Dates may differ by chemical.','最新报告的第90百分位：所选水龙头样本结果的较高端，并非系统平均值或您家的结果。不同物质的日期可能不同。','Últimos percentiles 90 reportados: la parte alta de resultados de grifos seleccionados, no un promedio del sistema ni el resultado de su hogar. Las fechas pueden variar según la sustancia.'))}</p>
       ${table([x(lang,'Chemical','物质','Sustancia'),x(lang,'Reported result','报告结果','Resultado reportado'),x(lang,'Monitoring period','监测期','Período de pruebas')],rows)}
-      <p>${esc(x(lang,'Values in µg/L. “<” means below the reporting limit, not zero. Ask the provider for newer records.','单位为µg/L。“<”表示低于报告限值，并非为零。请向供水机构查询更新记录。','Valores en µg/L. «<» significa por debajo del límite de reporte, no cero. Pida registros más recientes al proveedor.'))}</p></section>`;
+      <p>${esc(x(lang,'Values in µg/L. “<” means below the reporting limit, not zero. Ask the provider for newer records.','单位为µg/L。“<”表示低于报告限值，并非为零。请向供水机构查询更新记录。','Valores en µg/L. «<» significa por debajo del límite de reporte, no cero. Pida registros más recientes al proveedor.'))}</p>${health ? ['lead','copper'].map(key=>health.render(key,lang,{report:true,available:!!data.lcr[key]?.length})).join('') : ''}</section>`;
   }
   function qrSvg(url){
     const qr=qrcodegen.QrCode.encodeText(url,qrcodegen.QrCode.Ecc.MEDIUM),border=4,size=qr.size+border*2;

@@ -5,6 +5,7 @@
   else root.DrinkingWaterRecords = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
+  const health = typeof ChemicalContext !== 'undefined' ? ChemicalContext : typeof module==='object' && module.exports && typeof require==='function' ? require('./chemical-context') : null;
   const BASE = '/data/drinking-water';
   const RELEASE = 'drinking-water-2026-11-23-v1';
   const MANIFEST_SHA = '0f57390b777e224b4c25cb8440f374f9f8443730ab489585bb258d82711d1c4e';
@@ -98,12 +99,12 @@
       <div class="water-record-value"><span>${label}</span><strong dir="auto">${esc(value)}</strong></div>
       <p class="compact-caption">${x(lang,'µg/L = micrograms per liter (about parts per billion). “<” means below the reporting limit, not zero.','µg/L为微克/升（约十亿分之一）。“<”表示低于报告限值，并非为零。','µg/L = microgramos por litro (aproximadamente partes por mil millones). «<» significa por debajo del límite de reporte, no cero.')}</p>
       <p>${comparison} ${x(lang,'This is not an enforceable drinking-water limit.','这不是可强制执行的饮用水限值。','Esta referencia no es un límite de agua potable exigible por ley.')}</p>
-      <details class="compound-results-details"><summary>${x(lang,'Samples and test dates','样本与检测日期','Muestras y fechas de pruebas')} (${rows.length})</summary>${table([x(lang,'Date','日期','Fecha'),x(lang,'Result (µg/L)','结果（µg/L）','Resultado (µg/L)'),x(lang,'Location','采样点','Punto')],rows.map(r=>[r[0],`${r[2]==='<'?'< ':''}${number(r[1])}`,`${r[3]} / ${r[4]}`]))}</details>`;
+      <details class="compound-results-details"><summary>${x(lang,'Samples and test dates','样本与检测日期','Muestras y fechas de pruebas')} (${rows.length})</summary>${table([x(lang,'Date','日期','Fecha'),x(lang,'Result (µg/L)','结果（µg/L）','Resultado (µg/L)'),x(lang,'Location','采样点','Punto')],rows.map(r=>[r[0],`${r[2]==='<'?'< ':''}${number(r[1])}`,`${r[3]} / ${r[4]}`]))}</details>${health ? health.render('lithium',lang) : ''}`;
   }
   function renderLcrChemical(system,key,lang) {
     const name=key==='lead'?x(lang,'Lead','铅','Plomo'):x(lang,'Copper','铜','Cobre');
     const rows=system[key];
-    if(!rows.length)return `<section class="water-record-chemical"><h4>${name}</h4><p>${x(lang,'No result available here. Ask your provider for its latest tests.','此处无可用结果。请向供水机构查询最新检测。','No hay un resultado disponible aquí. Pida las pruebas más recientes a su proveedor.')}</p></section>`;
+    if(!rows.length)return `<section class="water-record-chemical"><h4>${name}</h4><p>${x(lang,'No result available here. Ask your provider for its latest tests.','此处无可用结果。请向供水机构查询最新检测。','No hay un resultado disponible aquí. Pida las pruebas más recientes a su proveedor.')}</p>${health ? health.render(key,lang,{available:false}) : ''}</section>`;
     const latest=latestRecords(rows);
     const values=[...new Set(latest.map(r=>`${r[3]==='<'?'< ':''}${number(r[2])}`))];
     const display=values.length===1?`${values[0]} µg/L`:x(lang,'Multiple reported values — see records','存在多个报告值—请查看记录','Varios valores reportados: consulte los registros');
@@ -112,7 +113,7 @@
       ${latest.some(r=>r[3]==='')?`<p class="compact-caption">${x(lang,'Reported value; the source does not specify a detection symbol.','此为报告值；原始资料未注明检出符号。','Valor reportado; la fuente no especifica un símbolo de detección.')}</p>`:''}
       ${latest.some(r=>r[2]===0)?`<p class="compact-caption">${x(lang,'A reported zero does not mean zero lead or copper at your faucet.','报告值为零不代表您家水龙头的铅或铜含量为零。','Un cero reportado no significa que su grifo no contenga plomo o cobre.')}</p>`:''}
       <details class="compound-results-details"><summary>${x(lang,'Test records','检测记录','Registros de pruebas')}</summary><p>${x(lang,'Up to five recent monitoring periods are shown. Differing reported values are kept separate.','显示最近最多五个监测期。不同报告值分别保留。','Se muestran hasta cinco períodos recientes. Los valores diferentes se mantienen separados.')}</p>
-      ${table([x(lang,'Monitoring period','监测期','Período de monitoreo'),x(lang,'90th percentile (µg/L)','第90百分位（µg/L）','Percentil 90 (µg/L)'),x(lang,'Reported symbol','报告符号','Símbolo reportado')],rows.map(r=>[`${r[0]||'—'} – ${r[1]}`,`${r[3]==='<'?'< ':''}${number(r[2])}`,r[3]||x(lang,'Not supplied','未提供','No indicado')]))}</details></section>`;
+      ${table([x(lang,'Monitoring period','监测期','Período de monitoreo'),x(lang,'90th percentile (µg/L)','第90百分位（µg/L）','Percentil 90 (µg/L)'),x(lang,'Reported symbol','报告符号','Símbolo reportado')],rows.map(r=>[`${r[0]||'—'} – ${r[1]}`,`${r[3]==='<'?'< ':''}${number(r[2])}`,r[3]||x(lang,'Not supplied','未提供','No indicado')]))}</details>${health ? health.render(key,lang) : ''}</section>`;
   }
   function renderSystem(system,mode,lang) {
     const historic=system.active&&system.active!=='A';
