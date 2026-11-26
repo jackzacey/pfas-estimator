@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PFAS Estimator | Drinking-Water Results</title>
-  <meta name="description" content="Find historical PFAS, lithium, lead and copper results for your water provider. Search by ZIP code or provider name." />
+  <meta name="description" content="Find historical PFAS, lithium, lead, copper, arsenic and nitrate results for your water provider. Search by ZIP code or provider name." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <link rel="canonical" href="https://pfasestimator.org/" />
   <meta name="author" content="Jack Zhang" />
@@ -16,13 +16,13 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="PFAS Estimator" />
   <meta property="og:title" content="PFAS Estimator | Drinking-Water Results" />
-  <meta property="og:description" content="Find historical PFAS, lithium, lead and copper results for your water provider. Search by ZIP code or provider name." />
+  <meta property="og:description" content="Find historical PFAS, lithium, lead, copper, arsenic and nitrate results for your water provider. Search by ZIP code or provider name." />
   <meta property="og:url" content="https://pfasestimator.org/" />
   <meta property="og:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
   <meta property="og:locale" content="en_US" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="PFAS Estimator | Drinking-Water Results" />
-  <meta name="twitter:description" content="Find historical PFAS, lithium, lead and copper results for your water provider. Search by ZIP code or provider name." />
+  <meta name="twitter:description" content="Find historical PFAS, lithium, lead, copper, arsenic and nitrate results for your water provider. Search by ZIP code or provider name." />
   <meta name="twitter:image" content="https://pfasestimator.org/pfas-estimator-social.png?v=20260825-water-pin" />
 
   <script type="application/ld+json">
@@ -85,10 +85,11 @@
   <script defer src="/lookup-evidence.js?v=20261019-sample-context1"></script>
   <script defer src="/assistant-result-tools.js?v=20261124-definitions"></script>
   <link rel="stylesheet" href="/chemical-context.css?v=20261125" />
-  <script defer src="/chemical-context.js?v=20261125-pfas"></script>
-  <script defer src="/drinking-water-records.js?v=20261125-context"></script>
+  <script defer src="/chemical-context.js?v=20261126-syr4"></script>
+  <script defer src="/syr4-records.js?v=20261126"></script>
+  <script defer src="/drinking-water-records.js?v=20261126-syr4"></script>
   <script defer src="/pfas-sample-trace.js?v=20261124-accessible"></script>
-  <script defer src="/scientific-site-v2.js?v=20261125-pfas-context"></script>
+  <script defer src="/scientific-site-v2.js?v=20261126-syr4"></script>
 </head>
 <body class="home-body">
 <a class="skip-link" href="#lookup-content" data-i18n="skipLookup">Skip to lookup</a>
@@ -138,6 +139,8 @@
               <label><input type="radio" name="water-result-mode" value="pfas" checked /><span><abbr id="pfasModeLabel" title="Per- and polyfluoroalkyl substances">PFAS</abbr></span></label>
               <label><input type="radio" name="water-result-mode" value="lithium" /><span id="lithiumModeLabel">Lithium</span></label>
               <label><input type="radio" name="water-result-mode" value="lcr" /><span id="lcrModeLabel">Lead &amp; copper</span></label>
+              <label><input type="radio" name="water-result-mode" value="arsenic" /><span id="arsenicModeLabel">Arsenic</span></label>
+              <label><input type="radio" name="water-result-mode" value="nitrate" /><span id="nitrateModeLabel">Nitrate</span></label>
             </fieldset>
             <p class="water-mode-note" id="waterModeNote">Map and state summaries show PFAS.</p>
           </div>

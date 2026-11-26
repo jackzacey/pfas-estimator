@@ -7,7 +7,7 @@ const context=require('../chemical-context');
 const records=require('../drinking-water-records');
 for(const lang of ['en','zh','es','hi','ar','fr','bn','ru']){
  assert.equal(context.copy[lang].labels.length,6);
- for(const key of ['lead','copper','lithium','pfas']){
+ for(const key of ['lead','copper','lithium','pfas','arsenic','nitrate']){
   assert.equal(context.copy[lang][key].length,4);
   const html=context.render(key,lang);
   for(const sentence of context.copy[lang][key])assert(html.includes(sentence.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;')),'Every translated definition/research/meaning/next step is present');
@@ -29,4 +29,4 @@ for(const file of ['index.html','report/index.html']){
  assert(html.indexOf('/chemical-context.js')<html.indexOf('/drinking-water-records.js'));
  assert(html.includes('/chemical-context.css'));
 }
-console.log('Chemical meaning checks passed: 4 chemical groups × 8 languages, source links, missing-result handling, printable expanded content, and page dependency order.');
+console.log('Chemical meaning checks passed: 6 chemical groups × 8 languages, source links, missing-result handling, printable expanded content, and page dependency order.');

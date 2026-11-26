@@ -1196,7 +1196,8 @@
 
   function updateWaterModeLabels() {
     const zh = currentLang === "zh";
-    const labels={waterRecordLegend:choose("Results","结果","Resultados"),lithiumModeLabel:choose("Lithium","锂","Litio"),lcrModeLabel:choose("Lead & copper","铅和铜","Plomo y cobre"),waterModeNote:choose("Map and state summaries show PFAS.","地图及各州汇总显示PFAS。","El mapa y los resúmenes por estado muestran PFAS.")};
+    for(const id of ["releaseStatus","lookupDataNote"])if($(id))$(id).hidden=waterMode!=="pfas";
+    const labels={arsenicModeLabel:choose("Arsenic","砷","Arsénico"),nitrateModeLabel:choose("Nitrate","硝酸盐","Nitrato"),waterRecordLegend:choose("Results","结果","Resultados"),lithiumModeLabel:choose("Lithium","锂","Litio"),lcrModeLabel:choose("Lead & copper","铅和铜","Plomo y cobre"),waterModeNote:choose("Map and state summaries show PFAS.","地图及各州汇总显示PFAS。","El mapa y los resúmenes por estado muestran PFAS.")};
     for(const [id,value] of Object.entries(labels))if($(id))$(id).textContent=value;
     document.querySelectorAll('[name="water-result-mode"]').forEach(input=>{input.checked=input.value===waterMode;});
     if($("chatDisclosure"))$("chatDisclosure").hidden=waterMode!=="pfas";
@@ -1345,7 +1346,7 @@
       updateReleaseLabels();
       $("lookupButton").disabled = false;
       const params = new URLSearchParams(window.location.search);
-      if (["lithium", "lcr"].includes(params.get("view"))) waterMode = params.get("view");
+      if (["lithium", "lcr", "arsenic", "nitrate"].includes(params.get("view"))) waterMode = params.get("view");
       updateWaterModeLabels();
       const deepLink = params.get("zip");
       if (params.has("system")) {
@@ -1386,7 +1387,7 @@
   }, true);
   $("waterRecordModes")?.addEventListener("change", event => {
     const mode = event.target.value;
-    if (!["pfas", "lithium", "lcr"].includes(mode) || mode === waterMode) return;
+    if (!["pfas", "lithium", "lcr", "arsenic", "nitrate"].includes(mode) || mode === waterMode) return;
     waterMode = mode;
     waterGeneration++; providerSearchGeneration++;
     $("waterProviderMatches").innerHTML = "";

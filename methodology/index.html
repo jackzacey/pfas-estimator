@@ -64,8 +64,9 @@
       <p class="methodology-lede">The lookup covers per- and polyfluoroalkyl substances (PFAS), lithium, lead, and copper using U.S. Environmental Protection Agency (EPA) records. PFAS and lithium come from the Fifth Unregulated Contaminant Monitoring Rule (UCMR 5); lead and copper use reported tap-sampling summaries. Review the calculation details below, followed by the separate PFAS research methods.</p>
 
       <div class="methodology-meta" aria-label="Website data versions">
-        <span><strong>PFAS &amp; lithium</strong> Final UCMR 5, August 2026</span>
-        <span><strong>Lead &amp; copper</strong> Safe Drinking Water Information System (SDWIS), 2026 Q3</span>
+        <span><strong>PFAS &amp; lithium</strong> <a href="https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule" target="_blank" rel="noopener noreferrer">Final UCMR 5, August 2026</a></span>
+        <span><strong>Lead &amp; copper</strong> <a href="https://echo.epa.gov/tools/data-downloads#drinkingwater" target="_blank" rel="noopener noreferrer">Safe Drinking Water Information System (SDWIS), 2026 Q3</a></span>
+        <span><strong>Arsenic &amp; nitrate</strong> <a href="https://www.epa.gov/dwsixyearreview/six-year-review-4-compliance-monitoring-data-2012-2019" target="_blank" rel="noopener noreferrer">EPA Six-Year Review 4, samples collected 2012–2019</a></span>
       </div>
     </header>
 
@@ -76,6 +77,7 @@
         <a href="#sources">Data sources</a>
         <a href="#sample-trace">PFAS samples and calculations</a>
         <a href="#additional-chemicals">Lithium, lead, and copper</a>
+        <a href="#arsenic-nitrate">Arsenic and nitrate</a>
         <a href="#filters">Filter guidance</a>
         <a href="#cohort">Systems included</a>
         <a href="#outcomes">PFAS comparisons</a>
@@ -89,6 +91,7 @@
       </aside>
 
       <main class="methodology-content" id="methodology-content">
+
 <section class="methodology-section" id="overview">
           <div class="methodology-section-heading">
             <span class="methodology-section-number">01</span>
@@ -100,7 +103,7 @@
 
           <ol class="pipeline-list consumer-method-steps">
             <li class="pipeline-step"><div class="pipeline-step-index">1</div><div><h3>Match the system name</h3><p>A ZIP code can contain several water systems. Find the utility name on your water bill and use the result for that system. The ZIP search alone cannot identify the supplier for a specific address.</p></div></li>
-            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the dates and selected chemical</h3><p>PFAS cards show the highest yearly average among a system’s sampling locations. Lithium shows individual samples. Lead and copper show reported 90th percentiles from selected taps. These different statistics are explained <a href="#additional-chemicals">below</a>; none is a test of your home’s water.</p></div></li>
+            <li class="pipeline-step"><div class="pipeline-step-index">2</div><div><h3>Check the dates and selected chemical</h3><p>PFAS cards show the highest yearly average among a system’s sampling locations. Lithium shows individual samples. Lead and copper show reported 90th percentiles from selected taps. Arsenic and nitrate show samples from the latest available sampled year in the historical 2012–2019 dataset. These different statistics are explained <a href="#additional-chemicals">below</a>; none is a test of your home’s water.</p></div></li>
             <li class="pipeline-step"><div class="pipeline-step-index">3</div><div><h3>Read comparisons in context</h3><p>PFAS study references follow EPA’s final UCMR 5 technical-assistance classification based on the April 2024 federal levels and rounding rules. Lithium has a separate screening reference. The website does not classify lead/copper compliance. None of these results determines current legal compliance or household safety.</p></div></li>
           </ol>
 
@@ -122,7 +125,7 @@
           </div>
 
           <ul class="source-list">
-            <li><strong>Website PFAS monitoring:</strong> final EPA UCMR 5 occurrence files and the unfiltered Average PFAS Results table downloaded October 19, 2026. All 160,223 average-result rows match for presence, completeness, displayed averages, and technical-comparison flags.</li><li><strong>Other website chemicals:</strong> lithium uses individual samples from the final UCMR 5 occurrence file; lead and copper use reported tap-sampling summaries in the SDWIS 2026 Q3 snapshot. See <a href="#additional-chemicals">selection rules and limitations</a>.</li><li><strong>Archived PFAS research monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
+            <li><strong>Website PFAS monitoring:</strong> final EPA UCMR 5 occurrence files and the unfiltered Average PFAS Results table downloaded October 19, 2026. All 160,223 average-result rows match for presence, completeness, displayed averages, and technical-comparison flags.</li><li><strong>Other website chemicals:</strong> lithium uses individual samples from the final UCMR 5 occurrence file; lead and copper use reported tap-sampling summaries in the SDWIS 2026 Q3 snapshot. See <a href="#additional-chemicals">selection rules and limitations</a>.</li><li><strong>Website arsenic and nitrate:</strong> EPA Six-Year Review 4 compliance-monitoring records collected during 2012–2019. See <a href="#arsenic-nitrate">sample-selection rules and exposure literature</a>, the <a href="/data/syr4/manifest.json">dataset manifest</a>, and <a href="/analysis/exports/syr4_source_verification.json">source-row verification</a>.</li><li><strong>Archived PFAS research monitoring:</strong> EPA UCMR 5 occurrence records received through January 15, 2026 and EPA’s January 2026 Average PFAS Results export.</li>
             <li><strong>System characteristics:</strong> EPA SDWIS Federal Reporting Services.</li>
             <li><strong>Service areas:</strong> EPA Public Water System Service Areas version 3, including system-sourced and modeled boundaries.</li>
             <li><strong>Demographics:</strong> 2020–2024 American Community Survey (ACS) block-group estimates and Census Planning Database urban/rural fields.</li>
@@ -162,6 +165,13 @@
           <p><strong>Provider matching:</strong> lithium uses reported UCMR 5 service-ZIP associations; lead/copper uses SDWIS <code>ZIP_CODE_SERVED</code> associations. Mailing-address ZIPs are not used. Known excluded or pending UCMR associations are withheld. Other associations have not been independently verified. Wholesale, non-community, and inactive systems are labeled. A provider-name or exact-ID search is available if ZIP associations are missing. A missing result does not mean no contamination or no testing. These sources do not cover private wells.</p>
           <p><strong>Reproducibility:</strong> the <a href="/data/drinking-water/manifest.json">additional-records manifest</a> contains source SHA-256 fingerprints, counts, file checksums, field definitions, and selection rules. The builder is <a href="/analysis/scripts/21_build_drinking_water_records.py">21_build_drinking_water_records.py</a>. Data are loaded in small, checksum-verified files when requested. Database snapshot dates are shown separately from actual monitoring dates. Original downloads: <a href="https://www.epa.gov/dwucmr/occurrence-data-unregulated-contaminant-monitoring-rule" target="_blank" rel="noopener noreferrer">UCMR occurrence data ↗</a> and <a href="https://echo.epa.gov/tools/data-downloads#drinkingwater" target="_blank" rel="noopener noreferrer">SDWIS drinking-water records ↗</a>. <a href="https://echo.epa.gov/tools/data-downloads/sdwis-download-summary" target="_blank" rel="noopener noreferrer">SDWIS field dictionary ↗</a></p>
         </section>
+
+        <section id="arsenic-nitrate" class="methodology-section"><div class="methodology-section-heading"><span class="methodology-section-number">04b</span><div><h2>Arsenic and nitrate: historical national records</h2><p>EPA Six-Year Review 4 · samples collected 2012–2019.</p></div></div>
+<p>EPA’s Six-Year Review 4 contains samples collected in 2012–2019. We show samples explicitly marked finished water (FN), or at entry points (EP) and distribution points (DS), excluding explicitly raw water and known nonroutine samples. Unknown source-water treatment status can remain at EP/DS points. Finished-water records with missing point codes are retained. A blank sample-type code is retained as unspecified, not assumed routine. No current compliance or household exposure determination is made.</p>
+<p>For each system and chemical, all eligible records in the latest available sampled calendar year are retained. The headline is the highest quantified detection in that year, not an annual average; nondetects are listed separately and are not set to zero. A nondetect uses DETECTION_LIMIT_VALUE and its unit; a missing or zero limit remains unknown. Arsenic is displayed as total arsenic in µg/L. Nitrate is displayed in mg/L as nitrogen, not nitrate-ion mass. Combined nitrate/nitrite and EPA’s hybrid nitrate file are not substituted.</p>
+<p>Source result IDs, original values, units, reporting-limit fields and source row numbers are provided in each result’s sample table. ZIP links reuse reported service associations and existing exclusions; later associations do not prove historical or household service. Historical names and system types are preserved. Missing coverage is not evidence of clean water.</p>
+<p><a href="https://www.epa.gov/dwsixyearreview/six-year-review-4-compliance-monitoring-data-2012-2019">EPA downloads and data dictionary</a> · <a href="https://www.who.int/news-room/fact-sheets/detail/arsenic">WHO arsenic evidence</a> · <a href="https://www.cancer.gov/about-cancer/causes-prevention/risk/substances/arsenic">NCI arsenic</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/29435982/">Schullehner et al. (2018), nitrate cohort</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/40628182/">Erichsen et al. (2025), nitrate cohort</a></p>
+<p>The nitrate studies assess long-term exposure and show associations for particular outcomes; they do not establish causation or let this tool calculate individual risk. The established infant oxygen-transport concern is distinct from uncertain chronic-disease associations. See the chemical explanation under each provider for practical next steps.</p></section>
 
         <section class="methodology-section" id="filters">
           <h2>Filters, certification, and next steps</h2>

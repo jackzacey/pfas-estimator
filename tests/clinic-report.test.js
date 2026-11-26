@@ -10,7 +10,7 @@ function environment(corrupt=''){
   const calls=[];
   const context=vm.createContext({console,crypto:webcrypto,TextEncoder,Uint8Array,URLSearchParams,
     fetch:async url=>{calls.push(url);const file=path.join(root,url);let raw=fs.readFileSync(file,'utf8');if(corrupt&&url.includes(corrupt))raw+=' ';return {ok:true,text:async()=>raw};}});
-  for(const name of ['vendor/qrcodegen.js','chemical-context.js','drinking-water-records.js','pfas-sample-trace.js'])vm.runInContext(read(name),context);
+  for(const name of ['vendor/qrcodegen.js','chemical-context.js','syr4-records.js','drinking-water-records.js','pfas-sample-trace.js'])vm.runInContext(read(name),context);
   context.module={exports:{}};
   vm.runInContext(read('clinic-report.js'),context);
   return {api:context.module.exports,context,calls};

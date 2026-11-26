@@ -19,7 +19,7 @@
   function providerUrl(id,lang='en',view='pfas'){
     if(!validId(id))throw new Error('Invalid water-system ID');
     const params=new URLSearchParams({system:id,lang:language(lang)});
-    if(['lithium','lcr'].includes(view))params.set('view',view);
+    if(['lithium','lcr','arsenic','nitrate'].includes(view))params.set('view',view);
     return 'https://pfasestimator.org/?'+params+'#result';
   }
   function table(headers,rows){return `<table class="report-table"><thead><tr>${headers.map(h=>`<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${row.map(cell=>`<td>${cell}</td>`).join('')}</tr>`).join('')}</tbody></table>`;}
@@ -38,12 +38,12 @@
   }
   async function load(id){
     if(!validId(id))throw new Error('Invalid water-system ID');
-    const settled=await Promise.allSettled([pfasRecord(id),DrinkingWaterRecords.query({id,mode:'lithium'}),DrinkingWaterRecords.query({id,mode:'lcr'})]);
-    const [pfas,li,lcr]=settled.map(r=>r.status==='fulfilled'?r.value:null);
-    const supplemental=li?.systems[0]||lcr?.systems[0]||null;
+    const settled=await Promise.allSettled([pfasRecord(id),DrinkingWaterRecords.query({id,mode:'lithium'}),DrinkingWaterRecords.query({id,mode:'lcr'}),DrinkingWaterRecords.query({id,mode:'arsenic'}),DrinkingWaterRecords.query({id,mode:'nitrate'})]);
+    const [pfas,li,lcr,arsenic,nitrate]=settled.map(r=>r.status==='fulfilled'?r.value:null);
+    const supplemental=li?.systems[0]||lcr?.systems[0]||arsenic?.systems[0]||nitrate?.systems[0]||null;
     const system=pfas?.system;
     return {id,name:system?.ucmr_pws_name||supplemental?.name||'',state:system?.sdwis_state_code||supplemental?.state||'',pfas,
-      lithium:li?.systems[0]||null,lcr:lcr?.systems[0]||null,metadata:supplemental||null,
+      arsenic:arsenic?.systems[0]||null,nitrate:nitrate?.systems[0]||null,lithium:li?.systems[0]||null,lcr:lcr?.systems[0]||null,metadata:supplemental||null,
       failed:settled.map(r=>r.status==='rejected'),snapshot:lcr?.manifest?.sdwis_snapshot||li?.manifest?.sdwis_snapshot||''};
   }
   function pfasSection(data,lang){
@@ -105,7 +105,7 @@
   function render(data,lang='en',now=new Date()){
     if(!data.name)throw new Error('No provider records');
     lang=language(lang);
-    const url=providerUrl(data.id,lang,data.pfas?'pfas':data.lithium?'lithium':'lcr');
+    const url=providerUrl(data.id,lang,data.pfas?'pfas':data.lithium?'lithium':data.lcr?'lcr':data.arsenic?'arsenic':'nitrate');
     const metadata=data.metadata;
     const warnings=[metadata?.active&&metadata.active!=='A'?x(lang,'Not listed as active; historical records only.','未列为活跃系统，仅为历史记录。','No figura como activo; solo registros históricos.'):null,
       metadata?.wholesale==='Y'?x(lang,'Wholesale supplier: confirm your household provider.','批发供水机构：请确认家庭供水机构。','Proveedor mayorista: confirme el proveedor de su hogar.'):null,
@@ -115,11 +115,11 @@
       <section class="report-provider"><h2 dir="auto" data-preserve-language>${esc(data.name)}</h2><p class="report-meta"><bdi dir="ltr">${esc(data.state)}</bdi> · ${x(lang,'Water system ID','供水系统编号','Número del sistema')}: <bdi dir="ltr">${esc(data.id)}</bdi> · ${x(lang,'Prepared','生成日期','Preparado')}: ${esc(date)}</p>
       <p class="report-caution">${x(lang,'Confirm this provider on your water bill. Historical system records do not establish current tap-water quality, personal exposure, health risk or regulatory compliance.','请核对水费账单上的供水机构。历史系统记录不能确定当前家庭自来水水质、个人暴露、健康风险或是否符合法规。','Confirme el proveedor en su factura de agua. Los registros históricos del sistema no determinan la calidad actual del agua de su hogar, la exposición personal, el riesgo para la salud ni el cumplimiento normativo.')}</p>
       ${warnings.length?`<p class="report-caution">${esc(warnings.join(' '))}</p>`:''}</section>
-      ${pfasSection(data,lang)}${lithiumSection(data,lang)}${lcrSection(data,lang)}
+      ${pfasSection(data,lang)}${lithiumSection(data,lang)}${lcrSection(data,lang)}${typeof SYR4Records!=='undefined'?['arsenic','nitrate'].map((key,i)=>data[key]?`<section class="report-section">${SYR4Records.section(data[key],key,lang,true)}</section>`:data.failed[3+i]?`<section class="report-section"><h3>${key}</h3><p>Historical records could not load. Retry before sharing this report.</p></section>`:'').join(''):''}
       <footer class="report-foot"><div><h3>${x(lang,'Questions to take with you','可询问的问题','Preguntas para llevar')}</h3><ul><li>${x(lang,'Ask your provider: Are there newer results for this system?','询问供水机构：本系统是否有更新的结果？','Pregunte al proveedor: ¿Hay resultados más recientes de este sistema?')}</li><li>${x(lang,'Ask your clinician: What information about my water source would help our discussion?','询问临床医护人员：关于我的水源，哪些信息有助于我们的讨论？','Pregunte al profesional de salud: ¿Qué información sobre mi fuente de agua ayudaría en nuestra conversación?')}</li></ul>
       <p><a href="${esc(url)}">${x(lang,'Open provider results','打开供水机构结果','Abrir resultados del proveedor')}</a> · <a href="https://pfasestimator.org/methodology/?system=${encodeURIComponent(data.id)}#website">${x(lang,'Methods & sources','方法与来源','Métodos y fuentes (en inglés)')}</a></p>
       <span class="report-link-text">${esc(url)}</span></div><div class="report-qr">${qrSvg(url)}<p>${x(lang,'Scan for this provider’s results','扫码查看本供水机构的结果','Escanee para ver los resultados de este proveedor')}</p></div></footer>
-      <p class="report-source">${x(lang,'Sources: U.S. Environmental Protection Agency (EPA), UCMR 5 final August 2026 dataset; lead/copper records from the SDWIS','来源：美国环境保护署（EPA）的UCMR 5最终数据集（2026年8月）；铅和铜记录来自SDWIS','Fuentes: Agencia de Protección Ambiental de Estados Unidos (EPA), conjunto final UCMR 5 de agosto de 2026; registros de plomo/cobre de SDWIS')} ${esc(data.snapshot||'2026Q3')} ${x(lang,'snapshot. Sampling dates above are different from the database release date. This educational report is generated from existing records; it is not a laboratory or clinical test.','快照。上方采样日期与数据库发布日期不同。此教育报告由已有记录生成，并非实验室或临床检测。','(instantánea). Las fechas de muestreo difieren de la fecha de publicación. Este informe educativo se genera con registros existentes; no es una prueba de laboratorio ni clínica.')}</p>`;
+      <p class="report-source">${data.arsenic||data.nitrate?'Arsenic/nitrate: EPA Six-Year Review 4, samples collected 2012–2019; latest available sampled year, not current measurements. ':''}${x(lang,'Sources: U.S. Environmental Protection Agency (EPA), UCMR 5 final August 2026 dataset; lead/copper records from the SDWIS','来源：美国环境保护署（EPA）的UCMR 5最终数据集（2026年8月）；铅和铜记录来自SDWIS','Fuentes: Agencia de Protección Ambiental de Estados Unidos (EPA), conjunto final UCMR 5 de agosto de 2026; registros de plomo/cobre de SDWIS')} ${esc(data.snapshot||'2026Q3')} ${x(lang,'snapshot. Sampling dates above are different from the database release date. This educational report is generated from existing records; it is not a laboratory or clinical test.','快照。上方采样日期与数据库发布日期不同。此教育报告由已有记录生成，并非实验室或临床检测。','(instantánea). Las fechas de muestreo difieren de la fecha de publicación. Este informe educativo se genera con registros existentes; no es una prueba de laboratorio ni clínica.')}</p>`;
   }
   function intro(lang){return `<div class="report-intro"><p class="report-brand">PFAS Estimator</p><h1>${x(lang,'Bring your water results to a clinic visit','就诊时带上供水检测结果','Lleve sus resultados de agua a una consulta')}</h1><p>${x(lang,'Create a printable summary for one public water provider, with available PFAS, lithium, lead and copper results, sampling dates, and a QR code back to the provider.','为一家公共供水机构生成可打印摘要，包含可用的PFAS、锂、铅和铜结果、采样日期，以及返回供水机构结果的二维码。','Cree un resumen imprimible de un proveedor público de agua, con los resultados disponibles de PFAS, litio, plomo y cobre, fechas de muestras y un código QR para volver a los resultados.')}</p><ol><li>${x(lang,'Search by ZIP code or provider name.','按邮政编码或供水机构名称搜索。','Busque por código postal o nombre del proveedor.')}</li><li>${x(lang,'Match the provider to your water bill.','核对水费账单上的供水机构。','Compare el proveedor con su factura de agua.')}</li><li>${x(lang,'Select “Create clinic report” under that provider, then print or save as PDF.','在该供水机构下选择“生成就诊报告”，然后打印或保存为PDF。','Seleccione «Crear informe para consulta» debajo del proveedor; luego imprima o guarde como PDF.')}</li></ol><a class="report-start" href="/?lang=${lang}">${x(lang,'Find your provider →','查找供水机构 →','Buscar su proveedor →')}</a><p class="report-caution">${x(lang,'Private wells are not included. No patient information is needed or collected for this report.','不包括私人水井。此报告无需也不收集患者信息。','No se incluyen pozos privados. Este informe no solicita ni recopila información de pacientes.')}</p></div>`;}
   async function start(){
@@ -131,7 +131,7 @@
       document.documentElement.dir=lang==='ar'?'rtl':'ltr';
       menu?.set(lang);
       el('reportBack').textContent=x(lang,'← Back to lookup','← 返回查询','← Volver a la búsqueda');
-      el('reportBack').href=data?.name?providerUrl(id,lang,data.pfas?'pfas':data.lithium?'lithium':'lcr'):'/?lang='+lang;
+      el('reportBack').href=data?.name?providerUrl(id,lang,data.pfas?'pfas':data.lithium?'lithium':data.lcr?'lcr':data.arsenic?'arsenic':'nitrate'):'/?lang='+lang;
       el('reportPrint').textContent=x(lang,'Print / save PDF','打印／保存PDF','Imprimir / guardar PDF');
       document.title=x(lang,'Clinic report','就诊报告','Informe para consulta')+' | PFAS Estimator';
     };

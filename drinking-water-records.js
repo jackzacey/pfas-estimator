@@ -44,6 +44,7 @@
     return cache.get(file);
   }
   async function query({zip, id, mode}) {
+    if (["arsenic","nitrate"].includes(mode)) return SYR4Records.query({zip,id,mode});
     let ids = id ? [id] : [];
     if (zip) {
       const index = await load(`zip/${zip.slice(0, 3)}.json`);
@@ -56,6 +57,7 @@
     return {systems, manifest: await load('manifest.json')};
   }
   async function search(value, mode, field = "all") {
+    if (["arsenic","nitrate"].includes(mode)) return SYR4Records.search(value,mode);
     const q = value.trim().toLowerCase();
     if (q.length < 3) return [];
     const directory = await load('directory.json');
@@ -130,6 +132,7 @@
       <a class="home-method-link" href="/methodology/?system=${encodeURIComponent(system.id)}&amp;view=${mode}#additional-chemicals">${x(lang,'Methods, calculations & limitations','方法、计算与局限','Métodos, cálculos y limitaciones (en inglés)')} →</a></article>`;
   }
   function render({systems,manifest},mode,lang) {
+    if (["arsenic","nitrate"].includes(mode)) return SYR4Records.render({systems,manifest},mode,lang);
     const note=mode==='lithium'?x(lang,'Lithium · EPA samples collected in 2023–2025. Individual results, not yearly averages.','锂 · EPA于2023–2025年采集的样本。单次结果，并非年度平均值。','Litio · Muestras de la EPA tomadas en 2023–2025. Resultados individuales, no promedios anuales.'):x(lang,'Lead & copper · Dates below show the actual monitoring period, not the database update.','铅和铜 · 下方日期为实际监测期，并非数据库更新日期。','Plomo y cobre · Las fechas corresponden al período de pruebas, no a la actualización de la base de datos.');
     const definition=mode==='lcr'?`<p class="compact-caption">${x(lang,'The 90th percentile describes the upper end of results from selected taps. It is not a system-wide average or your home’s result.','第90百分位描述所选水龙头样本结果的较高端，并非系统平均值或您家的检测结果。','El percentil 90 describe la parte alta de los resultados de grifos seleccionados. No es un promedio del sistema ni el resultado de su hogar.')}</p>`:'';
     return `<p class="compact-caption">${note}</p>${definition}${systems.length?systems.map(s=>renderSystem(s,mode,lang)).join(''):`<p>${x(lang,'No matching records were found. This does not mean no testing or no contamination. Search by provider name or ask the utility for recent results. Private wells are not included.','未找到匹配记录，并不表示没有检测或没有污染。请按供水机构名称搜索，或向其查询最新结果。不包括私人水井。','No se encontraron registros coincidentes. No significa que no haya pruebas o contaminación. Busque por proveedor o pídale resultados recientes. Los pozos privados no están incluidos.')}</p>${sourceLinks(mode,lang)}`}`;

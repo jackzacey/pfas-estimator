@@ -1,0 +1,12 @@
+{
+  "arsenic": {
+    "retained_rows_verified": 76147,
+    "retained_systems": 42907,
+    "mismatches": 0
+  },
+  "nitrate": {
+    "retained_rows_verified": 148017,
+    "retained_systems": 86390,
+    "mismatches": 0
+  }
+}

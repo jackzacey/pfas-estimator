@@ -34,6 +34,18 @@ const copy={
       "Research links exposure to some PFAS with changes in immune response, cholesterol, development, and certain cancers. PFOA and PFOS are better studied than many other PFAS. Effects differ by chemical, exposure level, and duration; a water-system number cannot predict illness.",
       "These historical samples describe a water system, not your tap or personal exposure. A result below the reporting limit is not proof of zero PFAS. A below-benchmark average does not establish safety, and missing comparisons leave uncertainty.",
       "Confirm your provider and ask for recent PFAS results and any treatment changes. If considering a filter, check the exact model’s certified PFAS-reduction claim. You can bring the dated provider report to a health professional to discuss exposure questions."
+    ],
+    "arsenic": [
+      "Arsenic is a naturally occurring element that can enter water from rocks and soil, mining, or industrial activity. These records measure total arsenic, not its separate chemical forms.",
+      "Long-term exposure to inorganic arsenic in drinking water can cause skin changes and increase cancer risk, including bladder, lung, and skin cancer. Risk depends on concentration and years of exposure; one historical sample cannot predict illness.",
+      "These are historical provider samples, not your tap or personal dose. Total arsenic does not identify how much is inorganic. A below-limit result does not establish zero arsenic or guarantee safety.",
+      "Ask your provider for current arsenic results and treatment information. If current testing shows a problem, follow public-health advice on an alternative water supply or a treatment system certified for arsenic reduction. Boiling does not remove arsenic."
+    ],
+    "nitrate": [
+      "Nitrate is a nitrogen compound that can reach water through fertilizer, manure, wastewater, or natural processes. Results here are measured as nitrogen, not as the mass of the entire nitrate ion.",
+      "High nitrate exposure can interfere with oxygen transport in infants under six months, especially when contaminated water is used for formula. Some observational studies link long-term drinking-water nitrate exposure with colorectal cancer; findings remain uncertain and do not establish an individual risk from these samples.",
+      "These are historical provider samples, not current water advice or a personal exposure estimate. Nitrate and combined nitrate/nitrite are different measurements; only nitrate is shown here.",
+      "Ask for recent nitrate results, especially before preparing infant formula. Follow current utility or health-department advice if nitrate is elevated; use an appropriate alternative water supply when advised. Boiling does not remove nitrate and can concentrate it."
     ]
   },
   "zh": {
@@ -68,6 +80,18 @@ const copy={
       "研究将某些PFAS暴露与免疫反应、胆固醇、发育方面的变化以及某些癌症联系起来。PFOA和PFOS比许多其他PFAS研究得更多。影响因物质、暴露水平和时间而异，供水系统的数值不能预测疾病。",
       "这些历史样本描述供水系统，并非您家水龙头或个人暴露。低于报告限值不证明PFAS为零。平均值低于基准不代表安全，缺失比较仍有不确定性。",
       "请确认供水机构，查询最新PFAS结果及处理措施变化。若考虑滤水器，请核实具体型号获认证的PFAS去除声明。可携带标有日期的供水报告向医疗专业人员咨询暴露问题。"
+    ],
+    "arsenic": [
+      "砷是天然存在的元素，可从岩石、土壤、采矿或工业活动进入水中。此处记录为总砷，不区分化学形态。",
+      "长期饮用含无机砷的水可造成皮肤变化，并增加膀胱癌、肺癌和皮肤癌风险。风险取决于浓度及暴露年限；单次历史样本无法预测疾病。",
+      "这些是供水系统历史样本，不是您家水龙头检测或个人剂量。总砷不能确定无机砷含量。低于限值不代表零含量或安全保证。",
+      "请向供水机构索取最新砷检测和处理信息。如当前检测有问题，请遵循公共卫生部门关于替代水源或经认证除砷设备的建议。煮沸不能去除砷。"
+    ],
+    "nitrate": [
+      "硝酸盐是含氮化合物，可通过化肥、粪肥、废水或自然过程进入水中。此处按氮计量，而非整个硝酸根的质量。",
+      "高硝酸盐暴露可影响六个月以下婴儿的氧输送，尤其是用受污染的水冲配奶粉时。部分观察研究发现长期饮水硝酸盐暴露与结直肠癌有关，但结论仍有不确定性，不能据此估计个人风险。",
+      "这些是供水机构历史样本，不是当前饮水建议或个人暴露估计。硝酸盐与硝酸盐加亚硝酸盐是不同指标；此处仅显示硝酸盐。",
+      "请索取最新硝酸盐检测，尤其在冲配婴儿奶粉前。如当前结果升高，请遵循供水机构或卫生部门建议，必要时使用适当替代水源。煮沸不能去除硝酸盐，反而可能浓缩。"
     ]
   },
   "es": {
@@ -102,6 +126,18 @@ const copy={
       "La investigación relaciona la exposición a ciertos PFAS con cambios inmunitarios, colesterol, desarrollo y algunos cánceres. PFOA y PFOS están mejor estudiados que muchos otros PFAS. Los efectos dependen de la sustancia, nivel y duración; un número del sistema no predice enfermedad.",
       "Estas muestras históricas describen un sistema, no su grifo ni su exposición personal. Estar por debajo del límite de reporte no prueba ausencia de PFAS. Un promedio bajo la referencia no establece seguridad, y las comparaciones faltantes dejan incertidumbre.",
       "Confirme su proveedor y pida resultados recientes y cambios en el tratamiento. Si considera un filtro, verifique la certificación de reducción de PFAS del modelo exacto. Puede llevar el informe fechado a un profesional sanitario para hablar de sus dudas."
+    ],
+    "arsenic": [
+      "El arsénico es un elemento natural que puede llegar al agua desde rocas, suelos, minería o actividades industriales. Estos registros miden arsénico total, sin distinguir sus formas químicas.",
+      "La exposición prolongada al arsénico inorgánico en agua puede causar cambios en la piel y aumentar el riesgo de cáncer de vejiga, pulmón y piel. El riesgo depende de concentración y duración; una muestra histórica no predice enfermedad.",
+      "Son muestras históricas del proveedor, no de su grifo ni de su dosis personal. El arsénico total no identifica la fracción inorgánica. Un resultado inferior al límite no demuestra ausencia ni garantiza seguridad.",
+      "Pida resultados actuales e información del tratamiento. Si las pruebas actuales indican un problema, siga las recomendaciones sanitarias sobre otra fuente de agua o un tratamiento certificado para reducir arsénico. Hervir no elimina el arsénico."
+    ],
+    "nitrate": [
+      "El nitrato es un compuesto de nitrógeno que llega al agua por fertilizantes, estiércol, aguas residuales o procesos naturales. Los resultados se expresan como nitrógeno, no como el ion nitrato completo.",
+      "Una exposición alta puede afectar el transporte de oxígeno en menores de seis meses, especialmente con fórmula preparada con agua contaminada. Algunos estudios observacionales relacionan la exposición prolongada con cáncer colorrectal; persisten incertidumbres y estas muestras no establecen un riesgo individual.",
+      "Son muestras históricas, no recomendaciones actuales ni una estimación de exposición personal. Nitrato y nitrato/nitrito combinado son medidas distintas; aquí solo se muestra nitrato.",
+      "Pida pruebas recientes, especialmente antes de preparar fórmula infantil. Siga las indicaciones actuales del proveedor o de salud pública si hay niveles elevados; use otra fuente adecuada cuando se recomiende. Hervir no elimina nitrato y puede concentrarlo."
     ]
   },
   "fr": {
@@ -136,6 +172,18 @@ const copy={
       "La recherche associe l’exposition à certains PFAS à des effets sur l’immunité, le cholestérol, le développement et certains cancers. Le PFOA et le PFOS sont mieux étudiés que beaucoup d’autres PFAS. Les effets dépendent du composé, du niveau et de la durée ; un résultat du réseau ne prédit pas une maladie.",
       "Ces anciens échantillons décrivent un réseau, pas votre robinet ni votre exposition. Un résultat sous la limite de déclaration ne prouve pas une absence de PFAS. Une moyenne sous le repère ne garantit pas la sécurité ; les comparaisons manquantes laissent une incertitude.",
       "Confirmez le fournisseur et demandez des résultats récents et les changements de traitement. Pour un filtre, vérifiez la réduction des PFAS certifiée du modèle exact. Vous pouvez présenter le rapport daté à un professionnel de santé pour discuter de vos questions."
+    ],
+    "arsenic": [
+      "L’arsenic est un élément naturel provenant des roches, sols, mines ou activités industrielles. Ces données mesurent l’arsenic total sans distinguer ses formes chimiques.",
+      "Une exposition prolongée à l’arsenic inorganique dans l’eau peut modifier la peau et augmenter le risque de cancers de la vessie, du poumon et de la peau. Le risque dépend de la concentration et de la durée ; un ancien échantillon ne prédit pas une maladie.",
+      "Ces échantillons historiques du fournisseur ne représentent ni votre robinet ni votre dose personnelle. L’arsenic total ne précise pas la fraction inorganique. Un résultat sous la limite ne garantit ni absence ni sécurité.",
+      "Demandez des résultats récents et des informations sur le traitement. En cas de problème actuel, suivez les conseils sanitaires pour une autre eau ou un dispositif certifié pour réduire l’arsenic. Faire bouillir ne l’élimine pas."
+    ],
+    "nitrate": [
+      "Le nitrate est un composé azoté provenant des engrais, déjections, eaux usées ou processus naturels. Les valeurs sont exprimées en azote, pas en masse totale de l’ion nitrate.",
+      "Une forte exposition peut perturber le transport d’oxygène chez les moins de six mois, notamment avec du lait préparé avec une eau contaminée. Certaines études observationnelles associent l’exposition prolongée au cancer colorectal ; les incertitudes persistent et ces échantillons ne déterminent pas un risque individuel.",
+      "Ce sont des échantillons historiques, sans conseil actuel ni estimation d’exposition personnelle. Nitrate et nitrate/nitrite combinés sont distincts ; seul le nitrate est affiché.",
+      "Demandez des analyses récentes, surtout avant de préparer du lait infantile. Si les niveaux actuels sont élevés, suivez les conseils du fournisseur ou des autorités sanitaires concernant une autre eau adaptée. L’ébullition n’élimine pas le nitrate et peut le concentrer."
     ]
   },
   "hi": {
@@ -170,6 +218,18 @@ const copy={
       "शोध कुछ PFAS के संपर्क को प्रतिरक्षा, कोलेस्ट्रॉल, विकास और कुछ कैंसर से जोड़ता है। PFOA और PFOS का अध्ययन कई अन्य PFAS से अधिक हुआ है। प्रभाव रसायन, संपर्क की मात्रा और अवधि पर निर्भर हैं; प्रणाली का आँकड़ा बीमारी की भविष्यवाणी नहीं करता।",
       "ये पुराने नमूने जल प्रणाली का वर्णन करते हैं, आपके नल या निजी संपर्क का नहीं। रिपोर्टिंग सीमा से नीचे होना PFAS शून्य होने का प्रमाण नहीं। संदर्भ से कम औसत सुरक्षा साबित नहीं करता; अनुपलब्ध तुलनाओं में अनिश्चितता बनी रहती है।",
       "प्रदाता की पुष्टि करें और हाल के PFAS परिणाम व उपचार में बदलाव पूछें। फ़िल्टर लें तो ठीक उसी मॉडल का PFAS घटाने का प्रमाणित दावा जाँचें। संपर्क संबंधी प्रश्नों के लिए तारीख वाला रिपोर्ट स्वास्थ्य पेशेवर को दिखा सकते हैं।"
+    ],
+    "arsenic": [
+      "आर्सेनिक एक प्राकृतिक तत्व है जो चट्टानों, मिट्टी, खनन या उद्योग से पानी में आ सकता है। ये रिकॉर्ड कुल आर्सेनिक मापते हैं, अलग रासायनिक रूप नहीं।",
+      "पानी में अकार्बनिक आर्सेनिक का लंबे समय तक संपर्क त्वचा में बदलाव और मूत्राशय, फेफड़े तथा त्वचा के कैंसर का जोखिम बढ़ा सकता है। जोखिम मात्रा और अवधि पर निर्भर है; एक पुराना नमूना बीमारी की भविष्यवाणी नहीं करता।",
+      "ये प्रदाता के पुराने नमूने हैं, आपके नल या व्यक्तिगत खुराक के नहीं। कुल आर्सेनिक से अकार्बनिक भाग पता नहीं चलता। सीमा से नीचे का परिणाम शून्य या सुरक्षा की गारंटी नहीं है।",
+      "नए परीक्षण और उपचार की जानकारी माँगें। वर्तमान समस्या होने पर वैकल्पिक पानी या आर्सेनिक घटाने के प्रमाणित उपकरण के बारे में स्वास्थ्य विभाग की सलाह मानें। उबालने से आर्सेनिक नहीं हटता।"
+    ],
+    "nitrate": [
+      "नाइट्रेट नाइट्रोजन का यौगिक है जो खाद, मल, अपशिष्ट जल या प्राकृतिक प्रक्रियाओं से पानी में आता है। परिणाम नाइट्रोजन के रूप में हैं, पूरे नाइट्रेट आयन के भार में नहीं।",
+      "अधिक संपर्क छह महीने से छोटे बच्चों में ऑक्सीजन के परिवहन को प्रभावित कर सकता है, खासकर दूषित पानी से फॉर्मूला बनाने पर। कुछ अवलोकन अध्ययन लंबे संपर्क को कोलोरेक्टल कैंसर से जोड़ते हैं; अनिश्चितता बनी हुई है और इन नमूनों से व्यक्तिगत जोखिम तय नहीं होता।",
+      "ये ऐतिहासिक नमूने हैं, वर्तमान जल सलाह या व्यक्तिगत संपर्क का अनुमान नहीं। नाइट्रेट और संयुक्त नाइट्रेट/नाइट्राइट अलग हैं; यहाँ केवल नाइट्रेट है।",
+      "विशेषकर शिशु फॉर्मूला बनाने से पहले नए परीक्षण माँगें। वर्तमान स्तर बढ़े हों तो प्रदाता या स्वास्थ्य विभाग की सलाह के अनुसार उपयुक्त वैकल्पिक पानी लें। उबालने से नाइट्रेट नहीं हटता और सांद्रता बढ़ सकती है।"
     ]
   },
   "ar": {
@@ -204,6 +264,18 @@ const copy={
       "تربط الأبحاث التعرض لبعض PFAS بتغيرات في المناعة والكوليسترول والنمو وبعض السرطانات. دُرس PFOA وPFOS أكثر من كثير من الأنواع الأخرى. تختلف الآثار حسب المادة والمستوى والمدة؛ ولا تتنبأ نتيجة نظام المياه بمرض فردي.",
       "تصف هذه العينات التاريخية نظام المياه، لا صنبورك أو تعرضك الشخصي. النتيجة دون حد الإبلاغ لا تثبت انعدام PFAS. والمتوسط دون المرجع لا يثبت الأمان؛ وتبقى المقارنات المفقودة مصدرًا لعدم اليقين.",
       "أكد مزود المياه واطلب نتائج حديثة وأي تغييرات في المعالجة. عند اختيار مرشح، تحقق من ادعاء خفض PFAS المعتمد للطراز المحدد. يمكنك عرض التقرير المؤرخ على مختص صحي لمناقشة أسئلة التعرض."
+    ],
+    "arsenic": [
+      "الزرنيخ عنصر طبيعي قد يصل إلى الماء من الصخور والتربة والتعدين والصناعة. تقيس هذه السجلات الزرنيخ الكلي ولا تميز أشكاله الكيميائية.",
+      "قد يسبب التعرض الطويل للزرنيخ غير العضوي في الماء تغيرات جلدية ويزيد خطر سرطان المثانة والرئة والجلد. يعتمد الخطر على التركيز والمدة؛ ولا تتنبأ عينة تاريخية بمرض.",
+      "هذه عينات تاريخية للمزود وليست لصنبورك أو جرعتك الشخصية. لا يحدد الزرنيخ الكلي الجزء غير العضوي. النتيجة دون الحد لا تعني انعدام الزرنيخ أو ضمان السلامة.",
+      "اطلب نتائج حديثة ومعلومات المعالجة. إذا أظهرت الفحوص الحالية مشكلة، اتبع إرشادات الصحة بشأن مصدر ماء بديل أو جهاز معتمد لخفض الزرنيخ. الغلي لا يزيل الزرنيخ."
+    ],
+    "nitrate": [
+      "النترات مركب نيتروجيني يصل إلى الماء من الأسمدة والروث والصرف أو العمليات الطبيعية. النتائج محسوبة كنيتروجين وليست كتلة أيون النترات كاملاً.",
+      "قد يعيق التعرض المرتفع نقل الأكسجين لدى الرضع دون ستة أشهر، خاصة عند تحضير الحليب بماء ملوث. تربط بعض الدراسات الرصدية التعرض الطويل بسرطان القولون والمستقيم؛ لكن عدم اليقين قائم ولا تحدد هذه العينات خطراً فردياً.",
+      "هذه عينات تاريخية وليست نصائح حالية للماء أو تقديراً للتعرض الشخصي. النترات ومجموع النترات والنتريت قياسان مختلفان؛ المعروض هنا النترات فقط.",
+      "اطلب نتائج حديثة، خصوصاً قبل تحضير حليب الرضع. عند ارتفاع المستويات الحالية، اتبع نصائح المزود أو الصحة بشأن ماء بديل مناسب. الغلي لا يزيل النترات وقد يزيد تركيزها."
     ]
   },
   "bn": {
@@ -238,6 +310,18 @@ const copy={
       "গবেষণায় কিছু PFAS-এর সংস্পর্শের সঙ্গে রোগপ্রতিরোধ, কোলেস্টেরল, বিকাশের পরিবর্তন এবং কিছু ক্যানসারের যোগ পাওয়া গেছে। PFOA ও PFOS অনেক অন্য PFAS-এর চেয়ে বেশি গবেষিত। প্রভাব পদার্থ, মাত্রা ও সময়ভেদে বদলায়; ব্যবস্থার সংখ্যা দিয়ে ব্যক্তির রোগ বলা যায় না।",
       "এই ঐতিহাসিক নমুনা জলব্যবস্থা সম্পর্কে, আপনার কল বা ব্যক্তিগত সংস্পর্শ সম্পর্কে নয়। রিপোর্টিং সীমার নিচে মানে PFAS শূন্য প্রমাণ নয়। নির্দেশকের নিচে গড় নিরাপত্তা প্রমাণ করে না; অনুপস্থিত তুলনায় অনিশ্চয়তা থাকে।",
       "প্রদানকারী নিশ্চিত করে নতুন PFAS ফল ও শোধনের পরিবর্তন জিজ্ঞাসা করুন। ফিল্টার নিলে নির্দিষ্ট মডেলের সনদপ্রাপ্ত PFAS কমানোর দাবি যাচাই করুন। সংস্পর্শের প্রশ্ন নিয়ে তারিখসহ রিপোর্ট স্বাস্থ্য পেশাজীবীকে দেখাতে পারেন।"
+    ],
+    "arsenic": [
+      "আর্সেনিক একটি প্রাকৃতিক মৌল, যা শিলা, মাটি, খনি বা শিল্প থেকে পানিতে আসতে পারে। এখানে মোট আর্সেনিক মাপা হয়েছে, আলাদা রাসায়নিক রূপ নয়।",
+      "পানিতে অজৈব আর্সেনিকের দীর্ঘ সংস্পর্শ ত্বকের পরিবর্তন এবং মূত্রাশয়, ফুসফুস ও ত্বকের ক্যানসারের ঝুঁকি বাড়াতে পারে। ঝুঁকি ঘনত্ব ও সময়ের ওপর নির্ভরশীল; একটি পুরোনো নমুনা রোগের পূর্বাভাস নয়।",
+      "এগুলো সরবরাহকারীর পুরোনো নমুনা, আপনার কল বা ব্যক্তিগত মাত্রার নয়। মোট আর্সেনিক থেকে অজৈব অংশ জানা যায় না। সীমার নিচে মান শূন্য বা নিরাপত্তার নিশ্চয়তা নয়।",
+      "সাম্প্রতিক পরীক্ষা ও শোধনের তথ্য চান। বর্তমান সমস্যা থাকলে বিকল্প পানি বা আর্সেনিক কমানোর প্রত্যয়িত ব্যবস্থা সম্পর্কে স্বাস্থ্য নির্দেশনা মানুন। ফোটালে আর্সেনিক দূর হয় না।"
+    ],
+    "nitrate": [
+      "নাইট্রেট একটি নাইট্রোজেন যৌগ, যা সার, গোবর, বর্জ্যপানি বা প্রাকৃতিক প্রক্রিয়ায় পানিতে আসে। মান নাইট্রোজেন হিসেবে প্রকাশিত, পুরো নাইট্রেট আয়নের ভর হিসেবে নয়।",
+      "উচ্চ সংস্পর্শ ছয় মাসের কম শিশুর অক্সিজেন পরিবহন ব্যাহত করতে পারে, বিশেষত দূষিত পানি দিয়ে ফর্মুলা বানালে। কিছু পর্যবেক্ষণমূলক গবেষণা দীর্ঘ সংস্পর্শের সঙ্গে কোলোরেক্টাল ক্যানসারের সম্পর্ক পেয়েছে; অনিশ্চয়তা আছে এবং এসব নমুনা ব্যক্তিগত ঝুঁকি নির্ধারণ করে না।",
+      "এগুলো ঐতিহাসিক নমুনা, বর্তমান পানির পরামর্শ বা ব্যক্তিগত সংস্পর্শের অনুমান নয়। নাইট্রেট ও নাইট্রেট/নাইট্রাইটের যোগফল আলাদা; এখানে শুধু নাইট্রেট দেখানো হয়েছে।",
+      "বিশেষত শিশুর ফর্মুলা তৈরির আগে সাম্প্রতিক পরীক্ষা চান। বর্তমান মান বেশি হলে সরবরাহকারী বা স্বাস্থ্য বিভাগের পরামর্শে উপযুক্ত বিকল্প পানি ব্যবহার করুন। ফোটালে নাইট্রেট দূর হয় না, ঘনত্ব বাড়তে পারে।"
     ]
   },
   "ru": {
@@ -272,10 +356,22 @@ const copy={
       "Исследования связывают воздействие некоторых PFAS с изменениями иммунитета, холестерина, развития и некоторыми видами рака. PFOA и PFOS изучены лучше многих других PFAS. Эффекты зависят от вещества, уровня и длительности; число для системы не предсказывает заболевание.",
       "Исторические пробы описывают систему, а не ваш кран или личное воздействие. Результат ниже предела отчётности не доказывает отсутствие PFAS. Среднее ниже ориентира не гарантирует безопасность; пропущенные сравнения оставляют неопределённость.",
       "Уточните поставщика, запросите свежие результаты PFAS и сведения об изменениях очистки. Выбирая фильтр, проверяйте сертифицированное снижение PFAS для точной модели. Датированный отчёт можно обсудить с медицинским специалистом."
+    ],
+    "arsenic": [
+      "Мышьяк — природный элемент, попадающий в воду из пород, почвы, горных разработок и промышленности. Здесь измерен общий мышьяк без разделения химических форм.",
+      "Длительное воздействие неорганического мышьяка в воде может вызвать изменения кожи и повысить риск рака мочевого пузыря, лёгких и кожи. Риск зависит от концентрации и длительности; старая проба не предсказывает заболевание.",
+      "Это исторические пробы поставщика, а не вашего крана или личной дозы. Общий мышьяк не показывает неорганическую долю. Результат ниже предела не доказывает отсутствие или безопасность.",
+      "Запросите свежие анализы и сведения об очистке. При текущей проблеме следуйте санитарным рекомендациям об альтернативной воде или сертифицированном удалении мышьяка. Кипячение не удаляет мышьяк."
+    ],
+    "nitrate": [
+      "Нитрат — соединение азота, поступающее из удобрений, навоза, сточных вод или природных процессов. Результаты выражены по азоту, а не по массе всего нитрат-иона.",
+      "Высокое воздействие может нарушить перенос кислорода у детей младше шести месяцев, особенно при приготовлении смеси загрязнённой водой. Некоторые наблюдательные исследования связывают длительное воздействие с колоректальным раком; неопределённость сохраняется, и эти пробы не определяют личный риск.",
+      "Это исторические пробы, а не текущая рекомендация или оценка личного воздействия. Нитрат и сумма нитрата с нитритом различаются; здесь показан только нитрат.",
+      "Запросите свежие анализы, особенно перед приготовлением детской смеси. При повышенных текущих уровнях следуйте советам поставщика и органов здравоохранения об альтернативной воде. Кипячение не удаляет нитрат и может повысить концентрацию."
     ]
   }
 };
-const sources={pfas:[['EPA','https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas'],['ATSDR','https://www.atsdr.cdc.gov/pfas/about/index.html']],lead:[['EPA','https://www.epa.gov/ground-water-and-drinking-water/basic-information-about-lead-drinking-water'],['CDC','https://www.cdc.gov/lead-prevention/prevention/drinking-water.html']],copper:[['ATSDR','https://www.atsdr.cdc.gov/toxprofiles/tp132-c1.pdf'],['Health Canada','https://www.canada.ca/en/health-canada/services/publications/healthy-living/water-talk-copper.html']],lithium:[['EPA','https://www.epa.gov/system/files/documents/2023-11/ucmr5-technical-fact-sheet-lithium-in-drinking-water.pdf']]};
+const sources={arsenic:[['WHO','https://www.who.int/news-room/fact-sheets/detail/arsenic'],['National Cancer Institute','https://www.cancer.gov/about-cancer/causes-prevention/risk/substances/arsenic']],nitrate:[['EPA','https://www.epa.gov/ground-water-and-drinking-water/national-primary-drinking-water-regulations'],['Schullehner et al., 2018','https://pubmed.ncbi.nlm.nih.gov/29435982/'],['Erichsen et al., 2025','https://pubmed.ncbi.nlm.nih.gov/40628182/']],pfas:[['EPA','https://www.epa.gov/pfas/our-current-understanding-human-health-and-environmental-risks-pfas'],['ATSDR','https://www.atsdr.cdc.gov/pfas/about/index.html']],lead:[['EPA','https://www.epa.gov/ground-water-and-drinking-water/basic-information-about-lead-drinking-water'],['CDC','https://www.cdc.gov/lead-prevention/prevention/drinking-water.html']],copper:[['ATSDR','https://www.atsdr.cdc.gov/toxprofiles/tp132-c1.pdf'],['Health Canada','https://www.canada.ca/en/health-canada/services/publications/healthy-living/water-talk-copper.html']],lithium:[['EPA','https://www.epa.gov/system/files/documents/2023-11/ucmr5-technical-fact-sheet-lithium-in-drinking-water.pdf']]};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function render(key,lang='en',{report=false,available=true}={}){
  if(!sources[key])return '';
