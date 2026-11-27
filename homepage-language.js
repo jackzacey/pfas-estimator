@@ -2,6 +2,7 @@
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.PFASHomeLanguage=api;})(typeof globalThis!=='undefined'?globalThis:this,function(){
   'use strict';
   const copy={
+    featureCommunityScience:"PFAS Estimator figura en la biblioteca del Hub de Community Science Exchange, en «Tools and Resources». Abra la entrada para conocer la herramienta y cómo los comentarios de la comunidad han guiado su desarrollo.",
     skipLookup:'Ir a la búsqueda',zipLabel:'Código postal de Estados Unidos',askLabel:'Haga una pregunta sobre PFAS',
     printTitle:'Resultados de PFAS del sistema de agua',printSource:'Muestras de la EPA UCMR 5 (2023–2025)',
     printNote:'Resultados históricos del sistema público de agua. Confirme el proveedor en su factura. Por debajo del límite de reporte no significa cero.',
